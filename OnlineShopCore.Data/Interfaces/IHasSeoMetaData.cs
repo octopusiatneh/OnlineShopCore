@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace OnlineShopCore.Data.Interfaces
+{
+    public interface IHasSeoMetaData
+    {
+        string SeoPageTitle { set; get; }
+
+        string SeoAlias { set; get; }
+
+        string SeoKeywords { set; get; }
+
+        string SeoDescription { get; set; }
+    }
+}

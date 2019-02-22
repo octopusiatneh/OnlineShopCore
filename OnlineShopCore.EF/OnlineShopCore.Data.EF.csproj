@@ -5,11 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Configurations\" />
-    <Folder Include="Extensions\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\OnlineShopCore.Data\OnlineShopCore.Data.csproj" />
     <ProjectReference Include="..\OnlineShopCore.Infrastructure\OnlineShopCore.Infrastructure.csproj" />
     <ProjectReference Include="..\OnlineShopCore.Utilities\OnlineShopCore.Utilities.csproj" />
