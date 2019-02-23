@@ -1,17 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.421
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28606.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShopCore", "OnlineShopCore\OnlineShopCore.csproj", "{FBEAE5CF-BDE2-4B6E-8A3E-F5ED0D56F11F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShopCore", "OnlineShopCore\OnlineShopCore.csproj", "{FBEAE5CF-BDE2-4B6E-8A3E-F5ED0D56F11F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShopCore.Infrastructure", "OnlineShopCore.Infrastructure\OnlineShopCore.Infrastructure.csproj", "{32AD643E-0E34-4BE4-85D7-3E65E34EA2D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShopCore.Infrastructure", "OnlineShopCore.Infrastructure\OnlineShopCore.Infrastructure.csproj", "{32AD643E-0E34-4BE4-85D7-3E65E34EA2D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShopCore.Utilities", "OnlineShopCore.Utilities\OnlineShopCore.Utilities.csproj", "{5FB7D43C-D5EA-451B-8D24-A171678A62AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShopCore.Utilities", "OnlineShopCore.Utilities\OnlineShopCore.Utilities.csproj", "{5FB7D43C-D5EA-451B-8D24-A171678A62AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShopCore.Data", "OnlineShopCore.Data\OnlineShopCore.Data.csproj", "{5A6DA8FF-9809-40B3-819B-52E61AD9B4FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShopCore.Data", "OnlineShopCore.Data\OnlineShopCore.Data.csproj", "{5A6DA8FF-9809-40B3-819B-52E61AD9B4FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShopCore.Data.EF", "OnlineShopCore.EF\OnlineShopCore.Data.EF.csproj", "{4568A486-9319-45EF-91D3-589DC8A886D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShopCore.Data.EF", "OnlineShopCore.EF\OnlineShopCore.Data.EF.csproj", "{4568A486-9319-45EF-91D3-589DC8A886D0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Presentation", "1 - Presentation", "{A544F1FB-862B-4E65-9338-D32212B6F35D}"
 EndProject
@@ -21,7 +21,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Domain", "3 - Domain", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Infrastructure", "4 - Infrastructure", "{9CF1BD72-D7C6-49BE-AF96-CF841A728B51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShopCore.Application", "OnlineShopCore.Application\OnlineShopCore.Application.csproj", "{E05EBE5D-5F0E-4AA0-A944-74D5D1C8635B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShopCore.Application", "OnlineShopCore.Application\OnlineShopCore.Application.csproj", "{E05EBE5D-5F0E-4AA0-A944-74D5D1C8635B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{160FCB17-0643-4E42-95F9-64D8E8F2754B}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Desktop\testpush.txt = ..\..\..\Desktop\testpush.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
