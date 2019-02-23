@@ -1,7 +1,7 @@
-﻿using OnlineShopCore.Data.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using OnlineShopCore.Data.Enums;
 
 namespace OnlineShopCore.Data.Interfaces
 {

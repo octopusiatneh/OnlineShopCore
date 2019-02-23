@@ -7,6 +7,7 @@ using System.Text;
 using OnlineShopCore.Data.Enums;
 using OnlineShopCore.Data.Interfaces;
 using OnlineShopCore.Infrastructure.SharedKernel;
+
 namespace OnlineShopCore.Data.Entities
 {
     [Table("Products")]
@@ -51,21 +52,21 @@ namespace OnlineShopCore.Data.Entities
         [ForeignKey("CategoryId")]
         public virtual ProductCategory ProductCategory { set; get; }
 
-        public string SeoPageTitle { set; get; }
+        public string SeoPageTitle {set;get;}
 
-        [Column(TypeName = "varchar")]
+        [Column(TypeName ="varchar")]
         [StringLength(255)]
-        public string SeoAlias { set; get; }
-
-        [StringLength(255)]
-        public string SeoKeywords { set; get; }
+        public string SeoAlias {set;get;}
 
         [StringLength(255)]
-        public string SeoDescription { set; get; }
+        public string SeoKeywords {set;get;}
 
-        public DateTime DateCreated { set; get; }
-        public DateTime DateModified { set; get; }
+        [StringLength(255)]
+        public string SeoDescription {set;get;}
 
-        public Status Status { set; get; }
+        public DateTime DateCreated {set;get;}
+        public DateTime DateModified {set;get;}
+
+        public Status Status {set;get;}
     }
 }

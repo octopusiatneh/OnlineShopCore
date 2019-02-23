@@ -6,8 +6,8 @@ namespace OnlineShopCore.Data.Interfaces
 {
     public interface IDateTracking
     {
-        DateTime DateCreated { get; set; }
+        DateTime DateCreated { set; get; }
 
-        DateTime DateModified { get; set; }
+        DateTime DateModified { set; get; }
     }
 }

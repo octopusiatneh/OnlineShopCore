@@ -1,14 +1,16 @@
-﻿using OnlineShopCore.Data.Enums;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using OnlineShopCore.Data.Enums;
 using OnlineShopCore.Data.Interfaces;
 using OnlineShopCore.Infrastructure.SharedKernel;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OnlineShopCore.Data.Entities
 {
+    [Table("ProductCategories")]
     public class ProductCategory : DomainEntity<int>,
-       IHasSeoMetaData, ISwitchable, ISortable, IDateTracking
+        IHasSeoMetaData, ISwitchable, ISortable, IDateTracking
     {
         public ProductCategory()
         {
@@ -28,7 +30,7 @@ namespace OnlineShopCore.Data.Entities
 
         public DateTime DateCreated { set; get; }
         public DateTime DateModified { set; get; }
-        public int SorOrder { set; get; }
+        public int SortOrder { set; get; }
         public Status Status { set; get; }
         public string SeoPageTitle { set; get; }
         public string SeoAlias { set; get; }
