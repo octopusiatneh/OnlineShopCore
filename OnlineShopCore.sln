@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28606.126
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShopCore", "OnlineShopCore\OnlineShopCore.csproj", "{FBEAE5CF-BDE2-4B6E-8A3E-F5ED0D56F11F}"
 EndProject
@@ -22,11 +22,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Infrastructure", "4 - Infrastructure", "{9CF1BD72-D7C6-49BE-AF96-CF841A728B51}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShopCore.Application", "OnlineShopCore.Application\OnlineShopCore.Application.csproj", "{E05EBE5D-5F0E-4AA0-A944-74D5D1C8635B}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{160FCB17-0643-4E42-95F9-64D8E8F2754B}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\Desktop\testpush.txt = ..\..\..\Desktop\testpush.txt
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
