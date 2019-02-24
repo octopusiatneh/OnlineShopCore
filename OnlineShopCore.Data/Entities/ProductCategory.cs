@@ -16,6 +16,23 @@ namespace OnlineShopCore.Data.Entities
         {
             Products = new List<Product>();
         }
+        public ProductCategory(string name,string description,int? parentId,
+            int? homeOrder ,string image,bool? homeflag,int sortOrder,Status status,string seoPageTitle,
+           string seoAlias,string seoKeyWords,string seoDescription)
+        {
+            Name = name;
+            Description = description;
+            ParentId = parentId;
+            HomeOrder = homeOrder;
+            Image = image;
+            HomeFlag = homeflag;
+            SortOrder = sortOrder;
+            Status = status;
+            SeoPageTitle = seoPageTitle;
+            SeoAlias = seoAlias;
+            SeoKeywords = seoKeyWords;
+            SeoDescription = seoDescription;
+        }
         public string Name { get; set; }
 
         public string Description { get; set; }
