@@ -18,6 +18,7 @@ using IConfigurationProvider = AutoMapper.IConfigurationProvider;
 using OnlineShopCore.Data.IRepositories;
 using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Application.Implementation;
+using OnlineShopCore.Application.AutoMapper;
 
 namespace OnlineShopCore
 {
@@ -45,7 +46,10 @@ namespace OnlineShopCore
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
 
-            services.AddSingleton(Mapper.Configuration);
+
+
+            //services.AddSingleton(Mapper.Configuration); //Code Tedu, lỗi, k chạy được
+            AutoMapperConfig.RegisterMappings(); //Code Github, chạy được, lỗi chỗ khác :))
             services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(),sp.GetService));
 
            
@@ -81,8 +85,10 @@ namespace OnlineShopCore
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(name: "areaRoute",
+                  template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
             });
-            dbInitializer.Seed().Wait();
+            dbInitializer.Seed().Wait(); //Lỗi gì đó
         }
     }
 }
