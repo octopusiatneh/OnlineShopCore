@@ -21,6 +21,7 @@ using OnlineShopCore.Application.Implementation;
 using OnlineShopCore.Application.AutoMapper;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
+using OnlineShopCore.Helpers;
 
 namespace OnlineShopCore
 {
@@ -73,6 +74,8 @@ namespace OnlineShopCore
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddTransient<DbInitializer>();
+
+            services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
 
             services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
 
