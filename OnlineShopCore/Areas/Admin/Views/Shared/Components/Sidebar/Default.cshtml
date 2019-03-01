@@ -1,0 +1,24 @@
+﻿@model List<FunctionViewModel>
+<nav class="sidebar-nav">
+    <ul id="sidebarnav" class="p-t-30">
+        @foreach (var item in Model.Where(x => string.IsNullOrEmpty(x.ParentId)))
+        {
+            @*<li class="sidebar-item"><a class="sidebar-link waves-effect waves-dark sidebar-link" href="@item.URL" aria-expanded="false"><i class="mdi @item.IconCss"></i><span class="hide-menu">@item.Name</span></a></li>*@
+
+            @if (Model.Any(x => x.ParentId == item.Id))
+            {
+                <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="@item.IconCss"></i><span class="hide-menu">@item.Name </span></a>
+                    <ul aria-expanded="false" class="collapse  first-level">
+                        @foreach (var jitem in Model.Where(x => x.ParentId == item.Id))
+                        {
+                            <li class="sidebar-item"><a href="@jitem.URL" class="sidebar-link"><i class="@jitem.IconCss"></i><span class="hide-menu"> @jitem.Name </span></a></li>
+                        }
+                    </ul>
+                </li>
+            }
+        }
+
+
+    </ul>
+</nav>

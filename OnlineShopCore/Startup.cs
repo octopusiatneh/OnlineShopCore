@@ -22,6 +22,8 @@ using OnlineShopCore.Application.AutoMapper;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using OnlineShopCore.Helpers;
+using OnlineShopCore.Data.EF.Repositories;
+using OnlineShopCore.Data.Interfaces;
 
 namespace OnlineShopCore
 {
@@ -39,7 +41,7 @@ namespace OnlineShopCore
         {
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                o => o.MigrationsAssembly("TeduCoreApp.Data.EF")));
+                o => o.MigrationsAssembly("OnlineShopCore.Data.EF")));
 
             services.AddIdentity<AppUser, AppRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
@@ -77,11 +79,15 @@ namespace OnlineShopCore
 
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
 
-            services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
-
-            services.AddTransient<IProductCategoryService, ProductCategoryService>();
-
             services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+
+            //Repositories
+            services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
+            services.AddTransient<IFunctionRepository, FunctionRepository>();
+
+            //Services
+            services.AddTransient<IProductCategoryService, ProductCategoryService>();
+            services.AddTransient<IFunctionService, FunctionService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using OnlineShopCore.Application.ViewModels.Product;
+using OnlineShopCore.Application.ViewModels.System;
 using OnlineShopCore.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace OnlineShopCore.Application.AutoMapper
         {
             CreateMap<ProductCategory, ProductCategoryViewModel>();
 
+            CreateMap<Function, FunctionViewModel>();
         }
     }
 }
