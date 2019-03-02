@@ -16,6 +16,7 @@
     <link href="~/lib/notifyjs/dist/styles/metro/notify-metro.css" rel="stylesheet" />
     <!-- Custom CSS -->
     <link href="~/admin-side/dist/css/style.min.css" rel="stylesheet" />
+    @RenderSection("Styles",required:false)
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -265,6 +266,7 @@
     <script src="~/admin-side/dist/js/waves.js"></script>
     <!--Menu sidebar -->
     <script src="~/admin-side/dist/js/sidebarmenu.js"></script>
+    <script src="~/lib/mustache/mustache.js"></script>
     <!--Custom JavaScript -->
     <script src="~/admin-side/dist/js/custom.min.js"></script>
     <!--This page JavaScript -->
@@ -278,6 +280,7 @@
     <script src="~/admin-side/assets/libs/flot/jquery.flot.crosshair.js"></script>
     <script src="~/admin-side/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="~/admin-side/dist/js/pages/chart/chart-page-init.js"></script>
+    @RenderSection("Scripts",required:false)
 </body>
 
 </html>

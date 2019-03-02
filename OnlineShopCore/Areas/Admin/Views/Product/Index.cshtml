@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@section Scripts{ 
+<script src="~/app/controllers/product/index.js"></script>
+    <script>
+        var product = new productController();
+        product.initialize();
+    </script>
+}
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Tables</h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title m-b-0">Static Table</h5>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th width="10%" >#</th>
+                <th >Name</th>
+                <th >Category</th>
+                <th >Price</th>
+                <th >Image</th>
+                <th >Created Date</th>
+                <th >Status</th>
+            </tr>
+        </thead>
+        <tbody id="tbl-content">
+           
+            
+        </tbody>
+    </table>
+</div>
+<script id="table-template" type="x-tmpl-mustache">
+    <tr>
+        <th scope="row">
+            <button class="btn btn-default btn-sm"><i class="fa fa-pencil"></i></button>
+            <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+        </th>
+        <td>{{Name}}</td>
+        <td>{{CategoryName}}</td>
+        <td>{{Price}}</td>
+        <td>{{{Image}}}</td>
+        <td>{{CreatedDate}}</td>
+        <td>{{{Status}}}</td>
+    </tr>
+</script>

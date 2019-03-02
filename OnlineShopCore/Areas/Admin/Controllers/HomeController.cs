@@ -7,8 +7,8 @@ using OnlineShopCore.Extensions;
 
 namespace OnlineShopCore.Areas.Admin.Controllers
 {
-    public class HomeController : Controller
-    {[Area("Admin")]
+    public class HomeController : BaseController
+    {
         public IActionResult Index()
         {
             var email = User.GetSpecificClaim("Email");

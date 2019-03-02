@@ -8,8 +8,7 @@ using OnlineShopCore.Data.Entities;
 
 namespace OnlineShopCore.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly SignInManager<AppUser> _signInManager;
 
