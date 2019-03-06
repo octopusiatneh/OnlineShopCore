@@ -199,7 +199,7 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
-                           @await Html.PartialAsync("_LoginPartial")
+                            @await Html.PartialAsync("_LoginPartial")
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -218,7 +218,7 @@
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
                 <!-- Sidebar navigation-->
-               @await Component.InvokeAsync("Sidebar")
+                @await Component.InvokeAsync("Sidebar")
                 <!-- End Sidebar navigation -->
             </div>
             <!-- End Sidebar scroll-->
@@ -267,6 +267,11 @@
     <!--Menu sidebar -->
     <script src="~/admin-side/dist/js/sidebarmenu.js"></script>
     <script src="~/lib/mustache/mustache.js"></script>
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
     <!--Custom JavaScript -->
     <script src="~/admin-side/dist/js/custom.min.js"></script>
     <!--This page JavaScript -->
@@ -280,7 +285,7 @@
     <script src="~/admin-side/assets/libs/flot/jquery.flot.crosshair.js"></script>
     <script src="~/admin-side/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="~/admin-side/dist/js/pages/chart/chart-page-init.js"></script>
-    @RenderSection("Scripts",required:false)
+    @RenderSection("Scripts", required: false)
 </body>
 
 </html>
