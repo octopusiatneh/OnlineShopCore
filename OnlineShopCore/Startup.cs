@@ -14,16 +14,14 @@ using OnlineShopCore.Services;
 using OnlineShopCore.Data.EF;
 using OnlineShopCore.Data.Entities;
 using AutoMapper;
-using IConfigurationProvider = AutoMapper.IConfigurationProvider;
-using OnlineShopCore.Data.IRepositories;
 using OnlineShopCore.Application.Interfaces;
+using OnlineShopCore.Data.EF.Repositories;
+using OnlineShopCore.Data.IRepositories;
 using OnlineShopCore.Application.Implementation;
-using OnlineShopCore.Application.AutoMapper;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using OnlineShopCore.Helpers;
-using OnlineShopCore.Data.EF.Repositories;
-using OnlineShopCore.Data.Interfaces;
+using OnlineShopCore.Infrastructure.Interfaces;
 
 namespace OnlineShopCore
 {
@@ -41,7 +39,7 @@ namespace OnlineShopCore
         {
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                o => o.MigrationsAssembly("OnlineShopCore.Data.EF")));
+                o => o.MigrationsAssembly("TeduCoreApp.Data.EF")));
 
             services.AddIdentity<AppUser, AppRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
@@ -81,20 +79,24 @@ namespace OnlineShopCore
 
             services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
+            services.AddTransient(typeof(IUnitOfWork), typeof(EFUnitOfWork));
+            services.AddTransient(typeof(IRepository<,>), typeof(EFRepository<,>));
+
             //Repositories
             services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
             services.AddTransient<IFunctionRepository, FunctionRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
+
             //Services
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
             services.AddTransient<IFunctionService, FunctionService>();
-            services.AddTransient<IProductService,ProductService>();
+            services.AddTransient<IProductService, ProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            //loggerFactory.AddFile("Logs/onlineshop-{Date}.txt");
+            //loggerFactory.AddFile("Logs/consolelog-{Date}.txt");
             //if (env.IsDevelopment())
             //{
             //    app.UseDeveloperExceptionPage();
@@ -117,7 +119,7 @@ namespace OnlineShopCore
                     template: "{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapRoute(name: "areaRoute",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    template: "{area:exists}/{controller=Login}/{action=Index}/{id?}");
             });
 
         }

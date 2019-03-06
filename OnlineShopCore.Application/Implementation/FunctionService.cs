@@ -1,13 +1,12 @@
-﻿using OnlineShopCore.Application.Interfaces;
-using OnlineShopCore.Application.ViewModels.System;
-using OnlineShopCore.Data.Interfaces;
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper.QueryableExtensions;
-using System.Threading.Tasks;
+﻿using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using OnlineShopCore.Application.Interfaces;
+using OnlineShopCore.Application.ViewModels.System;
+using OnlineShopCore.Data.IRepositories;
 
 namespace OnlineShopCore.Application.Implementation
 {

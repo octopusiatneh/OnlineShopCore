@@ -59,18 +59,26 @@
                         return '<button class="btn btn-danger"><i class="fas fa-trash"></i></button> <button class="btn btn-success"><i class="fas fa-pencil-alt" style="width:12.25px"></i></button>';
                     }
                 },
-                    { data: "Name" },
+                { data: "Name" },
                 { data: "ProductCategory.Name" },
-                { data: "Price" },
                 {
-                    data: "Image", render: function (data, type, row) {
-                        return data === null ? '<img src="~/admin-side/assets/images/No-image-found.jpg" width=25' : '<img src="'+data+'" width=25 />'
+                    data: "Price", render: function (data, type, row) {
+                        return data = onlineshop.formatNumber(data, 0)
                     }
                 },
-                { data: "DateCreated" },
+                {
+                    data: "Image", render: function (data, type, row) {
+                        return data == null ? '<img src="~/admin-side/assets/images/No-image-found.jpg" width=25' : '<img src="' + data + '" width=25 />'
+                    }
+                },
+                {
+                    data: "DateCreated", render: function (data, type, row) {
+                        return data = onlineshop.dateTimeFormatJson(data.DateCreated)
+                    }
+                },
                 {
                     data: "Status", render: function (data, type, row) {
-                        return data == '1' ? '<span class="badge badge-pill badge-success" > Kích hoạt</span >' : '<span class="badge badge-pill badge-danger">Khóa</span>'
+                        return data = onlineshop.getStatus(data)
                     }
                 }
             ]

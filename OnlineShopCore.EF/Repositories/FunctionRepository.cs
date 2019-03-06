@@ -1,4 +1,4 @@
-﻿using OnlineShopCore.Data.Interfaces;
+﻿using OnlineShopCore.Data.IRepositories;
 using OnlineShopCore.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,6 +10,7 @@ namespace OnlineShopCore.Data.EF.Repositories
     {
         public FunctionRepository(AppDbContext context) : base(context)
         {
+
         }
     }
 }

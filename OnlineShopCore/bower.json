@@ -21,6 +21,7 @@
     "moment": "~2.19.1",
     "notifyjs": "~0.4.2",
     "bootbox": "~4.4.0",
-    "mustache": "~2.3.0"
+    "mustache": "~2.3.0",
+    "jQuery-EasyUI": "1.5.3"
   }
 }

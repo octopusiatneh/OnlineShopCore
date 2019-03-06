@@ -10,9 +10,10 @@ using OnlineShopCore.Data.Entities;
 using OnlineShopCore.Data.Enums;
 using OnlineShopCore.Data.IRepositories;
 using OnlineShopCore.Infrastructure.Interfaces;
+
 namespace OnlineShopCore.Application.Implementation
 {
-  public class ProductCategoryService : IProductCategoryService
+    public class ProductCategoryService : IProductCategoryService
     {
         private IProductCategoryRepository _productCategoryRepository;
         private IUnitOfWork _unitOfWork;
