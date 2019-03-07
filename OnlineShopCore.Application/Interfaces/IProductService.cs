@@ -8,5 +8,15 @@ namespace OnlineShopCore.Application.Interfaces
     public interface IProductService : IDisposable
     {
         List<ProductViewModel> GetAll();
+
+        ProductViewModel Add(ProductViewModel product);
+
+        void Update(ProductViewModel product);
+
+        void Delete(int id);
+
+        ProductViewModel GetById(int id);
+
+        void Save();
     }
 }

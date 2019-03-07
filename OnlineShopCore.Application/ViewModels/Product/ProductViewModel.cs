@@ -9,7 +9,7 @@ namespace OnlineShopCore.Application.ViewModels.Product
 {
   public  class ProductViewModel
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         [StringLength(255)]
         [Required]
         public string Name { get; set; }
