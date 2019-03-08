@@ -1,7 +1,6 @@
 ﻿var dataTable;
 var productController = function () {
     this.initialize = function () {
-        loadCategories();
         loadData();
         registerEvents();
         registerControls();
@@ -12,22 +11,25 @@ var productController = function () {
         $('#frmMaintainance').validate({
             errorClass: 'red',
             ignore: [],
-            lang: 'vi',
+            lang: 'en',
             rules: {
                 txtNameM: { required: true },
                 ddlCategoryIdM: { required: true },
                 txtPriceM: {
                     required: true,
                     number: true
+                },
+                txtOriginalPriceM: {
+                    required: true,
+                    number: true
+                },
+                txtTagM: {
+                    required: true
                 }
+
             }
         });
-        //todo: binding events to controls
-        $('#ddlShowPage').on('change', function () {
-            onlineshop.configs.pageSize = $(this).val();
-            onlineshop.configs.pageIndex = 1;
-            loadData(true);
-        });
+        //todo: binding events to controls  
 
         $("#btnCreate").on('click', function () {
             resetFormMaintainance();
@@ -281,25 +283,7 @@ var productController = function () {
         $('#ckHotM').prop('checked', false);
         $('#ckShowHomeM').prop('checked', false);
 
-    }
-    function loadCategories() {
-        $.ajax({
-            type: 'GET',
-            url: '/admin/product/GetAllCategories',
-            dataType: 'json',
-            success: function (response) {
-                var render = "<option value=''>--Select category--</option>";
-                $.each(response, function (i, item) {
-                    render += "<option value='" + item.Id + "'>" + item.Name + "</option>"
-                });
-                $('#ddlCategorySearch').html(render);
-            },
-            error: function (status) {
-                console.log(status);
-                onlineshop.notify('Cannot loading product category data', 'error');
-            }
-        });
-    }
+    } 
 
     function loadData() {
         dataTable = $('#zero_config').DataTable({

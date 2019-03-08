@@ -1,20 +1,20 @@
-﻿@{
-    ViewData["Title"] = "User List";
+﻿
+@{
+    ViewData["Title"] = "Index";
 }
-@section Scripts{
-    <script src="~/lib/jQuery-EasyUI/jquery.easyui.min.js"></script>
-    <script src="~/admin-side/assets/extra-libs/DataTables/datatables.min.js"></script>
-    <script src="~/app/controllers/user/index.js" asp-append-version="true"></script>
-    <script>
-        var userObj = new UserController();
-        userObj.initialize();
-    </script>
-}
-
 @section Styles{
     <link href="~/lib/jQuery-EasyUI/themes/bootstrap/easyui.css" rel="stylesheet" />
     <link href="~/lib/jQuery-EasyUI/themes/bootstrap/tree.css" rel="stylesheet" />
     <link href="~/admin-side/assets/extra-libs/DataTables/DataTables-1.10.16/css/dataTables.bootstrap4.css" rel="stylesheet" />
+}
+@section Scripts{
+    <script src="~/lib/jQuery-EasyUI/jquery.easyui.min.js"></script>
+    <script src="~/app/controllers/role/index.js"></script>
+    <script src="~/admin-side/assets/extra-libs/DataTables/datatables.min.js"></script>
+    <script>
+        var roleObj = new RoleController();
+        roleObj.initialize();
+    </script>
 
 }
 
@@ -39,16 +39,12 @@
             <div class="card-body">
                 <button class="btn btn-success" id="btnCreate" type="button" style="margin-bottom:15px">Create</button>
                 <div class="table-responsive">
-                    <table id="zero_config_1" class="table table-striped table-bordered">
+                    <table id="zero_config" class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>Action</th>
-                                <th>Account</th>
                                 <th>Name</th>
-                                <th>Avatar</th>
-                                <th>Created Date</th>
-                                <th>Status</th>
-
+                                <th>Description</th>
                             </tr>
                         </thead>
 
@@ -57,12 +53,8 @@
                         <tfoot>
                             <tr>
                                 <th>Action</th>
-                                <th>Account</th>
                                 <th>Name</th>
-                                <th>Avatar</th>
-                                <th>Created Date</th>
-                                <th>Status</th>
-
+                                <th>Description</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -71,13 +63,7 @@
         </div>
     </div>
 </div>
-<script id="role-template" type="x-tmpl-mustache">
-    <div class="checkbox">
-        <label>
-            <input type="checkbox" {{Checked}} value="{{Name}}" name="ckRoles">
-            <span class="text">{{Description}}</span>
-        </label>
-    </div>
-</script>
 
 @Html.Partial("_AddEditModal.cshtml")
+
+

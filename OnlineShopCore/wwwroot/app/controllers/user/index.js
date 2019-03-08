@@ -23,6 +23,11 @@
                 txtEmail: {
                     required: true,
                     email: true
+                },
+                txtPhoneNumber: {
+                    number: true,
+                    minlength: 10,
+                    maxlength:10
                 }
             }
         });
@@ -52,8 +57,7 @@
                     $('#txtUserName').val(data.UserName);
                     $('#txtEmail').val(data.Email);
                     $('#txtPhoneNumber').val(data.PhoneNumber);
-                    $('#ckStatus').prop('checked', data.Status === 1);
-
+                    $('#ckStatusM').prop('checked', data.Status == 1);
                     initRoleList(data.Roles);
 
                     disableFieldEdit(true);
@@ -80,10 +84,10 @@
                 var phoneNumber = $('#txtPhoneNumber').val();
                 var roles = [];
                 $.each($('input[name="ckRoles"]'), function (i, item) {
-                    if ($(item).prop('checked') === true)
+                    if ($(item).prop('checked') == true)
                         roles.push($(item).prop('value'));
                 });
-                var status = $('#ckStatus').prop('checked') === true ? 1 : 0;
+                var status = $('#ckStatusM').prop('checked') == true ? 1 : 0;
 
                 $.ajax({
                     type: "POST",
@@ -163,7 +167,7 @@
         $('input[name="ckRoles"]').removeAttr('checked');
         $('#txtEmail').val('');
         $('#txtPhoneNumber').val('');
-        $('#ckStatus').prop('checked', true);
+        $('#ckStatusM').prop('checked', true);
 
     }
 

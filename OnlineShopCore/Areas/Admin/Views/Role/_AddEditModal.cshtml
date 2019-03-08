@@ -1,0 +1,34 @@
+﻿<div id="modal-add-edit" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="card">
+                <form class="form-horizontal" role="form" id="frmMaintainance">
+                    <div class="card-body">
+                        <h4 class="card-title">Personal Info</h4>
+                        <div class="form-group row">
+                            <input type="hidden" id="hidId" value="0" />
+                            <label for="txtNameM" class="col-sm-3 text-right control-label col-form-label" value="0">Role name</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="txtName" class="form-control" id="txtName" placeholder="Role name">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="txtDescription" class="col-sm-3 text-right control-label col-form-label">Description</label>
+                            <div class="col-sm-9">
+                                <textarea rows="4" id="txtDescription" type="text" class="form-control" name="ddlCategoryIdM" placeholder="Description"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="border-top">
+                        <div class="card-body">
+                            <button type="button" id="btnSave" class="btn btn-primary">Save changes</button>
+                            <button type="button" id="btnCancel" data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
