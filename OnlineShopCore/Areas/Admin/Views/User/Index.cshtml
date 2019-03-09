@@ -1,7 +1,64 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Authorization
+@using OnlineShopCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+@{
     ViewData["Title"] = "User List";
 }
 @section Scripts{
+    <script>
+    function loadData() {
+        dataTable = $('#zero_config_1').DataTable({
+            processing: true, // for show progress bar
+            serverSide: false, // for process server side
+            ajax: {
+                type: 'GET',
+                url: '/admin/user/GetAll',
+                dataSrc: '',
+                dataType: 'json'
+            },
+            columnDefs: [{
+                targets: [0,3],
+                autoWidth: false
+            }],
+            columnDefs: [{
+                targets: [0, 2, 4],
+                sortable: false
+            }],
+
+            columns: [
+                {
+                    data: "Id", render: function (data, type, row) {
+                        return '@if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Delete)).Succeeded) {<button data-id="' + data + '" class="btn btn-danger btn-delete"><i class="fas fa-trash"></i></button> } @if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Update)).Succeeded) {<button data-id="' + data + '" class="btn btn-success btn-edit"><i class="fas fa-pencil-alt"></i></button> }';
+                    }, width:'11%'
+                },
+                { data: "UserName" },
+                { data: "FullName" },
+                {
+                    data: "Avatar", render: function (data, type, row) {
+                        if (data == null) {
+                            return '<img src="/admin-side/assets/images/users/No-image-found.jpg" width=35';
+                        }
+                        else {
+                            return '<img src="' + data + '" width=35 />';
+                        }
+                        //return data != null ? '<img src="' + data + '" width=35 />' : '<img src="~/admin-side/assets/images/No-image-found.jpg" width=35'
+                    }, width:'9%'
+                },
+                {
+                    data: "DateCreated", render: function (data, type, row) {
+                        return data = onlineshop.dateTimeFormatJson(data)
+                    }
+                },
+                {
+                    data: "Status", render: function (data, type, row) {
+                        return data = onlineshop.getStatus(data)
+                    }
+                }
+            ]
+        });
+    }
+    </script>
     <script src="~/lib/jQuery-EasyUI/jquery.easyui.min.js"></script>
     <script src="~/admin-side/assets/extra-libs/DataTables/datatables.min.js"></script>
     <script src="~/app/controllers/user/index.js" asp-append-version="true"></script>
@@ -37,7 +94,13 @@
     <div class="row">
         <div class="col-12">
             <div class="card-body">
-                <button class="btn btn-success" id="btnCreate" type="button" style="margin-bottom:15px">Create</button>
+                @{
+                    var result = await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Create);
+                }
+                @if (result.Succeeded)
+                {
+                    <button class="btn btn-success" id="btnCreate" type="button" style="margin-bottom:15px">Create</button>
+                }
                 <div class="table-responsive">
                     <table id="zero_config_1" class="table table-striped table-bordered">
                         <thead>
@@ -48,7 +111,6 @@
                                 <th>Avatar</th>
                                 <th>Created Date</th>
                                 <th>Status</th>
-
                             </tr>
                         </thead>
 
@@ -62,7 +124,6 @@
                                 <th>Avatar</th>
                                 <th>Created Date</th>
                                 <th>Status</th>
-
                             </tr>
                         </tfoot>
                     </table>
@@ -71,6 +132,7 @@
         </div>
     </div>
 </div>
+
 <script id="role-template" type="x-tmpl-mustache">
     <div class="checkbox">
         <label>
@@ -79,5 +141,4 @@
         </label>
     </div>
 </script>
-
 @Html.Partial("_AddEditModal.cshtml")

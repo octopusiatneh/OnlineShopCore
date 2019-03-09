@@ -3,14 +3,13 @@
     ViewData["Title"] = "Index";
 }
 @section Styles{
-    <link href="~/lib/jQuery-EasyUI/themes/bootstrap/easyui.css" rel="stylesheet" />
-    <link href="~/lib/jQuery-EasyUI/themes/bootstrap/tree.css" rel="stylesheet" />
+    <link href="~/lib/jquery-treegrid/css/jquery.treegrid.css" rel="stylesheet" />
     <link href="~/admin-side/assets/extra-libs/DataTables/DataTables-1.10.16/css/dataTables.bootstrap4.css" rel="stylesheet" />
 }
 @section Scripts{
-    <script src="~/lib/jQuery-EasyUI/jquery.easyui.min.js"></script>
-    <script src="~/app/controllers/role/index.js"></script>
+    <script src="~/lib/jquery-treegrid/js/jquery.treegrid.js"></script>
     <script src="~/admin-side/assets/extra-libs/DataTables/datatables.min.js"></script>
+    <script src="~/app/controllers/role/index.js" asp-append-version="true"></script>
     <script>
         var roleObj = new RoleController();
         roleObj.initialize();
@@ -65,5 +64,6 @@
 </div>
 
 @Html.Partial("_AddEditModal.cshtml")
+@Html.Partial("_AssignPermission.cshtml")
 
 

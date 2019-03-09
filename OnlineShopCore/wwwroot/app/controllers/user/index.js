@@ -27,7 +27,7 @@
                 txtPhoneNumber: {
                     number: true,
                     minlength: 10,
-                    maxlength:10
+                    maxlength: 10
                 }
             }
         });
@@ -197,70 +197,5 @@
         });
     }
 
-    function loadData() {
-        dataTable = $('#zero_config_1').DataTable({
-            // the indexs of the column that want to have the dropdown filter
-            //initComplete: function () {
-            //    this.api().columns([2]).every(function () {
-            //        var column = this;
-            //        var select = $('<select><option value="">--Category filter--</option></select>')
-            //            .appendTo($(column.header()).empty())
-            //            .on('change', function () {
-            //                var val = $.fn.dataTable.util.escapeRegex(
-            //                    $(this).val()
-            //                );
-
-            //                column
-            //                    .search(val ? '^' + val + '$' : '', true, false)
-            //                    .draw();
-            //            });
-
-            //        column.data().unique().sort().each(function (d, j) {
-            //            select.append('<option value="' + d + '">' + d + '</option>')
-            //        });
-            //    });
-            //},
-            processing: true, // for show progress bar
-            serverSide: false, // for process server side
-            //order: [[4, "desc"]], // for setting the default sort column
-            ajax: {
-                type: 'GET',
-                url: '/admin/user/GetAll',
-                dataSrc: '',
-                dataType: 'json'
-            },
-            columnDefs: [{
-                targets: [0, 1, 2, 3, 4, 5],
-                autoWidth: true
-            }],
-            columnDefs: [{
-                targets: [0, 2, 4],
-                sortable: false
-            }],
-            columns: [
-                {
-                    data: "Id", render: function (data, type, row) {
-                        return '<button data-id="' + data + '" class="btn btn-danger btn-delete"><i class="fas fa-trash"></i></button> <button data-id="' + data + '" class="btn btn-success btn-edit"><i class="fas fa-pencil-alt"></i></button>';
-                    }
-                },
-                { data: "UserName" },
-                { data: "FullName" },             
-                {
-                    data: "Avatar", render: function (data, type, row) {
-                        return data == null ? '<img src="~/admin-side/assets/images/No-image-found.jpg" width=25' : '<img src="' + data + '" width=25 />'
-                    }
-                },
-                {
-                    data: "DateCreated", render: function (data, type, row) {
-                        return data = onlineshop.dateTimeFormatJson(data)
-                    }
-                },
-                {
-                    data: "Status", render: function (data, type, row) {
-                        return data = onlineshop.getStatus(data)
-                    }
-                }
-            ]
-        });
-    }
+    
 }

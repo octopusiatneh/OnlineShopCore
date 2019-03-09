@@ -23,9 +23,9 @@ namespace OnlineShopCore.Areas.Admin.Components
         {
             var role = UserClaimsPrincipal.GetSpecificClaim("Roles");
             List<FunctionViewModel> functions;
-            if (role.Split(";").Contains(CommonConstants.AdminRole))
+            if (role.Split(";").Contains(CommonConstants.AppRole.AdminRole))
             {
-                functions = await _functionService.GetAll();
+                functions = await _functionService.GetAll(string.Empty);
             }
             else
             {

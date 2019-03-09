@@ -22,6 +22,8 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using OnlineShopCore.Helpers;
 using OnlineShopCore.Infrastructure.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using OnlineShopCore.Authorization;
 
 namespace OnlineShopCore
 {
@@ -96,6 +98,7 @@ namespace OnlineShopCore
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IRoleService, RoleService>();
+            services.AddTransient<IAuthorizationHandler,BaseResourceAuthorizationHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
