@@ -17,6 +17,7 @@ namespace OnlineShopCore.Application.Interfaces
 
         ProductViewModel GetById(int id);
 
+        void ImportExcel(string filePath, int categoryId);
         void Save();
     }
 }
