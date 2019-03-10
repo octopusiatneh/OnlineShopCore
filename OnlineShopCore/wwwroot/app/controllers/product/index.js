@@ -1,12 +1,14 @@
 ﻿var dataTable;
 var productController = function () {
     var quantityManagement = new QuantityManagement();
+    var imageManagement = new ImageManagement();
 
     this.initialize = function () {
         loadData();
         registerEvents();
         registerControls();
         quantityManagement.initialize();
+        imageManagement.initialize();
     }
 
     function registerEvents() {
@@ -404,7 +406,7 @@ var productController = function () {
             columns: [
                 {
                     data: "Id", render: function (data, type, row) {
-                        return '<button data-id="' + data + '" class="btn btn-danger btn-delete"><i class="fas fa-trash"></i></button> <button data-id="' + data + '" class="btn btn-success btn-edit"><i class="fas fa-pencil-alt"></i></button>';
+                        return '<button data-id="' + data + '" class="btn btn-danger btn-delete"><i class="fas fa-trash"></i></button> <button data-id="' + data + '" class="btn btn-success btn-edit"><i class="fas fa-pencil-alt"></i></button> <button data-id="' + data + '" class="btn btn-primary btn-images"><i class="fas fa-file-image"></i></button> <button data-id="' + data + '" class="btn btn-info btn-quantity"><i class="fas fa-hashtag"></i></button> <button data-id="' + data + '" class="btn btn-warning btn-whole-price"><i class="fas fa-money-bill-alt"></i></button>';
                     }
                 },
                 { data: "Name" },
