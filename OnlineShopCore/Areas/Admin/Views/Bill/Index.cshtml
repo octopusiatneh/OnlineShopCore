@@ -17,25 +17,36 @@
 <div class="">
     <div class="page-title">
         <div class="title_left">
-            <h3>Bill management</h3>
+            <h3 >Bill management</h3>
         </div>
 
         <div class="title_right">
 
-            <div class="col-md-3 col-sm-3 col-xs-12 form-group">
-                <input type="text" id="txtFromDate" class="form-control" placeholder="From Date">
+            <div class="row mb-3">
+                <div class="col-lg-3" >
+                    <input type="text"  id="txtFromDate" class="form-control" placeholder="From Date">
+                </div>
+                <div class="col-lg-3">
+                    <input type="text" id="txtToDate" class="form-control" placeholder="To date">
+                </div>
+                <div class="col-lg-3">
+                    <input type="text" id="txtSearchKeyword" class="form-control" placeholder="Tìm kiếm...">
+                </div>
             </div>
-            <div class="col-md-3 col-sm-3 col-xs-12 form-group">
-                <input type="text" id="txtToDate" class="form-control" placeholder="To date">
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-12 form-group">
-                <input type="text" id="txtSearchKeyword" class="form-control" placeholder="Tìm kiếm...">
 
-            </div>
-            <div class="col-md-2 col-sm-2 col-xs-12 form-group">
+
+            @*<div style="margin-left:5%" class="col-md-3 col-sm-3 col-xs-12 form-group">
+                <input type="text" id="txtFromDate" class="form-control" placeholder="From Date">
+                <input type="text" id="txtToDate" class="form-control" placeholder="To date">
+                <input type="text" id="txtSearchKeyword" class="form-control" placeholder="Tìm kiếm...">
+            </div>*@
+
+
+
+
+
+            <div style="margin-left:5%" class="col-md-2 col-sm-2 col-xs-12 form-group">
                 <button class="btn btn-default" id="btn-search" type="button">Search!</button>
-            </div>
-            <div class="col-md-2 col-sm-2 col-xs-12 form-group">
                 <button class="btn btn-success" id="btn-create" type="button">Create</button>
             </div>
         </div>
