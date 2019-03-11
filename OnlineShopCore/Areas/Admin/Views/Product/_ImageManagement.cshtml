@@ -2,7 +2,7 @@
     <div class="modal-dialog  modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true">×</button>
+             
                 <h4 class="modal-title">Quản lý hình ảnh</h4>
             </div>
             <div class="modal-body">
@@ -14,9 +14,10 @@
                         
                             <label class="col-sm-2 control-label no-padding-right">Ảnh đã chọn</label>
 
-                            <div class="col-lg-3">
+                            <div class="container-fluid">
                                 <input type="hidden" id="hidId" value="" />
-                                <div id="image-list" class="col-md-9">
+                                <div class="row el-element-overlay" id="image-list">
+                                   
                                 </div>
                             </div>
                         </div>
@@ -50,10 +51,13 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="button" id="btnSaveImages" class="btn btn-success">Lưu lại</button>
-                    <button type="button" data-dismiss="modal" class="btn btn-danger">Hủy bỏ</button>
-                </div>
+                
+                    <div class="col-sm-12">
+                        <button type="button" id="btnSaveImages" class=" btn btn-success">Lưu lại</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-danger">Hủy bỏ</button>
+                    </div>
+                
+                
             </div>
         </div>
     </div>

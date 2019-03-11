@@ -2,6 +2,7 @@
 var productController = function () {
     var quantityManagement = new QuantityManagement();
     var imageManagement = new ImageManagement();
+    var wholePriceManagement = new WholePriceManagement();
 
     this.initialize = function () {
         loadData();
@@ -9,6 +10,7 @@ var productController = function () {
         registerControls();
         quantityManagement.initialize();
         imageManagement.initialize();
+        wholePriceManagement.initialize();
     }
 
     function registerEvents() {
@@ -73,17 +75,148 @@ var productController = function () {
         $('body').on('click', '.btn-edit', function (e) {
             e.preventDefault();
             var that = $(this).data('id');
-            loadDetails(that);
+            //loadDetails(that);
+            $.ajax({
+                type: "GET",
+                url: "/Admin/Product/GetById",
+                data: { id: that },
+                dataType: "json",
+                beforeSend: function () {
+                    onlineshop.startLoading();
+                },
+                success: function (response) {
+                    var data = response;
+                    $('#hidIdM').val(data.Id);
+                    $('#txtNameM').val(data.Name);
+                    initTreeDropDownCategory(data.CategoryId);
+
+                    $('#txtDescM').val(data.Description);
+                    $('#txtUnitM').val(data.Unit);
+
+                    $('#txtPriceM').val(data.Price);
+                    $('#txtOriginalPriceM').val(data.OriginalPrice);
+                    $('#txtPromotionPriceM').val(data.PromotionPrice);
+
+                    // $('#txtImageM').val(data.ThumbnailImage);
+
+                    $('#txtTagM').val(data.Tags);
+                    $('#txtMetakeywordM').val(data.SeoKeywords);
+                    $('#txtMetaDescriptionM').val(data.SeoDescription);
+                    $('#txtSeoPageTitleM').val(data.SeoPageTitle);
+                    $('#txtSeoAliasM').val(data.SeoAlias);
+
+                    CKEDITOR.instances.txtContent.setData(data.Content);
+                    $('#ckStatusM').prop('checked', data.Status == 1);
+                    $('#ckHotM').prop('checked', data.HotFlag);
+                    $('#ckShowHomeM').prop('checked', data.HomeFlag);
+
+                    $('#modal-add-edit').modal('show');
+                    onlineshop.stopLoading();
+
+                },
+                error: function (status) {
+                    onlineshop.notify('Có lỗi xảy ra', 'error');
+                    onlineshop.stopLoading();
+                }
+            });
         });
 
         $('body').on('click', '.btn-delete', function (e) {
             e.preventDefault();
             var that = $(this).data('id');
-            deleteProduct(that);
+            //deleteProduct(that);
+            onlineshop.confirm('Are you sure to delete?', function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/Product/Delete",
+                    data: { id: that },
+                    dataType: "json",
+                    beforeSend: function () {
+                        onlineshop.startLoading();
+                    },
+                    success: function (response) {
+                        onlineshop.notify('Delete successful', 'success');
+                        onlineshop.stopLoading();
+                        loadData();
+                    },
+                    error: function (status) {
+                        onlineshop.notify('Has an error in delete progress', 'error');
+                        onlineshop.stopLoading();
+                    }
+                });
+            });
         });
 
         $('#btnSave').on('click', function (e) {
-            saveProduct();
+            if ($('#frmMaintainance').valid()) {
+                e.preventDefault();
+                var id = $('#hidIdM').val();
+                var name = $('#txtNameM').val();
+                var categoryId = $('#ddlCategoryIdM').combotree('getValue');
+
+                var description = $('#txtDescM').val();
+                var unit = $('#txtUnitM').val();
+
+                var price = $('#txtPriceM').val();
+                var originalPrice = $('#txtOriginalPriceM').val();
+                var promotionPrice = $('#txtPromotionPriceM').val();
+
+                //var image = $('#txtImageM').val();
+
+                var tags = $('#txtTagM').val();
+                var seoKeyword = $('#txtMetakeywordM').val();
+                var seoMetaDescription = $('#txtMetaDescriptionM').val();
+                var seoPageTitle = $('#txtSeoPageTitleM').val();
+                var seoAlias = $('#txtSeoAliasM').val();
+
+                var content = CKEDITOR.instances.txtContent.getData();
+                var status = $('#ckStatusM').prop('checked') == true ? 1 : 0;
+                var hot = $('#ckHotM').prop('checked');
+                var showHome = $('#ckShowHomeM').prop('checked');
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/Product/SaveEntity",
+                    data: {
+                        Id: id,
+                        Name: name,
+                        CategoryId: categoryId,
+                        Image: '',
+                        Price: price,
+                        OriginalPrice: originalPrice,
+                        PromotionPrice: promotionPrice,
+                        Description: description,
+                        Content: content,
+                        HomeFlag: showHome,
+                        HotFlag: hot,
+                        Tags: tags,
+                        Unit: unit,
+                        Status: status,
+                        SeoPageTitle: seoPageTitle,
+                        SeoAlias: seoAlias,
+                        SeoKeywords: seoKeyword,
+                        SeoDescription: seoMetaDescription
+                    },
+                    dataType: "json",
+                    beforeSend: function () {
+                        onlineshop.startLoading();
+                    },
+                    success: function (response) {
+                        onlineshop.notify('Update product successfully', 'success');
+                        $('#modal-add-edit').modal('hide');
+                        resetFormMaintainance();
+
+                        onlineshop.stopLoading();
+                        dataTable.ajax.reload();
+                        //loadData(true);
+                    },
+                    error: function () {
+                        onlineshop.notify('Has an error in saving product progress', 'error');
+                        onlineshop.stopLoading();
+                    }
+                });
+                return false;
+            }
 
         });
 
@@ -162,146 +295,17 @@ var productController = function () {
 
     }
 
-    function saveProduct() {
-        if ($('#frmMaintainance').valid()) {
-            e.preventDefault();
-            var id = $('#hidIdM').val();
-            var name = $('#txtNameM').val();
-            var categoryId = $('#ddlCategoryIdM').combotree('getValue');
+    //function saveProduct() {
+       
+    //}
 
-            var description = $('#txtDescM').val();
-            var unit = $('#txtUnitM').val();
+    //function deleteProduct(id) {
+        
+    //}
 
-            var price = $('#txtPriceM').val();
-            var originalPrice = $('#txtOriginalPriceM').val();
-            var promotionPrice = $('#txtPromotionPriceM').val();
-
-            //var image = $('#txtImageM').val();
-
-            var tags = $('#txtTagM').val();
-            var seoKeyword = $('#txtMetakeywordM').val();
-            var seoMetaDescription = $('#txtMetaDescriptionM').val();
-            var seoPageTitle = $('#txtSeoPageTitleM').val();
-            var seoAlias = $('#txtSeoAliasM').val();
-
-            var content = CKEDITOR.instances.txtContent.getData();
-            var status = $('#ckStatusM').prop('checked') == true ? 1 : 0;
-            var hot = $('#ckHotM').prop('checked');
-            var showHome = $('#ckShowHomeM').prop('checked');
-
-            $.ajax({
-                type: "POST",
-                url: "/Admin/Product/SaveEntity",
-                data: {
-                    Id: id,
-                    Name: name,
-                    CategoryId: categoryId,
-                    Image: '',
-                    Price: price,
-                    OriginalPrice: originalPrice,
-                    PromotionPrice: promotionPrice,
-                    Description: description,
-                    Content: content,
-                    HomeFlag: showHome,
-                    HotFlag: hot,
-                    Tags: tags,
-                    Unit: unit,
-                    Status: status,
-                    SeoPageTitle: seoPageTitle,
-                    SeoAlias: seoAlias,
-                    SeoKeywords: seoKeyword,
-                    SeoDescription: seoMetaDescription
-                },
-                dataType: "json",
-                beforeSend: function () {
-                    onlineshop.startLoading();
-                },
-                success: function (response) {
-                    onlineshop.notify('Update product successfully', 'success');
-                    $('#modal-add-edit').modal('hide');
-                    resetFormMaintainance();
-
-                    onlineshop.stopLoading();
-                    dataTable.ajax.reload();
-                    //loadData(true);
-                },
-                error: function () {
-                    onlineshop.notify('Has an error in saving product progress', 'error');
-                    onlineshop.stopLoading();
-                }
-            });
-            return false;
-        }
-    }
-
-    function deleteProduct(id) {
-        onlineshop.confirm('Are you sure to delete?', function () {
-            $.ajax({
-                type: "POST",
-                url: "/Admin/Product/Delete",
-                data: { id: that },
-                dataType: "json",
-                beforeSend: function () {
-                    onlineshop.startLoading();
-                },
-                success: function (response) {
-                    onlineshop.notify('Delete successful', 'success');
-                    onlineshop.stopLoading();
-                    loadData();
-                },
-                error: function (status) {
-                    onlineshop.notify('Has an error in delete progress', 'error');
-                    onlineshop.stopLoading();
-                }
-            });
-        });
-    }
-
-    function loadDetails(id) {
-        $.ajax({
-            type: "GET",
-            url: "/Admin/Product/GetById",
-            data: { id: that },
-            dataType: "json",
-            beforeSend: function () {
-                onlineshop.startLoading();
-            },
-            success: function (response) {
-                var data = response;
-                $('#hidIdM').val(data.Id);
-                $('#txtNameM').val(data.Name);
-                initTreeDropDownCategory(data.CategoryId);
-
-                $('#txtDescM').val(data.Description);
-                $('#txtUnitM').val(data.Unit);
-
-                $('#txtPriceM').val(data.Price);
-                $('#txtOriginalPriceM').val(data.OriginalPrice);
-                $('#txtPromotionPriceM').val(data.PromotionPrice);
-
-                // $('#txtImageM').val(data.ThumbnailImage);
-
-                $('#txtTagM').val(data.Tags);
-                $('#txtMetakeywordM').val(data.SeoKeywords);
-                $('#txtMetaDescriptionM').val(data.SeoDescription);
-                $('#txtSeoPageTitleM').val(data.SeoPageTitle);
-                $('#txtSeoAliasM').val(data.SeoAlias);
-
-                CKEDITOR.instances.txtContent.setData(data.Content);
-                $('#ckStatusM').prop('checked', data.Status == 1);
-                $('#ckHotM').prop('checked', data.HotFlag);
-                $('#ckShowHomeM').prop('checked', data.HomeFlag);
-
-                $('#modal-add-edit').modal('show');
-                onlineshop.stopLoading();
-
-            },
-            error: function (status) {
-                onlineshop.notify('Có lỗi xảy ra', 'error');
-                onlineshop.stopLoading();
-            }
-        });
-    }
+    //function loadDetails(id) {
+      
+    //}
 
     function initTreeDropDownCategory(selectedId) {
         $.ajax({

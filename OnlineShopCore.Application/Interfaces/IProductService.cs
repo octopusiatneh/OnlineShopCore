@@ -28,5 +28,9 @@ namespace OnlineShopCore.Application.Interfaces
         void AddImages(int productId, string[] images);
 
         List<ProductImageViewModel> GetImages(int productId);
+
+        void AddWholePrice(int productId, List<WholePriceViewModel> wholePrices);
+
+        List<WholePriceViewModel> GetWholePrices(int productId);
     }
 }

@@ -37,8 +37,8 @@
                 success: function (path) {
                     clearFileInput($("#fileImage"));
                     images.push(path);
-                    $('#image-list').append('<div class="col-md-3"><img width="100"  data-path="' + path + '" src="' + path + '"></div>');
-                    onlineshop.notify('Đã tải ảnh lên thành công!', 'success');
+                    $('#image-list').append('<div class="col-lg-3 col-md-6"> <div class = "card"> <div class="el-card-item"> <div class="el-card-avatar el-overlay-1"> <img width="100"  data-path="' + path + '" src="' + path + '" /> </div> </div> </div > </div >');
+                       onlineshop.notify('Đã tải ảnh lên thành công!', 'success');
 
                 },
                 error: function () {

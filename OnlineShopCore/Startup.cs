@@ -97,6 +97,7 @@ namespace OnlineShopCore
             services.AddTransient<ISizeRepository, SizeRepository>();
             services.AddTransient<IProductQuantityRepository, ProductQuantityRepository>();
             services.AddTransient<IProductImageRepository, ProductImageRepository>();
+            services.AddTransient<IWholePriceRepository, WholePriceRepository>();
 
             //Services
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
