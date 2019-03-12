@@ -30,7 +30,7 @@ namespace OnlineShopCore.Areas.Admin.Components
             else
             {
                 //TODO get by permission
-                functions = new List<FunctionViewModel>();
+                functions = await _functionService.GetAll(string.Empty);
 
             }
             return View(functions);
