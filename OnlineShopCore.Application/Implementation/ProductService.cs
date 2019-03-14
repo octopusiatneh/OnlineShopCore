@@ -14,6 +14,7 @@ using OnlineShopCore.Utilities.Constants;
 using OnlineShopCore.Utilities.Helpers;
 using OfficeOpenXml;
 using System.IO;
+using OnlineShopCore.Utilities.Dtos;
 
 namespace OnlineShopCore.Application.Implementation
 {
@@ -243,6 +244,42 @@ namespace OnlineShopCore.Application.Implementation
             return _wholePriceRepository.FindAll(x => x.ProductId == productId).ProjectTo<WholePriceViewModel>().ToList();
         }
 
+        public PagedResult<ProductViewModel> GetAllPaging(string keyword, int page, int pageSize)
+        {
+            var query = _productRepository.FindAll(x => x.Status == Status.Active);
+            if (!string.IsNullOrEmpty(keyword))
+                query = query.Where(x => x.Name.Contains(keyword));
 
+            int totalRow = query.Count();
+
+            query = query.OrderByDescending(x => x.DateCreated)
+                .Skip((page - 1) * pageSize).Take(pageSize);
+
+            var data = query.ProjectTo<ProductViewModel>().ToList();
+
+            var paginationSet = new PagedResult<ProductViewModel>()
+            {
+                Results = data,
+                CurrentPage = page,
+                RowCount = totalRow,
+                PageSize = pageSize
+            };
+            return paginationSet;
+        }
+
+        public List<ProductViewModel> GetLastest(int top)
+        {
+            return _productRepository.FindAll(x => x.Status == Status.Active).OrderByDescending(x => x.DateCreated)
+                .Take(top).ProjectTo<ProductViewModel>().ToList();
+        }
+
+        public List<ProductViewModel> GetHotProduct(int top)
+        {
+            return _productRepository.FindAll(x => x.Status == Status.Active && x.HotFlag == true)
+                .OrderByDescending(x => x.DateCreated)
+                .Take(top)
+                .ProjectTo<ProductViewModel>()
+                .ToList();
+        }
     }
 }

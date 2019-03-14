@@ -1,4 +1,5 @@
 ﻿using OnlineShopCore.Application.ViewModels.Product;
+using OnlineShopCore.Utilities.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -32,5 +33,9 @@ namespace OnlineShopCore.Application.Interfaces
         void AddWholePrice(int productId, List<WholePriceViewModel> wholePrices);
 
         List<WholePriceViewModel> GetWholePrices(int productId);
+        PagedResult<ProductViewModel> GetAllPaging(string keyword, int page, int pageSize);
+        List<ProductViewModel> GetLastest(int top);
+
+        List<ProductViewModel> GetHotProduct(int top);
     }
 }

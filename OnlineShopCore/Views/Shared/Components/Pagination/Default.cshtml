@@ -1,0 +1,36 @@
+﻿@model OnlineShopCore.Utilities.Dtos.PagedResultBase
+@{
+    var urlTemplate = Url.Action() + "?page={0}";
+    var request = ViewContext.HttpContext.Request;
+    foreach (var key in request.Query.Keys)
+    {
+        if (key == "page")
+        {
+            continue;
+        }
+
+        urlTemplate += "&" + key + "=" + request.Query[key];
+    }
+
+    var startIndex = Math.Max(Model.CurrentPage - 5, 1);
+    var finishIndex = Math.Min(Model.CurrentPage + 5, Model.PageCount);
+}
+
+<div class="flex-c-m flex-w w-full p-t-38">
+    @for (var i = startIndex; i <= finishIndex; i++)
+    {
+        if (i == Model.CurrentPage)
+        {
+            <a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
+                @i
+            </a>
+
+        }
+        else
+        {
+            <a href="@urlTemplate.Replace("{0}", i.ToString())" class="flex-c-m how-pagination1 trans-04 m-all-7">
+                @i
+            </a>       
+        }
+    }
+</div>
