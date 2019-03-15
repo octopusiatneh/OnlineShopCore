@@ -97,7 +97,7 @@ var productController = function () {
                     $('#txtOriginalPriceM').val(data.OriginalPrice);
                     $('#txtPromotionPriceM').val(data.PromotionPrice);
 
-                    // $('#txtImageM').val(data.ThumbnailImage);
+                    $('#txtImage').val(data.Image);
 
                     $('#txtTagM').val(data.Tags);
                     $('#txtMetakeywordM').val(data.SeoKeywords);
@@ -161,7 +161,7 @@ var productController = function () {
                 var originalPrice = $('#txtOriginalPriceM').val();
                 var promotionPrice = $('#txtPromotionPriceM').val();
 
-                //var image = $('#txtImageM').val();
+                var image = $('#txtImage').val();
 
                 var tags = $('#txtTagM').val();
                 var seoKeyword = $('#txtMetakeywordM').val();
@@ -181,7 +181,7 @@ var productController = function () {
                         Id: id,
                         Name: name,
                         CategoryId: categoryId,
-                        Image: '',
+                        Image: image,
                         Price: price,
                         OriginalPrice: originalPrice,
                         PromotionPrice: promotionPrice,
@@ -296,15 +296,15 @@ var productController = function () {
     }
 
     //function saveProduct() {
-       
+
     //}
 
     //function deleteProduct(id) {
-        
+
     //}
 
     //function loadDetails(id) {
-      
+
     //}
 
     function initTreeDropDownCategory(selectedId) {
@@ -351,7 +351,7 @@ var productController = function () {
         $('#txtOriginalPriceM').val('');
         $('#txtPromotionPriceM').val('');
 
-        //$('#txtImageM').val('');
+        $('#txtImage').val('');
 
         $('#txtTagM').val('');
         $('#txtMetakeywordM').val('');
@@ -359,12 +359,12 @@ var productController = function () {
         $('#txtSeoPageTitleM').val('');
         $('#txtSeoAliasM').val('');
 
-        //CKEDITOR.instances.txtContentM.setData('');
+        CKEDITOR.instances.txtContentM.setData('');
         $('#ckStatusM').prop('checked', true);
         $('#ckHotM').prop('checked', false);
         $('#ckShowHomeM').prop('checked', false);
 
-    } 
+    }
 
     function loadData() {
         dataTable = $('#zero_config').DataTable({
@@ -392,7 +392,7 @@ var productController = function () {
             processing: true, // for show progress bar
             serverSide: false, // for process server side
             destroy: true,
-            order: [[4, "desc"]],
+            order: [[5, "desc"]],
             ajax: {
                 type: 'GET',
                 url: '/admin/product/GetAll',

@@ -17,7 +17,7 @@ namespace OnlineShopCore.Data.Entities
             ProductTags = new List<ProductTag>();
         }
 
-        public Product(string name, int categoryId, string thumbnailImage,
+        public Product(string name, int categoryId, string Image,
             decimal price, decimal originalPrice, decimal? promotionPrice,
             string description, string content, bool? homeFlag, bool? hotFlag,
             string tags, string unit, Status status, string seoPageTitle,
@@ -26,7 +26,7 @@ namespace OnlineShopCore.Data.Entities
         {
             Name = name;
             CategoryId = categoryId;
-            Image = thumbnailImage;
+            this.Image = Image;
             Price = price;
             OriginalPrice = originalPrice;
             PromotionPrice = promotionPrice;
@@ -45,7 +45,7 @@ namespace OnlineShopCore.Data.Entities
 
         }
 
-        public Product(int id, string name, int categoryId, string thumbnailImage,
+        public Product(int id, string name, int categoryId, string Image,
              decimal price, decimal originalPrice, decimal? promotionPrice,
              string description, string content, bool? homeFlag, bool? hotFlag,
              string tags, string unit, Status status, string seoPageTitle,
@@ -55,7 +55,7 @@ namespace OnlineShopCore.Data.Entities
             Id = id;
             Name = name;
             CategoryId = categoryId;
-            Image = thumbnailImage;
+            this.Image = Image;
             Price = price;
             OriginalPrice = originalPrice;
             PromotionPrice = promotionPrice;

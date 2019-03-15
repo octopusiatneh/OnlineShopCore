@@ -5,6 +5,84 @@
     var product = Model.Product;
 }
 
+@section Scripts{
+    <script>
+
+        $('.parallax100').parallax100();
+
+
+        $(".js-select2").each(function () {
+            $(this).select2({
+                minimumResultsForSearch: 20,
+                dropdownParent: $(this).next('.dropDownSelect2')
+            });
+        });
+
+
+        $('.gallery-lb').each(function () { // the containers for all your galleries
+            $(this).magnificPopup({
+                delegate: 'a', // the selector for gallery item
+                type: 'image',
+                gallery: {
+                    enabled: true
+                },
+                mainClass: 'mfp-fade'
+            });
+        });
+
+
+        $('.js-addwish-b2, .js-addwish-detail').on('click', function (e) {
+            e.preventDefault();
+        });
+
+        $('.js-addwish-b2').each(function () {
+            var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+            $(this).on('click', function () {
+                swal(nameProduct, "is added to wishlist !", "success");
+
+                $(this).addClass('js-addedwish-b2');
+                $(this).off('click');
+            });
+        });
+
+        $('.js-addwish-detail').each(function () {
+            var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+
+            $(this).on('click', function () {
+                swal(nameProduct, "is added to wishlist !", "success");
+
+                $(this).addClass('js-addedwish-detail');
+                $(this).off('click');
+            });
+        });
+
+        /*---------------------------------------------*/
+
+        $('.js-addcart-detail').each(function () {
+            var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+            $(this).on('click', function () {
+                swal(nameProduct, "is added to cart !", "success");
+            });
+        });
+
+
+        $('.js-pscroll').each(function () {
+            $(this).css('position', 'relative');
+            $(this).css('overflow', 'hidden');
+            var ps = new PerfectScrollbar(this, {
+                wheelSpeed: 1,
+                scrollingThreshold: 1000,
+                wheelPropagation: false,
+            });
+
+            $(window).on('resize', function () {
+                ps.update();
+            })
+        });
+
+    </script>
+}
+
 <div class="container">
     <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
         <a href="home.html" class="stext-109 cl8 hov-cl1 trans-04">
@@ -13,7 +91,7 @@
         </a>
 
         <a href="products.html" class="stext-109 cl8 hov-cl1 trans-04">
-            @category
+            @category.Name
             <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
         </a>
 
@@ -131,10 +209,10 @@
                                 <div class="rs1-select2 bor8 bg0">
                                     <select class="js-select2" name="time">
                                         <option>Choose an option</option>
-                                        <option>Red</option>
-                                        <option>Blue</option>
-                                        <option>White</option>
-                                        <option>Grey</option>
+                                        <option option>Red</option>
+                                        <option option>White</option>
+                                        <option option>Blue</option>
+                                        <option option>Grey</option>
                                     </select>
                                     <div class="dropDownSelect2"></div>
                                 </div>
@@ -206,7 +284,7 @@
                     <div class="tab-pane fade show active" id="description" role="tabpanel">
                         <div class="how-pos2 p-lr-15-md">
                             <p class="stext-102 cl6">
-                                Aenean sit amet gravida nisi. Nam fermentum est felis, quis feugiat nunc fringilla sit amet. Ut in blandit ipsum. Quisque luctus dui at ante aliquet, in hendrerit lectus interdum. Morbi elementum sapien rhoncus pretium maximus. Nulla lectus enim, cursus et elementum sed, sodales vitae eros. Ut ex quam, porta consequat interdum in, faucibus eu velit. Quisque rhoncus ex ac libero varius molestie. Aenean tempor sit amet orci nec iaculis. Cras sit amet nulla libero. Curabitur dignissim, nunc nec laoreet consequat, purus nunc porta lacus, vel efficitur tellus augue in ipsum. Cras in arcu sed metus rutrum iaculis. Nulla non tempor erat. Duis in egestas nunc.
+                                @Html.Raw(product.Content)
                             </p>
                         </div>
                     </div>
@@ -281,9 +359,11 @@
         @if (Model.Tags.Count > 0)
         {
             <span class="stext-107 cl6 p-lr-25">
-                Tags: @foreach (var item in Model.Tags)
+                Tags: @foreach (var item in product.Tags)
                 {
-                    <a href="#">@item.Name</a>
+                    <a href="#" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                        @item
+                    </a>
                 }
             </span>
         }
@@ -307,18 +387,16 @@
                 @foreach (var item in Model.RelatedProducts)
                 {
                     var url = item.SeoAlias + "-p-" + item.Id + ".html";
-                    <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item @item.CategoryId">
+                    <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
                         <!-- Block2 -->
                         <div class="block2">
                             <div class="block2-pic hov-img0">
-                                <a href="@url"><img src="@item.Image" alt="IMG-PRODUCT">                </a>
-
+                                <img src="@item.Image" alt="IMG-PRODUCT">
                             </div>
 
                             <div class="block2-txt flex-w flex-t p-t-14">
                                 <div class="block2-txt-child1 flex-col-l ">
-
-                                    <a href="@url" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                    <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                         @item.Name
                                     </a>
 
@@ -331,8 +409,14 @@
                                         {
                                             @Html.Raw("&#36;") @item.Price
                                         }
-
                                     </span>
+                                </div>
+
+                                <div class="block2-txt-child2 flex-r p-t-3">
+                                    <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                        <img class="icon-heart1 dis-block trans-04" src="/client-side/images/icons/icon-heart-01.png" alt="ICON">
+                                        <img class="icon-heart2 dis-block trans-04 ab-t-l" src="/client-side/images/icons/icon-heart-02.png" alt="ICON">
+                                    </a>
                                 </div>
                             </div>
                         </div>
