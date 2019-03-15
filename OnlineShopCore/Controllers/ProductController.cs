@@ -53,7 +53,13 @@ namespace OnlineShopCore.Controllers
         [Route("{alias}-p-{id}.html", Name = "ProductDetail")]
         public IActionResult Details(int id)
         {
-            return View();
+            var model = new DetailViewModel();
+            model.Product = _productService.GetById(id);
+            model.Category = _productCategoryService.GetById(model.Product.CategoryId);
+            model.RelatedProducts = _productService.GetRelatedProducts(id, 12);
+            model.ProductImages = _productService.GetImages(id);
+            model.Tags = _productService.GetProductTags(id);
+            return View(model);
         }
     }
 }

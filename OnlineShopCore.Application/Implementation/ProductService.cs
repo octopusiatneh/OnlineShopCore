@@ -15,6 +15,7 @@ using OnlineShopCore.Utilities.Helpers;
 using OfficeOpenXml;
 using System.IO;
 using OnlineShopCore.Utilities.Dtos;
+using OnlineShopCore.Application.ViewModels.Common;
 
 namespace OnlineShopCore.Application.Implementation
 {
@@ -280,6 +281,35 @@ namespace OnlineShopCore.Application.Implementation
                 .Take(top)
                 .ProjectTo<ProductViewModel>()
                 .ToList();
+        }
+
+        public List<ProductViewModel> GetRelatedProducts(int id, int top)
+        {
+            var product = _productRepository.FindById(id);
+            return _productRepository.FindAll(x => x.Status == Status.Active
+                && x.Id != id && x.CategoryId == product.CategoryId)
+            .OrderByDescending(x => x.DateCreated)
+            .Take(top)
+            .ProjectTo<ProductViewModel>()
+            .ToList();
+        }
+
+        public List<TagViewModel> GetProductTags(int productId)
+        {
+            var tags = _tagRepository.FindAll();
+            var productTags = _productTagRepository.FindAll();
+
+            var query = from t in tags
+                        join pt in productTags
+                        on t.Id equals pt.TagId
+                        where pt.ProductId == productId
+                        select new TagViewModel()
+                        {
+                            Id = t.Id,
+                            Name = t.Name
+                        };
+            return query.ToList();
+
         }
     }
 }

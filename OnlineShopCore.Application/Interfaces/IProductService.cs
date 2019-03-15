@@ -1,4 +1,5 @@
-﻿using OnlineShopCore.Application.ViewModels.Product;
+﻿using OnlineShopCore.Application.ViewModels.Common;
+using OnlineShopCore.Application.ViewModels.Product;
 using OnlineShopCore.Utilities.Dtos;
 using System;
 using System.Collections.Generic;
@@ -37,5 +38,9 @@ namespace OnlineShopCore.Application.Interfaces
         List<ProductViewModel> GetLastest(int top);
 
         List<ProductViewModel> GetHotProduct(int top);
+
+        List<ProductViewModel> GetRelatedProducts(int id, int top);
+
+        List<TagViewModel> GetProductTags(int productId);
     }
 }
