@@ -422,12 +422,12 @@ var productController = function () {
                 },
                 {
                     data: "Image", render: function (data, type, row) {
-                        return data == null ? '<img src="~/admin-side/assets/images/No-image-found.jpg" width=25' : '<img src="' + data + '" width=25 />'
+                        return data == null ? '<img src="/admin-side/assets/images/No-image-found.jpg" width=35' : '<img src="' + data + '" width=35 />'
                     }
                 },
                 {
                     data: "DateCreated", render: function (data, type, row) {
-                        return data = onlineshop.dateTimeFormatJson(data)
+                        return data = moment(data).format("DD/MM/YYYY")
                     }
                 },
                 {

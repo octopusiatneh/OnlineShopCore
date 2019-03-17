@@ -58,7 +58,7 @@
                 },
                 {
                     data: "DateCreated", render: function (data, type, row) {
-                            return data = onlineshop.dateTimeFormatJson(data)
+                           return data = moment(data).format("DD/MM/YYYY")
                             }
                     },
                 {
