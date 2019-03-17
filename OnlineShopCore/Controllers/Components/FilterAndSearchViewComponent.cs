@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OnlineShopCore.Controllers.Components
 {
-    public class ShopProductsViewComponent : ViewComponent
+    public class FilterAndSearchViewComponent : ViewComponent
     {
         public async Task<IViewComponentResult> InvokeAsync()
         {

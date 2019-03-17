@@ -35,13 +35,20 @@ namespace OnlineShopCore.Controllers
             model.Product = _productService.GetAllPaging(string.Empty, page, pageSize);
 
             return View(model);
+        }
 
-            //var shopViewModel = new ShopViewModel();
-            //var products = _productService.GetAll();
-            //var productCategoryModel = _productCategoryService.GetAll();
-            //shopViewModel.ProductCategory = productCategoryModel;
-            //shopViewModel.Products = products;
-            //return View(shopViewModel);
+        [Route("search.html")]
+        public IActionResult Search(string keyword, int pageSize, string sortBy, int page = 1)
+        {
+            var model = new SearchResultViewModel();
+            pageSize = _configuration.GetValue<int>("PageSize");
+
+            model.PageSize = pageSize;
+            model.SortType = sortBy;
+            model.ProductCategory = _productCategoryService.GetAll();
+            model.Product = _productService.GetAllPaging(keyword, page, pageSize);
+
+            return View(model);
         }
 
         [Route("{alias}-c.{id}.html")]

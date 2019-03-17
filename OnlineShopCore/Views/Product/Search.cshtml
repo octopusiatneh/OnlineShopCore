@@ -1,4 +1,4 @@
-﻿@model ShoppingViewModel
+﻿@model SearchResultViewModel
 @{
     ViewData["Title"] = "Default";
 }
@@ -19,7 +19,7 @@
                 }
             </div>
             <!--filter and search-->
-            @await Component.InvokeAsync("FilterAndSearch")
+            @await  Component.InvokeAsync("FilterAndSearch")
         </div>
 
         <div class="row isotope-grid">
