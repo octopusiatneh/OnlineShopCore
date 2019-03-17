@@ -11,6 +11,8 @@ namespace OnlineShopCore.Application.Interfaces
     {
         List<ProductViewModel> GetAll();
 
+        List<ProductViewModel> GetByName(string keyword);
+
         ProductViewModel Add(ProductViewModel product);
 
         void Update(ProductViewModel product);

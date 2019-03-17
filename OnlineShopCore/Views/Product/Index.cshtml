@@ -2,7 +2,20 @@
 @{
     ViewData["Title"] = "Default";
 }
+@section Styles{
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+}
 
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+        $("#search-product").autocomplete({
+        source: '@Url.Action("GetProductForAutocomplete", "Product")'
+    });
+    </script>
+}
 <div class="bg0 m-t-23 p-b-140">
     <div class="container">
         <div class="flex-w flex-sb-m p-b-52">

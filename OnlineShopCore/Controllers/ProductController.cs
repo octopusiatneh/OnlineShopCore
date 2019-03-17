@@ -50,11 +50,20 @@ namespace OnlineShopCore.Controllers
 
             return View(model);
         }
-
-        [Route("{alias}-c.{id}.html")]
-        public IActionResult Catalog(int id, string keyword, int? pageSize, string sortBy, int page = 1)
+        [Produces("application/json")]
+        [HttpGet]
+        public IActionResult GetProductForAutocomplete()
         {
-            return View();
+            try
+            {
+                string term = HttpContext.Request.Query["term"].ToString();
+                var model = _productService.GetAll().Where(p => p.Name.Contains(term)).Select(p => p.Name).ToList();
+                return Ok(model);
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
         [Route("{alias}-p-{id}.html", Name = "ProductDetail")]

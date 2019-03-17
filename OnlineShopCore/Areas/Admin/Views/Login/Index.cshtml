@@ -2,7 +2,7 @@
 @{
     Layout = null;
 }
-
+@model LoginViewModel
 <!DOCTYPE html>
 <html dir="ltr">
 <head>
@@ -46,7 +46,7 @@
                 <div id="loginform">
                     <div class="text-center p-t-20 p-b-20">
                         <span class="db"><img src="~/admin-side/assets/images/logo.png" alt="logo" /></span>
-                  
+
                     </div>
                     <!-- Form -->
                     <form class="form-horizontal m-t-20" id="loginform">
@@ -57,13 +57,13 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user"></i></span>
                                     </div>
-                                    <input type="text" class="form-control form-control-lg" name="userName" id="txtUserName" placeholder="Tên đăng nhập" aria-label="Username" aria-describedby="basic-addon1" required="">
+                                    <input asp-for="Email" type="email" class="form-control form-control-lg" name="email" id="txtUserName" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" required="">
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-warning text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
                                     </div>
-                                    <input type="password" class="form-control form-control-lg" name="password" id="txtPassword" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required="">
+                                    <input asp-for="Password" type="password" class="form-control form-control-lg" name="password" id="txtPassword" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required="">
                                 </div>
                             </div>
                         </div>

@@ -311,5 +311,11 @@ namespace OnlineShopCore.Application.Implementation
             return query.ToList();
 
         }
+
+        public List<ProductViewModel> GetByName(string keyword)
+        {
+            var product = _productRepository.FindAll(x => x.Name.Contains(keyword));
+            return product.ProjectTo<ProductViewModel>().ToList();
+        }
     }
 }
