@@ -6,7 +6,7 @@
 .register-photo .image-holder {
   display: table-cell;
   width: auto;
-  background: url(../../client-side/images/meeting.jpg);
+  background: url(../../client-side/images/marcus-lewis-612001-unsplash.jpg);
   background-size: cover;
 }
 

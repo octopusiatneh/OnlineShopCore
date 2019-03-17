@@ -15,6 +15,7 @@ using OnlineShopCore.Data.Enums;
 using OnlineShopCore.Models;
 using OnlineShopCore.Models.AccountViewModels;
 using OnlineShopCore.Services;
+using PaulMiami.AspNetCore.Mvc.Recaptcha;
 
 namespace OnlineShopCore.Controllers
 {
@@ -217,6 +218,7 @@ namespace OnlineShopCore.Controllers
         }
 
         [HttpPost]
+        [ValidateRecaptcha]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [Route("register.html")]

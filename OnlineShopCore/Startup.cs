@@ -24,6 +24,7 @@ using OnlineShopCore.Helpers;
 using OnlineShopCore.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using OnlineShopCore.Authorization;
+using PaulMiami.AspNetCore.Mvc.Recaptcha;
 
 namespace OnlineShopCore
 {
@@ -66,6 +67,10 @@ namespace OnlineShopCore
             });
 
             services.AddAutoMapper();
+            services.AddRecaptcha(new RecaptchaOptions {
+                SiteKey=Configuration["Recaptcha:SiteKey"],
+                SecretKey=Configuration["Recaptcha:SecretKey"]
+            });;
             // Add application services.
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
