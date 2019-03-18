@@ -44,5 +44,8 @@ namespace OnlineShopCore.Application.Interfaces
         List<ProductViewModel> GetRelatedProducts(int id, int top);
 
         List<TagViewModel> GetProductTags(int productId);
+
+        bool CheckAvailability(int productId, int size, int color);
+
     }
 }

@@ -317,5 +317,13 @@ namespace OnlineShopCore.Application.Implementation
             var product = _productRepository.FindAll(x => x.Name.Contains(keyword));
             return product.ProjectTo<ProductViewModel>().ToList();
         }
+
+        public bool CheckAvailability(int productId, int size, int color)
+        {
+            var quantity = _productQuantityRepository.FindSingle(x => x.ColorId == color && x.SizeId == size && x.ProductId == productId);
+            if (quantity == null)
+                return false;
+            return quantity.Quantity > 0;
+        }
     }
 }

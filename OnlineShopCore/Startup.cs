@@ -65,7 +65,11 @@ namespace OnlineShopCore
                 // User settings
                 options.User.RequireUniqueEmail = true;
             });
-
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromHours(2);
+                options.Cookie.HttpOnly = true;
+            });
             services.AddAutoMapper();
             services.AddRecaptcha(new RecaptchaOptions {
                 SiteKey=Configuration["Recaptcha:SiteKey"],
@@ -117,17 +121,7 @@ namespace OnlineShopCore
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            //loggerFactory.AddFile("Logs/consolelog-{Date}.txt");
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //    app.UseBrowserLink();
-            //    app.UseDatabaseErrorPage();
-            //}
-            //else
-            //{
-            //    app.UseExceptionHandler("/Home/Error");
-            //}
+            app.UseSession();
 
             app.UseStaticFiles();
 

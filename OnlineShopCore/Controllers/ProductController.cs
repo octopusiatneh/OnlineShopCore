@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Application.ViewModels.Product;
 using OnlineShopCore.Models.ProductViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace OnlineShopCore.Controllers
 {
@@ -14,15 +15,19 @@ namespace OnlineShopCore.Controllers
     {
         IProductCategoryService _productCategoryService;
         IProductService _productService;
+        IBillService _billService;
         IConfiguration _configuration;
 
         public ProductController(IProductService productService, IConfiguration configuration,
-            IProductCategoryService productCategoryService)
+           IBillService billService,
+           IProductCategoryService productCategoryService)
         {
             _productService = productService;
             _productCategoryService = productCategoryService;
             _configuration = configuration;
+            _billService = billService;
         }
+
         [Route("products.html")]
         public IActionResult Index(int pageSize, string sortBy, int page = 1)
         {
@@ -75,6 +80,16 @@ namespace OnlineShopCore.Controllers
             model.RelatedProducts = _productService.GetRelatedProducts(id, 12);
             model.ProductImages = _productService.GetImages(id);
             model.Tags = _productService.GetProductTags(id);
+            model.Colors = _billService.GetColors().Select(x => new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            }).ToList();
+            model.Sizes = _billService.GetSizes().Select(x => new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            }).ToList();
             return View(model);
         }
     }
