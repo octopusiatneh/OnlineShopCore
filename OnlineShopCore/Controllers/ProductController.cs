@@ -30,7 +30,7 @@ namespace OnlineShopCore.Controllers
 
         [Route("products.html")]
         public IActionResult Index(int pageSize, string sortBy, int page = 1)
-        {
+        {   
             var model = new ShoppingViewModel();
             pageSize = _configuration.GetValue<int>("PageSize");
 

@@ -18,9 +18,6 @@
                     quantity: parseInt($('#txtQuantity').val()),
                     color: colorId,
                     size: sizeId
-                },
-                success: function () {
-                    alert(1);
                 }
             });
         });

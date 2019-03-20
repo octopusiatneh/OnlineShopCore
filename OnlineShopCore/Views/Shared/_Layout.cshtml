@@ -30,6 +30,7 @@
     <link rel="stylesheet" type="text/css" href="~/client-side/vendor/MagnificPopup/magnific-popup.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="~/client-side/vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <link href="~/lib/notifyjs/dist/styles/metro/notify-metro.css" rel="stylesheet" />
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="~/client-side/css/util.css">
     <link rel="stylesheet" type="text/css" href="~/client-side/css/main.css">
@@ -233,7 +234,15 @@
     <!--===============================================================================================-->
     <script src="~/client-side/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <!--===============================================================================================-->
-
+    <script src="~/lib/mustache/mustache.js"></script>
+    <script src="~/lib/notifyjs/dist/notify.js"></script>
+    <script src="~/lib/notifyjs/dist/styles/metro/notify-metro.js"></script>
+    <script src="~/app-client/shared/onlineshop.js"></script>
+    <script src="~/app-client/controllers/base/index.js"></script>
+    <script>
+        var baseObj = new BaseController();
+        baseObj.initialize();
+    </script>
     <script src="~/client-side/js/main.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
