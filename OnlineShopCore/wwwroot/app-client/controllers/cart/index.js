@@ -47,7 +47,7 @@
                     },
                     success: function () {
                         onlineshop.notify('Update quantity is successful', 'success');
-                        //loadHeaderCart();
+                        loadHeaderCart();
                         loadData();
                     }
                 });
@@ -76,7 +76,7 @@
                     },
                     success: function () {
                         onlineshop.notify('Update quantity is successful', 'success');
-                        //loadHeaderCart();
+                        loadHeaderCart();
                         loadData();
                     }
                 });
@@ -104,7 +104,7 @@
                     },
                     success: function () {
                         onlineshop.notify('Update quantity is successful', 'success');
-                        //loadHeaderCart();
+                        loadHeaderCart();
                         loadData();
                     }
                 });
@@ -124,7 +124,7 @@
                         text: "The cart has been deleted!",
                         icon: "success",
                     });
-                    // loadHeaderCart();
+                    loadHeaderCart();
                     loadData();
                 }
             });
@@ -180,9 +180,9 @@
         sizes += "</select>";
         return sizes;
     }
-    //function loadHeaderCart() {
-    //    $("#headerCart").load("/AjaxContent/HeaderCart");
-    //}
+    function loadHeaderCart() {
+        $("#headerCart").load("/AjaxContent/HeaderCart");
+    }
     function loadData() {
         $.ajax({
             url: '/Cart/GetCart',

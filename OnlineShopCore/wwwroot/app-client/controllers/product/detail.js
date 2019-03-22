@@ -5,6 +5,7 @@
 
     function registerEvents() {
         $('#btnAddToCart').on('click', function (e) {
+           
             e.preventDefault();
             var id = parseInt($(this).data('id'));
             var colorId = parseInt($('#ddlColorId').val());
@@ -18,8 +19,19 @@
                     quantity: parseInt($('#txtQuantity').val()),
                     color: colorId,
                     size: sizeId
+                },
+                success: function () {
+                    loadHeaderCart();
+                    loadHeader();
                 }
             });
         });
+    }
+    function loadHeaderCart() {
+        $("#headerCart").load("/AjaxContent/HeaderCart");
+    }
+
+    function loadHeader() {
+        $("#header").load("/AjaxContent/Header");
     }
 }

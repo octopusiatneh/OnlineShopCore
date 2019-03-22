@@ -40,7 +40,7 @@
 <body class="animsition">
 
     <!-- Header -->
-    @Html.Partial("_Header.cshtml")
+    @await  Component.InvokeAsync("Header")
     <!-- Body -->
     @RenderBody()
 
