@@ -32,6 +32,6 @@
     }
 
     function loadHeader() {
-        $("#header").load("/AjaxContent/Header");
+        $("#cartButton").load("/AjaxContent/Header");
     }
 }
