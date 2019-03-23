@@ -87,6 +87,7 @@ var productController = function () {
                 success: function (response) {
                     var data = response;
                     $('#hidIdM').val(data.Id);
+                    $('#hidDateCreated').val(data.DateCreated)
                     $('#txtNameM').val(data.Name);
                     initTreeDropDownCategory(data.CategoryId);
 
@@ -152,6 +153,7 @@ var productController = function () {
                 e.preventDefault();
                 var id = $('#hidIdM').val();
                 var name = $('#txtNameM').val();
+                var dateCreated = $('#hidDateCreated').val();
                 var categoryId = $('#ddlCategoryIdM').combotree('getValue');
 
                 var description = $('#txtDescM').val();
@@ -180,6 +182,7 @@ var productController = function () {
                     data: {
                         Id: id,
                         Name: name,
+                        DateCreated: dateCreated,
                         CategoryId: categoryId,
                         Image: image,
                         Price: price,
@@ -347,7 +350,7 @@ var productController = function () {
         $('#txtDescM').val('');
         $('#txtUnitM').val('');
 
-        $('#txtPriceM').val('0');
+        $('#txtPriceM').val('');
         $('#txtOriginalPriceM').val('');
         $('#txtPromotionPriceM').val('');
 

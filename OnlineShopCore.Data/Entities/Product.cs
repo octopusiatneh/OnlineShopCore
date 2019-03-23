@@ -40,6 +40,7 @@ namespace OnlineShopCore.Data.Entities
             SeoPageTitle = seoPageTitle;
             SeoAlias = seoAlias;
             SeoKeywords = seoMetaKeyword;
+            DateCreated = DateTime.Now;
             SeoDescription = seoMetaDescription;
             ProductTags = new List<ProductTag>();
 
@@ -50,7 +51,7 @@ namespace OnlineShopCore.Data.Entities
              string description, string content, bool? homeFlag, bool? hotFlag,
              string tags, string unit, Status status, string seoPageTitle,
              string seoAlias, string seoMetaKeyword,
-             string seoMetaDescription)
+             string seoMetaDescription, DateTime dateCreated)
         {
             Id = id;
             Name = name;
@@ -70,6 +71,8 @@ namespace OnlineShopCore.Data.Entities
             SeoAlias = seoAlias;
             SeoKeywords = seoMetaKeyword;
             SeoDescription = seoMetaDescription;
+            DateCreated = dateCreated;
+            DateModified = DateTime.Now;
             ProductTags = new List<ProductTag>();
 
         }

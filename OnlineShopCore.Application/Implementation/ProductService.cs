@@ -84,6 +84,41 @@ namespace OnlineShopCore.Application.Implementation
             return productVm;
         }
 
+        public void Update(ProductViewModel productVm)
+        {
+            List<ProductTag> productTags = new List<ProductTag>();
+
+            if (!string.IsNullOrEmpty(productVm.Tags))
+            {
+                string[] tags = productVm.Tags.Split(',');
+                foreach (string t in tags)
+                {
+                    var tagId = TextHelper.ToUnsignString(t);
+                    if (!_tagRepository.FindAll(x => x.Id == tagId).Any())
+                    {
+                        Tag tag = new Tag();
+                        tag.Id = tagId;
+                        tag.Name = t;
+                        tag.Type = CommonConstants.ProductTag;
+                        _tagRepository.Add(tag);
+                    }
+                    _productTagRepository.RemoveMultiple(_productTagRepository.FindAll(x => x.Id == productVm.Id).ToList());
+                    ProductTag productTag = new ProductTag
+                    {
+                        TagId = tagId
+                    };
+                    productTags.Add(productTag);
+                }
+            }
+
+            var product = Mapper.Map<ProductViewModel, Product>(productVm);
+            foreach (var productTag in productTags)
+            {
+                product.ProductTags.Add(productTag);
+            }
+            _productRepository.Update(product);
+        }
+
         public void AddQuantity(int productId, List<ProductQuantityViewModel> quantities)
         {
             _productQuantityRepository.RemoveMultiple(_productQuantityRepository.FindAll(x => x.ProductId == productId).ToList());
@@ -167,41 +202,6 @@ namespace OnlineShopCore.Application.Implementation
         public void Save()
         {
             _unitOfWork.Commit();
-        }
-
-        public void Update(ProductViewModel productVm)
-        {
-            List<ProductTag> productTags = new List<ProductTag>();
-
-            if (!string.IsNullOrEmpty(productVm.Tags))
-            {
-                string[] tags = productVm.Tags.Split(',');
-                foreach (string t in tags)
-                {
-                    var tagId = TextHelper.ToUnsignString(t);
-                    if (!_tagRepository.FindAll(x => x.Id == tagId).Any())
-                    {
-                        Tag tag = new Tag();
-                        tag.Id = tagId;
-                        tag.Name = t;
-                        tag.Type = CommonConstants.ProductTag;
-                        _tagRepository.Add(tag);
-                    }
-                    _productTagRepository.RemoveMultiple(_productTagRepository.FindAll(x => x.Id == productVm.Id).ToList());
-                    ProductTag productTag = new ProductTag
-                    {
-                        TagId = tagId
-                    };
-                    productTags.Add(productTag);
-                }
-            }
-
-            var product = Mapper.Map<ProductViewModel, Product>(productVm);
-            foreach (var productTag in productTags)
-            {
-                product.ProductTags.Add(productTag);
-            }
-            _productRepository.Update(product);
         }
 
         public List<ProductImageViewModel> GetImages(int productId)
