@@ -1,5 +1,160 @@
-﻿<div id="modal-add-edit" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+﻿@*<div id="modal-add-edit" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="card">
+                <form class="form-horizontal" role="form" id="frmMaintainance">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <input type="hidden" id="hidIdM" value="" />
+                            <input type="hidden" id="hidDateCreated" value="" />
+                            <label class="col-sm-3 text-right control-label col-form-label">Name</label>
+                            <div class="col-sm-9">
+
+                                <input type="text" name="txtNameM" class="form-control" id="txtNameM" placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="lname" class="col-sm-3 text-right control-label col-form-label">Category</label>
+                            <div class="col-sm-9">
+                                <input id="ddlCategoryIdM" required name="ddlCategoryIdM" value="1">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txtDescM" class="col-sm-3 text-right control-label col-form-label">Description</label>
+                            <div class="col-sm-9">
+
+                                <input type="text" name="txtDescM" class="form-control" id="txtDescM" placeholder="Description">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txtUnitM" class="col-sm-3 text-right control-label col-form-label">Unit</label>
+                            <div class="col-sm-9">
+
+                                <input type="text" name="txtUnitM" class="form-control" id="txtUnitM" placeholder="Unit">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 text-right control-label col-form-label">Sell Price</label>
+                            <div class="col-sm-9">
+
+                                <input type="text" name="txtPriceM" class="form-control" id="txtPriceM" placeholder="Sell Price">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 text-right control-label col-form-label">Original price</label>
+                            <div class="col-sm-9">
+
+                                <input type="text" name="txtOriginalPriceM" class="form-control" id="txtOriginalPriceM" placeholder="Original price">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Promotion</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="txtPromotionPriceM" class="form-control" id="txtPromotionPriceM" placeholder="Promotion">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="txtImageM" class="col-sm-3 text-right control-label col-form-label">Image</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="txtImage" class="form-control" id="txtImage" />
+                                <input type="file" id="fileInputImage" style="display:none" />
+                                <span class="input-group-btn">
+                                    <input type="button" id="btnSelectImg" class="btn btn-default" value="Browser" />
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="txtContentM" class="col-sm-3 text-right control-label col-form-label">Content</label>
+                            <div class="col-sm-9">
+
+                                <input type="text" class="form-control" id="txtContent" placeholder="Content">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+
+                            <label for="txtMetakeywordM" class="col-sm-3 text-right control-label col-form-label">SEO title</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="txtSeoPageTitleM" class="form-control" id="txtSeoPageTitleM" placeholder="SEO title">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="txtSeoAliasM" class="col-sm-3 text-right control-label col-form-label">SEO Url</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="txtSeoAliasM" class="form-control" id="txtSeoAliasM" placeholder="SEO Url">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="txtMetakeywordM" class="col-sm-3 text-right control-label col-form-label">SEO Keywords</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="txtMetakeywordM" class="form-control" id="txtMetakeywordM" placeholder="SEO Keywords">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="txtMetaDescriptionM" class="col-sm-3 text-right control-label col-form-label">SEO Description</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="txtMetaDescriptionM" class="form-control" id="txtMetaDescriptionM" placeholder="SEO Description">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="txtTagM" class="col-sm-3 text-right control-label col-form-label">Tag (separated by comma)</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="txtTagM" class="form-control" id="txtTagM" placeholder="Tag (separated by comma)">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" checked="checked" id="ckStatusM">
+                                        <span class="text">Active.</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" id="ckHotM">
+                                        <span class="text">Hot product</span>
+                                    </label>
+
+                                    <label>
+                                        <input type="checkbox" checked="checked" id="ckShowHomeM">
+                                        <span class="text">Show on home</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="border-top">
+                        <div class="card-body">
+                            <button type="button" id="btnSave" class="btn btn-primary">Save changes</button>
+                            <button type="button" id="btnCancel" data-dismiss="modal" class="btn btn-danger">Cancel</button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+
+
+
+
+
+
+
+<div id="modal-add-edit" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="card">
                 <form class="form-horizontal" role="form" id="frmMaintainance">
