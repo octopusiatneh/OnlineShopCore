@@ -1,0 +1,89 @@
+﻿@model CheckoutViewModel
+@{
+    ViewData["Title"] = "Checkout";
+}
+@section Scripts{
+    <recaptcha-script validation-message-element-id="recaptchaErrorMessage" />
+
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+
+<!-- breadcrumb -->
+<div class="container">
+    <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+        <a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
+            Home
+            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+        </a>
+
+        <span class="stext-109 cl4">
+            Checkout
+        </span>
+    </div>
+</div>
+@if (ViewData["Success"] != null)
+{
+    if ((bool)ViewData["Success"] == true)
+    {
+        <div class="alert alert-success">
+            Thank you for your order. We are going to confirm your order soon.
+        </div>
+
+    }
+
+    else
+    {
+        <div class="alert alert-danger">
+            Have an error in order progress. Please contact to administrator.
+        </div>
+
+    }
+}
+else
+{
+    <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+        <form action="/checkout.html" method="post">
+            @Html.AntiForgeryToken()
+            <h2 align="center">1. Customer Information</h2>
+            <div class="m-l-25 m-r--38 m-lr-0-xl">
+                <div class="wrap-table-shopping-cart">
+                    <div>
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-lr-15" type="text" id="txtName" asp-for="CustomerName" placeholder="Full name">
+                            <input class="stext-111 cl2 plh3 size-116 p-lr-15" type="text" id="txtAddress" asp-for="CustomerAddress" placeholder="Shipping address">
+                            <input class="stext-111 cl2 plh3 size-116 p-lr-15" type="text" id="txtPhone" asp-for="CustomerMobile" placeholder="Phone number">
+                        </div>
+
+                        <div class="bor8 m-b-30">
+                            <textarea class="stext-111 cl2 plh3 size-120 p-lr-15 p-tb-25" id="txtMessage" asp-for="CustomerMessage" placeholder="Additional information"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 align="center">2. Payment Method</h2>
+            <div class="m-l-25 m-r--38 m-lr-0-xl">
+                <div class="wrap-table-shopping-cart">
+                    <div>
+                        <ul>
+                            @for (int i = 0; i < Model.PaymentMethods.Count; i++)
+                            {
+                                <li>
+                                    <label asp-for="@Model.PaymentMethods[i].Value">
+                                        <input type="radio" name="paymentMethod" asp-for="PaymentMethod" value="@Model.PaymentMethods[i].Value">
+                                        @Model.PaymentMethods[i].Name
+                                    </label>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <recaptcha /><span class="text-danger" id="recaptchaErrorMessage"></span>
+                <button type="submit" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
+                    Confirm order
+                </button>
+            </div>
+
+        </form>
+    </div>
+}

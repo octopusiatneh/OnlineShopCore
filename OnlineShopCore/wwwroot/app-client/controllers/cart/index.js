@@ -29,6 +29,8 @@
                         text: "The product has been deleted!",
                         icon: "success",
                     });
+                    loadHeaderCart();
+                    loadHeader();
                     loadData();
                 }
             });
@@ -75,7 +77,7 @@
                         size: sizeId
                     },
                     success: function () {
-                        onlineshop.notify('Update quantity is successful', 'success');
+                        onlineshop.notify('Update quantity successfully', 'success');
                         loadHeaderCart();
                         loadData();
                     }
@@ -103,8 +105,9 @@
                         size: sizeId
                     },
                     success: function () {
-                        onlineshop.notify('Update quantity is successful', 'success');
+                        onlineshop.notify('Update size successfully', 'success');
                         loadHeaderCart();
+                    
                         loadData();
                     }
                 });
@@ -125,6 +128,7 @@
                         icon: "success",
                     });
                     loadHeaderCart();
+                    loadHeader();
                     loadData();
                 }
             });
@@ -183,6 +187,9 @@
     function loadHeaderCart() {
         $("#headerCart").load("/AjaxContent/HeaderCart");
     }
+    function loadHeader() {
+        $("#cartButton").load("/AjaxContent/Header");
+    }
     function loadData() {
         $.ajax({
             url: '/Cart/GetCart',
@@ -211,7 +218,7 @@
                 if (render !== "")
                     $('#table-cart-content').html(render);
                 else
-                    $('#cuocDoiNayKhoQuaMa').html('You have no product in cart');
+                    $('#cuocDoiNayKhoQuaMa').html('Your cart is empty');
             }
         });
         return false;

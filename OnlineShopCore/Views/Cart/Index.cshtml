@@ -28,8 +28,8 @@
 <!-- Shoping Cart -->
 <form class="bg0 p-t-75 p-b-85">
     <div id="cuocDoiNayKhoQuaMa" class="container">
-        <div class="row" >
-            <div class="col-lg-10 col-xl-10 m-lr-auto m-b-50" >
+        <div class="row">
+            <div class="col-lg-10 col-xl-10 m-lr-auto m-b-50">
                 <div class="m-l-25 m-r--38 m-lr-0-xl">
                     <div class="wrap-table-shopping-cart">
                         <table class="table-shopping-cart">
@@ -37,20 +37,14 @@
                                 <tr class="table_head">
                                     <th class="column-1">Product</th>
                                     <th class="column-2"></th>
-                                    <th class="column-3">Price</th>
-                                    <th class="column-4">
-                                        <p class="txt-center">
-                                            Quantity
-                                        </p>
-                                    </th>
-                                    <th class="column-5">Total</th>
-                                    <td class="column-2"></td>
+                                    <th class="column-3 txt-center">Price</th>
+                                    <th class="column-4"><p class="txt-center">Quantity</p></th>
+                                    <th class="column-5 "><p class="txt-center">Total</p></th>
+                                    <td class="column-1"></td>
                                 </tr>
                             </thead>
-                        
-                            <tbody id="table-cart-content">
 
-                            </tbody>                       
+                            <tbody id="table-cart-content"></tbody>
                         </table>
                         <script id="template-cart" type="x-tmpl-mustache">
                             <tr class="table_row" data-id="{{ProductId}}">
@@ -59,16 +53,18 @@
                                         <img src="{{Image}}" style="width:60px;height80px" alt="{{ProductName}}" />
                                     </div>
                                 </td>
-                                <td class="column-2">{{ProductName}}</td>
-                                <td class="column-3">$ {{Price}}</td>
+                                <td class="column-2">{{ProductName}} <br /> {{{Colors}}} <br /> {{{Sizes}}}</td>
+                                <td class="column-3 txt-center">$ {{Price}}</td>
                                 <td class="column-4">
-                                    <input data-id="{{ProductId}}" class="mtext-104 cl3 txt-center txtQuantity" value=" {{Quantity}} ">
+                                    <input data-id="{{ProductId}}" readonly tabindex="-1" class="mtext-104 cl3 txt-center txtQuantity" value="{{Quantity}}">
                                 </td>
-                                <td class="column-5">$ {{Amount}}</td>
-                                <td class="column-2">
-                                    <a href="#" data-id="{{ProductId}}" class="btn-delete">
-                                        <i class="fa fa-times"></i>
-                                    </a>
+                                <td class="column-5"><p class="txt-center">$ {{Amount}}</p></td>
+                                <td class="column-1">
+                                    <div class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5 m-r-50">
+                                        <a data-id="{{ProductId}}" class="btn-delete">
+                                            Delete
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         </script>
@@ -90,13 +86,13 @@
                         </div>
 
                         <div class="flex-w flex-t p-t-27 p-b-33">
-                            <a id="btnCheckout" href="/checkout.html" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                            <a id="btnCheckout" href="javascript:(0)" onClick="location.href='/checkout.html'" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
                                 Proceed to Checkout
                             </a>
                         </div>
                     </div>
                 </div>
-            </div>   
+            </div>
         </div>
     </div>
 </form>
