@@ -18,5 +18,14 @@ namespace OnlineShopCore.Services
             return emailSender.SendEmailAsync(email, "Welcome to CozaStore!!",
                 sHTML);
         }
+
+        public static Task SendEmailContactAsync(this IEmailSender emailSender, string email, string link)
+        {
+            string sHTML = File.ReadAllText(@"..\OnlineShopCore\wwwroot\templates\emailContactTemp.txt");
+            sHTML = sHTML.Replace("id=\"veryImportant\" href=\"#\""
+                , $"id=\"veryImportant\" href='{HtmlEncoder.Default.Encode(link)}' ");
+            return emailSender.SendEmailAsync(email, "Welcome to CozaStore!!",
+                sHTML);
+        }
     }
 }
