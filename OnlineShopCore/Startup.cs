@@ -83,6 +83,7 @@ namespace OnlineShopCore
             services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
 
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IViewRenderService, ViewRenderService>();
 
             services.AddTransient<DbInitializer>();
 
@@ -108,6 +109,9 @@ namespace OnlineShopCore
             services.AddTransient<IProductImageRepository, ProductImageRepository>();
             services.AddTransient<IWholePriceRepository, WholePriceRepository>();
 
+            services.AddTransient<IFeedbackRepository, FeedbackRepository>();
+            services.AddTransient<IContactRepository, ContactRepository>();
+
             //Services
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
             services.AddTransient<IFunctionService, FunctionService>();
@@ -116,6 +120,9 @@ namespace OnlineShopCore
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IAuthorizationHandler,BaseResourceAuthorizationHandler>();
             services.AddTransient<IBillService, BillService>();
+
+            services.AddTransient<IFeedbackService, FeedbackService>();
+            services.AddTransient<IContactService, ContactService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

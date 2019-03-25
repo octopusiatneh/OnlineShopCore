@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using OnlineShopCore.Application.ViewModels;
+using OnlineShopCore.Application.ViewModels.Common;
 using OnlineShopCore.Application.ViewModels.Product;
 using OnlineShopCore.Application.ViewModels.System;
 using OnlineShopCore.Data.Entities;
@@ -36,6 +38,13 @@ namespace OnlineShopCore.Application.AutoMapper
             CreateMap<BillDetailViewModel, BillDetail>()
              .ConstructUsing(c => new BillDetail(c.Id, c.BillId, c.ProductId,
              c.Quantity, c.Price, c.ColorId, c.SizeId));
+
+            CreateMap<ContactViewModel, Contact>()
+               .ConstructUsing(c => new Contact(c.Id, c.Name, c.Phone, c.Email, c.Website, c.Address, c.Other, c.Lng, c.Lat, c.Status));
+
+            CreateMap<FeedbackViewModel, Feedback>()
+               .ConstructUsing(c => new Feedback(c.Id, c.Name, c.Email, c.Message, c.Status));
+
         }
     }
 }

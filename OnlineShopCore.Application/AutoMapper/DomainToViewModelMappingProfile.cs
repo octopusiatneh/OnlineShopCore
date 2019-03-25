@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using OnlineShopCore.Application.ViewModels;
+using OnlineShopCore.Application.ViewModels.Common;
 using OnlineShopCore.Application.ViewModels.Product;
 using OnlineShopCore.Application.ViewModels.System;
 using OnlineShopCore.Data.Entities;
@@ -24,6 +26,9 @@ namespace OnlineShopCore.Application.AutoMapper
             CreateMap<ProductQuantity, ProductQuantityViewModel>().MaxDepth(2);
             CreateMap<ProductImage, ProductImageViewModel>().MaxDepth(2);
             CreateMap<WholePrice, WholePriceViewModel>().MaxDepth(2);
+
+            CreateMap<Feedback, FeedbackViewModel>().MaxDepth(2);
+            CreateMap<Contact, ContactViewModel>().MaxDepth(2);
         }
     }
 }

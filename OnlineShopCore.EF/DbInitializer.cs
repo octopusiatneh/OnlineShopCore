@@ -61,6 +61,21 @@ namespace OnlineShopCore.Data.EF
                 var user = await _userManager.FindByNameAsync("admin");
                 await _userManager.AddToRoleAsync(user, "Admin");
             }
+            if (!_context.Contacts.Any())
+            {
+                _context.Contacts.Add(new Contact()
+                {
+                    Id = CommonConstants.DefaultContactId,
+                    Address = "155 Sư Vạn Hạnh, Phường 12, Quận 10, TP. Hồ Chí Minh",
+                    Email = "ntnq1910@gmail.com",
+                    Name = "Coza",
+                    Phone = "0904285240",
+                    Status = Status.Active,
+                    Website = "",
+                    Lat = 106.66752,
+                    Lng = 10.77592
+                });
+            }
             if (_context.Functions.Count() == 0)
             {
                 _context.Functions.AddRange(new List<Function>()
