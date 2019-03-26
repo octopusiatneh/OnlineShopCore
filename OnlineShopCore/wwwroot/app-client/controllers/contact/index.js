@@ -25,7 +25,10 @@
         //    title: $('#hidName').val()
         //});
         //infowindow.open(map, marker);
+
+      
         map = new OpenLayers.Map("mapdiv");
+        
         map.addLayer(new OpenLayers.Layer.OSM());
 
         var lonLat = new OpenLayers.LonLat(parseFloat($('#hidLat').val()), parseFloat($('#hidLng').val()))
@@ -40,8 +43,10 @@
         map.addLayer(markers);
 
         markers.addMarker(new OpenLayers.Marker(lonLat));
-
+        map.addControl(new OpenLayers.Control.Navigation({ 'disableZoomWheel': true }));
         map.setCenter(lonLat, zoom);
+
+      
 
     }
 }

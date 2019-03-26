@@ -17,6 +17,7 @@ namespace OnlineShopCore.Application.ViewModels.Common
         public string Email { set; get; }
 
         [StringLength(500)]
+        [Required]
         public string Message { set; get; }
 
         public Status Status { set; get; }

@@ -51,7 +51,6 @@ namespace OnlineShopCore.Controllers
                 var content = await _viewRenderService.RenderToStringAsync("Contact/_ContactMail", model.Feedback);
                 await _emailSender.SendEmailAsync(_configuration["MailSettings:AdminMail"], "Have new contact feedback", content);
                 ViewData["Success"] = true;
-
             }
 
             model.Contact = _contactService.GetById("default");

@@ -30,11 +30,10 @@
     <div class="container">
         @if (ViewData["Success"] != null)
         {
-
             if ((bool)ViewData["Success"] == true)
             {
                 <div class="alert alert-success">
-                    Thank you for your feedback. We are going to reply your order soon.
+                    Thank you for your feedback. We are going to reply you soon.
                 </div>
 
             }
@@ -58,16 +57,17 @@
                     <form action="/contact.html" method="post">
                         @Html.AntiForgeryToken()
                         <div class="bor8 m-b-20 how-pos4-parent">
-                            <input asp-for="Feedback.Email" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" placeholder="Your Email Address">
+                            <input asp-for="Feedback.Email" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" placeholder="Your Email Address">
                             <img class="how-pos4 pointer-none" src="~/client-side/images/icons/icon-email.png" alt="ICON">
                         </div>
-
+                        <span class="text-danger" asp-validation-for="Feedback.Email"></span>
                         <div class="bor8 m-b-30">
                             <textarea asp-for="Feedback.Message" class="stext-111 cl2 plh3 size-120 p-lr-28 p-tb-25" placeholder="How Can We Help?"></textarea>
                         </div>
-
+                        <span class="text-danger" asp-validation-for="Feedback.Message"></span>
                         <!--recaptcha-->
                         <recaptcha />
+                        <span class="text-danger" id="recaptchaErrorMessage"></span>
                         <button type="submit" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
                             Send
                         </button>
