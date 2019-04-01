@@ -9,7 +9,19 @@ namespace OnlineShopCore.Models.AccountViewModels
     public class ExternalLoginViewModel
     {
         [Required]
-        [EmailAddress]
-        public string Email { get; set; }
+
+        public string FullName { get; set; }
+
+        [Required]
+
+        public string DoB { get; set; }
+
+        [Required]
+
+        public string PhoneNumber { get; set; }
+
+        [Required]
+        public string Address { get; set; }
+
     }
 }

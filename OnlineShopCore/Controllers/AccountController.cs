@@ -44,7 +44,7 @@ namespace OnlineShopCore.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("login.html",Name ="Login")]
+        [Route("login.html", Name = "Login")]
         public async Task<IActionResult> Login(string returnUrl = null)
         {
             // Clear the existing external cookie to ensure a clean login process
@@ -237,6 +237,7 @@ namespace OnlineShopCore.Controllers
                 FullName = model.FullName,
                 PhoneNumber = model.PhoneNumber,
                 BirthDay = model.BirthDay,
+                Address = model.Address,
                 Status = Status.Active,
                 Avatar = string.Empty
             };
@@ -310,8 +311,14 @@ namespace OnlineShopCore.Controllers
                 // If the user does not have an account, then ask the user to create an account.
                 ViewData["ReturnUrl"] = returnUrl;
                 ViewData["LoginProvider"] = info.LoginProvider;
+                // Test xem lấy ra được gì thôi chứ cũng chẳng có gì đâu -,-
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-                return View("ExternalLogin", new ExternalLoginViewModel { Email = email });
+                var lastName = info.Principal.FindFirstValue(ClaimTypes.Surname);
+                var firstName = info.Principal.FindFirstValue(ClaimTypes.GivenName);
+                var address = info.Principal.FindFirstValue(ClaimTypes.StreetAddress);
+                var dob = info.Principal.FindFirstValue(ClaimTypes.DateOfBirth);
+                var phoneNumber = info.Principal.FindFirstValue(ClaimTypes.MobilePhone);
+                return View("ExternalLogin", new ExternalLoginViewModel());
             }
         }
 
@@ -328,7 +335,17 @@ namespace OnlineShopCore.Controllers
                 {
                     throw new ApplicationException("Error loading external login information during confirmation.");
                 }
-                var user = new AppUser { UserName = model.Email, Email = model.Email };
+                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+
+                var user = new AppUser
+                {
+                    UserName = email,
+                    Email = email,
+                    Address= model.Address,
+                    FullName = model.FullName,
+                    BirthDay = DateTime.Parse(model.DoB),
+                    PhoneNumber = model.PhoneNumber
+                };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
