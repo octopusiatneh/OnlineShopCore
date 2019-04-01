@@ -1,4 +1,4 @@
-﻿var dataTable;
+﻿var db;
 var productController = function () {
     var quantityManagement = new QuantityManagement();
     var imageManagement = new ImageManagement();
@@ -210,7 +210,7 @@ var productController = function () {
                         resetFormMaintainance();
 
                         onlineshop.stopLoading();
-                        dataTable.ajax.reload();
+                        db.ajax.reload();
                         //loadData(true);
                     },
                     error: function () {
@@ -370,7 +370,8 @@ var productController = function () {
     }
 
     function loadData() {
-        dataTable = $('#zero_config').DataTable({
+        $.fn.dataTable.moment('DD/MM/YYYY');
+        db = $('#zero_config').DataTable({
             // the indexs of the column that want to have the dropdown filter
             initComplete: function () {
                 this.api().columns([2]).every(function () {
@@ -391,7 +392,7 @@ var productController = function () {
                         select.append('<option value="' + d + '">' + d + '</option>')
                     });
                 });
-            },
+            },           
             processing: true, // for show progress bar
             serverSide: false, // for process server side
             destroy: true,
@@ -430,7 +431,7 @@ var productController = function () {
                 },
                 {
                     data: "DateCreated", render: function (data, type, row) {
-                        return data = moment(data).format("DD/MM/YYYY")
+                        return data = moment(data).format('DD/MM/YYYY')
                     }
                 },
                 {
