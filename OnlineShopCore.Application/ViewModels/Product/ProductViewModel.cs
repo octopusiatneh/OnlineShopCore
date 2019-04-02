@@ -11,22 +11,22 @@ namespace OnlineShopCore.Application.ViewModels.Product
     {
         public int Id { get; set; }
         [StringLength(255)]
-        [Required]
+        //[Required]
         public string Name { get; set; }
 
-        [Required]
+        //[Required]
         public int CategoryId { get; set; }
 
         [StringLength(255)]
         public string Image { get; set; }
 
-        [Required]
+        //[Required]
         [DefaultValue(0)]
         public decimal Price { get; set; }
 
         public decimal? PromotionPrice { get; set; }
 
-        [Required]
+        //[Required]
         public decimal OriginalPrice { get; set; }
 
         [StringLength(255)]

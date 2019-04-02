@@ -17,6 +17,10 @@
     <script src="~/admin-side/assets/extra-libs/DataTables/datatables.min.js"></script>
     <script src="~/lib/datetime-moment/dist/datetime-moment.js"></script>
     <script>
+        var date = new Date().toJSON();
+        document.getElementById("hidDateCreated").value = date;
+    </script>
+    <script>
         var product = new productController();
         product.initialize();
     </script>
@@ -42,10 +46,10 @@
     <div class="row">
         <div class="col-12">
             <div class="card-body">
-                <button class="btn btn-success" id="btnCreate" type="button" style="margin-bottom:15px">Create</button>
-                <a class="btn btn-danger" href="~/templates/ProductImportTemplate.xlsx" style="margin-bottom:15px">Template</a>
-                <button class="btn btn-primary" id="btn-import" type="button" style="margin-bottom:15px"><i class="fa fa-file-excel"></i></button>
-                <button class="btn btn-default" id="btn-export" type="button" style="margin-bottom:15px"><i class="fa fa-forward"></i></button>
+                <button  class="btn btn-success"  id="btnCreate" type="button" data-toggle="tooltip" data-placement="bottom" title="Create new product" style="margin-bottom:15px">Create</button>
+                <a class="btn btn-danger" href="~/templates/ProductImportTemplate.xlsx" data-toggle="tooltip" data-placement="bottom" title="Download import product template" style="margin-bottom:15px">Download template</a>
+                <button class="btn btn-primary" id="btn-import" type="button" data-toggle="tooltip" data-placement="bottom" title="Import products via excel" style="margin-bottom:15px">Import</button>
+                <button class="btn btn-default" id="btn-export" type="button" data-toggle="tooltip" data-placement="bottom" title="Export products via excel" style="margin-bottom:15px">Export</button>
                 <div class="table-responsive">
                     <table id="zero_config" class="table table-striped table-bordered">
                         <thead>
@@ -80,8 +84,8 @@
     </div>
 </div>
 
-@Html.PartialAsync("_AddEditModal.cshtml")
-@Html.PartialAsync("_ImportExcelModal.cshtml")
-@Html.PartialAsync("_QuantityManagement.cshtml")
-@Html.PartialAsync("_ImageManagement.cshtml")
-@Html.PartialAsync("_WholePriceManagement.cshtml")
+@Html.Partial("_AddEditModal.cshtml")
+@Html.Partial("_ImportExcelModal.cshtml")
+@Html.Partial("_QuantityManagement.cshtml")
+@Html.Partial("_ImageManagement.cshtml")
+@Html.Partial("_WholePriceManagement.cshtml")

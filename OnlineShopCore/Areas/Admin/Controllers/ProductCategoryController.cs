@@ -20,6 +20,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
+            ViewData["sortOrder"] = _productCategoryService.GetAll();
             return View();
         }
 

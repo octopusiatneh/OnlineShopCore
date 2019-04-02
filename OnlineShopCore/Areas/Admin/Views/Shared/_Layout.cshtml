@@ -200,7 +200,7 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
-                            @await Html.PartialAsync("_LoginPartial")
+                            @Html.Partial("_LoginPartial")
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -287,6 +287,7 @@
     <script src="~/admin-side/assets/libs/flot/jquery.flot.crosshair.js"></script>
     <script src="~/admin-side/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="~/admin-side/dist/js/pages/chart/chart-page-init.js"></script>
+   
     @RenderSection("Scripts", required: false)
 </body>
 

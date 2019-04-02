@@ -1,16 +1,19 @@
-﻿
+﻿@using OnlineShopCore.Application.ViewModels.Product
 @{
-    ViewData["Title"] = "Index";
+    var sortOrder = ViewData["sortOrder"] as List<ProductCategoryViewModel>;
 }
+@model List<ProductCategory>
 @section Styles{
     <link href="~/lib/jQuery-EasyUI/themes/bootstrap/easyui.css" rel="stylesheet" />
     <link href="~/lib/jQuery-EasyUI/themes/bootstrap/tree.css" rel="stylesheet" />
 }
 
 @section Scripts{
+
     <script src="~/lib/jQuery-EasyUI/jquery.easyui.min.js"></script>
     <script src="~/app/controllers/product-category/index.js"></script>
     <script>
+        document.getElementById("txtOrderM").value = @sortOrder.Count;
         var productCategory = new productCategoryController();
         productCategory.initialize();
     </script>
@@ -18,16 +21,15 @@
 
 <div class="page-breadcrumb">
     <div class="row">
-        <div class="col-12 d-flex no-block align-items-center">
-            <h4 class="page-title">Tables</h4>
+        <div class="col-12 d-flex no-block align-items-center">      
             <div class="ml-auto text-right">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Product</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Product categories</li>
                     </ol>
-                    <button class="btn btn-success" id="btnCreate" type="button">Create</button>
+                            
+                       
                 </nav>
             </div>
         </div>
@@ -38,6 +40,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card-body">
+                <button class="btn btn-success" id="btnCreate" type="button" style="margin-bottom:15px">Create</button>
                 <h5 class="card-title">Product categories</h5>
                 <div class="col-md-6">
                     <ul id="treeProductCategory"></ul>
@@ -51,4 +54,4 @@
     </div>
 </div>
 
-@Html.PartialAsync("_AddEditModal.cshtml")
+@Html.Partial("_AddEditModal.cshtml")
