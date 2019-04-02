@@ -46,7 +46,7 @@ namespace OnlineShopCore.Controllers
         [Route("checkout.html", Name = "Checkout")]
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public async Task<IActionResult> Checkout(CheckoutViewModel model)
+        public async Task <IActionResult> Checkout(CheckoutViewModel model)
         {
             var session = HttpContext.Session.Get<List<ShoppingCartViewModel>>(CommonConstants.CartSession);
 
