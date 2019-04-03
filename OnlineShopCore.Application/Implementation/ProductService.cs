@@ -186,9 +186,10 @@ namespace OnlineShopCore.Application.Implementation
                     product.SeoKeywords = workSheet.Cells[i, 7].Value.ToString();
 
                     product.SeoDescription = workSheet.Cells[i, 8].Value.ToString();
-                    bool.TryParse(workSheet.Cells[i, 9].Value.ToString(), out var hotFlag);
 
+                    bool.TryParse(workSheet.Cells[i, 9].Value.ToString(), out var hotFlag);
                     product.HotFlag = hotFlag;
+
                     bool.TryParse(workSheet.Cells[i, 10].Value.ToString(), out var homeFlag);
                     product.HomeFlag = homeFlag;
 
@@ -274,9 +275,19 @@ namespace OnlineShopCore.Application.Implementation
                 .Take(top).ProjectTo<ProductViewModel>().ToList();
         }
 
+
         public List<ProductViewModel> GetHotProduct(int top)
         {
             return _productRepository.FindAll(x => x.Status == Status.Active && x.HotFlag == true)
+                .OrderByDescending(x => x.DateCreated)
+                .Take(top)
+                .ProjectTo<ProductViewModel>()
+                .ToList();
+        }
+
+        public List<ProductViewModel> GetHomeProduct(int top)
+        {
+            return _productRepository.FindAll(x => x.Status == Status.Active && x.HomeFlag == true)
                 .OrderByDescending(x => x.DateCreated)
                 .Take(top)
                 .ProjectTo<ProductViewModel>()

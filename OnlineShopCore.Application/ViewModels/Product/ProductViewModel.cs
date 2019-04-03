@@ -7,7 +7,8 @@ using System.Text;
 
 namespace OnlineShopCore.Application.ViewModels.Product
 {
-  public  class ProductViewModel
+    [Serializable]
+    public  class ProductViewModel
     {
         public int Id { get; set; }
         [StringLength(255)]
