@@ -30,7 +30,6 @@ namespace OnlineShopCore.Application.Implementation
             var productCategory = Mapper.Map<ProductCategoryViewModel, ProductCategory>(productCategoryVm);
             _productCategoryRepository.Add(productCategory);
             return productCategoryVm;
-
         }
 
         public void Delete(int id)

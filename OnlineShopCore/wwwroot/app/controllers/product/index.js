@@ -298,18 +298,6 @@ var productController = function () {
 
     }
 
-    //function saveProduct() {
-
-    //}
-
-    //function deleteProduct(id) {
-
-    //}
-
-    //function loadDetails(id) {
-
-    //}
-
     function initTreeDropDownCategory(selectedId) {
         $.ajax({
             url: "/Admin/ProductCategory/GetAll",

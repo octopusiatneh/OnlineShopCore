@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@section Styles{
+    <link href="~/admin-side/assets/extra-libs/DataTables/DataTables-1.10.16/css/dataTables.bootstrap4.css" rel="stylesheet" />
+}
+@section Scripts{
+    <script src="~/app/controllers/slide/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+    <script src="~/admin-side/assets/extra-libs/DataTables/datatables.min.js"></script>
+    <script src="~/lib/datetime-moment/dist/datetime-moment.js"></script>
+    <script>
+        var slide = new slideController();
+        slide.initialize();
+    </script>
+
+}
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <div class="ml-auto text-left">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Slide management</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="=container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card-body">
+                <button class="btn btn-success" id="btnCreate" type="button" data-toggle="tooltip" data-placement="bottom" title="Create new slide" style="margin-bottom:15px">Create</button>
+                <div class="table-responsive">
+                    <table id="zero_config" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>Name</th>
+                                <th>Image</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody></tbody>
+
+                        <tfoot>
+                            <tr>
+                                <th>Action</th>
+                                <th>Name</th>
+                                <th>Image</th>
+                                <th>Status</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="_AddEditModal.cshtml" />

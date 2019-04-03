@@ -3,6 +3,7 @@ using OnlineShopCore.Application.ViewModels;
 using OnlineShopCore.Application.ViewModels.Common;
 using OnlineShopCore.Application.ViewModels.Product;
 using OnlineShopCore.Application.ViewModels.System;
+using OnlineShopCore.Application.ViewModels.Utilities;
 using OnlineShopCore.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,9 @@ namespace OnlineShopCore.Application.AutoMapper
 
             CreateMap<FeedbackViewModel, Feedback>()
                .ConstructUsing(c => new Feedback(c.Id, c.Name, c.Email, c.Message, c.Status));
+
+            CreateMap<SlideViewModel, Slide>()
+              .ConstructUsing(c => new Slide(c.Id, c.Name, c.Description, c.Image, c.Status, c.Content));
 
         }
     }

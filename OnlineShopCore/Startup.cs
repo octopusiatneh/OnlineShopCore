@@ -124,10 +124,14 @@ namespace OnlineShopCore
             services.AddTransient<IFeedbackRepository, FeedbackRepository>();
             services.AddTransient<IContactRepository, ContactRepository>();
 
+            services.AddTransient<ISlideImageRepository, SlideImageRepository>();
+            services.AddTransient<ISlideRepository, SlideRepository>();
+
             //Services
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
             services.AddTransient<IFunctionService, FunctionService>();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ISlideService, SlideService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IAuthorizationHandler,BaseResourceAuthorizationHandler>();
