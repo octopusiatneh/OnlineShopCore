@@ -25,6 +25,7 @@ using OnlineShopCore.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using OnlineShopCore.Authorization;
 using PaulMiami.AspNetCore.Mvc.Recaptcha;
+using OnlineShopCore.Hubs;
 
 namespace OnlineShopCore
 {
@@ -134,6 +135,8 @@ namespace OnlineShopCore
 
             services.AddTransient<IFeedbackService, FeedbackService>();
             services.AddTransient<IContactService, ContactService>();
+            //SignalR
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -153,6 +156,10 @@ namespace OnlineShopCore
 
                 routes.MapRoute(name: "areaRoute",
                     template: "{area:exists}/{controller=Login}/{action=Index}/{id?}");
+            });
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chatHub");
             });
 
         }
