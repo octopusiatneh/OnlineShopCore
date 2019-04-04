@@ -40,6 +40,8 @@ namespace OnlineShopCore.Application.Interfaces
         List<ProductViewModel> GetLastest(int top);
 
         List<ProductViewModel> GetHotProduct(int top);
+        List<ProductViewModel> GetHomeProduct(int top);
+
 
         List<ProductViewModel> GetRelatedProducts(int id, int top);
 
