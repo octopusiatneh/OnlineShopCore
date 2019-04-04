@@ -68,8 +68,7 @@ var slideController = function () {
                     $('#txtNameM').val(data.Name);
                     $('#txtImage').val(data.Image);
                     $('#txtDescM').val(data.Description);
-
-                    CKEDITOR.instances.txtContent.setData(data.Content);
+                    $('#txtContentM').val(data.Content);                
                     $('#ckStatusM').prop('checked', data.Status == 1);
                     $('#modal-add-edit').modal('show');
                     onlineshop.stopLoading();
@@ -115,7 +114,7 @@ var slideController = function () {
                 var description = $('#txtDescM').val();          
                 var image = $('#txtImage').val();
 
-                var content = CKEDITOR.instances.txtContent.getData();
+                var content = $('#txtContentM').val();
                 var status = $('#ckStatusM').prop('checked') == true ? 1 : 0;          
                 $.ajax({
                     type: "POST",
@@ -152,9 +151,6 @@ var slideController = function () {
     }
 
     function registerControls() {
-        CKEDITOR.replace('txtContent', {});
-
-
         //Fix: cannot click on element ck in modal
         $.fn.modal.Constructor.prototype.enforceFocus = function () {
             $(document)
@@ -170,8 +166,6 @@ var slideController = function () {
                     }
                 }, this));
         };
-
-
     }
 
     function resetFormMaintainance() {
@@ -182,8 +176,7 @@ var slideController = function () {
 
         $('#txtImage').val('');
 
-
-        CKEDITOR.instances.txtContent.setData('');
+        $('#txtContentM').val('');
         $('#ckStatusM').prop('checked', true);
     }
 
@@ -191,8 +184,7 @@ var slideController = function () {
         db = $('#zero_config').DataTable({
             processing: true, // for show progress bar
             serverSide: false, // for process server side
-            destroy: true,
-            order: [[0, "desc"]],
+            destroy: true,        
             ajax: {
                 type: 'GET',
                 url: '/admin/slide/GetAll',
@@ -204,13 +196,13 @@ var slideController = function () {
                 autoWidth: true
             }],
             columnDefs: [{
-                targets: [0,2],
+                targets: [0,3,2],
                 sortable: false
             }],
             columns: [
                 {
                     data: "Id", render: function (data, type, row) {
-                        return '<button style="width: 40px" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete" data-id="' + data + '" class="btn btn-danger btn-delete"><i class="fas fa-trash"></i></button> <button style="width: 40px" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit" data-id="' + data + '" class="btn btn-success btn-edit"><i class="fas fa-pencil-alt"></i></button> <button style="width: 40px" data-toggle="tooltip" data-placement="top" title="Image management" data-original-title="Image management" data-id="' + data + '" class="btn btn-primary btn-images"><i class="fas fa-file-image"></i></button> <button style="width: 40px" data-toggle="tooltip" data-placement="top" title="Quantity managment" data-original-title="QUantity management" data-id="' + data + '" class="btn btn-info btn-quantity"><i class="fas fa-hashtag"></i></button> <button style="width: 40px" data-toggle="tooltip" data-placement="top" title="Wholesale price management" data-original-title="Wholesale price management" data-id="' + data + '" class="btn btn-warning btn-whole-price"><i class="fas fa-money-bill-alt"></i></button>';
+                        return '<button style="width: 40px" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete" data-id="' + data + '" class="btn btn-danger btn-delete"><i class="fas fa-trash"></i></button> <button style="width: 40px" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit" data-id="' + data + '" class="btn btn-success btn-edit"><i class="fas fa-pencil-alt"></i></button>';
                     }
                 },
                 { data: "Name" },         

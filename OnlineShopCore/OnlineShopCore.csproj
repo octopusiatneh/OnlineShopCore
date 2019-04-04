@@ -6,6 +6,13 @@
     <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Views\Manage\**" />
+    <Content Remove="Views\Manage\**" />
+    <EmbeddedResource Remove="Views\Manage\**" />
+    <None Remove="Views\Manage\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.0.0" />
@@ -166,7 +173,6 @@
 
   <ItemGroup>
     <Folder Include="Logs\" />
-    <Folder Include="Views\Manage\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

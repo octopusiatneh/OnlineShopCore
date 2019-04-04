@@ -1,5 +1,6 @@
 ﻿using OnlineShopCore.Application.ViewModels.Common;
 using OnlineShopCore.Application.ViewModels.Product;
+using OnlineShopCore.Application.ViewModels.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

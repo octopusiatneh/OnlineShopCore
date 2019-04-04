@@ -136,8 +136,7 @@ namespace OnlineShopCore
             services.AddTransient<IRoleService, RoleService>(); 
             services.AddTransient<IAuthorizationHandler,BaseResourceAuthorizationHandler>();
             services.AddTransient<IBillService, BillService>();
-            services.AddTransient<IBlogService, BlogService>();
-            services.AddTransient<ICommonService, CommonService>();
+                   
             services.AddTransient<IFeedbackService, FeedbackService>();
             services.AddTransient<IContactService, ContactService>();
             //SignalR

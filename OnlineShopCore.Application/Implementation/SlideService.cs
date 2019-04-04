@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Application.ViewModels.Utilities;
 using OnlineShopCore.Data.Entities;
+using OnlineShopCore.Data.Enums;
 using OnlineShopCore.Data.IRepositories;
 using OnlineShopCore.Infrastructure.Interfaces;
 using System;
@@ -28,6 +29,7 @@ namespace OnlineShopCore.Application.Implementation
         public SlideViewModel Add(SlideViewModel slideVm)
         {
             var slide = Mapper.Map<SlideViewModel, Slide>(slideVm);
+            slide.Status = Status.Active;
             _slideRepository.Add(slide);
             return slideVm;
         }
@@ -41,10 +43,14 @@ namespace OnlineShopCore.Application.Implementation
         {
             GC.SuppressFinalize(this);
         }
-
         public List<SlideViewModel> GetAll()
         {
             return _slideRepository.FindAll().OrderBy(x => x.Id)
+                 .ProjectTo<SlideViewModel>().ToList();
+        }
+        public List<SlideViewModel> GetSlide()
+        {
+            return _slideRepository.FindAll(x=> x.Status == Status.Active).OrderBy(x => x.Id)
                  .ProjectTo<SlideViewModel>().ToList();
         }
 
@@ -69,5 +75,7 @@ namespace OnlineShopCore.Application.Implementation
             var slide = Mapper.Map<SlideViewModel, Slide>(slideVm);
             _slideRepository.Update(slide);
         }
+
+        
     }
 }

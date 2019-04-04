@@ -15,6 +15,8 @@ namespace OnlineShopCore.Application.Interfaces
 
         List<SlideViewModel> GetAll();
 
+        List<SlideViewModel> GetSlide();
+
         SlideViewModel GetById(int id);
 
         List<SlideImageViewModel> GetImages(int productId);
