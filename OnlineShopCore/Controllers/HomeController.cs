@@ -37,9 +37,9 @@ namespace OnlineShopCore.Controllers
         
             ViewData["BodyClass"] = "cms-index-index cms-home-page";
             var homeVm = new HomeViewModel();
-            homeVm.LastestProducts = _productService.GetLastest(5);
-            homeVm.HotProducts = _productService.GetHotProduct(5);
-            homeVm.TopSellProducts = _productService.GetHomeProduct(5);
+            homeVm.LastestProducts = _productService.GetLastest(16);
+            homeVm.HotProducts = _productService.GetHotProduct(16);
+            homeVm.TopSellProducts = _productService.GetHomeProduct(16);
 
             return View(homeVm);
         }
