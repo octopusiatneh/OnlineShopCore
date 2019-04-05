@@ -11,6 +11,8 @@ namespace OnlineShopCore.Application.Interfaces
     {
         List<ProductViewModel> GetAll();
 
+        PagedResult<ProductViewModel> Filter(string filter,int page,int pageSize);
+
         List<ProductViewModel> GetByName(string keyword);
 
         ProductViewModel Add(ProductViewModel product);

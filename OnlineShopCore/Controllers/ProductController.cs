@@ -35,9 +35,23 @@ namespace OnlineShopCore.Controllers
             pageSize = _configuration.GetValue<int>("PageSize");
 
             model.PageSize = pageSize;
-            model.SortType = sortBy;
+            model.SortBy = sortBy;
             model.ProductCategory = _productCategoryService.GetAll();
             model.Product = _productService.GetAllPaging(string.Empty, page, pageSize);
+
+            return View(model);
+        }
+
+        [Route("filter.html")]
+        public IActionResult Filter(int pageSize, string filter, int page = 1)
+        {
+            var model = new SearchResultViewModel();
+            pageSize = _configuration.GetValue<int>("PageSize");
+
+            model.PageSize = pageSize;
+            model.SortBy = filter;
+            model.ProductCategory = _productCategoryService.GetAll();
+            model.Product = _productService.Filter(filter, page, pageSize);
 
             return View(model);
         }
@@ -49,7 +63,7 @@ namespace OnlineShopCore.Controllers
             pageSize = _configuration.GetValue<int>("PageSize");
 
             model.PageSize = pageSize;
-            model.SortType = sortBy;
+            model.SortBy = sortBy;
             model.ProductCategory = _productCategoryService.GetAll();
             model.Product = _productService.GetAllPaging(keyword, page, pageSize);
 

@@ -269,6 +269,57 @@ namespace OnlineShopCore.Application.Implementation
             return paginationSet;
         }
 
+        public PagedResult<ProductViewModel> Filter(string filter, int page, int pageSize)
+        {
+            var query = _productRepository.FindAll(x => x.Status == Status.Active);
+            switch (filter)
+            {
+                case "lastest":
+                    query = query.OrderByDescending(x => x.DateCreated);
+                    break;
+                case "discount":
+                    query = _productRepository.FindAll(x => x.PromotionPrice.HasValue);
+                    break;
+                case "lowtohigh":
+                    query = query.OrderBy(x => x.Price);
+                    break;
+                case "hightolow":
+                    query = query.OrderByDescending(x => x.Price);
+                    break;
+                case "price-0-50":
+                    query = _productRepository.FindAll(x => x.Price >= 0 && x.Price <= 50);
+                    break;
+                case "price-50-100":
+                    query = _productRepository.FindAll(x => x.Price >= 50 && x.Price <= 100);
+                    break;
+                case "price-100-150":
+                    query = _productRepository.FindAll(x => x.Price >= 100 && x.Price <= 150);
+                    break;
+                case "price-150-200":
+                    query = _productRepository.FindAll(x => x.Price >= 150 && x.Price <= 200);
+                    break;
+                case "price-200":
+                    query = _productRepository.FindAll(x => x.Price >= 200);
+                    break;
+                default:
+                    query = _productRepository.FindAll();
+                    break;
+            }
+
+            int totalRow = query.Count();
+            query = query.OrderByDescending(x => x.DateCreated)
+                .Skip((page - 1) * pageSize).Take(pageSize);
+            var data = query.ProjectTo<ProductViewModel>().ToList();
+            var paginationSet = new PagedResult<ProductViewModel>()
+            {
+                Results = data,
+                CurrentPage = page,
+                RowCount = totalRow,
+                PageSize = pageSize
+            };
+            return paginationSet;
+        }
+
         public List<ProductViewModel> GetLastest(int top)
         {
             return _productRepository.FindAll(x => x.Status == Status.Active).OrderByDescending(x => x.DateCreated)

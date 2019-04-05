@@ -3,6 +3,7 @@
     ViewData["Title"] = "Checkout";
 }
 @section Scripts{
+    <script src="~/app-client/controllers/cart/checkout.js" asp-append-version="true"></script>
     <recaptcha-script validation-message-element-id="recaptchaErrorMessage" />
 
     @await Html.PartialAsync("_ValidationScriptsPartial")

@@ -49,8 +49,7 @@ namespace OnlineShopCore.Controllers
         public async Task <IActionResult> Checkout(CheckoutViewModel model)
         {
             var session = HttpContext.Session.Get<List<ShoppingCartViewModel>>(CommonConstants.CartSession);
-
-
+            
             if (ModelState.IsValid)
             {
                 if (session != null)
@@ -86,7 +85,7 @@ namespace OnlineShopCore.Controllers
                     {
 
                         _billService.Save();
-
+                        ClearCart();
                         //var content = await _viewRenderService.RenderToStringAsync("Cart/_BillMail", billViewModel);
                         //Send mail
                         //await _emailSender.SendEmailAsync(_configuration["MailSettings:AdminMail"], "New bill from Panda Shop", content);
@@ -100,8 +99,9 @@ namespace OnlineShopCore.Controllers
 
                 }
             }
-            model.Carts = session;
-            return View(model);
+            //model.Carts = session;
+            //return View(model);
+            return View();
         }
 
         #region AJAX Request
