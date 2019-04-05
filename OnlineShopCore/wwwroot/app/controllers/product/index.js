@@ -274,7 +274,6 @@ var productController = function () {
         });
     }
 
-
     function registerControls() {
         CKEDITOR.replace('txtContent', {});
 
@@ -359,7 +358,7 @@ var productController = function () {
 
     function loadData() {
         $.fn.dataTable.moment('DD/MM/YYYY');
-        db = $('#zero_config').DataTable({
+        db = $('#zero_config').dataTable({
             // the indexs of the column that want to have the dropdown filter
             initComplete: function () {
                 this.api().columns([2]).every(function () {
@@ -430,4 +429,5 @@ var productController = function () {
             ]
         });
     }
+
 }

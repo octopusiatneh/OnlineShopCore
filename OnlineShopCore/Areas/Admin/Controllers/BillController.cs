@@ -51,6 +51,14 @@ namespace OnlineShopCore.Areas.Admin.Controllers
             var model = _billService.GetAllPaging(startDate, endDate, keyword, page, pageSize);
             return new OkObjectResult(model);
         }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var model = _billService.GetAll();
+            return new OkObjectResult(model);
+        }
+
         [HttpPost]
         public IActionResult SaveEntity(BillViewModel billVm)
         {

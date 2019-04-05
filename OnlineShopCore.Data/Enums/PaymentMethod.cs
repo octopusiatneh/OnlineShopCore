@@ -9,17 +9,8 @@ namespace OnlineShopCore.Data.Enums
     {
         [Description("Cash on delivery")]
         CashOnDelivery,
-        [Description("Online Banking")]
-        OnlineBanking,
-        [Description("Payment Gateway")]
-        PaymentGateway,
-        [Description("Visa")]
-        Visa,
-        [Description("Master Card")]
-        MasterCard,
-        [Description("PayPal")]
-        PayPal,
-        [Description("Atm")]
-        Atm
+        
+        [Description("ATM")]
+        ATM
     }
 }

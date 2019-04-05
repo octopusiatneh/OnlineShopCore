@@ -15,7 +15,10 @@ namespace OnlineShopCore.Application.Interfaces
         PagedResult<BillViewModel> GetAllPaging(string startDate, string endDate, string keyword,
            int pageIndex, int pageSize);
 
+        List<BillViewModel> GetAll();
+
         BillViewModel GetDetail(int billId);
+
 
         BillDetailViewModel CreateDetail(BillDetailViewModel billDetailVm);
 

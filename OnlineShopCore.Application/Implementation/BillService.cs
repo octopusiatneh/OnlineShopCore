@@ -141,6 +141,8 @@ namespace OnlineShopCore.Application.Implementation
             };
         }
 
+
+
         public BillViewModel GetDetail(int billId)
         {
             var bill = _orderRepository.FindSingle(x => x.Id == billId);
@@ -184,6 +186,11 @@ namespace OnlineShopCore.Application.Implementation
         public SizeViewModel GetSize(int id)
         {
             return Mapper.Map<Size, SizeViewModel>(_sizeRepository.FindById(id));
+        }
+
+        public List<BillViewModel> GetAll()
+        {
+            return _orderRepository.FindAll().ProjectTo<BillViewModel>().ToList();
         }
     }
 }

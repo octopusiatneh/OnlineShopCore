@@ -70,6 +70,7 @@ namespace OnlineShopCore.Controllers
                     var billViewModel = new BillViewModel()
                     {
                         CustomerMobile = model.CustomerMobile,
+                        PaymentMethod = model.PaymentMethod,
                         BillStatus = BillStatus.New,
                         CustomerAddress = model.CustomerAddress,
                         CustomerName = model.CustomerName,

@@ -299,6 +299,24 @@
         return products;
     }
 
+    function getPaymentMethodName(paymentMethod) {
+        var method = $.grep(cachedObj.paymentMethods, function (element, index) {
+            return element.Value == paymentMethod;
+        });
+        if (method.length > 0)
+            return method[0].Name;
+        else return '';
+    }
+
+    function getBillStatusName(status) {
+        var status = $.grep(cachedObj.billStatuses, function (element, index) {
+            return element.Value == status;
+        });
+        if (status.length > 0)
+            return status[0].Name;
+        else return '';
+    }
+
     function getColorOptions(selectedId) {
         var colors = "<select class='form-control ddlColorId'>";
         $.each(cachedObj.colors, function (i, color) {
@@ -322,6 +340,7 @@
         sizes += "</select>";
         return sizes;
     }
+
     function resetFormMaintainance() {
         $('#hidId').val(0);
         $('#txtCustomerName').val('');
@@ -335,92 +354,123 @@
         $('#tbl-bill-details').html('');
     }
 
-    function loadData(isPageChanged) {
-        $.ajax({
-            type: "GET",
-            url: "/admin/bill/GetAllPaging",
-            data: {
-                startDate: $('#txtFromDate').val(),
-                endDate: $('#txtToDate').val(),
-                keyword: $('#txtSearchKeyword').val(),
-                page: onlineshop.configs.pageIndex,
-                pageSize: onlineshop.configs.pageSize
-            },
-            dataType: "json",
-            beforeSend: function () {
-                onlineshop.startLoading();
-            },
-            success: function (response) {
-                var template = $('#table-template').html();
-                var render = "";
-                if (response.RowCount > 0) {
-                    $.each(response.Results, function (i, item) {
-                        render += Mustache.render(template, {
-                            CustomerName: item.CustomerName,
-                            Id: item.Id,
-                            PaymentMethod: getPaymentMethodName(item.PaymentMethod),
-                            DateCreated: onlineshop.dateTimeFormatJson(item.DateCreated),
-                            BillStatus: getBillStatusName(item.BillStatus)
+    //function loadData(isPageChanged) {
+    //    $.ajax({
+    //        type: "GET",
+    //        url: "/admin/bill/GetAllPaging",
+    //        data: {
+    //            startDate: $('#txtFromDate').val(),
+    //            endDate: $('#txtToDate').val(),
+    //            keyword: $('#txtSearchKeyword').val(),
+    //            page: onlineshop.configs.pageIndex,
+    //            pageSize: onlineshop.configs.pageSize
+    //        },
+    //        dataType: "json",
+    //        beforeSend: function () {
+    //            onlineshop.startLoading();
+    //        },
+    //        success: function (response) {
+    //            var template = $('#table-template').html();
+    //            var render = "";
+    //            if (response.RowCount > 0) {
+    //                $.each(response.Results, function (i, item) {
+    //                    render += Mustache.render(template, {
+    //                        CustomerName: item.CustomerName,
+    //                        Id: item.Id,
+    //                        PaymentMethod: getPaymentMethodName(item.PaymentMethod),
+    //                        DateCreated: onlineshop.dateTimeFormatJson(item.DateCreated),
+    //                        BillStatus: getBillStatusName(item.BillStatus)
+    //                    });
+    //                });
+    //                $("#lbl-total-records").text(response.RowCount);
+    //                if (render != undefined) {
+    //                    $('#tbl-content').html(render);
+
+    //                }
+    //                wrapPaging(response.RowCount, function () {
+    //                    loadData();
+    //                }, isPageChanged);
+
+
+    //            }
+    //            else {
+    //                $("#lbl-total-records").text('0');
+    //                $('#tbl-content').html('');
+    //            }
+    //            onlineshop.stopLoading();
+    //        },
+    //        error: function (status) {
+    //            console.log(status);
+    //        }
+    //    });
+    //};
+
+    function loadData() {
+        $.fn.dataTable.moment('DD/MM/YYYY');
+        db = $('#zero_config').dataTable({
+            // the indexs of the column that want to have the dropdown filter
+            initComplete: function () {
+                this.api().columns([2]).every(function () {
+                    var column = this;
+                    var select = $('<select><option value="">--Payment method filter--</option></select>')
+                        .appendTo($(column.header()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
                         });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + getPaymentMethodName(d) + '</option>')
                     });
-                    $("#lbl-total-records").text(response.RowCount);
-                    if (render != undefined) {
-                        $('#tbl-content').html(render);
-
-                    }
-                    wrapPaging(response.RowCount, function () {
-                        loadData();
-                    }, isPageChanged);
-
-
-                }
-                else {
-                    $("#lbl-total-records").text('0');
-                    $('#tbl-content').html('');
-                }
-                onlineshop.stopLoading();
+                });
             },
-            error: function (status) {
-                console.log(status);
-            }
-        });
-    };
-    function getPaymentMethodName(paymentMethod) {
-        var method = $.grep(cachedObj.paymentMethods, function (element, index) {
-            return element.Value == paymentMethod;
-        });
-        if (method.length > 0)
-            return method[0].Name;
-        else return '';
-    }
-    function getBillStatusName(status) {
-        var status = $.grep(cachedObj.billStatuses, function (element, index) {
-            return element.Value == status;
-        });
-        if (status.length > 0)
-            return status[0].Name;
-        else return '';
-    }
-    function wrapPaging(recordCount, callBack, changePageSize) {
-        var totalsize = Math.ceil(recordCount / onlineshop.configs.pageSize);
-        //Unbind pagination if it existed or click change pagesize
-        if ($('#paginationUL a').length === 0 || changePageSize === true) {
-            $('#paginationUL').empty();
-            $('#paginationUL').removeData("twbs-pagination");
-            $('#paginationUL').unbind("page");
-        }
-        //Bind Pagination Event
-        $('#paginationUL').twbsPagination({
-            totalPages: totalsize,
-            visiblePages: 7,
-            first: 'Đầu',
-            prev: 'Trước',
-            next: 'Tiếp',
-            last: 'Cuối',
-            onPageClick: function (event, p) {
-                onlineshop.configs.pageIndex = p;
-                setTimeout(callBack(), 200);
-            }
+            processing: true, // for show progress bar
+            serverSide: false, // for process server side
+            destroy: true,
+            order: [[3, "desc"]],
+            ajax: {
+                type: 'GET',
+                url: '/admin/bill/GetAll',
+                dataSrc: '',
+                dataType: 'json'
+            },
+            columnDefs: [{
+                targets: [0, 1, 2, 3, 4],
+                autoWidth: true
+            }],
+            columnDefs: [{
+                targets: [0, 2, 4],
+                sortable: false
+            }],
+            columns: [
+                {
+                    data: "Id", render: function (data, type, row) {
+                        return ' <button style="width: 40px" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit" data-id="' + data + '" class="btn btn-success btn-view"><i class="fas fa-pencil-alt"></i></button> ';
+                    }
+                },
+                { data: "CustomerName" },
+                {
+                    data: "PaymentMethod", render: function (data, type, row) {
+                        return data = getPaymentMethodName(data)
+                    }
+                },
+              
+                {
+                    data: "DateCreated", render: function (data, type, row) {
+                        return data = moment(data).format('DD/MM/YYYY')
+                    }
+                },
+                {
+                    data: "BillStatus", render: function (data, type, row) {
+                        return data = getBillStatusName(data)
+                    }
+                }
+            ]
         });
     }
 }
