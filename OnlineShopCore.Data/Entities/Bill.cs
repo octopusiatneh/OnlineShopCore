@@ -15,7 +15,7 @@ namespace OnlineShopCore.Data.Entities
         public Bill() { }
 
         public Bill(string customerName, string customerAddress, string customerMobile, string customerMessage,
-            BillStatus billStatus, PaymentMethod paymentMethod, Status status, Guid? customerId)
+            BillStatus billStatus, PaymentMethod paymentMethod, Status status, Guid? customerId, DateTime dateCreated)
         {
             CustomerName = customerName;
             CustomerAddress = customerAddress;
@@ -24,11 +24,14 @@ namespace OnlineShopCore.Data.Entities
             BillStatus = billStatus;
             PaymentMethod = paymentMethod;
             Status = status;
+            
+            DateCreated = dateCreated;
+            DateModified = DateTime.Now;
             CustomerId = customerId;
         }
 
         public Bill(int id, string customerName, string customerAddress, string customerMobile, string customerMessage,
-           BillStatus billStatus, PaymentMethod paymentMethod, Status status, Guid? customerId)
+           BillStatus billStatus, PaymentMethod paymentMethod, Status status, Guid? customerId  )
         {
             Id = id;
             CustomerName = customerName;
@@ -37,6 +40,7 @@ namespace OnlineShopCore.Data.Entities
             CustomerMessage = customerMessage;
             BillStatus = billStatus;
             PaymentMethod = paymentMethod;
+            DateCreated = DateTime.Now;
             Status = status;
             CustomerId = customerId;
         }

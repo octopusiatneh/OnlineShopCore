@@ -19,11 +19,11 @@
         registerEvents();
     }
 
+   
+
     function registerEvents() {
-        $('#txtFromDate, #txtToDate').datepicker({
-            autoclose: true,
-            format: 'dd/mm/yyyy'
-        });
+        
+
         //Init validation
         $('#frmMaintainance').validate({
             errorClass: 'red',
@@ -37,15 +37,11 @@
                 ddlBillStatus: { required: true }
             }
         });
-        $('#txt-search-keyword').keypress(function (e) {
-            if (e.which === 13) {
-                e.preventDefault();
-                loadData();
-            }
-        });
-        $("#btn-search").on('click', function () {
-            loadData();
-        });
+
+
+
+     
+
 
         $("#btn-create").on('click', function () {
             resetFormMaintainance();
@@ -70,8 +66,8 @@
                 success: function (response) {
                     var data = response;
                     $('#hidId').val(data.Id);
-                    $('#txtCustomerName').val(data.CustomerName);
-
+                    $('#hidDateCreated').val(data.DateCreated);
+                    $('#txtCustomerName').val(data.CustomerName);    
                     $('#txtCustomerAddress').val(data.CustomerAddress);
                     $('#txtCustomerMobile').val(data.CustomerMobile);
                     $('#txtCustomerMessage').val(data.CustomerMessage);
@@ -115,6 +111,7 @@
             if ($('#frmMaintainance').valid()) {
                 e.preventDefault();
                 var id = $('#hidId').val();
+                var dateCreated = $('#hidDateCreated').val();
                 var customerName = $('#txtCustomerName').val();
                 var customerAddress = $('#txtCustomerAddress').val();
                 var customerId = $('#ddlCustomerId').val();
@@ -127,7 +124,7 @@
                 var billDetails = [];
                 $.each($('#tbl-bill-details tr'), function (i, item) {
                     billDetails.push({
-                        Id: $(item).data('id'),
+                        Id: $(item).data('id'),                       
                         ProductId: $(item).find('select.ddlProductId').first().val(),
                         Quantity: $(item).find('input.txtQuantity').first().val(),
                         ColorId: $(item).find('select.ddlColorId').first().val(),
@@ -142,7 +139,8 @@
                     data: {
                         Id: id,
                         BillStatus: billStatus,
-                        CustomerAddress: customerAddress,
+                        DateCreated: dateCreated,
+                        CustomerAddress: customerAddress,   
                         CustomerId: customerId,
                         CustomerMessage: customerMessage,
                         CustomerMobile: customerMobile,
@@ -182,6 +180,7 @@
                 {
                     Id: 0,
                     Products: products,
+                   
                     Colors: colors,
                     Sizes: sizes,
                     Quantity: 0,
@@ -406,6 +405,37 @@
     //};
 
     function loadData() {
+
+        $(document).ready(function () {
+            $.fn.dataTable.ext.search.push(
+                function (settings, data, dataIndex) {
+                    var min = $('#fromDate').datepicker("getDate");
+                    var max = $('#toDate').datepicker("getDate");
+                    var startDate = new Date(data[3]);
+                    if (min == null && max == null) { return true; }
+                    if (min == null && startDate <= max) { return true; }
+                    if (max == null && startDate >= min) { return true; }
+                    if (startDate <= max && startDate >= min) { return true; }
+                    return false;
+                }
+            );
+
+
+            $("#fromDate").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
+            $("#toDate").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
+            var table = $('#zero_config').DataTable();
+
+            // Event listener to the two range filtering inputs to redraw on input
+            $('#fromDate, #toDate').change(function () {
+                table.draw();
+            });
+
+        });
+
+
+
+
+
         $.fn.dataTable.moment('DD/MM/YYYY');
         db = $('#zero_config').dataTable({
             // the indexs of the column that want to have the dropdown filter

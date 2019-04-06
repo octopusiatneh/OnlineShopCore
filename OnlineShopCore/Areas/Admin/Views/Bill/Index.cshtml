@@ -10,6 +10,10 @@
     <script src="~/admin-side/assets/extra-libs/DataTables/datatables.min.js"></script>
     <script src="~/lib/datetime-moment/dist/datetime-moment.js"></script>
     <script>
+        var date = new Date().toJSON();
+        document.getElementById("hidDateCreated").value = date;
+    </script>
+    <script>
         var billObj = new BillController();
         billObj.initialize();
     </script>
@@ -27,22 +31,23 @@
 
         <div class="title_right">
 
-            <div class="row mb-3">
-                <div class="col-lg-3">
-                    <input type="text" id="txtFromDate" class="form-control" placeholder="From Date">
-                </div>
-                <div class="col-lg-3">
-                    <input type="text" id="txtToDate" class="form-control" placeholder="To date">
-                </div>
-                <div class="col-lg-3">
-                    <input type="text" id="txtSearchKeyword" class="form-control" placeholder="Tìm kiếm...">
-                </div>
-            </div>
+                <table border="0" cellspacing="5" cellpadding="5">
+                <tbody>
+                    <tr>
+                        <td>From Date:</td>
+                        <td><input name="FromDate" id="fromDate"  type="text"></td>
+                    </tr>
+                    <tr>
+                        <td>To Date:</td>
+                        <td><input name="ToDate" id="toDate"  type="text"></td>
+                    </tr>
+                </tbody>
+            </table>
 
             @*<div style="margin-left:5%" class="col-md-2 col-sm-2 col-xs-12 form-group">
-                    <button class="btn btn-default" id="btn-search" type="button">Search!</button>
-                    <button class="btn btn-success" id="btn-create" type="button">Create</button>
-                </div>*@
+            <button class="btn btn-default" id="btn-search" type="button">Search!</button>
+            <button class="btn btn-success" id="btn-create" type="button">Create</button>
+        </div>*@
         </div>
     </div>
 
@@ -98,8 +103,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="card-body">
-                    <button class="btn btn-success" id="btnCreate" type="button" data-toggle="tooltip" data-placement="bottom" title="Create new product" style="margin-bottom:15px">Create</button>
-                    <button class="btn btn-danger" id="btnCreate" type="button" data-toggle="tooltip" data-placement="bottom" title="Create new product" style="margin-bottom:15px">Search!</button>
+                    <button class="btn btn-success" id="btn-create" type="button" data-toggle="tooltip" data-placement="bottom" title="Create new product" style="margin-bottom:15px">Create</button>
+                    <button class="btn btn-danger" id="btn-search" type="button" data-toggle="tooltip" data-placement="bottom" title="Search product" style="margin-bottom:15px">Search!</button>
                     <div class="table-responsive">
                         <table id="zero_config" class="table table-striped table-bordered">
                             <thead>
