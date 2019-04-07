@@ -22,7 +22,8 @@
    
 
     function registerEvents() {
-        
+
+       
 
         //Init validation
         $('#frmMaintainance').validate({
@@ -434,6 +435,14 @@
             });
 
         });
+
+        $("#reset-date").click(function () {
+            $('#fromDate').val("").datepicker("update");
+        })
+
+        $("#reset-date2").click(function () {
+            $('#toDate').val("").datepicker("update");
+        })
 
         //init dataTables 
         db = $('#zero_config').dataTable({
