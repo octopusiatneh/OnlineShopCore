@@ -405,13 +405,16 @@
     //};
 
     function loadData() {
-
         $(document).ready(function () {
+            //init date column format as dd/mm/yyyy
+            $.fn.dataTable.moment('DD/MM/YYYY');
+            //init date range filter
             $.fn.dataTable.ext.search.push(
                 function (settings, data, dataIndex) {
                     var min = $('#fromDate').datepicker("getDate");
                     var max = $('#toDate').datepicker("getDate");
-                    var startDate = new Date(data[3]);
+                    var d = data[3].split("/");
+                    var startDate = new Date(d[1] + "/" + d[0] + "/" + d[2]);
                     if (min == null && max == null) { return true; }
                     if (min == null && startDate <= max) { return true; }
                     if (max == null && startDate >= min) { return true; }
@@ -432,11 +435,7 @@
 
         });
 
-
-
-
-
-        $.fn.dataTable.moment('DD/MM/YYYY');
+        //init dataTables 
         db = $('#zero_config').dataTable({
             // the indexs of the column that want to have the dropdown filter
             initComplete: function () {
@@ -455,9 +454,29 @@
                         });
 
                     column.data().unique().sort().each(function (d, j) {
-                        select.append('<option value="' + d + '">' + getPaymentMethodName(d) + '</option>')
+                        select.append('<option value="' + getPaymentMethodName(d) + '">' + getPaymentMethodName(d) + '</option>')
                     });
                 });
+
+                // the indexs of the column that want to have the dropdown filter
+                this.api().columns([4]).every(function () {
+                    var column = this;
+                    var select = $('<select><option value="">--Payment method filter--</option></select>')
+                        .appendTo($(column.header()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + getBillStatusName(d) + '">' + getBillStatusName(d) + '</option>')
+                    });
+                }); 
             },
             processing: true, // for show progress bar
             serverSide: false, // for process server side
