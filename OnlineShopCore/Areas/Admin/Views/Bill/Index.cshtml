@@ -33,13 +33,16 @@
 
                 <table border="0" cellspacing="5" cellpadding="5">
                 <tbody>
+
                     <tr>
                         <td>From Date:</td>
-                        <td><input name="FromDate" id="fromDate"  type="text" data-date-format='dd/mm/yyyy'></td>
-                    </tr>
+                        <td><input name="FromDate" id="fromDate" type="text" data-date-format='dd/mm/yyyy'></td>
+                        <td> <button id="reset-date"  onclick="document.getElementById('fromDate').value = ''">Clear</button></td>
+</tr>
                     <tr>
                         <td>To Date:</td>
-                        <td><input name="ToDate" id="toDate"  type="text"></td>
+                        <td><input name="ToDate" id="toDate" type="text"></td>
+                        <td> <button id="reset-date2" onclick="document.getElementById('toDate').value = ''">Clear</button></td>
                     </tr>
                 </tbody>
             </table>
