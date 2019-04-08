@@ -38,11 +38,6 @@
             }
         });
 
-
-
-     
-
-
         $("#btn-create").on('click', function () {
             resetFormMaintainance();
             $('#modal-detail').modal('show');
@@ -352,57 +347,6 @@
         $('#ddlBillStatus').val('');
         $('#tbl-bill-details').html('');
     }
-
-    //function loadData(isPageChanged) {
-    //    $.ajax({
-    //        type: "GET",
-    //        url: "/admin/bill/GetAllPaging",
-    //        data: {
-    //            startDate: $('#txtFromDate').val(),
-    //            endDate: $('#txtToDate').val(),
-    //            keyword: $('#txtSearchKeyword').val(),
-    //            page: onlineshop.configs.pageIndex,
-    //            pageSize: onlineshop.configs.pageSize
-    //        },
-    //        dataType: "json",
-    //        beforeSend: function () {
-    //            onlineshop.startLoading();
-    //        },
-    //        success: function (response) {
-    //            var template = $('#table-template').html();
-    //            var render = "";
-    //            if (response.RowCount > 0) {
-    //                $.each(response.Results, function (i, item) {
-    //                    render += Mustache.render(template, {
-    //                        CustomerName: item.CustomerName,
-    //                        Id: item.Id,
-    //                        PaymentMethod: getPaymentMethodName(item.PaymentMethod),
-    //                        DateCreated: onlineshop.dateTimeFormatJson(item.DateCreated),
-    //                        BillStatus: getBillStatusName(item.BillStatus)
-    //                    });
-    //                });
-    //                $("#lbl-total-records").text(response.RowCount);
-    //                if (render != undefined) {
-    //                    $('#tbl-content').html(render);
-
-    //                }
-    //                wrapPaging(response.RowCount, function () {
-    //                    loadData();
-    //                }, isPageChanged);
-
-
-    //            }
-    //            else {
-    //                $("#lbl-total-records").text('0');
-    //                $('#tbl-content').html('');
-    //            }
-    //            onlineshop.stopLoading();
-    //        },
-    //        error: function (status) {
-    //            console.log(status);
-    //        }
-    //    });
-    //};
 
     function loadData() {
         $(document).ready(function () {
