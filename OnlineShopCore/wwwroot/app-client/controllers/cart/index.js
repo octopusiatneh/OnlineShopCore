@@ -77,7 +77,7 @@
                         size: sizeId
                     },
                     success: function () {
-                        onlineshop.notify('Update quantity successfully', 'success');
+                        onlineshop.notify('Update color successfully', 'success');
                         loadHeaderCart();
                         loadData();
                     }
@@ -129,6 +129,7 @@
                     });
                     loadHeaderCart();
                     loadHeader();
+                    loadHeaderMobile();
                     loadData();
                 }
             });
@@ -189,6 +190,9 @@
     }
     function loadHeader() {
         $("#cartButton").load("/AjaxContent/Header");
+    }
+    function loadHeaderMobile() {
+        $("#cartButtonMobile").load("/AjaxContent/HeaderMobile");
     }
     function loadData() {
         $.ajax({

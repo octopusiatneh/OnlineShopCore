@@ -17,5 +17,10 @@ namespace OnlineShopCore.Controllers
         {
             return ViewComponent("HeaderCart");
         }
+
+        public IActionResult HeaderMobile()
+        {
+            return ViewComponent("HeaderMobile");
+        }
     }
 }

@@ -23,6 +23,7 @@
                 success: function () {
                     loadHeaderCart();
                     loadHeader();
+                    loadHeaderMobile();
                 }
             });
         });
@@ -33,5 +34,9 @@
 
     function loadHeader() {
         $("#cartButton").load("/AjaxContent/Header");
+    }
+
+    function loadHeaderMobile() {
+        $("#cartButtonMobile").load("/AjaxContent/HeaderMobile");
     }
 }
