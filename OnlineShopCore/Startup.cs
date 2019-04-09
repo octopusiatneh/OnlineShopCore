@@ -26,6 +26,10 @@ using Microsoft.AspNetCore.Authorization;
 using OnlineShopCore.Authorization;
 using PaulMiami.AspNetCore.Mvc.Recaptcha;
 using OnlineShopCore.Hubs;
+using Microsoft.AspNetCore.Mvc.Razor;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
 
 namespace OnlineShopCore
 {
@@ -72,10 +76,11 @@ namespace OnlineShopCore
                 options.Cookie.HttpOnly = true;
             });
             services.AddAutoMapper();
-            services.AddRecaptcha(new RecaptchaOptions {
-                SiteKey=Configuration["Recaptcha:SiteKey"],
-                SecretKey=Configuration["Recaptcha:SecretKey"]
-            });;
+            services.AddRecaptcha(new RecaptchaOptions
+            {
+                SiteKey = Configuration["Recaptcha:SiteKey"],
+                SecretKey = Configuration["Recaptcha:SecretKey"]
+            }); ;
             services.AddAuthentication()
                 .AddFacebook(facebookOpts =>
                 {
@@ -101,7 +106,30 @@ namespace OnlineShopCore
 
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
 
-            services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+            services.AddMvc().AddViewLocalization(
+                    LanguageViewLocationExpanderFormat.Suffix,
+                    opts => { opts.ResourcesPath = "Resources"; })
+                .AddDataAnnotationsLocalization()
+                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+
+            services.AddLocalization(opts => { opts.ResourcesPath = "Resources"; });
+
+            services.Configure<RequestLocalizationOptions>(
+             opts =>
+             {
+                 var supportedCultures = new List<CultureInfo>
+                 {
+                        new CultureInfo("en-US"),
+                        new CultureInfo("vi-VN")
+                 };
+
+                 opts.DefaultRequestCulture = new RequestCulture("en-US");
+                  // Formatting numbers, dates, etc.
+                  opts.SupportedCultures = supportedCultures;
+                  // UI strings that we have localized.
+                  opts.SupportedUICultures = supportedCultures;
+             });
+
 
             services.AddTransient(typeof(IUnitOfWork), typeof(EFUnitOfWork));
             services.AddTransient(typeof(IRepository<,>), typeof(EFRepository<,>));
@@ -133,10 +161,10 @@ namespace OnlineShopCore
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ISlideService, SlideService>();
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IRoleService, RoleService>(); 
-            services.AddTransient<IAuthorizationHandler,BaseResourceAuthorizationHandler>();
+            services.AddTransient<IRoleService, RoleService>();
+            services.AddTransient<IAuthorizationHandler, BaseResourceAuthorizationHandler>();
             services.AddTransient<IBillService, BillService>();
-                   
+
             services.AddTransient<IFeedbackService, FeedbackService>();
             services.AddTransient<IContactService, ContactService>();
             //SignalR
@@ -151,6 +179,9 @@ namespace OnlineShopCore
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(options.Value);
 
             app.UseMvc(routes =>
             {

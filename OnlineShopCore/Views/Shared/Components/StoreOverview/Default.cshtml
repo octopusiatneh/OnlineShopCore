@@ -1,11 +1,12 @@
 ﻿@model HomeViewModel
 
+@inject IViewLocalizer Localizer
 <!-- Product -->
 <section class="sec-product bg0 p-t-100 p-b-50">
     <div class="container">
         <div class="p-b-32">
             <h3 class="ltext-105 cl5 txt-center respon1">
-                Store Overview
+                @Localizer["StoreOverview"]
             </h3>
         </div>
 
@@ -14,15 +15,15 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item p-b-10">
-                    <a class="nav-link active" data-toggle="tab" href="#best-seller" role="tab">Hot</a>
+                    <a class="nav-link active" data-toggle="tab" href="#best-seller" role="tab">@Localizer["Hot"]</a>
                 </li>
 
                 <li class="nav-item p-b-10">
-                    <a class="nav-link" data-toggle="tab" href="#featured" role="tab">New</a>
+                    <a class="nav-link" data-toggle="tab" href="#featured" role="tab">@Localizer["New"]</a>
                 </li>
 
                 <li class="nav-item p-b-10">
-                    <a class="nav-link" data-toggle="tab" href="#sale" role="tab">Top rate</a>
+                    <a class="nav-link" data-toggle="tab" href="#sale" role="tab">@Localizer["Toprate"]</a>
                 </li>
             </ul>
 
@@ -91,7 +92,7 @@
                     </div>
                 </div>
 
-                <!--New--> 
+                <!--New-->
                 <div class="tab-pane fade" id="featured" role="tabpanel">
                     <!-- Slide2 -->
                     <div class="wrap-slick2">

@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Localization
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Home</title>
@@ -40,12 +45,12 @@
 <body class="animsition">
 
     <!-- Header -->
-    <partial name="_Header.cshtml"/>
+    <partial name="_Header.cshtml" />
     <!-- Body -->
     @RenderBody()
 
     <!-- Footer -->
-    <partial name="_Footer.cshtml"/>
+    <partial name="_Footer.cshtml" />
 
     <!-- Back to top -->
     <div class="btn-back-to-top" id="myBtn">
@@ -237,10 +242,11 @@
     <script src="~/lib/mustache/mustache.js"></script>
     <script src="~/lib/notifyjs/dist/notify.js"></script>
     <script src="~/lib/notifyjs/dist/styles/metro/notify-metro.js"></script>
+    <script src="~/app-client/shared/localize/resources.@(requestCulture.RequestCulture.Culture.Name).js"></script>
     <script src="~/app-client/shared/onlineshop.js"></script>
     <script src="~/app-client/controllers/base/index.js"></script>
 
-    <script>   
+    <script>
         var baseObj = new BaseController();
         baseObj.initialize();
     </script>

@@ -1,4 +1,6 @@
-﻿@{
+﻿@inject IViewLocalizer Localizer
+
+@{
     ViewData["Title"] = "Index";
 }
 
@@ -13,12 +15,12 @@
 <div class="container">
     <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
         <a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
-            Home
+            @Localizer["Home"]
             <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
         </a>
 
         <span class="stext-109 cl4">
-            Shoping Cart
+            @Localizer["ShopingCart"]
         </span>
     </div>
 </div>
@@ -34,11 +36,11 @@
                         <table class="table-shopping-cart">
                             <thead>
                                 <tr class="table_head">
-                                    <th class="column-1">Product</th>
+                                    <th class="column-1">@Localizer["Product"]</th>
                                     <th class="column-2"></th>
-                                    <th class="column-3 txt-center">Price</th>
-                                    <th class="column-4"><p class="txt-center">Quantity</p></th>
-                                    <th class="column-4 "><p class="txt-center">Total</p></th>
+                                    <th class="column-3 txt-center">@Localizer["Price"]</th>
+                                    <th class="column-4"><p class="txt-center">@Localizer["Quantity"]</p></th>
+                                    <th class="column-4 "><p class="txt-center">@Localizer["Total"]</p></th>
                                     <td class="column-1"></td>
                                 </tr>
                             </thead>
@@ -61,7 +63,7 @@
                                 <td class="column-1">
                                     <div class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5 m-r-50">
                                         <a data-id="{{ProductId}}" class="btn-delete">
-                                            Delete
+                                            @Localizer["Delete"]
                                         </a>
                                     </div>
                                 </td>
@@ -73,20 +75,20 @@
                         <div class="flex-w flex-m m-r-20 m-tb-5">
                             <div class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
                                 <a id="btnClearAll">
-                                    Clear cart
+                                    @Localizer["ClearCart"]
                                 </a>
                             </div>
                         </div>
 
                         <div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
                             <a id="btnContinueShopping" href="/products.html">
-                                Continue shopping
+                                @Localizer["ContinueShopping"]
                             </a>
                         </div>
 
                         <div class="flex-w flex-t p-t-27 p-b-33">
                             <a id="btnCheckout" href="javascript:(0)" onClick="location.href='/checkout.html'" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-                                Proceed to Checkout
+                                @Localizer["ProceedToCheckout"]
                             </a>
                         </div>
                     </div>

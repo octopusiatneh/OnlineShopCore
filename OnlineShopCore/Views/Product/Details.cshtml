@@ -1,4 +1,5 @@
 ﻿@model DetailViewModel
+@inject IViewLocalizer Localizer
 @{
     ViewData["Title"] = Model.Product.Name;
     var category = Model.Category;
@@ -168,7 +169,7 @@
                     <div class="p-t-33">
                         <div class="flex-w flex-r-m p-b-10">
                             <div class="size-203 flex-c-m respon6">
-                                Size
+                                @Localizer["Size"]
                             </div>
 
                             <div class="size-204 respon6-next">
@@ -181,7 +182,7 @@
 
                         <div class="flex-w flex-r-m p-b-10">
                             <div class="size-203 flex-c-m respon6">
-                                Color
+                                @Localizer["Color"]
                             </div>
 
                             <div class="size-204 respon6-next">
@@ -207,7 +208,7 @@
                                 </div>
 
                                 <button id="btnAddToCart" data-id="@product.Id" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                    Add to cart
+                                    @Localizer["AddToCart"]
                                 </button>
                             </div>
                         </div>
@@ -243,11 +244,11 @@
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item p-b-10">
-                        <a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a>
+                        <a class="nav-link active" data-toggle="tab" href="#description" role="tab">@Localizer["Description"]</a>
                     </li>
 
                     <li class="nav-item p-b-10">
-                        <a class="nav-link" data-toggle="tab" href="#information" role="tab">Additional information</a>
+                        <a class="nav-link" data-toggle="tab" href="#information" role="tab">@Localizer["AdditionalInformation"]</a>
                     </li>
                 </ul>
 
@@ -269,7 +270,7 @@
                                 <ul class="p-lr-28 p-lr-15-sm">
                                     <li class="flex-w flex-t p-b-7">
                                         <span class="stext-102 cl3 size-205">
-                                            Weight
+                                            @Localizer["Weight"]
                                         </span>
 
                                         <span class="stext-102 cl6 size-206">
@@ -279,7 +280,7 @@
 
                                     <li class="flex-w flex-t p-b-7">
                                         <span class="stext-102 cl3 size-205">
-                                            Dimensions
+                                            @Localizer["Dimensions"]
                                         </span>
 
                                         <span class="stext-102 cl6 size-206">
@@ -289,7 +290,7 @@
 
                                     <li class="flex-w flex-t p-b-7">
                                         <span class="stext-102 cl3 size-205">
-                                            Materials
+                                            @Localizer["Materials"]
                                         </span>
 
                                         <span class="stext-102 cl6 size-206">
@@ -299,7 +300,7 @@
 
                                     <li class="flex-w flex-t p-b-7">
                                         <span class="stext-102 cl3 size-205">
-                                            Color
+                                            @Localizer["Color"]
                                         </span>
 
                                         <span class="stext-102 cl6 size-206">
@@ -309,7 +310,7 @@
 
                                     <li class="flex-w flex-t p-b-7">
                                         <span class="stext-102 cl3 size-205">
-                                            Size
+                                            @Localizer["Size"]
                                         </span>
 
                                         <span class="stext-102 cl6 size-206">
@@ -350,7 +351,7 @@
     <div class="container">
         <div class="p-b-45">
             <h3 class="ltext-106 cl5 txt-center">
-                Related Products
+                @Localizer["RelatedProducts"]
             </h3>
         </div>
 

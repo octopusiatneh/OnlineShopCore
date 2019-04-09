@@ -1,5 +1,5 @@
 ﻿@model ContactPageViewModel
-
+@inject IViewLocalizer Localizer
 @section Scripts{
     <!-- OpenMap -->
     <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
@@ -20,7 +20,7 @@
 <!-- Title page -->
 <section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('/client-side/images/bg-01.jpg');">
     <h2 class="ltext-105 cl0 txt-center">
-        Contact
+        @Localizer["Contact"]
     </h2>
 </section>
 
@@ -32,16 +32,16 @@
         {
             if ((bool)ViewData["Success"] == true)
             {
-                <div class="alert alert-success">
-                    Thank you for your feedback. We are going to reply you soon.
-                </div>
+        <div class="alert alert-success">
+            @Localizer["Thankyou"]
+        </div>
 
             }
             else
             {
-                <div class="alert alert-danger">
-                    Have an error in send feedback progress. Please contact to administrator.
-                </div>
+        <div class="alert alert-danger">
+            @Localizer["HaveAnError"]
+        </div>
 
             }
         }
@@ -51,25 +51,25 @@
                 <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
 
                     <h4 class="mtext-105 cl2 txt-center p-b-30">
-                        Send Us A Message
+                        @Localizer["SendMess"]
                     </h4>
 
                     <form action="/contact.html" method="post">
                         @Html.AntiForgeryToken()
                         <div class="bor8 m-b-20 how-pos4-parent">
-                            <input asp-for="Feedback.Email" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" placeholder="Your Email Address">
+                            <input asp-for="Feedback.Email" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" placeholder="@Localizer["YourEmailAddress"]">
                             <img class="how-pos4 pointer-none" src="~/client-side/images/icons/icon-email.png" alt="ICON">
                         </div>
                         <span class="text-danger" asp-validation-for="Feedback.Email"></span>
                         <div class="bor8 m-b-30">
-                            <textarea asp-for="Feedback.Message" class="stext-111 cl2 plh3 size-120 p-lr-28 p-tb-25" placeholder="How Can We Help?"></textarea>
+                            <textarea asp-for="Feedback.Message" class="stext-111 cl2 plh3 size-120 p-lr-28 p-tb-25" placeholder="@Localizer["HowCanWeHelp"]"></textarea>
                         </div>
                         <span class="text-danger" asp-validation-for="Feedback.Message"></span>
                         <!--recaptcha-->
                         <recaptcha />
                         <span class="text-danger" id="recaptchaErrorMessage"></span>
                         <button type="submit" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
-                            Send
+                            @Localizer["Send"]
                         </button>
                     </form>
                 </div>
@@ -82,7 +82,7 @@
 
                         <div class="size-212 p-t-2">
                             <span class="mtext-110 cl2">
-                                Address
+                                @Localizer["Address"]
                             </span>
 
                             <p class="stext-115 cl6 size-213 p-t-18">
@@ -98,7 +98,7 @@
 
                         <div class="size-212 p-t-2">
                             <span class="mtext-110 cl2">
-                                Lets Talk
+                                @Localizer["LetsTalk"]
                             </span>
 
                             <p class="stext-115 cl1 size-213 p-t-18">
@@ -114,7 +114,7 @@
 
                         <div class="size-212 p-t-2">
                             <span class="mtext-110 cl2">
-                                Email
+                                @Localizer["Email"]
                             </span>
 
                             <p class="stext-115 cl1 size-213 p-t-18">

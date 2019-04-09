@@ -222,7 +222,7 @@
                 if (render !== "")
                     $('#table-cart-content').html(render);
                 else
-                    $('#cuocDoiNayKhoQuaMa').html('Your cart is empty');
+                    $('#cuocDoiNayKhoQuaMa').html(resources["YourCartIsEmpty"]);
             }
         });
         return false;
