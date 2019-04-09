@@ -1,0 +1,9 @@
+{
+  "publishOptions": {
+    "include": [
+      "wwwroot",
+      "web.config",
+      "app.yaml"
+    ]
+  }
+}
