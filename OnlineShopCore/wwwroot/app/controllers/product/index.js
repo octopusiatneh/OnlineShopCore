@@ -138,7 +138,8 @@ var productController = function () {
                     success: function (response) {
                         onlineshop.notify('Delete successful', 'success');
                         onlineshop.stopLoading();
-                        loadData();
+                        $('#zero_config').DataTable().ajax.reload()
+                       
                     },
                     error: function (status) {
                         onlineshop.notify('Has an error in delete progress', 'error');
@@ -210,8 +211,7 @@ var productController = function () {
                         resetFormMaintainance();
 
                         onlineshop.stopLoading();
-                        db.ajax.reload();
-                        //loadData(true);
+                        $('#zero_config').DataTable().ajax.reload()
                     },
                     error: function () {
                         onlineshop.notify('Has an error in saving product progress', 'error');
@@ -382,7 +382,6 @@ var productController = function () {
             },           
             processing: true, // for show progress bar
             serverSide: false, // for process server side
-            destroy: true,
             order: [[5, "desc"]],
             ajax: {
                 type: 'GET',
