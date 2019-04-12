@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Proceedtocheckout" xml:space="preserve">
-    <value>Tiến hành kiểm tra</value>
+    <value>Tiến hành đặt hàng</value>
   </data>
   <data name="Total" xml:space="preserve">
     <value>Tổng cộng</value>
@@ -127,6 +127,6 @@
     <value>Giỏ hàng của bạn</value>
   </data>
   <data name="YourCartIsEmpty" xml:space="preserve">
-    <value>Giỏ hàng chưa có gì</value>
+    <value>Giỏ hàng trống</value>
   </data>
 </root>

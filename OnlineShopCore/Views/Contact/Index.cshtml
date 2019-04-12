@@ -99,11 +99,12 @@
                         <div class="size-212 p-t-2">
                             <span class="mtext-110 cl2">
                                 @Localizer["LetsTalk"]
+                                <br />
                             </span>
 
-                            <p class="stext-115 cl1 size-213 p-t-18">
+                            <a href="tel:@Model.Contact.Phone" class="stext-115 cl1 size-213 p-t-18">
                                 @Model.Contact.Phone
-                            </p>
+                            </a>
                         </div>
                     </div>
 
@@ -115,11 +116,12 @@
                         <div class="size-212 p-t-2">
                             <span class="mtext-110 cl2">
                                 @Localizer["Email"]
+                                <br/>
                             </span>
 
-                            <p class="stext-115 cl1 size-213 p-t-18">
+                            <a href="mailto:@Model.Contact.Email" class="stext-115 cl1 size-213 p-t-18">
                                 @Model.Contact.Email
-                            </p>
+                            </a>
                         </div>
                     </div>
                 </div>

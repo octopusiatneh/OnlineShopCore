@@ -130,7 +130,7 @@
     <value>Trang chủ</value>
   </data>
   <data name="Price" xml:space="preserve">
-    <value>Giá</value>
+    <value>Đơn giá</value>
   </data>
   <data name="ProceedToCheckout" xml:space="preserve">
     <value>Tiến hành đặt hàng</value>

@@ -105,6 +105,8 @@ namespace OnlineShopCore
             services.AddTransient<DbInitializer>();
 
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
+            //add pwa service
+            services.AddProgressiveWebApp();
 
             services.AddMvc().AddViewLocalization(
                     LanguageViewLocationExpanderFormat.Suffix,
