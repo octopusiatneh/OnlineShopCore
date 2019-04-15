@@ -13,6 +13,9 @@ using OnlineShopCore.Utilities.Extensions;
 using System.IO;
 using OfficeOpenXml;
 using OnlineShopCore.Utilities.Helpers;
+using Microsoft.AspNetCore.SignalR;
+using OnlineShopCore.Hubs;
+using OnlineShopCore.Application.ViewModels.System;
 
 namespace OnlineShopCore.Areas.Admin.Controllers
 {
@@ -20,10 +23,13 @@ namespace OnlineShopCore.Areas.Admin.Controllers
     {
         private readonly IBillService _billService;
         private readonly IHostingEnvironment _hostingEnvironment;
-        public BillController(IBillService billService, IHostingEnvironment hostingEnvironment)
+        private readonly IHubContext<ChatHub> _hubContext;
+        public BillController(IBillService billService, IHostingEnvironment hostingEnvironment,
+           IHubContext<ChatHub> hubContext)
         {
             _billService = billService;
             _hostingEnvironment = hostingEnvironment;
+            _hubContext = hubContext;
         }
 
         public IActionResult Index()
@@ -67,10 +73,25 @@ namespace OnlineShopCore.Areas.Admin.Controllers
                 IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
                 return new BadRequestObjectResult(allErrors);
             }
+         
+
             if (billVm.Id == 0)
             {
                 _billService.Create(billVm);
+                var announcement = new AnnouncementViewModel()
+                {
+                    Content = $"New bill from {billVm.CustomerName}",
+                    DateCreated = DateTime.Now,
+                    Status = Status.Active,
+                    Title = "New bill",
+                   // BillId =  billVm.Id,
+                  //Id = billVm.Id
+
+                };
+                
+                 _hubContext.Clients.All.SendAsync("ReceiveMessage", announcement);
             }
+
             else
             {
                 _billService.Update(billVm);

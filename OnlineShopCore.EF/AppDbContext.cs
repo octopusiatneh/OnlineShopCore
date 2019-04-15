@@ -29,7 +29,7 @@ namespace OnlineShopCore.Data.EF
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<AppRole> AppRoles { get; set; }
         public DbSet<Announcement> Announcements { set; get; }
-        public DbSet<AnnouncementUser> AnnouncementUsers { set; get; }
+        public DbSet<AnnouncementBill> AnnouncementBills { set; get; }
 
         public DbSet<Blog> Bills { set; get; }
         public DbSet<BillDetail> BillDetails { set; get; }

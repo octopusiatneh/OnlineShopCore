@@ -14,7 +14,7 @@ namespace OnlineShopCore.Data.Entities
     {
         public Announcement()
         {
-            AnnouncementUsers = new List<AnnouncementUser>();
+            AnnouncementBills = new List<AnnouncementBill>();
         }
 
         [Required]
@@ -24,12 +24,12 @@ namespace OnlineShopCore.Data.Entities
         [StringLength(250)]
         public string Content { set; get; }
 
-        public Guid UserId { set; get; }
+        public int BillId { set; get; }
 
-        [ForeignKey("UserId")]
-        public virtual AppUser AppUser { get; set; }
+        [ForeignKey("BillId")]
+        public virtual Bill Bill { get; set; }
 
-        public virtual ICollection<AnnouncementUser> AnnouncementUsers { get; set; }
+        public virtual ICollection<AnnouncementBill> AnnouncementBills { get; set; }
         public DateTime DateCreated { set; get; }
         public DateTime DateModified { set; get; }
         public Status Status { set; get; }

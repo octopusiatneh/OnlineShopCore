@@ -7,13 +7,13 @@ using OnlineShopCore.Infrastructure.SharedKernel;
 
 namespace OnlineShopCore.Data.Entities
 {
-    [Table("AnnouncementUsers")]
-    public class AnnouncementUser : DomainEntity<int>
+    [Table("AnnouncementBills")]
+    public class AnnouncementBill : DomainEntity<int>
     {
         [Required]
         public string AnnouncementId { get; set; }
 
-        public Guid UserId { get; set; }
+       public int BillId { get; set; }
 
         public bool? HasRead { get; set; }
 
