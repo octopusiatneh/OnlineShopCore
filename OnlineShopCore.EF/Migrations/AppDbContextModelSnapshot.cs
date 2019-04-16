@@ -167,7 +167,7 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("BillId");
+                    b.Property<int?>("BillId");
 
                     b.Property<string>("Content")
                         .HasMaxLength(250);
@@ -197,8 +197,6 @@ namespace OnlineShopCore.Data.EF.Migrations
 
                     b.Property<string>("AnnouncementId")
                         .IsRequired();
-
-                    b.Property<int>("BillId");
 
                     b.Property<bool?>("HasRead");
 
@@ -914,8 +912,7 @@ namespace OnlineShopCore.Data.EF.Migrations
                 {
                     b.HasOne("OnlineShopCore.Data.Entities.Bill", "Bill")
                         .WithMany()
-                        .HasForeignKey("BillId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("BillId");
                 });
 
             modelBuilder.Entity("OnlineShopCore.Data.Entities.AnnouncementBill", b =>

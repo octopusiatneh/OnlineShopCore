@@ -10,17 +10,33 @@ using OnlineShopCore.Extensions;
 using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Application.ViewModels.Product;
 using OnlineShopCore.Data.Enums;
+using Microsoft.AspNetCore.SignalR;
+using OnlineShopCore.Infrastructure.Interfaces;
+using OnlineShopCore.Data.Entities;
+using OnlineShopCore.Hubs;
+using OnlineShopCore.Application.ViewModels.System;
 
 namespace OnlineShopCore.Controllers
 {
     public class CartController : Controller
     {
-        IProductService _productService;
-        IBillService _billService;
-        public CartController(IProductService productService, IBillService billService)
+        private readonly IProductService _productService;
+        private readonly IHubContext<ChatHub> _hubContext;
+        private readonly IRepository<Announcement, string> _annouRepository;
+        private readonly IRepository<AnnouncementBill, int> _annouBillRepository;
+        private readonly IBillService _billService;
+        private readonly IUnitOfWork _unitOfWork;
+        public CartController(IProductService productService, IBillService billService, IRepository<Announcement, string> annouRepository,
+            IRepository<AnnouncementBill, int> annouBillRepository,
+            IUnitOfWork unitOfWork,
+           IHubContext<ChatHub> hubContext)
         {
             _productService = productService;
             _billService = billService;
+            _annouRepository = annouRepository;
+            _annouBillRepository = annouBillRepository;
+            _unitOfWork = unitOfWork;
+            _hubContext = hubContext;
         }
         [Route("shopping-cart.html", Name = "Cart")]
         public IActionResult Index()
@@ -46,10 +62,10 @@ namespace OnlineShopCore.Controllers
         [Route("checkout.html", Name = "Checkout")]
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public async Task <IActionResult> Checkout(CheckoutViewModel model)
+        public async Task<IActionResult> Checkout(CheckoutViewModel model)
         {
             var session = HttpContext.Session.Get<List<ShoppingCartViewModel>>(CommonConstants.CartSession);
-            
+
             if (ModelState.IsValid)
             {
                 if (session != null)
@@ -81,10 +97,24 @@ namespace OnlineShopCore.Controllers
                     {
                         billViewModel.CustomerId = Guid.Parse(User.GetSpecificClaim("UserId"));
                     }
-                    _billService.Create(billViewModel);
+
+                    var notificationId = Guid.NewGuid().ToString();
+                    var announcement = new AnnouncementViewModel()
+                    {
+                        Content = $"New bill from {billViewModel.CustomerName}",
+                        DateCreated = DateTime.Now,
+                        Id = notificationId,
+                        Status = Status.Active,
+                        Title = "New bill",
+                    };
+                    var announcementBills = new List<AnnouncementBillViewModel>()
+                {
+                    new AnnouncementBillViewModel(){AnnouncementId = notificationId,HasRead = false}
+                };
                     try
                     {
-
+                        _billService.Create(announcement, announcementBills, billViewModel);
+                        await _hubContext.Clients.All.SendAsync("ReceiveMessage", announcement);
                         _billService.Save();
                         ClearCart();
                         //var content = await _viewRenderService.RenderToStringAsync("Cart/_BillMail", billViewModel);
@@ -100,8 +130,6 @@ namespace OnlineShopCore.Controllers
 
                 }
             }
-            //model.Carts = session;
-            //return View(model);
             return View();
         }
 

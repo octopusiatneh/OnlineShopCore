@@ -17,7 +17,7 @@
     <link href="~/lib/ckeditor/skins/moono/editor.css" rel="stylesheet" />
     <!-- Custom CSS -->
     <link href="~/admin-side/dist/css/style.min.css" rel="stylesheet" />
-    @RenderSection("Styles",required:false)
+    @RenderSection("Styles", required: false)
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -120,48 +120,13 @@
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav float-right">
-                        <!-- ============================================================== -->
-                        <!-- Comment -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="mdi mdi-bell font-24"></i>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- End Comment -->
-                        <!-- ============================================================== -->
-                        <!-- ============================================================== -->
-                        <!-- Messages -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" id="announcementArea">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="font-24 mdi mdi-comment-processing"></i>
+                                <i class="mdi mdi-bell font-24"></i>
+                                <span ><label id="totalAnnouncement"></label></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown" aria-labelledby="2">
-                                <ul class="list-style-none">
-                                    <li>
-                                        <div class="">
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)" class="link border-top">
-                                                <div class="d-flex no-block align-items-center p-10">
-                                                    <span class="btn btn-success btn-circle"><i class="ti-calendar"></i></span>
-                                                    <div class="m-l-10">
-                                                        <h5 class="m-b-0">Event today</h5>
-                                                        <span class="mail-desc">Just a reminder that event</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                      
-                                        </div>
-                                    </li>
-                                </ul>
+                                <ul class="list-style-none" role="menu" id="announcementList"></ul>
                             </div>
                         </li>
                         <!-- ============================================================== -->
@@ -222,10 +187,32 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
+    <script id="announcement-template" type="x-tmpl-mustache">
+        <li>
+            <!-- Message -->
+            <a href="javascript:void(0)" class="link border-top">
+                <div class="d-flex no-block align-items-center p-10">
+                    <span class="btn btn-success btn-circle"><i class="ti-calendar"></i></span>
+                    <div class="m-l-10">
+                        <h5 class="m-b-0">{{Content}}</h5>
+                        <span class="mail-desc">{{DateCreated}}</span>
+                    </div>
+                </div>
+            </a>
+        </li>
+    </script>
 
-
+    <script id="announcement-tag-template" type="x-tmpl-mustache">
+        <li>
+            <div class="text-center">
+                <a>
+                    <strong>See All Alerts</strong>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+        </li>
+    </script>
     <script src="~/lib/signalr/dist/browser/signalr.js"></script>
-
     <script src="~/admin-side/assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="~/admin-side/assets/libs/moment/moment.js"></script>
@@ -260,9 +247,12 @@
     <script src="~/admin-side/assets/libs/flot/jquery.flot.crosshair.js"></script>
     <script src="~/admin-side/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="~/admin-side/dist/js/pages/chart/chart-page-init.js"></script>
-
-    <script src="~/app/shared/signalR.js"></script>
-
+    <script src="~/app/shared/base.js" asp-append-version="true"></script>
+    <script src="~/app/shared/signalR.js" asp-append-version="true"></script>
+    <script>
+        var baseObj = new BaseController();
+        baseObj.initialize();
+    </script>
 
     @RenderSection("Scripts", required: false)
 </body>

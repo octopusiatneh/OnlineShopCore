@@ -17,14 +17,19 @@ namespace OnlineShopCore.Data.Entities
             AnnouncementBills = new List<AnnouncementBill>();
         }
 
+        public Announcement(string title, string content, Status status)
+        {
+            Title = title;
+            Content = content;
+            Status = status;
+        }
+
         [Required]
         [StringLength(250)]
         public string Title { set; get; }
 
         [StringLength(250)]
         public string Content { set; get; }
-
-        public int BillId { set; get; }
 
         [ForeignKey("BillId")]
         public virtual Bill Bill { get; set; }

@@ -10,10 +10,14 @@ namespace OnlineShopCore.Data.Entities
     [Table("AnnouncementBills")]
     public class AnnouncementBill : DomainEntity<int>
     {
+        public AnnouncementBill(string announcementId, bool? hasRead)
+        {
+            AnnouncementId = announcementId;
+            HasRead = hasRead;
+        }
+
         [Required]
         public string AnnouncementId { get; set; }
-
-       public int BillId { get; set; }
 
         public bool? HasRead { get; set; }
 

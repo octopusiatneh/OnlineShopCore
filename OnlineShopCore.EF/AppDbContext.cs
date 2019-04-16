@@ -21,7 +21,6 @@ namespace OnlineShopCore.Data.EF
         public AppDbContext(DbContextOptions options) : base(options)
         {
         }
-
         public DbSet<Language> Languages { set; get; }
         public DbSet<SystemConfig> SystemConfigs { get; set; }
         public DbSet<Function> Functions { get; set; }

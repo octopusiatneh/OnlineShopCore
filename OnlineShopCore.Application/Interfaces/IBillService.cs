@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using OnlineShopCore.Application.ViewModels.Product;
+using OnlineShopCore.Application.ViewModels.System;
 using OnlineShopCore.Data.Enums;
 using OnlineShopCore.Utilities.Dtos;
 
@@ -9,7 +10,7 @@ namespace OnlineShopCore.Application.Interfaces
 {
     public interface IBillService
     {
-        void Create(BillViewModel billVm);
+        void Create(AnnouncementViewModel announcementVm, List<AnnouncementBillViewModel> announcementBillVm, BillViewModel billVm);
         void Update(BillViewModel billVm);
 
         PagedResult<BillViewModel> GetAllPaging(string startDate, string endDate, string keyword,

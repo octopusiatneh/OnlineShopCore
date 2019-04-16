@@ -15,6 +15,7 @@ namespace OnlineShopCore.Application.AutoMapper
     {
         public DomainToViewModelMappingProfile()
         {
+            CreateMap<Announcement, AnnouncementViewModel>().MaxDepth(2);
             CreateMap<ProductCategory, ProductCategoryViewModel>();
             CreateMap<Product, ProductViewModel>();
             CreateMap<Function, FunctionViewModel>();

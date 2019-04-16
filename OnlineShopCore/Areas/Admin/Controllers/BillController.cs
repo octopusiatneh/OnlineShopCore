@@ -16,6 +16,8 @@ using OnlineShopCore.Utilities.Helpers;
 using Microsoft.AspNetCore.SignalR;
 using OnlineShopCore.Hubs;
 using OnlineShopCore.Application.ViewModels.System;
+using OnlineShopCore.Infrastructure.Interfaces;
+using OnlineShopCore.Data.Entities;
 
 namespace OnlineShopCore.Areas.Admin.Controllers
 {
@@ -24,11 +26,21 @@ namespace OnlineShopCore.Areas.Admin.Controllers
         private readonly IBillService _billService;
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IHubContext<ChatHub> _hubContext;
+        private readonly IRepository<Announcement, string> _annouRepository;
+        private readonly IRepository<AnnouncementBill, int> _annouBillRepository;
+
+        private IUnitOfWork _unitOfWork;
         public BillController(IBillService billService, IHostingEnvironment hostingEnvironment,
+            IRepository<Announcement, string> annouRepository,
+            IRepository<AnnouncementBill, int> annouBillRepository,
+            IUnitOfWork unitOfWork,
            IHubContext<ChatHub> hubContext)
         {
             _billService = billService;
             _hostingEnvironment = hostingEnvironment;
+            _annouRepository = annouRepository;
+            _annouBillRepository = annouBillRepository;
+            _unitOfWork = unitOfWork;
             _hubContext = hubContext;
         }
 
@@ -73,23 +85,26 @@ namespace OnlineShopCore.Areas.Admin.Controllers
                 IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
                 return new BadRequestObjectResult(allErrors);
             }
-         
 
             if (billVm.Id == 0)
             {
-                _billService.Create(billVm);
+                var notificationId = Guid.NewGuid().ToString();
                 var announcement = new AnnouncementViewModel()
                 {
                     Content = $"New bill from {billVm.CustomerName}",
                     DateCreated = DateTime.Now,
+                    Id= notificationId,
                     Status = Status.Active,
                     Title = "New bill",
-                   // BillId =  billVm.Id,
-                  //Id = billVm.Id
-
                 };
-                
-                 _hubContext.Clients.All.SendAsync("ReceiveMessage", announcement);
+                var announcementBills = new List<AnnouncementBillViewModel>()
+                {
+                    new AnnouncementBillViewModel(){AnnouncementId = notificationId,HasRead = false}
+                };
+
+                _billService.Create(announcement, announcementBills,billVm);
+
+                _hubContext.Clients.All.SendAsync("ReceiveMessage", announcement);
             }
 
             else

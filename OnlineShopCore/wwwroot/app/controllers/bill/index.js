@@ -34,7 +34,7 @@
                 txtCustomerName: { required: true },
                 txtCustomerAddress: { required: true },
                 txtCustomerMobile: { required: true },
-                txtCustomerMessage: { required: true },
+                txtCustomerMessage: { required: false },
                 ddlBillStatus: { required: true }
             }
         });
@@ -154,7 +154,7 @@
                         $('#modal-detail').modal('hide');
                         resetFormMaintainance();
 
-                        onlineshop.stopLoading();
+                        onlineshop.stopLoading();          
                         loadData(true);
                     },
                     error: function () {
@@ -464,7 +464,7 @@
               
                 {
                     data: "DateCreated", render: function (data, type, row) {
-                        return data = moment(data).format('DD/MM/YYYY')
+                        return data = moment(data).format('DD/MM/YYYY HH:mm:ss')
                     }
                 },
                 {

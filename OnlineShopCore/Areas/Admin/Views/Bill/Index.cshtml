@@ -2,25 +2,23 @@
     ViewData["Title"] = "Index";
 }
 @section Scripts{
-
-<script src="~/admin-side/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-<script src="~/app/controllers/bill/index.js" asp-append-version="true"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
-<script src="~/admin-side/assets/extra-libs/DataTables/datatables.min.js"></script>
-<script src="~/lib/datetime-moment/dist/datetime-moment.js"></script>
-<script>
-    var date = new Date().toJSON();
-    document.getElementById("hidDateCreated").value = date;
-</script>
-<script>
-    var billObj = new BillController();
-    billObj.initialize();
-
-/**/</script>
+    <script src="~/admin-side/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/app/controllers/bill/index.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+    <script src="~/admin-side/assets/extra-libs/DataTables/datatables.min.js"></script>
+    <script src="~/lib/datetime-moment/dist/datetime-moment.js"></script>
+    <script>
+        var date = new Date().toJSON();
+        document.getElementById("hidDateCreated").value = date;
+    </script>
+    <script>
+        var billObj = new BillController();
+        billObj.initialize();
+    </script>
 }
 @section Styles{
-<link href="~/admin-side/assets/extra-libs/DataTables/DataTables-1.10.16/css/dataTables.bootstrap4.css" rel="stylesheet" />
-<link href="~/admin-side/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/admin-side/assets/extra-libs/DataTables/DataTables-1.10.16/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/admin-side/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet" />
 }
 <input type="hidden" id="hid-category-id" value="0" />
 <div class="page-breadcrumb">
@@ -37,26 +35,28 @@
         </div>
     </div>
 </div>
-<div class="card-body">
-    <table border="0" cellspacing="5" cellpadding="5">
-        <tbody>
-            <tr>
-                <td>From Date:</td>
-                <td><input name="FromDate" id="fromDate" type="text" data-date-format='dd/mm/yyyy'></td>
-                <td> <button id="reset-date" onclick="document.getElementById('fromDate').value = ''">Clear</button></td>
-            </tr>
 
-            <tr>
-                <td>To Date:</td>
-                <td><input name="ToDate" id="toDate" type="text"></td>
-                <td> <button id="reset-date2" onclick="document.getElementById('toDate').value = ''">Clear</button></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-<div class="=container-fluid">
+<div class="container-fluid">
+
     <div class="row">
         <div class="col-12">
+            <div class="card-body">
+                <table border="0" cellspacing="5" cellpadding="5">
+                    <tbody>
+                        <tr>
+                            <td>From Date:</td>
+                            <td><input name="FromDate" id="fromDate" type="text" data-date-format='dd/mm/yyyy'></td>
+                            <td> <button id="reset-date" onclick="document.getElementById('fromDate').value = ''">Clear</button></td>
+                        </tr>
+
+                        <tr>
+                            <td>To Date:</td>
+                            <td><input name="ToDate" id="toDate" type="text"></td>
+                            <td> <button id="reset-date2" onclick="document.getElementById('toDate').value = ''">Clear</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="card-body">
                 <button class="btn btn-success" id="btn-create" type="button" data-toggle="tooltip" data-placement="bottom" title="Create new bill" style="margin-bottom:15px">Create</button>
                 <div class="table-responsive">

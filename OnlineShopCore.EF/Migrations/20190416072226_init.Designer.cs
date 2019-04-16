@@ -10,7 +10,7 @@ using OnlineShopCore.Data.EF;
 namespace OnlineShopCore.Data.EF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190402052742_init")]
+    [Migration("20190416072226_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -169,6 +169,8 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("BillId");
+
                     b.Property<string>("Content")
                         .HasMaxLength(250);
 
@@ -182,16 +184,14 @@ namespace OnlineShopCore.Data.EF.Migrations
                         .IsRequired()
                         .HasMaxLength(250);
 
-                    b.Property<Guid>("UserId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("BillId");
 
                     b.ToTable("Announcements");
                 });
 
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.AnnouncementUser", b =>
+            modelBuilder.Entity("OnlineShopCore.Data.Entities.AnnouncementBill", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -202,13 +202,11 @@ namespace OnlineShopCore.Data.EF.Migrations
 
                     b.Property<bool?>("HasRead");
 
-                    b.Property<Guid>("UserId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AnnouncementId");
 
-                    b.ToTable("AnnouncementUsers");
+                    b.ToTable("AnnouncementBills");
                 });
 
             modelBuilder.Entity("OnlineShopCore.Data.Entities.AppRole", b =>
@@ -815,12 +813,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(250);
 
-                    b.Property<int?>("DisplayOrder");
-
-                    b.Property<string>("GroupAlias")
-                        .IsRequired()
-                        .HasMaxLength(25);
-
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasMaxLength(250);
@@ -829,10 +821,7 @@ namespace OnlineShopCore.Data.EF.Migrations
                         .IsRequired()
                         .HasMaxLength(250);
 
-                    b.Property<bool>("Status");
-
-                    b.Property<string>("Url")
-                        .HasMaxLength(250);
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
@@ -923,16 +912,15 @@ namespace OnlineShopCore.Data.EF.Migrations
 
             modelBuilder.Entity("OnlineShopCore.Data.Entities.Announcement", b =>
                 {
-                    b.HasOne("OnlineShopCore.Data.Entities.AppUser", "AppUser")
+                    b.HasOne("OnlineShopCore.Data.Entities.Bill", "Bill")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("BillId");
                 });
 
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.AnnouncementUser", b =>
+            modelBuilder.Entity("OnlineShopCore.Data.Entities.AnnouncementBill", b =>
                 {
                     b.HasOne("OnlineShopCore.Data.Entities.Announcement", "Announcement")
-                        .WithMany("AnnouncementUsers")
+                        .WithMany("AnnouncementBills")
                         .HasForeignKey("AnnouncementId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

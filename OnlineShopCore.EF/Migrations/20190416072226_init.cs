@@ -325,11 +325,8 @@ namespace OnlineShopCore.Data.EF.Migrations
                     Name = table.Column<string>(maxLength: 250, nullable: false),
                     Description = table.Column<string>(maxLength: 250, nullable: true),
                     Image = table.Column<string>(maxLength: 250, nullable: false),
-                    Url = table.Column<string>(maxLength: 250, nullable: true),
-                    DisplayOrder = table.Column<int>(nullable: true),
-                    Status = table.Column<bool>(nullable: false),
-                    Content = table.Column<string>(nullable: true),
-                    GroupAlias = table.Column<string>(maxLength: 25, nullable: false)
+                    Status = table.Column<int>(nullable: false),
+                    Content = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -384,29 +381,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                         principalTable: "AdvertistmentPages",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Announcements",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    Title = table.Column<string>(maxLength: 250, nullable: false),
-                    Content = table.Column<string>(maxLength: 250, nullable: true),
-                    UserId = table.Column<Guid>(nullable: false),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false),
-                    Status = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Announcements", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Announcements_AppUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AppUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -559,24 +533,26 @@ namespace OnlineShopCore.Data.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AnnouncementUsers",
+                name: "Announcements",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AnnouncementId = table.Column<string>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: false),
-                    HasRead = table.Column<bool>(nullable: true)
+                    Id = table.Column<string>(nullable: false),
+                    Title = table.Column<string>(maxLength: 250, nullable: false),
+                    Content = table.Column<string>(maxLength: 250, nullable: true),
+                    BillId = table.Column<int>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false),
+                    Status = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AnnouncementUsers", x => x.Id);
+                    table.PrimaryKey("PK_Announcements", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AnnouncementUsers_Announcements_AnnouncementId",
-                        column: x => x.AnnouncementId,
-                        principalTable: "Announcements",
+                        name: "FK_Announcements_Bills_BillId",
+                        column: x => x.BillId,
+                        principalTable: "Bills",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -724,6 +700,26 @@ namespace OnlineShopCore.Data.EF.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "AnnouncementBills",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AnnouncementId = table.Column<string>(nullable: false),
+                    HasRead = table.Column<bool>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AnnouncementBills", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AnnouncementBills_Announcements_AnnouncementId",
+                        column: x => x.AnnouncementId,
+                        principalTable: "Announcements",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AdvertistmentPositions_PageId",
                 table: "AdvertistmentPositions",
@@ -735,14 +731,14 @@ namespace OnlineShopCore.Data.EF.Migrations
                 column: "PositionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Announcements_UserId",
-                table: "Announcements",
-                column: "UserId");
+                name: "IX_AnnouncementBills_AnnouncementId",
+                table: "AnnouncementBills",
+                column: "AnnouncementId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AnnouncementUsers_AnnouncementId",
-                table: "AnnouncementUsers",
-                column: "AnnouncementId");
+                name: "IX_Announcements_BillId",
+                table: "Announcements",
+                column: "BillId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BillDetails_BillId",
@@ -836,7 +832,7 @@ namespace OnlineShopCore.Data.EF.Migrations
                 name: "Advertistments");
 
             migrationBuilder.DropTable(
-                name: "AnnouncementUsers");
+                name: "AnnouncementBills");
 
             migrationBuilder.DropTable(
                 name: "AppRoleClaims");
@@ -902,9 +898,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                 name: "Announcements");
 
             migrationBuilder.DropTable(
-                name: "Bills");
-
-            migrationBuilder.DropTable(
                 name: "Blogs");
 
             migrationBuilder.DropTable(
@@ -929,10 +922,13 @@ namespace OnlineShopCore.Data.EF.Migrations
                 name: "AdvertistmentPages");
 
             migrationBuilder.DropTable(
-                name: "AppUsers");
+                name: "Bills");
 
             migrationBuilder.DropTable(
                 name: "ProductCategories");
+
+            migrationBuilder.DropTable(
+                name: "AppUsers");
         }
     }
 }

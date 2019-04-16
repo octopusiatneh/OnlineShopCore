@@ -169,6 +169,7 @@ namespace OnlineShopCore
 
             services.AddTransient<IFeedbackService, FeedbackService>();
             services.AddTransient<IContactService, ContactService>();
+            services.AddTransient<IAnnouncementService, AnnouncementService>();
             //SignalR
             services.AddSignalR();
         }

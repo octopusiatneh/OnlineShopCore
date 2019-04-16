@@ -12,6 +12,7 @@ using OnlineShopCore.Data.Enums;
 using OnlineShopCore.Data.IRepositories;
 using OnlineShopCore.Infrastructure.Interfaces;
 using OnlineShopCore.Utilities.Dtos;
+using OnlineShopCore.Application.ViewModels.System;
 
 namespace OnlineShopCore.Application.Implementation
 {
@@ -22,6 +23,8 @@ namespace OnlineShopCore.Application.Implementation
         private readonly IColorRepository _colorRepository;
         private readonly ISizeRepository _sizeRepository;
         private readonly IProductRepository _productRepository;
+        private IRepository<Announcement, string> _announRepository;
+        private IRepository<AnnouncementBill, int> _announBillRepository;
         private readonly IUnitOfWork _unitOfWork;
 
         public BillService(IBillRepository orderRepository,
@@ -29,8 +32,12 @@ namespace OnlineShopCore.Application.Implementation
            IColorRepository colorRepository,
            IProductRepository productRepository,
            ISizeRepository sizeRepository,
+           IRepository<Announcement,string> announRepository,
+           IRepository<AnnouncementBill, int> announBillRepository,
            IUnitOfWork unitOfWork)
         {
+            _announRepository = announRepository;
+            _announBillRepository = announBillRepository;
             _orderRepository = orderRepository;
             _orderDetailRepository = orderDetailRepository;
             _colorRepository = colorRepository;
@@ -39,7 +46,7 @@ namespace OnlineShopCore.Application.Implementation
             _unitOfWork = unitOfWork;
         }
 
-        public void Create(BillViewModel billVm)
+        public void Create(AnnouncementViewModel announcementVm, List<AnnouncementBillViewModel> announcementBillVm, BillViewModel billVm)
         {
             var order = Mapper.Map<BillViewModel, Bill>(billVm);
             var orderDetails = Mapper.Map<List<BillDetailViewModel>, List<BillDetail>>(billVm.BillDetails);
@@ -48,6 +55,14 @@ namespace OnlineShopCore.Application.Implementation
                 var product = _productRepository.FindById(detail.ProductId);
                 detail.Price = product.Price;
             }
+            var announcement = Mapper.Map<AnnouncementViewModel, Announcement>(announcementVm);
+            _announRepository.Add(announcement);
+            foreach (var item in announcementBillVm)
+            {
+                var i = Mapper.Map<AnnouncementBillViewModel, AnnouncementBill>(item);
+                _announBillRepository.Add(i);
+            }
+            _unitOfWork.Commit();
             order.BillDetails = orderDetails;
             _orderRepository.Add(order);
         }
