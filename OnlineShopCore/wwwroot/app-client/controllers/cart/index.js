@@ -25,8 +25,7 @@
                 },
                 success: function () {
                     swal({
-                        title: "Deleted!",
-                        text: "The product has been deleted!",
+                        text: resources["RemoveCartOK"],
                         icon: "success",
                     });
                     loadHeaderCart();
@@ -123,8 +122,7 @@
                 type: 'post',
                 success: function () {
                     swal({
-                        title: "Deleted!",
-                        text: "The cart has been deleted!",
+                        text: resources["ClearCart"],
                         icon: "success",
                     });
                     loadHeaderCart();

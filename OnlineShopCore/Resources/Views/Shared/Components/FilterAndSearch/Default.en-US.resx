@@ -117,34 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Account" xml:space="preserve">
-    <value>My account</value>
+  <data name="Default" xml:space="preserve">
+    <value>Default</value>
   </data>
-  <data name="Cart" xml:space="preserve">
-    <value>Cart</value>
+  <data name="DiscountProduct" xml:space="preserve">
+    <value>Discount product</value>
   </data>
-  <data name="Contact" xml:space="preserve">
-    <value>Contact</value>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
   </data>
-  <data name="Free" xml:space="preserve">
-    <value>Free shipping for standard order over $100</value>
+  <data name="HighToLow" xml:space="preserve">
+    <value>High to Low</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>Home</value>
+  <data name="LowToHigh" xml:space="preserve">
+    <value>Price: Low to High</value>
   </data>
-  <data name="Order" xml:space="preserve">
-    <value>Order tracking</value>
+  <data name="Newnest" xml:space="preserve">
+    <value>Newnest</value>
   </data>
-  <data name="Profile" xml:space="preserve">
-    <value>Profile</value>
+  <data name="Price" xml:space="preserve">
+    <value>Price</value>
   </data>
-  <data name="Shop" xml:space="preserve">
-    <value>Shop</value>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
   </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>Sign in</value>
+  <data name="SearchFor" xml:space="preserve">
+    <value>Search for...</value>
   </data>
-  <data name="SignOut" xml:space="preserve">
-    <value>Sign out</value>
+  <data name="SortBy" xml:space="preserve">
+    <value>Sort By</value>
   </data>
 </root>

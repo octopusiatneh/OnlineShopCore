@@ -1,5 +1,5 @@
 ﻿@model RegisterViewModel
-
+@inject IViewLocalizer Localizer
 @section Styles{
     <link href="~/client-side/css/Registration-Form-with-Photo.css" rel="stylesheet" />
 }
@@ -11,19 +11,20 @@
     <div class="form-container">
         <div class="image-holder"></div>
         <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
-            <h2 class="text-center"><strong>Create</strong> an account.</h2>
-            <div class="form-group"><input asp-for="FullName" class="form-control" type="text" name="fullName" placeholder="Full name"></div>
-            <div class="form-group"><input asp-for="Email" class="form-control" type="email" name="email" placeholder="Email"></div>
-            <div class="form-group"><input asp-for="Password" class="form-control" type="password" name="password" placeholder="Password"></div>
-            <div class="form-group"><input asp-for="ConfirmPassword" class="form-control" type="password" name="confirmPassword" placeholder="Confirm password"></div>
-            <div class="form-group"><input asp-for="BirthDay" class="form-control" type="date" name="birthDay" placeholder="Date of birth"></div>
-            <div class="form-group"><input asp-for="PhoneNumber" class="form-control" type="text" name="phoneNumber" placeholder="Phone number"></div>
-            <div class="form-group"><input asp-for="Address" class="form-control" type="text" name="address" placeholder="Address"></div>
+            <h2 class="text-center"><strong>@Localizer["Create"]</strong>@Localizer["Account"]</h2>
+            <div class="form-group"><input asp-for="FullName" class="form-control" type="text" name="fullName" placeholder="@Localizer["FullName"]"></div>
+            <div class="form-group"><input asp-for="Email" class="form-control" type="email" name="email" placeholder="@Localizer["Email"]"></div>
+            <div class="form-group"><input asp-for="Password" class="form-control" type="password" name="password" placeholder="@Localizer["Password"]"></div>
+            <div class="form-group"><input asp-for="ConfirmPassword" class="form-control" type="password" name="confirmPassword" placeholder="@Localizer["Confirm"]"></div>
+            <div class="form-group"><input asp-for="BirthDay" class="form-control" type="date" name="birthDay" placeholder="@Localizer["Date"]"></div>
+            <div class="form-group"><input asp-for="PhoneNumber" class="form-control" type="text" name="phoneNumber" placeholder=" @Localizer["Phone"]"></div>
+            <div class="form-group"><input asp-for="Address" class="form-control" type="text" name="address" placeholder="@Localizer["Address"]"></div>
             <div class="form-group">
                 <recaptcha />
                 <span class="text-danger" id="recaptchaErrorMessage"></span>
+                <div asp-validation-summary="All" class="text-danger"></div>
             </div>
-            <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Sign Up</button></div><a href="/login.html" class="already">You already have an account? Login here.</a>
+            <div class="form-group"><button class="btn btn-primary btn-block" type="submit">@Localizer["SignUp"]</button></div><a href="/login.html" class="already">@Localizer["Already"]</a>
         </form>
     </div>
 </div>

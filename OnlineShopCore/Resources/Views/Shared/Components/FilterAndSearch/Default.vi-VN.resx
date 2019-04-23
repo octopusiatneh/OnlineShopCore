@@ -117,34 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Account" xml:space="preserve">
-    <value>My account</value>
+  <data name="Default" xml:space="preserve">
+    <value>Tất cả</value>
   </data>
-  <data name="Cart" xml:space="preserve">
-    <value>Cart</value>
+  <data name="DiscountProduct" xml:space="preserve">
+    <value>Sản phẩm giảm giá</value>
   </data>
-  <data name="Contact" xml:space="preserve">
-    <value>Contact</value>
+  <data name="Filter" xml:space="preserve">
+    <value>Lọc</value>
   </data>
-  <data name="Free" xml:space="preserve">
-    <value>Free shipping for standard order over $100</value>
+  <data name="HighToLow" xml:space="preserve">
+    <value>Giá giảm dần</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>Home</value>
+  <data name="LowToHigh" xml:space="preserve">
+    <value>Giá tăng dần</value>
   </data>
-  <data name="Order" xml:space="preserve">
-    <value>Order tracking</value>
+  <data name="Newnest" xml:space="preserve">
+    <value>Mới về</value>
   </data>
-  <data name="Profile" xml:space="preserve">
-    <value>Profile</value>
+  <data name="Price" xml:space="preserve">
+    <value>Theo giá</value>
   </data>
-  <data name="Shop" xml:space="preserve">
-    <value>Shop</value>
+  <data name="Search" xml:space="preserve">
+    <value>Tìm kiếm</value>
   </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>Sign in</value>
+  <data name="SearchFor" xml:space="preserve">
+    <value>Từ khóa...</value>
   </data>
-  <data name="SignOut" xml:space="preserve">
-    <value>Sign out</value>
+  <data name="SortBy" xml:space="preserve">
+    <value>Theo</value>
   </data>
 </root>

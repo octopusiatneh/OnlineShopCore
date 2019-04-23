@@ -394,7 +394,7 @@
             initComplete: function () {
                 this.api().columns([2]).every(function () {
                     var column = this;
-                    var select = $('<select><option value="">--Payment method filter--</option></select>')
+                    var select = $('<select><option value="">--Phương thức thanh toán--</option></select>')
                         .appendTo($(column.header()).empty())
                         .on('change', function () {
                             var val = $.fn.dataTable.util.escapeRegex(
@@ -414,7 +414,7 @@
                 // the indexs of the column that want to have the dropdown filter
                 this.api().columns([4]).every(function () {
                     var column = this;
-                    var select = $('<select><option value="">--Payment method filter--</option></select>')
+                    var select = $('<select><option value="">--Trạng thái--</option></select>')
                         .appendTo($(column.header()).empty())
                         .on('change', function () {
                             var val = $.fn.dataTable.util.escapeRegex(

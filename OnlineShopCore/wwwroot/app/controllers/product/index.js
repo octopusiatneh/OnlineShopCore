@@ -417,7 +417,7 @@ var productController = function () {
                 },
                 {
                     data: "DateCreated", render: function (data, type, row) {
-                        return data = moment(data).format('DD/MM/YYYY')
+                        return data = moment(data).format('DD/MM/YYYY HH:mm:ss')
                     }
                 },
                 {

@@ -48,8 +48,8 @@
     <partial name="_Header.cshtml" />
     <!-- Body -->
     @RenderBody()
-    <!-- Load Facebook SDK for JavaScript -->
-    <div id="fb-root"></div>
+    <!-- Load Facebook SDK for JavaScript
+         <div id="fb-root"></div>
     <script>
         window.fbAsyncInit = function () {
             FB.init({
@@ -66,13 +66,15 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
 
-    <!-- Your customer chat code -->
+    
     <div class="fb-customerchat"
          attribution=setup_tool
          page_id="576936756139101"
          logged_in_greeting="Chúng tôi có thể giúp gì cho bạn?"
          logged_out_greeting="Chúng tôi có thể giúp gì cho bạn?">
     </div>
+    -->
+
     <!-- Footer -->
     <partial name="_Footer.cshtml" />
 

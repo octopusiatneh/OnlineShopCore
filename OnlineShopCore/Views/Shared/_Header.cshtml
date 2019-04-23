@@ -7,11 +7,11 @@
         <div class="top-bar">
             <div class="content-topbar flex-sb-m h-full container">
                 <div class="left-top-bar">
-                    Free shipping for standard order over $100
+                    @Localizer["Free"]
                 </div>
 
                 <div class="right-top-bar flex-w h-full">
-                  
+
 
                     <a href="#" class="flex-c-m trans-04 p-lr-25">
                         @await Html.PartialAsync("_SelectLanguagePartial")
@@ -20,7 +20,7 @@
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <a href="/login.html" class="flex-c-m trans-04 p-lr-25">
-                            Sign in
+                            @Localizer["SignIn"]
                         </a>
                     }
                 </div>
@@ -56,13 +56,13 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li>
-                                <a>My Account <i class="fa fa-user"></i></a>
+                                <a>@Localizer["Account"] <i class="fa fa-user"></i></a>
                                 <ul class="sub-menu">
-                                    <li><a href="/account.html">Edit your profile</a></li>
-                                    <li><a href="/orders-list.html">Order Tracking</a></li>
+                                    <li><a href="/account.html">@Localizer["Profile"]</a></li>
+                                    <li><a href="/orders-list.html">@Localizer["Order"]</a></li>
                                     <li>
                                         <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
-                                            <a href="#" onclick="document.getElementById('logoutForm').submit()"><span>Sign out</span></a>
+                                            <a href="#" onclick="document.getElementById('logoutForm').submit()"><span>@Localizer["SignOut"]</span></a>
                                         </form>
                                     </li>
                                 </ul>
@@ -75,8 +75,8 @@
                 <!-- Icon header -->
                 <div class="wrap-icon-header flex-w flex-r-m">
                     @*<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
-                        <i class="zmdi zmdi-search"></i>
-                    </div>*@
+                            <i class="zmdi zmdi-search"></i>
+                        </div>*@
 
                     <!--Cart button-->
                     <div id="cartButton" class="js-show-cart">
@@ -97,8 +97,8 @@
         <!-- Icon header -->
         <div class="wrap-icon-header flex-w flex-r-m m-r-15">
             @*<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
-                <i class="zmdi zmdi-search"></i>
-            </div>*@
+                    <i class="zmdi zmdi-search"></i>
+                </div>*@
 
             <!--Cart button-->
             <div id="cartButtonMobile" class="js-show-cart">
@@ -121,7 +121,7 @@
 
             <li>
                 <div class="left-top-bar">
-                    Free shipping for standard order over $100
+                    @Localizer["Free"]
                 </div>
             </li>
 
@@ -137,11 +137,9 @@
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <a href="/login.html" class="flex-c-m trans-04 p-lr-25">
-                            Sign in
+                            @Localizer["SignIn"]
                         </a>
                     }
-
-
                 </div>
             </li>
         </ul>
@@ -166,13 +164,13 @@
             @if (User.Identity.IsAuthenticated)
             {
                 <li>
-                    <a>My Account <i class="fa fa-user"></i></a>
+                    <a>@Localizer["Account"]<i class="fa fa-user"></i></a>
                     <ul class="sub-menu-m">
-                        <li><a href="/account.html">Edit your profile</a></li>
-                        <li><a href="/orders-list.html">Order Tracking</a></li>
+                        <li><a href="/account.html">@Localizer["Profile"]</a></li>
+                        <li><a href="/orders-list.html">@Localizer["Order"]</a></li>
                         <li>
                             <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
-                                <a href="#" onclick="document.getElementById('logoutForm').submit()"><span>Sign out</span></a>
+                                <a href="#" onclick="document.getElementById('logoutForm').submit()"><span>@Localizer["SignOut"]</span></a>
                             </form>
                         </li>
                     </ul>
@@ -183,22 +181,6 @@
             }
         </ul>
     </div>
-
-    <!-- Modal Search -->
-    @*<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-            <div class="container-search-header">
-                <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-                    <img src="/client-side/images/icons/icon-close2.png" alt="CLOSE">
-                </button>
-
-                <form class="wrap-search-header flex-w p-l-15">
-                    <button class="flex-c-m trans-04">
-                        <i class="zmdi zmdi-search"></i>
-                    </button>
-                    <input class="plh3" type="text" name="search" placeholder="Search...">
-                </form>
-            </div>
-        </div>*@
 
     <!-- Cart -->
     <div class="wrap-header-cart js-panel-cart">

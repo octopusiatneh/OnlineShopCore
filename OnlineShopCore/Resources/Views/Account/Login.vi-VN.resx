@@ -117,34 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Account" xml:space="preserve">
-    <value>My account</value>
+  <data name="Dont" xml:space="preserve">
+    <value>Chưa có tài khoản?</value>
   </data>
-  <data name="Cart" xml:space="preserve">
-    <value>Cart</value>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
   </data>
-  <data name="Contact" xml:space="preserve">
-    <value>Contact</value>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Quên mật khẩu?</value>
   </data>
-  <data name="Free" xml:space="preserve">
-    <value>Free shipping for standard order over $100</value>
+  <data name="Login" xml:space="preserve">
+    <value>Đăng nhập</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>Home</value>
+  <data name="Password" xml:space="preserve">
+    <value>Mật khẩu</value>
   </data>
-  <data name="Order" xml:space="preserve">
-    <value>Order tracking</value>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Nhớ mật khẩu</value>
   </data>
-  <data name="Profile" xml:space="preserve">
-    <value>Profile</value>
+  <data name="SignUp" xml:space="preserve">
+    <value>Đăng ký tài khoản</value>
   </data>
-  <data name="Shop" xml:space="preserve">
-    <value>Shop</value>
-  </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>Sign in</value>
-  </data>
-  <data name="SignOut" xml:space="preserve">
-    <value>Sign out</value>
+  <data name="Welcome" xml:space="preserve">
+    <value>Chào mừng đến với Coza Store</value>
   </data>
 </root>

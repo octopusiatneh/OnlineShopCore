@@ -19,5 +19,7 @@ connection.on("ReceiveMessage", (message) => {
     $('#totalAnnouncement').text(totalAnnounce);
 
     loadAnnouncement();
+
+    onlineshop.notify(message.content, 'success')
 });
 
