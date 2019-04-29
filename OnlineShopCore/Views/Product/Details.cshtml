@@ -360,12 +360,16 @@
             <div class="slick2">
                 @foreach (var item in Model.RelatedProducts)
                 {
-                    var url = item.SeoAlias + "-p-" + item.Id + ".html";
+                    var url = item.SeoAlias + "-p-" + item.Id;
+                    url = url.ToLower();
                     <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
                         <!-- Block2 -->
                         <div class="block2">
                             <div class="block2-pic hov-img0">
-                                <img src="@item.Image" alt="IMG-PRODUCT">
+                                <a href="@url">
+                                    <img src="@item.Image" alt="IMG-PRODUCT">
+                                </a>
+
                             </div>
 
                             <div class="block2-txt flex-w flex-t p-t-14">

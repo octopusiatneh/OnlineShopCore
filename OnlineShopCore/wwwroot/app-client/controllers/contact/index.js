@@ -31,7 +31,7 @@
         
         map.addLayer(new OpenLayers.Layer.OSM());
 
-        var lonLat = new OpenLayers.LonLat(parseFloat($('#hidLat').val()), parseFloat($('#hidLng').val()))
+        var lonLat = new OpenLayers.LonLat(parseFloat($('#hidLng').val()), parseFloat($('#hidLat').val()))
             .transform(
                 new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
                 map.getProjectionObject() // to Spherical Mercator Projection

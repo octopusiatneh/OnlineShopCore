@@ -85,7 +85,7 @@ namespace OnlineShopCore.Controllers
             }
         }
 
-        [Route("{alias}-p-{id}.html", Name = "ProductDetail")]
+        [Route("{alias}-st-{id}", Name = "ProductDetail")]
         public IActionResult Details(int id)
         {
             var model = new DetailViewModel();
