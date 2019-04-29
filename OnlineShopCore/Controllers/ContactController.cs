@@ -30,7 +30,7 @@ namespace OnlineShopCore.Controllers
             _configuration = configuration;
             _viewRenderService = viewRenderService;
         }
-        [Route("contact.html")]
+        [Route("contact")]
         [HttpGet]
         public IActionResult Index()
         {
@@ -39,7 +39,7 @@ namespace OnlineShopCore.Controllers
             return View(model);
         }
 
-        [Route("contact.html")]
+        [Route("contact")]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> Index(ContactPageViewModel model)

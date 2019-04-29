@@ -28,7 +28,7 @@ namespace OnlineShopCore.Controllers
             _billService = billService;
         }
 
-        [Route("products.html")]
+        [Route("products")]
         public IActionResult Index(int pageSize, string sortBy, int page = 1)
         {   
             var model = new ShoppingViewModel();
@@ -42,7 +42,7 @@ namespace OnlineShopCore.Controllers
             return View(model);
         }
 
-        [Route("filter.html")]
+        [Route("filter")]
         public IActionResult Filter(int pageSize, string filter, int page = 1)
         {
             var model = new SearchResultViewModel();
@@ -56,7 +56,7 @@ namespace OnlineShopCore.Controllers
             return View(model);
         }
 
-        [Route("search.html")]
+        [Route("search")]
         public IActionResult Search(string keyword, int pageSize, string sortBy, int page = 1)
         {
             var model = new SearchResultViewModel();

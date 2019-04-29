@@ -42,15 +42,15 @@
                             <a asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
                         </li>
                         <li class="label1" data-label1="new">
-                            <a href="products.html">@Localizer["Shop"]</a>
+                            <a href="products">@Localizer["Shop"]</a>
                         </li>
 
                         <li>
-                            <a href="shopping-cart.html">@Localizer["Cart"]</a>
+                            <a href="shopping-cart">@Localizer["Cart"]</a>
                         </li>
 
                         <li>
-                            <a href="contact.html">@Localizer["Contact"]</a>
+                            <a href="contact">@Localizer["Contact"]</a>
                         </li>
 
                         @if (User.Identity.IsAuthenticated)
@@ -150,15 +150,15 @@
             </li>
 
             <li>
-                <a href="products.html" class="label1 rs1" data-label1="hot">@Localizer["Shop"]</a>
+                <a href="products" class="label1 rs1" data-label1="hot">@Localizer["Shop"]</a>
             </li>
 
             <li>
-                <a href="shopping-cart.html">@Localizer["Cart"]</a>
+                <a href="shopping-cart">@Localizer["Cart"]</a>
             </li>
 
             <li>
-                <a href="contact.html">@Localizer["Contact"]</a>
+                <a href="contact">@Localizer["Contact"]</a>
             </li>
 
             @if (User.Identity.IsAuthenticated)

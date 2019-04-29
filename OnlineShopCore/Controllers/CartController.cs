@@ -38,28 +38,28 @@ namespace OnlineShopCore.Controllers
             _unitOfWork = unitOfWork;
             _hubContext = hubContext;
         }
-        [Route("shopping-cart.html", Name = "Cart")]
+        [Route("shopping-cart", Name = "Cart")]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
-        [Route("checkout.html", Name = "Checkout")]
+        [Route("checkout", Name = "Checkout")]
         public IActionResult Checkout()
         {
             var model = new CheckoutViewModel();
             var session = HttpContext.Session.Get<List<ShoppingCartViewModel>>(CommonConstants.CartSession);
             if (session.Any(x => x.Color == null || x.Size == null))
             {
-                return Redirect("/shopping-cart.html");
+                return Redirect("/shopping-cart");
             }
 
             model.Carts = session;
             return View(model);
         }
 
-        [Route("checkout.html", Name = "Checkout")]
+        [Route("checkout", Name = "Checkout")]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> Checkout(CheckoutViewModel model)

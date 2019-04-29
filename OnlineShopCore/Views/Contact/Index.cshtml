@@ -54,7 +54,7 @@
                         @Localizer["SendMess"]
                     </h4>
 
-                    <form action="/contact.html" method="post">
+                    <form action="/contact" method="post">
                         @Html.AntiForgeryToken()
                         <div class="bor8 m-b-20 how-pos4-parent">
                             <input asp-for="Feedback.Email" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" placeholder="@Localizer["YourEmailAddress"]">
