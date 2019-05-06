@@ -11,15 +11,18 @@ using OnlineShopCore.Authorization;
 
 namespace OnlineShopCore.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UserController : BaseController
     {
         private readonly IUserService _userService;
         private readonly IAuthorizationService _authorizationService;
+
         public UserController(IUserService userService, IAuthorizationService authorizationService)
         {
             _userService = userService;
             _authorizationService = authorizationService;
         }
+
         public async Task<IActionResult> Index()
         {
             var result = await _authorizationService.AuthorizeAsync(User, "USER", Operations.Read);
@@ -27,6 +30,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
                 return new RedirectResult("/Admin/Login/Index");
             return View();
         }
+
         public IActionResult GetAll()
         {
             var model = _userService.GetAllAsync();
@@ -39,13 +43,6 @@ namespace OnlineShopCore.Areas.Admin.Controllers
         {
             var model = await _userService.GetById(id);
 
-            return new OkObjectResult(model);
-        }
-
-        [HttpGet]
-        public IActionResult GetAllPaging(string keyword, int page, int pageSize)
-        {
-            var model = _userService.GetAllPagingAsync(keyword, page, pageSize);
             return new OkObjectResult(model);
         }
 

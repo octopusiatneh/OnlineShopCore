@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using OnlineShopCore.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using OnlineShopCore.Application.ViewModels.System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OnlineShopCore.Areas.Admin.Controllers
 {
+    [Authorize(Roles="Admin")]
     public class RoleController : BaseController
     {
         private readonly IRoleService _roleService;
@@ -17,6 +19,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
         {
             _roleService = roleService;
         }
+
         public IActionResult Index()
         {
             return View();
@@ -28,18 +31,12 @@ namespace OnlineShopCore.Areas.Admin.Controllers
 
             return new OkObjectResult(model);
         }
+
         [HttpGet]
         public async Task<IActionResult> GetById(Guid id)
         {
             var model = await _roleService.GetById(id);
 
-            return new OkObjectResult(model);
-        }
-
-        [HttpGet]
-        public IActionResult GetAllPaging(string keyword, int page, int pageSize)
-        {
-            var model = _roleService.GetAllPagingAsync(keyword, page, pageSize);
             return new OkObjectResult(model);
         }
 
@@ -72,7 +69,6 @@ namespace OnlineShopCore.Areas.Admin.Controllers
             await _roleService.DeleteAsync(id);
             return new OkObjectResult(id);
         }
-
 
         [HttpPost]
         public IActionResult ListAllFunction(Guid roleId)

@@ -1,4 +1,4 @@
-﻿    using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using OnlineShopCore.Data.Entities;
 using OnlineShopCore.Data.Enums;
 using OnlineShopCore.Utilities.Constants;
@@ -45,6 +45,7 @@ namespace OnlineShopCore.Data.EF
                     Description = "Customer"
                 });
             }
+
             if (!_userManager.Users.Any())
             {
                 await _userManager.CreateAsync(new AppUser()
@@ -56,11 +57,12 @@ namespace OnlineShopCore.Data.EF
                     DateCreated = DateTime.Now,
                     DateModified = DateTime.Now,
                     Status = Status.Active,
-                    Avatar= @"/admin-side/assets/images/users/1.jpg"
+                    Avatar = @"/admin-side/assets/images/users/1.jpg"
                 }, "123654$");
                 var user = await _userManager.FindByNameAsync("admin");
                 await _userManager.AddToRoleAsync(user, "Admin");
             }
+
             if (!_context.Contacts.Any())
             {
                 _context.Contacts.Add(new Contact()
@@ -76,50 +78,24 @@ namespace OnlineShopCore.Data.EF
                     Lng = 10.77592
                 });
             }
+
             if (_context.Functions.Count() == 0)
             {
                 _context.Functions.AddRange(new List<Function>()
                 {
                     new Function() {Id = "SYSTEM", Name = "Hệ thống",ParentId = null,SortOrder = 1,Status = Status.Active,URL = "/",IconCss = "fas fa-cogs"  },
                     new Function() {Id = "ROLE", Name = "Nhóm",ParentId = "SYSTEM",SortOrder = 1,Status = Status.Active,URL = "/admin/role/index",IconCss = "fas fa-chevron-right"  },
-                    new Function() {Id = "FUNCTION", Name = "Chức năng",ParentId = "SYSTEM",SortOrder = 2,Status = Status.Active,URL = "/admin/function/index",IconCss = "fas fa-chevron-right"  },
-                    new Function() {Id = "USER", Name = "Người dùng",ParentId = "SYSTEM",SortOrder =3,Status = Status.Active,URL = "/admin/user/index",IconCss = "fas fa-chevron-right"  },
-                    new Function() {Id = "ACTIVITY", Name = "Nhật ký",ParentId = "SYSTEM",SortOrder = 4,Status = Status.Active,URL = "/admin/activity/index",IconCss = "fas fa-chevron-right"  },
-                    new Function() {Id = "ERROR", Name = "Lỗi",ParentId = "SYSTEM",SortOrder = 5,Status = Status.Active,URL = "/admin/error/index",IconCss = "fas fa-chevron-right"  },
-                    new Function() {Id = "SETTING", Name = "Cấu hình",ParentId = "SYSTEM",SortOrder = 6,Status = Status.Active,URL = "/admin/setting/index",IconCss = "fas fa-chevron-right"  },
+                    new Function() {Id = "USER", Name = "Người dùng",ParentId = "SYSTEM",SortOrder =2,Status = Status.Active,URL = "/admin/user/index",IconCss = "fas fa-chevron-right"  },
 
                     new Function() {Id = "PRODUCT",Name = "Sản phẩm",ParentId = null,SortOrder = 2,Status = Status.Active,URL = "/",IconCss = "fas fa-columns"  },
                     new Function() {Id = "PRODUCT_CATEGORY",Name = "Danh mục",ParentId = "PRODUCT",SortOrder =1,Status = Status.Active,URL = "/admin/productcategory/index",IconCss = "fas fa-chevron-right"  },
                     new Function() {Id = "PRODUCT_LIST",Name = "Sản phẩm",ParentId = "PRODUCT",SortOrder = 2,Status = Status.Active,URL = "/admin/product/index",IconCss = "fas fa-chevron-right"  },
                     new Function() {Id = "BILL",Name = "Hóa đơn",ParentId = "PRODUCT",SortOrder = 3,Status = Status.Active,URL = "/admin/bill/index",IconCss = "fas fa-chevron-right"  },
 
-                    new Function() {Id = "CONTENT",Name = "Nội dung",ParentId = null,SortOrder = 3,Status = Status.Active,URL = "/",IconCss = "fas fa-pencil-alt"  },
-                    new Function() {Id = "BLOG",Name = "Bài viết",ParentId = "CONTENT",SortOrder = 1,Status = Status.Active,URL = "/admin/blog/index",IconCss = "fas fa-chevron-right"  },
+                    new Function() {Id = "UTILITY",Name = "Tiện ích",ParentId = null,SortOrder = 3,Status = Status.Active,URL = "/",IconCss = "fas fa-clone"  },
+                    new Function() {Id = "SLIDE",Name = "Slide",ParentId = "UTILITY",SortOrder = 1,Status = Status.Active,URL = "/admin/slide/index",IconCss = "fas fa-chevron-right"  },
 
-                    new Function() {Id = "UTILITY",Name = "Tiện ích",ParentId = null,SortOrder = 4,Status = Status.Active,URL = "/",IconCss = "fas fa-clone"  },
-                    new Function() {Id = "FOOTER",Name = "Footer",ParentId = "UTILITY",SortOrder = 1,Status = Status.Active,URL = "/admin/footer/index",IconCss = "fas fa-chevron-right"  },
-                    new Function() {Id = "FEEDBACK",Name = "Phản hồi",ParentId = "UTILITY",SortOrder = 2,Status = Status.Active,URL = "/admin/feedback/index",IconCss = "fas fa-chevron-right"  },
-                    new Function() {Id = "ANNOUNCEMENT",Name = "Thông báo",ParentId = "UTILITY",SortOrder = 3,Status = Status.Active,URL = "/admin/announcement/index",IconCss = "fas fa-chevron-right"  },
-                    new Function() {Id = "CONTACT",Name = "Liên hệ",ParentId = "UTILITY",SortOrder = 4,Status = Status.Active,URL = "/admin/contact/index",IconCss = "fas fa-chevron-right"  },
-                    new Function() {Id = "SLIDE",Name = "Slide",ParentId = "UTILITY",SortOrder = 5,Status = Status.Active,URL = "/admin/slide/index",IconCss = "fas fa-chevron-right"  },
-                    new Function() {Id = "ADVERTISMENT",Name = "Quảng cáo",ParentId = "UTILITY",SortOrder = 6,Status = Status.Active,URL = "/admin/advertistment/index",IconCss = "fas fa-chevron-right"  },
-
-                    new Function() {Id = "REPORT",Name = "Báo cáo",ParentId = null,SortOrder = 5,Status = Status.Active,URL = "/",IconCss = "fas fa-chart-line"  },
-                    new Function() {Id = "REVENUES",Name = "Báo cáo doanh thu",ParentId = "REPORT",SortOrder = 1,Status = Status.Active,URL = "/admin/report/revenues",IconCss = "fas fa-chevron-right"  },
-                    new Function() {Id = "ACCESS",Name = "Báo cáo truy cập",ParentId = "REPORT",SortOrder = 2,Status = Status.Active,URL = "/admin/report/visitor",IconCss = "fas fa-chevron-right"  },
-                    new Function() {Id = "READER",Name = "Báo cáo độc giả",ParentId = "REPORT",SortOrder = 3,Status = Status.Active,URL = "/admin/report/reader",IconCss = "fas fa-chevron-right"  },
                 });
-            }
-
-            if (_context.Footers.Count(x => x.Id == CommonConstants.DefaultFooterId) == 0)
-            {
-                string content = "Footer";
-                _context.Footers.Add(new Footer()
-                {
-                    Id = CommonConstants.DefaultFooterId,
-                    Content = content
-                });
-
             }
 
             if (_context.Colors.Count() == 0)
@@ -133,26 +109,6 @@ namespace OnlineShopCore.Data.EF
                 };
                 _context.Colors.AddRange(listColor);
             }
-            if (_context.AdvertistmentPages.Count() == 0)
-            {
-                List<AdvertistmentPage> pages = new List<AdvertistmentPage>()
-                {
-                    new AdvertistmentPage() {Id="home", Name="Trang chủ",AdvertistmentPositions = new List<AdvertistmentPosition>(){
-                        new AdvertistmentPosition(){Id="home-left",Name="Bên trái"}
-                    } },
-                    new AdvertistmentPage() {Id="product-cate", Name="Danh mục sản phẩm" ,
-                        AdvertistmentPositions = new List<AdvertistmentPosition>(){
-                        new AdvertistmentPosition(){Id="product-cate-left",Name="Bên trái"}
-                    }},
-                    new AdvertistmentPage() {Id="product-detail", Name="Chi tiết sản phẩm",
-                        AdvertistmentPositions = new List<AdvertistmentPosition>(){
-                        new AdvertistmentPosition(){Id="product-detail-left",Name="Bên trái"}
-                    } },
-
-                };
-                _context.AdvertistmentPages.AddRange(pages);
-            }
-
 
             //if (_context.Slides.Count() == 0)
             //{
@@ -236,37 +192,7 @@ namespace OnlineShopCore.Data.EF
                 };
                 _context.ProductCategories.AddRange(listProductCategory);
             }
-
-            if (!_context.SystemConfigs.Any(x => x.Id == "HomeTitle"))
-            {
-                _context.SystemConfigs.Add(new SystemConfig()
-                {
-                    Id = "HomeTitle",
-                    Name = "Tiêu đề trang chủ",
-                    Value1 = "Trang chủ TeduShop",
-                    Status = Status.Active
-                });
-            }
-            if (!_context.SystemConfigs.Any(x => x.Id == "HomeMetaKeyword"))
-            {
-                _context.SystemConfigs.Add(new SystemConfig()
-                {
-                    Id = "HomeMetaKeyword",
-                    Name = "Từ khoá trang chủ",
-                    Value1 = "Trang chủ TeduShop",
-                    Status = Status.Active
-                });
-            }
-            if (!_context.SystemConfigs.Any(x => x.Id == "HomeMetaDescription"))
-            {
-                _context.SystemConfigs.Add(new SystemConfig()
-                {
-                    Id = "HomeMetaDescription",
-                    Name = "Mô tả trang chủ",
-                    Value1 = "Trang chủ TeduShop",
-                    Status = Status.Active
-                });
-            }
+       
             await _context.SaveChangesAsync();
         }
     }

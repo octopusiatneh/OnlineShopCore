@@ -179,6 +179,10 @@ namespace OnlineShopCore
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseExceptionHandler("/Home/Error");
+
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
+
             app.UseSession();
 
             app.UseStaticFiles();
