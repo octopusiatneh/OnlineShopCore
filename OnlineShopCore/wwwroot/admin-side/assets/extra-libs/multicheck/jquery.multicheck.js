@@ -1,5 +1,4 @@
 ( function( $ ) {
-
 	$.fn.multicheck = function( $checkboxes ) {
 		$checkboxes = $checkboxes.filter( 'input[type=checkbox]' );
 		if( $checkboxes.length > 0 ) {
@@ -29,5 +28,4 @@
 		}
 		return this;
 	};
-
 })( jQuery );

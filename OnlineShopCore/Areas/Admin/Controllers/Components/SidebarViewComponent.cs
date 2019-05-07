@@ -1,19 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShopCore.Application.Interfaces;
+using OnlineShopCore.Application.ViewModels.System;
+using OnlineShopCore.Extensions;
+using OnlineShopCore.Utilities.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Security.Claims;
-using OnlineShopCore.Extensions;
-using OnlineShopCore.Application.ViewModels.System;
-using OnlineShopCore.Utilities.Constants;
 
 namespace OnlineShopCore.Areas.Admin.Components
 {
     public class SidebarViewComponent : ViewComponent
     {
-        IFunctionService _functionService;
+        private IFunctionService _functionService;
+
         public SidebarViewComponent(IFunctionService functionService)
         {
             _functionService = functionService;
@@ -31,7 +31,6 @@ namespace OnlineShopCore.Areas.Admin.Components
             {
                 //TODO get by permission
                 functions = await _functionService.GetAll(string.Empty);
-
             }
             return View(functions);
         }

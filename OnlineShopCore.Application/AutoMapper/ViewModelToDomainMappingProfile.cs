@@ -43,8 +43,7 @@ namespace OnlineShopCore.Application.AutoMapper
             CreateMap<ContactViewModel, Contact>()
                .ConstructUsing(c => new Contact(c.Id, c.Name, c.Phone, c.Email, c.Website, c.Address, c.Other, c.Lng, c.Lat, c.Status));
 
-            CreateMap<FeedbackViewModel, Feedback>()
-               .ConstructUsing(c => new Feedback(c.Id, c.Name, c.Email, c.Message, c.Status));
+       
 
             CreateMap<SlideViewModel, Slide>()
               .ConstructUsing(c => new Slide(c.Id, c.Name, c.Description, c.Image, c.Status, c.Content));

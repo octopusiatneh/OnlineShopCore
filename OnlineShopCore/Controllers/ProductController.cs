@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using OnlineShopCore.Application.Interfaces;
-using OnlineShopCore.Application.ViewModels.Product;
 using OnlineShopCore.Models.ProductViewModels;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq;
 
 namespace OnlineShopCore.Controllers
 {
     public class ProductController : Controller
     {
-        IProductCategoryService _productCategoryService;
-        IProductService _productService;
-        IBillService _billService;
-        IConfiguration _configuration;
+        private IProductCategoryService _productCategoryService;
+        private IProductService _productService;
+        private IBillService _billService;
+        private IConfiguration _configuration;
 
         public ProductController(IProductService productService, IConfiguration configuration,
            IBillService billService,
@@ -30,7 +26,7 @@ namespace OnlineShopCore.Controllers
 
         [Route("products")]
         public IActionResult Index(int pageSize, string sortBy, int page = 1)
-        {   
+        {
             var model = new ShoppingViewModel();
             pageSize = _configuration.GetValue<int>("PageSize");
 
@@ -69,6 +65,7 @@ namespace OnlineShopCore.Controllers
 
             return View(model);
         }
+
         [Produces("application/json")]
         [HttpGet]
         public IActionResult GetProductForAutocomplete()

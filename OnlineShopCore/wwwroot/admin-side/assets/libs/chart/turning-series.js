@@ -175,7 +175,7 @@ $(function() {
     { label: "Germany", color: "#7D0096" },
     { label: "Denmark", color: "#992B00" },
     { label: "Sweden", color: "#DE000F" },
-    { label: "Norway", color: "#ED7B00" }    
+    { label: "Norway", color: "#ED7B00" }
 ];*/
     // hard-code color indices to prevent them from shifting as
     // countries are turned on/off
@@ -185,7 +185,7 @@ $(function() {
         ++i;
     });
 
-    // insert checkboxes 
+    // insert checkboxes
     var choiceContainer = $("#choices");
     $.each(datasets, function(key, val) {
         choiceContainer.append('<input type="checkbox" name="' + key +
@@ -194,7 +194,6 @@ $(function() {
             val.label + '</label>');
     });
     choiceContainer.find("input").click(plotAccordingToChoices);
-
 
     function plotAccordingToChoices() {
         var data = [];

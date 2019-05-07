@@ -26,13 +26,9 @@ namespace OnlineShopCore.Application.AutoMapper
             CreateMap<Color, ColorViewModel>();
             CreateMap<Size, SizeViewModel>();
             CreateMap<Slide, SlideViewModel>();
-            CreateMap<ProductQuantity, ProductQuantityViewModel>().MaxDepth(2);
 
-            CreateMap<SlideImage, SlideImageViewModel>().MaxDepth(2);
             CreateMap<ProductImage, ProductImageViewModel>().MaxDepth(2);
-            CreateMap<WholePrice, WholePriceViewModel>().MaxDepth(2);
 
-            CreateMap<Feedback, FeedbackViewModel>().MaxDepth(2);
             CreateMap<Contact, ContactViewModel>().MaxDepth(2);
         }
     }

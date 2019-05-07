@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Application.ViewModels.Utilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineShopCore.Areas.Admin.Controllers
 {
@@ -34,7 +32,6 @@ namespace OnlineShopCore.Areas.Admin.Controllers
             var model = _slideService.GetAll();
             return new OkObjectResult(model);
         }
- 
 
         [HttpGet]
         public IActionResult GetById(int id)
@@ -54,7 +51,6 @@ namespace OnlineShopCore.Areas.Admin.Controllers
             }
             else
             {
-               
                 if (slideVm.Id == 0)
                 {
                     _slideService.Add(slideVm);
@@ -90,6 +86,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
             var images = _slideService.GetImages(productId);
             return new OkObjectResult(images);
         }
+
         #endregion AJAX API
     }
 }

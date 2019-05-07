@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using OnlineShopCore.Application.Interfaces;
-using Microsoft.AspNetCore.Hosting;
-using OnlineShopCore.Data.Enums;
-using OnlineShopCore.Application.ViewModels.Product;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using OnlineShopCore.Application.ViewModels.Common;
-using OnlineShopCore.Utilities.Extensions;
-using System.IO;
-using OfficeOpenXml;
-using OnlineShopCore.Utilities.Helpers;
 using Microsoft.AspNetCore.SignalR;
-using OnlineShopCore.Hubs;
+using OfficeOpenXml;
+using OnlineShopCore.Application.Interfaces;
+using OnlineShopCore.Application.ViewModels.Common;
+using OnlineShopCore.Application.ViewModels.Product;
 using OnlineShopCore.Application.ViewModels.System;
-using OnlineShopCore.Infrastructure.Interfaces;
 using OnlineShopCore.Data.Entities;
+using OnlineShopCore.Data.Enums;
+using OnlineShopCore.Hubs;
+using OnlineShopCore.Infrastructure.Interfaces;
+using OnlineShopCore.Utilities.Extensions;
+using OnlineShopCore.Utilities.Helpers;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace OnlineShopCore.Areas.Admin.Controllers
 {
@@ -30,6 +29,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
         private readonly IRepository<AnnouncementBill, int> _annouBillRepository;
 
         private IUnitOfWork _unitOfWork;
+
         public BillController(IBillService billService, IHostingEnvironment hostingEnvironment,
             IRepository<Announcement, string> annouRepository,
             IRepository<AnnouncementBill, int> annouBillRepository,
@@ -56,6 +56,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
 
             return new OkObjectResult(model);
         }
+
         [HttpGet]
         public IActionResult UpdateStatus(int billId, BillStatus status)
         {
@@ -63,6 +64,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
 
             return new OkResult();
         }
+
         [HttpGet]
         public IActionResult GetAllPaging(string startDate, string endDate, string keyword, int page, int pageSize)
         {
@@ -93,7 +95,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
                 {
                     Content = $"New bill from {billVm.CustomerName}",
                     DateCreated = DateTime.Now,
-                    Id= notificationId,
+                    Id = notificationId,
                     Status = Status.Active,
                     Title = "New bill",
                 };
@@ -102,11 +104,10 @@ namespace OnlineShopCore.Areas.Admin.Controllers
                     new AnnouncementBillViewModel(){AnnouncementId = notificationId,HasRead = false}
                 };
 
-                _billService.Create(announcement, announcementBills,billVm);
+                _billService.Create(announcement, announcementBills, billVm);
 
                 _hubContext.Clients.All.SendAsync("ReceiveMessage", announcement);
             }
-
             else
             {
                 _billService.Update(billVm);
@@ -114,6 +115,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
             _billService.Save();
             return new OkObjectResult(billVm);
         }
+
         [HttpGet]
         public IActionResult GetPaymentMethod()
         {
@@ -151,6 +153,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
             var sizes = _billService.GetSizes();
             return new OkObjectResult(sizes);
         }
+
         [HttpPost]
         public IActionResult ExportExcel(int billId)
         {
@@ -207,7 +210,6 @@ namespace OnlineShopCore.Areas.Admin.Controllers
                     worksheet.Cells[26, 1].Value = numberWord;
                     var billDate = billDetail.DateCreated;
                     worksheet.Cells[28, 3].Value = billDate.Day + ", " + billDate.Month + ", " + billDate.Year;
-
 
                     package.SaveAs(file); //Save the workbook.
                 }

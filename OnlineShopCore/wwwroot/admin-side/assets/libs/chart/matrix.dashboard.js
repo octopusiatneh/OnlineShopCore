@@ -1,7 +1,4 @@
 $(document).ready(function() {
-
-
-
     // === Prepare peity charts === //
     maruti.peity();
 
@@ -26,7 +23,6 @@ $(document).ready(function() {
     // === Point hover in chart === //
     var previousPoint = null;
     $(".chart").bind("plothover", function(event, pos, item) {
-
         if (item) {
             if (previousPoint != item.dataIndex) {
                 previousPoint = item.dataIndex;
@@ -39,7 +35,6 @@ $(document).ready(function() {
 
                 maruti.flot_tooltip(item.pageX, item.pageY, item.series.label + " of " + x + " = " + y);
             }
-
         } else {
             $('#tooltip').fadeOut(200, function() {
                 $(this).remove();
@@ -48,15 +43,12 @@ $(document).ready(function() {
         }
     });
 
-
-
-
-    /*// === Calendar === //    
+    /*// === Calendar === //
     var date = new Date();
 	var d = date.getDate();
 	var m = date.getMonth();
 	var y = date.getFullYear();
-	
+
 	$('.calendar').fullCalendar({
 		header: {
 			left: 'prev,next',
@@ -110,7 +102,6 @@ $(document).ready(function() {
 	});*/
 });
 
-
 maruti = {
     // === Peity charts === //
     peity: function() {
@@ -154,7 +145,6 @@ maruti = {
 
     // === Tooltip for flot charts === //
     flot_tooltip: function(x, y, contents) {
-
         $('<div id="tooltip">' + contents + '</div>').css({
             top: y + 5,
             left: x + 5

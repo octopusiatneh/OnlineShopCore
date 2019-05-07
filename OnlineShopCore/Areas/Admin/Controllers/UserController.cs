@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using OnlineShopCore.Application.Interfaces;
+using OnlineShopCore.Application.ViewModels.System;
+using OnlineShopCore.Authorization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using OnlineShopCore.Application.Interfaces;
-using OnlineShopCore.Application.ViewModels.System;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Authorization;
-using OnlineShopCore.Authorization;
 
 namespace OnlineShopCore.Areas.Admin.Controllers
 {

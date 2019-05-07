@@ -14,14 +14,12 @@
 
         $('.parallax100').parallax100();
 
-
         $(".js-select2").each(function () {
             $(this).select2({
                 minimumResultsForSearch: 20,
                 dropdownParent: $(this).next('.dropDownSelect2')
             });
         });
-
 
         $('.gallery-lb').each(function () { // the containers for all your galleries
             $(this).magnificPopup({
@@ -33,7 +31,6 @@
                 mainClass: 'mfp-fade'
             });
         });
-
 
         $('.js-addwish-b2, .js-addwish-detail').on('click', function (e) {
             e.preventDefault();
@@ -69,7 +66,6 @@
             });
         });
 
-
         $('.js-pscroll').each(function () {
             $(this).css('position', 'relative');
             $(this).css('overflow', 'hidden');
@@ -83,7 +79,6 @@
                 ps.update();
             })
         });
-
     </script>
 }
 
@@ -104,7 +99,6 @@
         </span>
     </div>
 </div>
-
 
 <!-- Product Detail -->
 <section class="sec-product-detail bg0 p-t-65 p-b-60">
@@ -128,17 +122,16 @@
                             </div>
                             @foreach (var item in Model.ProductImages)
                             {
-                                <div class="item-slick3" data-thumb="@item.Path">
-                                    <div class="wrap-pic-w pos-relative">
-                                        <img src="@item.Path" alt="@item.Caption">
+                            <div class="item-slick3" data-thumb="@item.Path">
+                                <div class="wrap-pic-w pos-relative">
+                                    <img src="@item.Path" alt="@item.Caption">
 
-                                        <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="@item.Path">
-                                            <i class="fa fa-expand"></i>
-                                        </a>
-                                    </div>
+                                    <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="@item.Path">
+                                        <i class="fa fa-expand"></i>
+                                    </a>
                                 </div>
+                            </div>
                             }
-
                         </div>
                     </div>
                 </div>
@@ -153,11 +146,11 @@
                     <span class="mtext-106 cl2">
                         @if (product.PromotionPrice.HasValue)
                         {
-                            <strike>@Html.Raw("&#36;")@product.Price</strike> @Html.Raw("&#36;")@product.PromotionPrice <span class="badge badge-danger">Hot</span>
+                        <strike>@Html.Raw("&#36;")@product.Price</strike>  @Html.Raw("&#36;")@product.PromotionPrice  <span class="badge badge-danger">Hot</span>
                         }
                         else
                         {
-                            @Html.Raw("&#36;") @product.Price
+                        @Html.Raw("&#36;")  @product.Price
                         }
                     </span>
 
@@ -332,19 +325,17 @@
         </span>
         @if (Model.Tags.Count > 0)
         {
-            <span class="stext-107 cl6 p-lr-25">
-                Tags: @foreach (var item in product.Tags)
+        <span class="stext-107 cl6 p-lr-25">
+            Tags: @foreach (var item in product.Tags)
                 {
-                    <a href="#" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                        @item
-                    </a>
+            <a href="#" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                @item
+            </a>
                 }
-            </span>
+        </span>
         }
-
     </div>
 </section>
-
 
 <!-- Related Products -->
 <section class="sec-relate-product bg0 p-t-45 p-b-105">
@@ -362,46 +353,44 @@
                 {
                     var url = item.SeoAlias + "-p-" + item.Id;
                     url = url.ToLower();
-                    <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-                        <!-- Block2 -->
-                        <div class="block2">
-                            <div class="block2-pic hov-img0">
-                                <a href="@url">
-                                    <img src="@item.Image" alt="IMG-PRODUCT">
+                <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+                    <!-- Block2 -->
+                    <div class="block2">
+                        <div class="block2-pic hov-img0">
+                            <a href="@url">
+                                <img src="@item.Image" alt="IMG-PRODUCT">
+                            </a>
+                        </div>
+
+                        <div class="block2-txt flex-w flex-t p-t-14">
+                            <div class="block2-txt-child1 flex-col-l ">
+                                <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                    @item.Name
                                 </a>
 
-                            </div>
-
-                            <div class="block2-txt flex-w flex-t p-t-14">
-                                <div class="block2-txt-child1 flex-col-l ">
-                                    <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                                        @item.Name
-                                    </a>
-
-                                    <span class="stext-105 cl3">
-                                        @if (item.PromotionPrice.HasValue)
+                                <span class="stext-105 cl3">
+                                    @if (item.PromotionPrice.HasValue)
                                         {
-                                            <strike>@Html.Raw("&#36;")@item.Price</strike> @Html.Raw("&#36;")@item.PromotionPrice
+                                    <strike>@Html.Raw("&#36;")@item.Price</strike>  @Html.Raw("&#36;")@item.PromotionPrice
                                         }
                                         else
                                         {
-                                            @Html.Raw("&#36;") @item.Price
+                                    @Html.Raw("&#36;")  @item.Price
                                         }
-                                    </span>
-                                </div>
+                                </span>
+                            </div>
 
-                                <div class="block2-txt-child2 flex-r p-t-3">
-                                    <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                                        <img class="icon-heart1 dis-block trans-04" src="/client-side/images/icons/icon-heart-01.png" alt="ICON">
-                                        <img class="icon-heart2 dis-block trans-04 ab-t-l" src="/client-side/images/icons/icon-heart-02.png" alt="ICON">
-                                    </a>
-                                </div>
+                            <div class="block2-txt-child2 flex-r p-t-3">
+                                <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                    <img class="icon-heart1 dis-block trans-04" src="/client-side/images/icons/icon-heart-01.png" alt="ICON">
+                                    <img class="icon-heart2 dis-block trans-04 ab-t-l" src="/client-side/images/icons/icon-heart-02.png" alt="ICON">
+                                </a>
                             </div>
                         </div>
                     </div>
+                </div>
                 }
             </div>
         </div>
     </div>
 </section>
-

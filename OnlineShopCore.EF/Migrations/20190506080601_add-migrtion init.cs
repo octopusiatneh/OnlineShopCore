@@ -4,22 +4,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OnlineShopCore.Data.EF.Migrations
 {
-    public partial class init : Migration
+    public partial class addmigrtioninit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "AdvertistmentPages",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AdvertistmentPages", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "AppRoleClaims",
                 columns: table => new
@@ -218,18 +206,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Footers",
-                columns: table => new
-                {
-                    Id = table.Column<string>(unicode: false, maxLength: 255, nullable: false),
-                    Content = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Footers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Functions",
                 columns: table => new
                 {
@@ -259,22 +235,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Languages", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Pages",
-                columns: table => new
-                {
-                    Id = table.Column<int>(maxLength: 255, nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 256, nullable: false),
-                    Alias = table.Column<string>(maxLength: 256, nullable: false),
-                    Content = table.Column<string>(nullable: true),
-                    Status = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Pages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -334,24 +294,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SystemConfigs",
-                columns: table => new
-                {
-                    Id = table.Column<string>(maxLength: 255, nullable: false),
-                    Name = table.Column<string>(maxLength: 128, nullable: false),
-                    Value1 = table.Column<string>(nullable: true),
-                    Value2 = table.Column<int>(nullable: true),
-                    Value3 = table.Column<bool>(nullable: true),
-                    Value4 = table.Column<DateTime>(nullable: true),
-                    Value5 = table.Column<decimal>(nullable: true),
-                    Status = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SystemConfigs", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Tags",
                 columns: table => new
                 {
@@ -365,25 +307,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AdvertistmentPositions",
-                columns: table => new
-                {
-                    Id = table.Column<string>(maxLength: 20, nullable: false),
-                    PageId = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(maxLength: 250, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AdvertistmentPositions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AdvertistmentPositions_AdvertistmentPages_PageId",
-                        column: x => x.PageId,
-                        principalTable: "AdvertistmentPages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Bills",
                 columns: table => new
                 {
@@ -392,7 +315,7 @@ namespace OnlineShopCore.Data.EF.Migrations
                     CustomerName = table.Column<string>(maxLength: 256, nullable: false),
                     CustomerAddress = table.Column<string>(maxLength: 256, nullable: false),
                     CustomerMobile = table.Column<string>(maxLength: 50, nullable: false),
-                    CustomerMessage = table.Column<string>(maxLength: 256, nullable: false),
+                    CustomerMessage = table.Column<string>(maxLength: 256, nullable: true),
                     PaymentMethod = table.Column<int>(nullable: false),
                     BillStatus = table.Column<int>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
@@ -506,33 +429,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Advertistments",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 250, nullable: true),
-                    Description = table.Column<string>(maxLength: 250, nullable: true),
-                    Image = table.Column<string>(maxLength: 250, nullable: true),
-                    Url = table.Column<string>(maxLength: 250, nullable: true),
-                    PositionId = table.Column<string>(maxLength: 20, nullable: true),
-                    Status = table.Column<int>(nullable: false),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false),
-                    SortOrder = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Advertistments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Advertistments_AdvertistmentPositions_PositionId",
-                        column: x => x.PositionId,
-                        principalTable: "AdvertistmentPositions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Announcements",
                 columns: table => new
                 {
@@ -619,40 +515,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductQuantities",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ProductId = table.Column<int>(nullable: false),
-                    SizeId = table.Column<int>(nullable: false),
-                    ColorId = table.Column<int>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductQuantities", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ProductQuantities_Colors_ColorId",
-                        column: x => x.ColorId,
-                        principalTable: "Colors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProductQuantities_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProductQuantities_Sizes_SizeId",
-                        column: x => x.SizeId,
-                        principalTable: "Sizes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ProductTags",
                 columns: table => new
                 {
@@ -679,28 +541,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "WholePrices",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ProductId = table.Column<int>(nullable: false),
-                    FromQuantity = table.Column<int>(nullable: false),
-                    ToQuantity = table.Column<int>(nullable: false),
-                    Price = table.Column<decimal>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_WholePrices", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_WholePrices_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AnnouncementBills",
                 columns: table => new
                 {
@@ -719,16 +559,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AdvertistmentPositions_PageId",
-                table: "AdvertistmentPositions",
-                column: "PageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Advertistments_PositionId",
-                table: "Advertistments",
-                column: "PositionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AnnouncementBills_AnnouncementId",
@@ -791,21 +621,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductQuantities_ColorId",
-                table: "ProductQuantities",
-                column: "ColorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProductQuantities_ProductId",
-                table: "ProductQuantities",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProductQuantities_SizeId",
-                table: "ProductQuantities",
-                column: "SizeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
@@ -819,18 +634,10 @@ namespace OnlineShopCore.Data.EF.Migrations
                 name: "IX_ProductTags_TagId",
                 table: "ProductTags",
                 column: "TagId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_WholePrices_ProductId",
-                table: "WholePrices",
-                column: "ProductId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Advertistments");
-
             migrationBuilder.DropTable(
                 name: "AnnouncementBills");
 
@@ -862,13 +669,7 @@ namespace OnlineShopCore.Data.EF.Migrations
                 name: "Feedbacks");
 
             migrationBuilder.DropTable(
-                name: "Footers");
-
-            migrationBuilder.DropTable(
                 name: "Languages");
-
-            migrationBuilder.DropTable(
-                name: "Pages");
 
             migrationBuilder.DropTable(
                 name: "Permissions");
@@ -877,25 +678,19 @@ namespace OnlineShopCore.Data.EF.Migrations
                 name: "ProductImages");
 
             migrationBuilder.DropTable(
-                name: "ProductQuantities");
-
-            migrationBuilder.DropTable(
                 name: "ProductTags");
 
             migrationBuilder.DropTable(
                 name: "Slides");
 
             migrationBuilder.DropTable(
-                name: "SystemConfigs");
-
-            migrationBuilder.DropTable(
-                name: "WholePrices");
-
-            migrationBuilder.DropTable(
-                name: "AdvertistmentPositions");
-
-            migrationBuilder.DropTable(
                 name: "Announcements");
+
+            migrationBuilder.DropTable(
+                name: "Colors");
+
+            migrationBuilder.DropTable(
+                name: "Sizes");
 
             migrationBuilder.DropTable(
                 name: "Blogs");
@@ -907,19 +702,10 @@ namespace OnlineShopCore.Data.EF.Migrations
                 name: "AppRoles");
 
             migrationBuilder.DropTable(
-                name: "Colors");
-
-            migrationBuilder.DropTable(
-                name: "Sizes");
-
-            migrationBuilder.DropTable(
-                name: "Tags");
-
-            migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "AdvertistmentPages");
+                name: "Tags");
 
             migrationBuilder.DropTable(
                 name: "Bills");

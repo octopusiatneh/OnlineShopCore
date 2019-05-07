@@ -44,12 +44,10 @@ var meta = $('<meta class="foundation-mq"/>').appendTo('head');
 DataTable.ext.foundationVersion = meta.css('font-family').match(/small|medium|large/) ? 6 : 5;
 meta.remove();
 
-
 $.extend( DataTable.ext.classes, {
 	sWrapper:    "dataTables_wrapper dt-foundation",
 	sProcessing: "dataTables_processing panel callout"
 } );
-
 
 /* Set the defaults for DataTables initialisation */
 $.extend( true, DataTable.defaults, {
@@ -59,7 +57,6 @@ $.extend( true, DataTable.defaults, {
 		"<'row'<'small-6 columns'i><'small-6 columns'p>>",
 	renderer: 'foundation'
 } );
-
 
 /* Page button renderer */
 DataTable.ext.renderer.pageButton.foundation = function ( settings, host, idx, buttons, page, pages ) {
@@ -168,7 +165,6 @@ DataTable.ext.renderer.pageButton.foundation = function ( settings, host, idx, b
 		buttons
 	);
 };
-
 
 return DataTable;
 }));

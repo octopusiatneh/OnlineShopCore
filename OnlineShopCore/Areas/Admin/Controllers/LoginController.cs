@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OnlineShopCore.Data.Entities;
 using OnlineShopCore.Models.AccountViewModels;
 using OnlineShopCore.Utilities.Dtos;
+using System.Threading.Tasks;
 
 namespace OnlineShopCore.Areas.Admin.Controllers
 {
@@ -26,10 +23,12 @@ namespace OnlineShopCore.Areas.Admin.Controllers
             _signInManager = signInManager;
             _logger = logger;
         }
+
         public IActionResult Index()
         {
             return View();
         }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -59,7 +58,5 @@ namespace OnlineShopCore.Areas.Admin.Controllers
             // If we got this far, something failed, redisplay form
             return new ObjectResult(new GenericResult(false, model));
         }
-
     }
-
 }

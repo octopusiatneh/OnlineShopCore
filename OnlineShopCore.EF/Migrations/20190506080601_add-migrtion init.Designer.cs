@@ -10,8 +10,8 @@ using OnlineShopCore.Data.EF;
 namespace OnlineShopCore.Data.EF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190416072226_init")]
-    partial class init
+    [Migration("20190506080601_add-migrtion init")]
+    partial class addmigrtioninit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -96,72 +96,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("AppUserTokens");
-                });
-
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.Advertistment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<DateTime>("DateModified");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(250);
-
-                    b.Property<string>("Image")
-                        .HasMaxLength(250);
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(250);
-
-                    b.Property<string>("PositionId")
-                        .HasMaxLength(20);
-
-                    b.Property<int>("SortOrder");
-
-                    b.Property<int>("Status");
-
-                    b.Property<string>("Url")
-                        .HasMaxLength(250);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PositionId");
-
-                    b.ToTable("Advertistments");
-                });
-
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.AdvertistmentPage", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AdvertistmentPages");
-                });
-
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.AdvertistmentPosition", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(20);
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(250);
-
-                    b.Property<string>("PageId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PageId");
-
-                    b.ToTable("AdvertistmentPositions");
                 });
 
             modelBuilder.Entity("OnlineShopCore.Data.Entities.Announcement", b =>
@@ -297,7 +231,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.Property<Guid?>("CustomerId");
 
                     b.Property<string>("CustomerMessage")
-                        .IsRequired()
                         .HasMaxLength(256);
 
                     b.Property<string>("CustomerMobile")
@@ -505,21 +438,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.ToTable("Feedbacks");
                 });
 
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.Footer", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(255)
-                        .IsUnicode(false);
-
-                    b.Property<string>("Content")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Footers");
-                });
-
             modelBuilder.Entity("OnlineShopCore.Data.Entities.Function", b =>
                 {
                     b.Property<string>("Id")
@@ -565,30 +483,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Languages");
-                });
-
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.Page", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(255)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Alias")
-                        .IsRequired()
-                        .HasMaxLength(256);
-
-                    b.Property<string>("Content");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(256);
-
-                    b.Property<int>("Status");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Pages");
                 });
 
             modelBuilder.Entity("OnlineShopCore.Data.Entities.Permission", b =>
@@ -741,31 +635,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.ToTable("ProductImages");
                 });
 
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.ProductQuantity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ColorId");
-
-                    b.Property<int>("ProductId");
-
-                    b.Property<int>("Quantity");
-
-                    b.Property<int>("SizeId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ColorId");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("SizeId");
-
-                    b.ToTable("ProductQuantities");
-                });
-
             modelBuilder.Entity("OnlineShopCore.Data.Entities.ProductTag", b =>
                 {
                     b.Property<int>("Id")
@@ -828,33 +697,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.ToTable("Slides");
                 });
 
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.SystemConfig", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(255);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(128);
-
-                    b.Property<int>("Status");
-
-                    b.Property<string>("Value1");
-
-                    b.Property<int?>("Value2");
-
-                    b.Property<bool?>("Value3");
-
-                    b.Property<DateTime?>("Value4");
-
-                    b.Property<decimal?>("Value5");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SystemConfigs");
-                });
-
             modelBuilder.Entity("OnlineShopCore.Data.Entities.Tag", b =>
                 {
                     b.Property<string>("Id")
@@ -873,41 +715,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tags");
-                });
-
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.WholePrice", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("FromQuantity");
-
-                    b.Property<decimal>("Price");
-
-                    b.Property<int>("ProductId");
-
-                    b.Property<int>("ToQuantity");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("WholePrices");
-                });
-
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.Advertistment", b =>
-                {
-                    b.HasOne("OnlineShopCore.Data.Entities.AdvertistmentPosition", "AdvertistmentPosition")
-                        .WithMany("Advertistments")
-                        .HasForeignKey("PositionId");
-                });
-
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.AdvertistmentPosition", b =>
-                {
-                    b.HasOne("OnlineShopCore.Data.Entities.AdvertistmentPage", "AdvertistmentPage")
-                        .WithMany("AdvertistmentPositions")
-                        .HasForeignKey("PageId");
                 });
 
             modelBuilder.Entity("OnlineShopCore.Data.Entities.Announcement", b =>
@@ -997,24 +804,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.ProductQuantity", b =>
-                {
-                    b.HasOne("OnlineShopCore.Data.Entities.Color", "Color")
-                        .WithMany()
-                        .HasForeignKey("ColorId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("OnlineShopCore.Data.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("OnlineShopCore.Data.Entities.Size", "Size")
-                        .WithMany()
-                        .HasForeignKey("SizeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("OnlineShopCore.Data.Entities.ProductTag", b =>
                 {
                     b.HasOne("OnlineShopCore.Data.Entities.Product", "Product")
@@ -1025,14 +814,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.HasOne("OnlineShopCore.Data.Entities.Tag", "Tag")
                         .WithMany()
                         .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.WholePrice", b =>
-                {
-                    b.HasOne("OnlineShopCore.Data.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

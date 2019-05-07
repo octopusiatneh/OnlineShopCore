@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShopCore.Application.Interfaces;
 
 namespace OnlineShopCore.Areas.Admin.Controllers
@@ -15,6 +11,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
         {
             _announcementService = announcementService;
         }
+
         [HttpGet]
         public IActionResult GettAllPaging(int page, int pageSize)
         {

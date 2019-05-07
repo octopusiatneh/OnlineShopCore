@@ -21,16 +21,16 @@
     {
         if (i == Model.CurrentPage)
         {
-            <a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
-                @i
-            </a>
+    <a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
+        @i
+    </a>
 
         }
         else
         {
-            <a href="@urlTemplate.Replace("{0}", i.ToString())" class="flex-c-m how-pagination1 trans-04 m-all-7">
-                @i
-            </a>       
+    <a href="@urlTemplate.Replace("{0}", i.ToString())" class="flex-c-m how-pagination1 trans-04 m-all-7">
+        @i
+    </a>
         }
     }
 </div>

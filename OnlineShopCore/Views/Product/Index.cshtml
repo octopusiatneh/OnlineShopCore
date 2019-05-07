@@ -27,9 +27,9 @@
 
                 @foreach (var item in Model.ProductCategory)
                 {
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".@item.Id">
-                        @item.Name
-                    </button>
+                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".@item.Id">
+                    @item.Name
+                </button>
                 }
             </div>
             <!--filter and search-->
@@ -41,42 +41,38 @@
             {
                 var url = item.SeoAlias + "-st-" + item.Id;
                 url = url.ToLower();
-                <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item @item.CategoryId">
-                    <!-- Block2 -->
-                    <div class="block2">
-                        <div class="block2-pic hov-img0">
-                            <a href="@url">
-                                <img src="@item.Image" alt="IMG-PRODUCT">
+            <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item @item.CategoryId">
+                <!-- Block2 -->
+                <div class="block2">
+                    <div class="block2-pic hov-img0">
+                        <a href="@url">
+                            <img src="@item.Image" alt="IMG-PRODUCT">
+                        </a>
+                    </div>
+
+                    <div class="block2-txt flex-w flex-t p-t-14">
+                        <div class="block2-txt-child1 flex-col-l ">
+
+                            <a href="@url" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                @item.Name
                             </a>
 
-                        </div>
-
-                        <div class="block2-txt flex-w flex-t p-t-14">
-                            <div class="block2-txt-child1 flex-col-l ">
-
-                                <a href="@url" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                                    @item.Name
-                                </a>
-
-                                <span class="stext-105 cl3">
-                                    @if (item.PromotionPrice.HasValue)
+                            <span class="stext-105 cl3">
+                                @if (item.PromotionPrice.HasValue)
                                     {
-                                        <strike>@Html.Raw("&#36;")@item.Price</strike> @Html.Raw("&#36;")@item.PromotionPrice
+                                <strike>@Html.Raw("&#36;")@item.Price</strike>  @Html.Raw("&#36;")@item.PromotionPrice
                                     }
                                     else
                                     {
-                                        @Html.Raw("&#36;") @item.Price
+                                @Html.Raw("&#36;")  @item.Price
                                     }
-
-                                </span>
-                            </div>
+                            </span>
                         </div>
                     </div>
                 </div>
+            </div>
             }
         </div>
         @(await Component.InvokeAsync("Pagination", Model.Product))
     </div>
 </div>
-
-

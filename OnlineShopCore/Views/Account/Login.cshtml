@@ -27,37 +27,37 @@
             var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (loginProviders.Count > 0)
             {
-                <form asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
-                    <div class="login-box-content">
-                        @foreach (var provider in loginProviders)
+            <form asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+                <div class="login-box-content">
+                    @foreach (var provider in loginProviders)
                         {
                             if (provider.Name == "Facebook")
                             {
-                                <div class="fb-login box-shadow">
-                                    <button name="provider" value="@provider.Name" type="submit" class="flex-row align-items-center social-login-link"><i class="fa fa-facebook" style="margin-left:0px;padding-right:20px;padding-left:22px;width:56px;"></i>Login with @provider.Name</button>
-                                </div>
+                    <div class="fb-login box-shadow">
+                        <button name="provider" value="@provider.Name" type="submit" class="flex-row align-items-center social-login-link"><i class="fa fa-facebook" style="margin-left:0px;padding-right:20px;padding-left:22px;width:56px;"></i>Login with @provider.Name</button>
+                    </div>
                             }
                             else if (provider.Name == "Google")
                             {
-                                <div class="gp-login box-shadow">
-                                    <button name="provider" value="@provider.Name" type="submit" class="d-flex flex-row align-items-center social-login-link" style="margin-bottom:10px;"><i class="fa fa-google" style="color:rgb(255,255,255);width:56px;"></i>Login with @provider.Name</button>
-                                </div>
-                            }
-                            @*if (provider.Name == "Facebook")
-                                {
-                                    <div class="fb-login box-shadow">
-                                        <button type="submit" class="flex-row align-items-center social-login-link" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="fa fa-facebook" style="margin-left:0px;padding-right:20px;padding-left:22px;width:56px;"></i>@provider.Name</button>
-                                    </div>
-                                }
-                                if (provider.Name == "Google")
-                                {
-                                    <div class="gp-login box-shadow">
-                                        <button name="provider" value="@provider.Name" type="submit" class="d-flex flex-row align-items-center social-login-link" style="margin-bottom:10px;"><i class="fa fa-google" style="color:rgb(255,255,255);width:56px;"></i>Login with @provider.Name</button>
-                                    </div>
-                                }*@
-                        }
+                    <div class="gp-login box-shadow">
+                        <button name="provider" value="@provider.Name" type="submit" class="d-flex flex-row align-items-center social-login-link" style="margin-bottom:10px;"><i class="fa fa-google" style="color:rgb(255,255,255);width:56px;"></i>Login with @provider.Name</button>
                     </div>
-                </form>
+                            }
+                    @*if (provider.Name == "Facebook")
+                        {
+                            <div class="fb-login box-shadow">
+                                <button type="submit" class="flex-row align-items-center social-login-link" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="fa fa-facebook" style="margin-left:0px;padding-right:20px;padding-left:22px;width:56px;"></i>@provider.Name</button>
+                            </div>
+                        }
+                        if (provider.Name == "Google")
+                        {
+                            <div class="gp-login box-shadow">
+                                <button name="provider" value="@provider.Name" type="submit" class="d-flex flex-row align-items-center social-login-link" style="margin-bottom:10px;"><i class="fa fa-google" style="color:rgb(255,255,255);width:56px;"></i>Login with @provider.Name</button>
+                            </div>
+                        }*@
+                        }
+                </div>
+            </form>
             }
         }
         @*<div class="login-box-content">
@@ -76,7 +76,6 @@
             <div class="email-login" style="background-color:#ffffff;">
                 <input asp-for="Email " type="email" placeholder="@Localizer["Email"]" class="email-imput form-control required" style="margin-top:10px;">
                 <input asp-for="Password" type="password" required="" placeholder="@Localizer["Password"]" minlength="6" class="password-input form-control required" style="margin-top:10px;">
-
             </div>
             <div class="submit-row" style="margin-bottom:8px;padding-top:0px;">
                 <button class="btn btn-primary btn-block box-shadow" type="submit" id="submit-id-submit">@Localizer["Login"]</button>
@@ -94,8 +93,4 @@
             <p style="margin-bottom:0px;"> @Localizer["Dont"]<a href="/register.html" id="register-link"> @Localizer["SignUp"]</a></p>
         </div>
     </div>
-
 </section>
-
-
-

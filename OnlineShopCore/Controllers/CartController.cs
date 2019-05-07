@@ -1,20 +1,20 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using OnlineShopCore.Application.Interfaces;
+using OnlineShopCore.Application.ViewModels.Product;
+using OnlineShopCore.Application.ViewModels.System;
+using OnlineShopCore.Data.Entities;
+using OnlineShopCore.Data.Enums;
+using OnlineShopCore.Extensions;
+using OnlineShopCore.Hubs;
+using OnlineShopCore.Infrastructure.Interfaces;
+using OnlineShopCore.Models;
+using OnlineShopCore.Utilities.Constants;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using OnlineShopCore.Models;
-using OnlineShopCore.Utilities.Constants;
-using Microsoft.AspNetCore.Http;
-using OnlineShopCore.Extensions;
-using OnlineShopCore.Application.Interfaces;
-using OnlineShopCore.Application.ViewModels.Product;
-using OnlineShopCore.Data.Enums;
-using Microsoft.AspNetCore.SignalR;
-using OnlineShopCore.Infrastructure.Interfaces;
-using OnlineShopCore.Data.Entities;
-using OnlineShopCore.Hubs;
-using OnlineShopCore.Application.ViewModels.System;
 
 namespace OnlineShopCore.Controllers
 {
@@ -26,6 +26,7 @@ namespace OnlineShopCore.Controllers
         private readonly IRepository<AnnouncementBill, int> _annouBillRepository;
         private readonly IBillService _billService;
         private readonly IUnitOfWork _unitOfWork;
+
         public CartController(IProductService productService, IBillService billService, IRepository<Announcement, string> annouRepository,
             IRepository<AnnouncementBill, int> annouBillRepository,
             IUnitOfWork unitOfWork,
@@ -38,6 +39,7 @@ namespace OnlineShopCore.Controllers
             _unitOfWork = unitOfWork;
             _hubContext = hubContext;
         }
+
         [Route("shopping-cart", Name = "Cart")]
         public IActionResult Index()
         {
@@ -127,13 +129,13 @@ namespace OnlineShopCore.Controllers
                         ViewData["Success"] = false;
                         ModelState.AddModelError("", ex.Message);
                     }
-
                 }
             }
             return View();
         }
 
         #region AJAX Request
+
         /// <summary>
         /// Get list item
         /// </summary>
@@ -301,6 +303,7 @@ namespace OnlineShopCore.Controllers
             var sizes = _billService.GetSizes();
             return new OkObjectResult(sizes);
         }
-        #endregion
+
+        #endregion AJAX Request
     }
 }

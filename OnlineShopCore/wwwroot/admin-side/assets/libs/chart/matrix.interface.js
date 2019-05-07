@@ -1,6 +1,4 @@
-
 $(document).ready(function(){
-	
 	// === jQuery Peity === //
 	$.fn.peity.defaults.line = {
 		strokeWidth: 1,
@@ -24,7 +22,7 @@ $(document).ready(function(){
 	$(".peity_line_bad span").peity("line", {
 		colour: "#da4b0f",
 		strokeColour: "#BA1E20"
-	});	
+	});
 	$(".peity_line_neutral span").peity("line", {
 		colour: "#CCCCCC",
 		strokeColour: "#757575"
@@ -34,7 +32,7 @@ $(document).ready(function(){
 	});
 	$(".peity_bar_bad span").peity("bar", {
 		colour: "#BA1E20"
-	});	
+	});
 	$(".peity_bar_neutral span").peity("bar", {
 		colour: "#757575"
 	});

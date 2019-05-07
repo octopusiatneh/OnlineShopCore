@@ -1,17 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Collections.Generic;
-using System.Linq;
+using OfficeOpenXml;
+using OfficeOpenXml.Table;
 using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Application.ViewModels.Product;
 using OnlineShopCore.Utilities.Helpers;
-using Microsoft.AspNetCore.Http;
-using System.Net.Http.Headers;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
 using System;
-using OfficeOpenXml;
-using OfficeOpenXml.Table;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Http.Headers;
 
 namespace OnlineShopCore.Areas.Admin.Controllers
 {
@@ -99,21 +99,6 @@ namespace OnlineShopCore.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult SaveQuantities(int productId, List<ProductQuantityViewModel> quantities)
-        {
-            _productService.AddQuantity(productId, quantities);
-            _productService.Save();
-            return new OkObjectResult(quantities);
-        }
-
-        [HttpGet]
-        public IActionResult GetQuantities(int productId)
-        {
-            var quantities = _productService.GetQuantities(productId);
-            return new OkObjectResult(quantities);
-        }
-
-        [HttpPost]
         public IActionResult SaveImages(int productId, string[] images)
         {
             _productService.AddImages(productId, images);
@@ -127,22 +112,6 @@ namespace OnlineShopCore.Areas.Admin.Controllers
             var images = _productService.GetImages(productId);
             return new OkObjectResult(images);
         }
-
-        [HttpPost]
-        public IActionResult SaveWholePrice(int productId, List<WholePriceViewModel> wholePrices)
-        {
-            _productService.AddWholePrice(productId, wholePrices);
-            _productService.Save();
-            return new OkObjectResult(wholePrices);
-        }
-
-        [HttpGet]
-        public IActionResult GetWholePrices(int productId)
-        {
-            var wholePrices = _productService.GetWholePrices(productId);
-            return new OkObjectResult(wholePrices);
-        }
-        [HttpPost]
 
         [HttpPost]
         public IActionResult ImportExcel(IList<IFormFile> files, int categoryId)

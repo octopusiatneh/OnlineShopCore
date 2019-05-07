@@ -25,23 +25,17 @@ namespace OnlineShopCore.Application.Implementation
         ITagRepository _tagRepository;
         IProductTagRepository _productTagRepository;
         IUnitOfWork _unitOfWork;
-        IProductQuantityRepository _productQuantityRepository;
         IProductImageRepository _productImageRepository;
-        IWholePriceRepository _wholePriceRepository;
 
 
         public ProductService(IProductRepository productRepository,
             ITagRepository tagRepository,
-            IProductQuantityRepository productQuantityRepository,
             IProductImageRepository productImageRepository,
-             IWholePriceRepository wholePriceRepository,
             IUnitOfWork unitOfWork,
         IProductTagRepository productTagRepository)
         {
             _productRepository = productRepository;
             _tagRepository = tagRepository;
-            _productQuantityRepository = productQuantityRepository;
-            _wholePriceRepository = wholePriceRepository;
             _productTagRepository = productTagRepository;
             _productImageRepository = productImageRepository;
             _unitOfWork = unitOfWork;
@@ -119,20 +113,7 @@ namespace OnlineShopCore.Application.Implementation
             _productRepository.Update(product);
         }
 
-        public void AddQuantity(int productId, List<ProductQuantityViewModel> quantities)
-        {
-            _productQuantityRepository.RemoveMultiple(_productQuantityRepository.FindAll(x => x.ProductId == productId).ToList());
-            foreach (var quantity in quantities)
-            {
-                _productQuantityRepository.Add(new ProductQuantity()
-                {
-                    ProductId = productId,
-                    ColorId = quantity.ColorId,
-                    SizeId = quantity.SizeId,
-                    Quantity = quantity.Quantity
-                });
-            }
-        }
+      
 
         public void Delete(int id)
         {
@@ -154,10 +135,7 @@ namespace OnlineShopCore.Application.Implementation
             return Mapper.Map<Product, ProductViewModel>(_productRepository.FindById(id));
         }
 
-        public List<ProductQuantityViewModel> GetQuantities(int productId)
-        {
-            return _productQuantityRepository.FindAll(x => x.ProductId == productId).ProjectTo<ProductQuantityViewModel>().ToList();
-        }
+    
 
         public void ImportExcel(string filePath, int categoryId)
         {
@@ -226,25 +204,9 @@ namespace OnlineShopCore.Application.Implementation
 
         }
 
-        public void AddWholePrice(int productId, List<WholePriceViewModel> wholePrices)
-        {
-            _wholePriceRepository.RemoveMultiple(_wholePriceRepository.FindAll(x => x.ProductId == productId).ToList());
-            foreach (var wholePrice in wholePrices)
-            {
-                _wholePriceRepository.Add(new WholePrice()
-                {
-                    ProductId = productId,
-                    FromQuantity = wholePrice.FromQuantity,
-                    ToQuantity = wholePrice.ToQuantity,
-                    Price = wholePrice.Price
-                });
-            }
-        }
+      
 
-        public List<WholePriceViewModel> GetWholePrices(int productId)
-        {
-            return _wholePriceRepository.FindAll(x => x.ProductId == productId).ProjectTo<WholePriceViewModel>().ToList();
-        }
+     
 
         public PagedResult<ProductViewModel> GetAllPaging(string keyword, int page, int pageSize)
         {
@@ -380,12 +342,6 @@ namespace OnlineShopCore.Application.Implementation
             return product.ProjectTo<ProductViewModel>().ToList();
         }
 
-        public bool CheckAvailability(int productId, int size, int color)
-        {
-            var quantity = _productQuantityRepository.FindSingle(x => x.ColorId == color && x.SizeId == size && x.ProductId == productId);
-            if (quantity == null)
-                return false;
-            return quantity.Quantity > 0;
-        }
+       
     }
 }

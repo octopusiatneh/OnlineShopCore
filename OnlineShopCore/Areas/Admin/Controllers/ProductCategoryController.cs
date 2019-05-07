@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Application.ViewModels.Product;
 using OnlineShopCore.Utilities.Helpers;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineShopCore.Areas.Admin.Controllers
 {
     public class ProductCategoryController : BaseController
     {
-        IProductCategoryService _productCategoryService;
+        private IProductCategoryService _productCategoryService;
+
         public ProductCategoryController(IProductCategoryService productCategoryService)
         {
             _productCategoryService = productCategoryService;
@@ -25,6 +24,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
         }
 
         #region Get Data API
+
         [HttpGet]
         public IActionResult GetById(int id)
         {
@@ -54,9 +54,9 @@ namespace OnlineShopCore.Areas.Admin.Controllers
                 }
                 _productCategoryService.Save();
                 return new OkObjectResult(productVm);
-
             }
         }
+
         [HttpPost]
         public IActionResult Delete(int id)
         {
@@ -123,6 +123,6 @@ namespace OnlineShopCore.Areas.Admin.Controllers
             }
         }
 
-        #endregion
+        #endregion Get Data API
     }
 }

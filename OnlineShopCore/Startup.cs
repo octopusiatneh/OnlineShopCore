@@ -149,15 +149,14 @@ namespace OnlineShopCore
             services.AddTransient<IBillDetailRepository, BillDetailRepository>();
             services.AddTransient<IColorRepository, ColorRepository>();
             services.AddTransient<ISizeRepository, SizeRepository>();
-            services.AddTransient<IProductQuantityRepository, ProductQuantityRepository>();
             services.AddTransient<IProductImageRepository, ProductImageRepository>();
-            services.AddTransient<IWholePriceRepository, WholePriceRepository>();
-
             services.AddTransient<IFeedbackRepository, FeedbackRepository>();
+
+
             services.AddTransient<IContactRepository, ContactRepository>();
 
-            services.AddTransient<ISlideImageRepository, SlideImageRepository>();
             services.AddTransient<ISlideRepository, SlideRepository>();
+            services.AddTransient<ISlideImageRepository, SlideImageRepository>();
 
             //Services
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
@@ -168,8 +167,8 @@ namespace OnlineShopCore
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IAuthorizationHandler, BaseResourceAuthorizationHandler>();
             services.AddTransient<IBillService, BillService>();
-
             services.AddTransient<IFeedbackService, FeedbackService>();
+
             services.AddTransient<IContactService, ContactService>();
             services.AddTransient<IAnnouncementService, AnnouncementService>();
             //SignalR

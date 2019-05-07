@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
 
 namespace OnlineShopCore.Controllers
 {
     public class CertificatedController : Controller
     {
         private readonly IHostingEnvironment _hostingEnvironment;
+
         public CertificatedController(IHostingEnvironment hostingEnvironment)
         {
             _hostingEnvironment = hostingEnvironment;
         }
+
         [HttpGet]
         [Route(".well-known/acme-challenge/{id}")]
         public ActionResult LetsEncrypt(string id)

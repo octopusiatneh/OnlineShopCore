@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using OnlineShopCore.Application.Interfaces;
-using OnlineShopCore.Services;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Models;
+using OnlineShopCore.Services;
 using OnlineShopCore.Utilities.Constants;
+using System.Threading.Tasks;
 
 namespace OnlineShopCore.Controllers
 {
@@ -30,6 +27,7 @@ namespace OnlineShopCore.Controllers
             _configuration = configuration;
             _viewRenderService = viewRenderService;
         }
+
         [Route("contact")]
         [HttpGet]
         public IActionResult Index()
@@ -43,7 +41,7 @@ namespace OnlineShopCore.Controllers
         [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> Index(ContactPageViewModel model)
-            {
+        {
             if (ModelState.IsValid)
             {
                 _feedbackService.Add(model.Feedback);

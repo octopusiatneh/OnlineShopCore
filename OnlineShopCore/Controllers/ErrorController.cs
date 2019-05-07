@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Diagnostics;
+﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
@@ -21,12 +17,13 @@ namespace OnlineShopCore.Controllers
             var statusCodeData = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
             switch (statusCode)
             {
-                case 404:        
+                case 404:
                     ViewBag.ErrorCode = "404";
                     ViewBag.ErrorMessage = "PAGE NOT FOUND !";
                     ViewBag.Message = "Sorry the page you requested could not be found"; ;
                     ViewBag.RouteOfException = statusCodeData.OriginalPath;
                     break;
+
                 case 500:
                     ViewBag.ErrorCode = "500";
                     ViewBag.ErrorMessage = "SERVER DOWN !";

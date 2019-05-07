@@ -15,4 +15,8 @@
     <ProjectReference Include="..\OnlineShopCore.Utilities\OnlineShopCore.Utilities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModels\Blog\" />
+  </ItemGroup>
+
 </Project>

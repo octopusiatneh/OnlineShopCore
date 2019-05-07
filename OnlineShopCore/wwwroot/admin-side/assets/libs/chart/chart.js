@@ -1,7 +1,4 @@
 $(document).ready(function() {
-
-
-
     // === Prepare peity charts === //
     maruti.peity();
 
@@ -26,7 +23,6 @@ $(document).ready(function() {
     // === Point hover in chart === //
     var previousPoint = null;
     $(".chart").bind("plothover", function(event, pos, item) {
-
         if (item) {
             if (previousPoint != item.dataIndex) {
                 previousPoint = item.dataIndex;
@@ -39,7 +35,6 @@ $(document).ready(function() {
 
                 maruti.flot_tooltip(item.pageX, item.pageY, item.series.label + " of " + x + " = " + y);
             }
-
         } else {
             $('#tooltip').fadeOut(200, function() {
                 $(this).remove();

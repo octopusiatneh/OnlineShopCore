@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using OnlineShopCore.Data.Entities;
 using OnlineShopCore.Data.Enums;
-using OnlineShopCore.Models;
 using OnlineShopCore.Models.AccountViewModels;
 using OnlineShopCore.Services;
 using PaulMiami.AspNetCore.Mvc.Recaptcha;
+using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace OnlineShopCore.Controllers
 {
@@ -232,7 +227,7 @@ namespace OnlineShopCore.Controllers
             //MM/dd/yyy
             long validPhoneNumber = 0;
             var isValidPhoneNumber = long.TryParse(model.PhoneNumber, out validPhoneNumber);
-            if(isValidPhoneNumber)
+            if (isValidPhoneNumber)
             {
                 var user = new AppUser
                 {
@@ -245,7 +240,7 @@ namespace OnlineShopCore.Controllers
                     Status = Status.Active,
                     Avatar = string.Empty
                 };
-                    var result = await _userManager.CreateAsync(user, model.Password);
+                var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -263,7 +258,7 @@ namespace OnlineShopCore.Controllers
 
                 // If we got this far, something failed, redisplay form
                 return View(model);
-            } 
+            }
             else
             {
                 // If we got this far, something failed, redisplay form
@@ -476,7 +471,6 @@ namespace OnlineShopCore.Controllers
             return View();
         }
 
-
         [HttpGet]
         public IActionResult AccessDenied()
         {
@@ -505,6 +499,6 @@ namespace OnlineShopCore.Controllers
             }
         }
 
-        #endregion
+        #endregion Helpers
     }
 }

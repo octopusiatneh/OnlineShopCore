@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using OnlineShopCore.Application.Interfaces;
+using OnlineShopCore.Application.ViewModels.System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using OnlineShopCore.Application.ViewModels.System;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using OnlineShopCore.Application.Interfaces;
 
 namespace OnlineShopCore.Areas.Admin.Controllers
 {
@@ -141,6 +140,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
         }
 
         #region Private Functions
+
         private void GetByParentId(IEnumerable<FunctionViewModel> allFunctions,
             FunctionViewModel parent, IList<FunctionViewModel> items)
         {
@@ -154,6 +154,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
                 GetByParentId(functionsEntities, cat, items);
             }
         }
-        #endregion
+
+        #endregion Private Functions
     }
 }

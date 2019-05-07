@@ -42,7 +42,6 @@
 'use strict';
 var DataTable = $.fn.dataTable;
 
-
 /* Set the defaults for DataTables initialisation */
 $.extend( true, DataTable.defaults, {
 	dom:
@@ -62,7 +61,6 @@ $.extend( true, DataTable.defaults, {
 	renderer: 'semanticUI'
 } );
 
-
 /* Default class modification */
 $.extend( DataTable.ext.classes, {
 	sWrapper:      "dataTables_wrapper dt-semanticUI",
@@ -70,7 +68,6 @@ $.extend( DataTable.ext.classes, {
 	sProcessing:   "dataTables_processing ui segment",
 	sPageButton:   "paginate_button item"
 } );
-
 
 /* Bootstrap paging button renderer */
 DataTable.ext.renderer.pageButton.semanticUI = function ( settings, host, idx, buttons, page, pages ) {
@@ -166,7 +163,7 @@ DataTable.ext.renderer.pageButton.semanticUI = function ( settings, host, idx, b
 	};
 
 	// IE9 throws an 'unknown error' if document.activeElement is used
-	// inside an iframe or frame. 
+	// inside an iframe or frame.
 	var activeEl;
 
 	try {
@@ -188,7 +185,6 @@ DataTable.ext.renderer.pageButton.semanticUI = function ( settings, host, idx, b
 	}
 };
 
-
 // Javascript enhancements on table initialisation
 $(document).on( 'init.dt', function (e, ctx) {
 	if ( e.namespace !== 'dt' ) {
@@ -202,7 +198,6 @@ $(document).on( 'init.dt', function (e, ctx) {
 		$( 'div.dataTables_length select', api.table().container() ).dropdown();
 	}
 } );
-
 
 return DataTable;
 }));

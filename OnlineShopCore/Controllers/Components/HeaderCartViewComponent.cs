@@ -3,14 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OnlineShopCore.Models;
 using OnlineShopCore.Utilities.Constants;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace OnlineShopCore.Controllers.Components
 {
-    public class HeaderCartViewComponent:ViewComponent
+    public class HeaderCartViewComponent : ViewComponent
     {
         public async Task<IViewComponentResult> InvokeAsync()
         {
