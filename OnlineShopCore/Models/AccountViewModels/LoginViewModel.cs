@@ -11,8 +11,6 @@ namespace OnlineShopCore.Models.AccountViewModels
         [Required(ErrorMessage = "Required")]
         [Display(Name ="Email")]
         public string Email { get; set; }
-
-
         [Required(ErrorMessage = "Required")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

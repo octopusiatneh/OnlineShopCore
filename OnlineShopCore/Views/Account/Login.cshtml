@@ -74,7 +74,7 @@
         <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="email-login" style="background-color:#ffffff;">
-                <input asp-for="Email " type="email" placeholder="@Localizer["Email"]" class="email-imput form-control required" style="margin-top:10px;">
+                <input asp-for="Email" type="email" placeholder="@Localizer["Email"]" class="email-imput form-control required" style="margin-top:10px;">
                 <input asp-for="Password" type="password" required="" placeholder="@Localizer["Password"]" minlength="6" class="password-input form-control required" style="margin-top:10px;">
             </div>
             <div class="submit-row" style="margin-bottom:8px;padding-top:0px;">

@@ -30,6 +30,7 @@
                     });
                     loadHeaderCart();
                     loadHeader();
+                    loadHeaderMobile();
                     loadData();
                 }
             });

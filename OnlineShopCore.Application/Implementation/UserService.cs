@@ -33,7 +33,7 @@ namespace OnlineShopCore.Application.Implementation
                 DateCreated = DateTime.Now,
                 PhoneNumber = userVm.PhoneNumber,
                 Status = userVm.Status,
-                EmailConfirmed =true
+                EmailConfirmed = true
             };
             var result = await _userManager.CreateAsync(user, userVm.Password);
             if (result.Succeeded && userVm.Roles.Count > 0)
@@ -52,9 +52,18 @@ namespace OnlineShopCore.Application.Implementation
             await _userManager.DeleteAsync(user);
         }
 
-        public  List<AppUserViewModel> GetAllAsync()
+        public async Task<List<AppUserViewModel>> GetAllAsync()
         {
-            return  _userManager.Users.ProjectTo<AppUserViewModel>().ToList();
+            var users = _userManager.Users.ToList();
+            List<AppUserViewModel> usersVm = new List<AppUserViewModel>();
+            foreach (var item in users)
+            {
+                var roles = await _userManager.GetRolesAsync(item);
+                var userVm = Mapper.Map<AppUser, AppUserViewModel>(item);
+                userVm.Roles = roles.ToList();
+                usersVm.Add(userVm);
+            }        
+            return usersVm;
         }
 
         public PagedResult<AppUserViewModel> GetAllPagingAsync(string keyword, int page, int pageSize)

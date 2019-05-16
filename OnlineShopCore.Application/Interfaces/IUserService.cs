@@ -13,7 +13,7 @@ namespace OnlineShopCore.Application.Interfaces
 
         Task DeleteAsync(string id);
 
-        List<AppUserViewModel> GetAllAsync();
+        Task<List<AppUserViewModel>> GetAllAsync();
 
         PagedResult<AppUserViewModel> GetAllPagingAsync(string keyword, int page, int pageSize);
 

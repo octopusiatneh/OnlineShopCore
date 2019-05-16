@@ -30,10 +30,10 @@ namespace OnlineShopCore.Areas.Admin.Controllers
             return View();
         }
 
-        public IActionResult GetAll()
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
         {
-            var model = _userService.GetAllAsync();
-
+            var model = await _userService.GetAllAsync();
             return new OkObjectResult(model);
         }
 
