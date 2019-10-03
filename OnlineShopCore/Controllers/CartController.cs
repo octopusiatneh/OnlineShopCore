@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using OnlineShopCore.Application.Interfaces;
@@ -26,12 +27,15 @@ namespace OnlineShopCore.Controllers
         private readonly IRepository<AnnouncementBill, int> _annouBillRepository;
         private readonly IBillService _billService;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly UserManager<AppUser> _manager;
 
         public CartController(IProductService productService, IBillService billService, IRepository<Announcement, string> annouRepository,
             IRepository<AnnouncementBill, int> annouBillRepository,
             IUnitOfWork unitOfWork,
+            UserManager<AppUser> manager,
            IHubContext<ChatHub> hubContext)
         {
+            _manager = manager;
             _productService = productService;
             _billService = billService;
             _annouRepository = annouRepository;
@@ -48,8 +52,11 @@ namespace OnlineShopCore.Controllers
 
         [HttpGet]
         [Route("checkout", Name = "Checkout")]
-        public IActionResult Checkout()
+        public async Task<IActionResult> Checkout()
         {
+            AppUser user = await GetCurrentUser();
+            ViewData["UserInfo"] = user;
+
             var model = new CheckoutViewModel();
             var session = HttpContext.Session.Get<List<ShoppingCartViewModel>>(CommonConstants.CartSession);
             if (session.Any(x => x.Color == null || x.Size == null))
@@ -135,7 +142,10 @@ namespace OnlineShopCore.Controllers
         }
 
         #region AJAX Request
-
+        private async Task<AppUser> GetCurrentUser()
+        {
+            return await _manager.GetUserAsync(HttpContext.User);
+        }
         /// <summary>
         /// Get list item
         /// </summary>
