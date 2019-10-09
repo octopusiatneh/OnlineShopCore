@@ -22,56 +22,24 @@ namespace OnlineShopCore.Application.Implementation
     public class ProductService : IProductService
     {
         IProductRepository _productRepository;
-        ITagRepository _tagRepository;
-        IProductTagRepository _productTagRepository;
         IUnitOfWork _unitOfWork;
         IProductImageRepository _productImageRepository;
 
 
         public ProductService(IProductRepository productRepository,
-            ITagRepository tagRepository,
             IProductImageRepository productImageRepository,
-            IUnitOfWork unitOfWork,
-        IProductTagRepository productTagRepository)
+            IUnitOfWork unitOfWork)
         {
-            _productRepository = productRepository;
-            _tagRepository = tagRepository;
-            _productTagRepository = productTagRepository;
+            _productRepository = productRepository;   
             _productImageRepository = productImageRepository;
             _unitOfWork = unitOfWork;
         }
 
         public ProductViewModel Add(ProductViewModel productVm)
-        {
-            List<ProductTag> productTags = new List<ProductTag>();
+        { 
             if (!string.IsNullOrEmpty(productVm.Tags))
-            {
-                string[] tags = productVm.Tags.Split(',');
-                foreach (string t in tags)
-                {
-                    var tagId = TextHelper.ToUnsignString(t);
-                    if (!_tagRepository.FindAll(x => x.Id == tagId).Any())
-                    {
-                        Tag tag = new Tag
-                        {
-                            Id = tagId,
-                            Name = t,
-                            Type = CommonConstants.ProductTag
-                        };
-                        _tagRepository.Add(tag);
-                    }
-
-                    ProductTag productTag = new ProductTag
-                    {
-                        TagId = tagId
-                    };
-                    productTags.Add(productTag);
-                }
+            {     
                 var product = Mapper.Map<ProductViewModel, Product>(productVm);
-                foreach (var productTag in productTags)
-                {
-                    product.ProductTags.Add(productTag);
-                }
                 _productRepository.Add(product);
 
             }
@@ -79,37 +47,8 @@ namespace OnlineShopCore.Application.Implementation
         }
 
         public void Update(ProductViewModel productVm)
-        {
-            List<ProductTag> productTags = new List<ProductTag>();
-
-            if (!string.IsNullOrEmpty(productVm.Tags))
-            {
-                string[] tags = productVm.Tags.Split(',');
-                foreach (string t in tags)
-                {
-                    var tagId = TextHelper.ToUnsignString(t);
-                    if (!_tagRepository.FindAll(x => x.Id == tagId).Any())
-                    {
-                        Tag tag = new Tag();
-                        tag.Id = tagId;
-                        tag.Name = t;
-                        tag.Type = CommonConstants.ProductTag;
-                        _tagRepository.Add(tag);
-                    }
-                    _productTagRepository.RemoveMultiple(_productTagRepository.FindAll(x => x.Id == productVm.Id).ToList());
-                    ProductTag productTag = new ProductTag
-                    {
-                        TagId = tagId
-                    };
-                    productTags.Add(productTag);
-                }
-            }
-
+        {     
             var product = Mapper.Map<ProductViewModel, Product>(productVm);
-            foreach (var productTag in productTags)
-            {
-                product.ProductTags.Add(productTag);
-            }
             _productRepository.Update(product);
         }
 
@@ -127,7 +66,7 @@ namespace OnlineShopCore.Application.Implementation
 
         public List<ProductViewModel> GetAll()
         {
-            return _productRepository.FindAll(x => x.ProductCategory).ProjectTo<ProductViewModel>().ToList();
+            return _productRepository.FindAll().ProjectTo<ProductViewModel>().ToList();
         }
 
         public ProductViewModel GetById(int id)
@@ -146,7 +85,7 @@ namespace OnlineShopCore.Application.Implementation
                 for (int i = workSheet.Dimension.Start.Row + 1; i <= workSheet.Dimension.End.Row; i++)
                 {
                     product = new Product();
-                    product.CategoryId = categoryId;
+                    //product.CategoryId = categoryId;
 
                     product.Name = workSheet.Cells[i, 1].Value.ToString();
 
@@ -203,10 +142,6 @@ namespace OnlineShopCore.Application.Implementation
             }
 
         }
-
-      
-
-     
 
         public PagedResult<ProductViewModel> GetAllPaging(string keyword, int page, int pageSize)
         {
@@ -311,37 +246,17 @@ namespace OnlineShopCore.Application.Implementation
         {
             var product = _productRepository.FindById(id);
             return _productRepository.FindAll(x => x.Status == Status.Active
-                && x.Id != id && x.CategoryId == product.CategoryId)
+                && x.Id != id /*&& x.CategoryId == product.CategoryId*/)
             .OrderByDescending(x => x.DateCreated)
             .Take(top)
             .ProjectTo<ProductViewModel>()
             .ToList();
         }
 
-        public List<TagViewModel> GetProductTags(int productId)
-        {
-            var tags = _tagRepository.FindAll();
-            var productTags = _productTagRepository.FindAll();
-
-            var query = from t in tags
-                        join pt in productTags
-                        on t.Id equals pt.TagId
-                        where pt.ProductId == productId
-                        select new TagViewModel()
-                        {
-                            Id = t.Id,
-                            Name = t.Name
-                        };
-            return query.ToList();
-
-        }
-
         public List<ProductViewModel> GetByName(string keyword)
         {
             var product = _productRepository.FindAll(x => x.Name.Contains(keyword));
             return product.ProjectTo<ProductViewModel>().ToList();
-        }
-
-       
+        }  
     }
 }

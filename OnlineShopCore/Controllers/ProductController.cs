@@ -9,14 +9,14 @@ namespace OnlineShopCore.Controllers
 {
     public class ProductController : Controller
     {
-        private IProductCategoryService _productCategoryService;
+        private ICategoryService _productCategoryService;
         private IProductService _productService;
         private IBillService _billService;
         private IConfiguration _configuration;
 
         public ProductController(IProductService productService, IConfiguration configuration,
            IBillService billService,
-           IProductCategoryService productCategoryService)
+           ICategoryService productCategoryService)
         {
             _productService = productService;
             _productCategoryService = productCategoryService;
@@ -32,7 +32,7 @@ namespace OnlineShopCore.Controllers
 
             model.PageSize = pageSize;
             model.SortBy = sortBy;
-            model.ProductCategory = _productCategoryService.GetAll();
+            model.Category = _productCategoryService.GetAll();
             model.Product = _productService.GetAllPaging(string.Empty, page, pageSize);
 
             return View(model);
@@ -46,7 +46,7 @@ namespace OnlineShopCore.Controllers
 
             model.PageSize = pageSize;
             model.SortBy = filter;
-            model.ProductCategory = _productCategoryService.GetAll();
+            model.Category = _productCategoryService.GetAll();
             model.Product = _productService.Filter(filter, page, pageSize);
 
             return View(model);
@@ -60,7 +60,7 @@ namespace OnlineShopCore.Controllers
 
             model.PageSize = pageSize;
             model.SortBy = sortBy;
-            model.ProductCategory = _productCategoryService.GetAll();
+            model.Category = _productCategoryService.GetAll();
             model.Product = _productService.GetAllPaging(keyword, page, pageSize);
 
             return View(model);
@@ -90,17 +90,12 @@ namespace OnlineShopCore.Controllers
             model.Category = _productCategoryService.GetById(model.Product.CategoryId);
             model.RelatedProducts = _productService.GetRelatedProducts(id, 12);
             model.ProductImages = _productService.GetImages(id);
-            model.Tags = _productService.GetProductTags(id);
-            model.Colors = _billService.GetColors().Select(x => new SelectListItem()
-            {
-                Text = x.Name,
-                Value = x.Id.ToString()
-            }).ToList();
-            model.Sizes = _billService.GetSizes().Select(x => new SelectListItem()
-            {
-                Text = x.Name,
-                Value = x.Id.ToString()
-            }).ToList();
+            //model.Tags = _productService.GetProductTags(id);
+            //model.Colors = _billService.GetColors().Select(x => new SelectListItem()
+            //{
+            //    Text = x.Name,
+            //    Value = x.Id.ToString()
+            //}).ToList();        
             return View(model);
         }
     }

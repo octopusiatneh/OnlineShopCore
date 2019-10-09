@@ -9,24 +9,21 @@ namespace OnlineShopCore.Application.Interfaces
 {
     public interface IProductService : IDisposable
     {
-        List<ProductViewModel> GetAll();
-
-        PagedResult<ProductViewModel> Filter(string filter,int page,int pageSize);
-
-        List<ProductViewModel> GetByName(string keyword);
-
         ProductViewModel Add(ProductViewModel product);
 
         void Update(ProductViewModel product);
 
         void Delete(int id);
+        List<ProductViewModel> GetAll();
 
         ProductViewModel GetById(int id);
 
+        PagedResult<ProductViewModel> Filter(string filter,int page,int pageSize);
+
+        List<ProductViewModel> GetByName(string keyword);      
+
         void ImportExcel(string filePath, int categoryId);
         void Save();
-
-
 
         void AddImages(int productId, string[] images);
 
@@ -41,9 +38,6 @@ namespace OnlineShopCore.Application.Interfaces
 
 
         List<ProductViewModel> GetRelatedProducts(int id, int top);
-
-        List<TagViewModel> GetProductTags(int productId);
-
 
     }
 }

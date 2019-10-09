@@ -18,10 +18,10 @@ namespace OnlineShopCore.Areas.Admin.Controllers
     public class ProductController : BaseController
     {
         private IProductService _productService;
-        private IProductCategoryService _productCategoryService;
+        private ICategoryService _productCategoryService;
         private readonly IHostingEnvironment _hostingEnvironment;
 
-        public ProductController(IProductService productService, IProductCategoryService productCategoryService,
+        public ProductController(IProductService productService, ICategoryService productCategoryService,
             IHostingEnvironment hostingEnvironment)
         {
             _productService = productService;

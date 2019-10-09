@@ -57,7 +57,8 @@ namespace OnlineShopCore.Data.EF
                     DateCreated = DateTime.Now,
                     DateModified = DateTime.Now,
                     Status = Status.Active,
-                    Avatar = @"/admin-side/assets/images/users/1.jpg"
+                    Avatar = @"/admin-side/assets/images/users/1.jpg",
+                    EmailConfirmed=true
                 }, "123654$");
                 var user = await _userManager.FindByNameAsync("admin");
                 await _userManager.AddToRoleAsync(user, "Admin");
@@ -98,17 +99,17 @@ namespace OnlineShopCore.Data.EF
                 });
             }
 
-            if (_context.Colors.Count() == 0)
-            {
-                List<Color> listColor = new List<Color>()
-                {
-                    new Color() {Name="Đen", Code="#000000" },
-                    new Color() {Name="Trắng", Code="#FFFFFF"},
-                    new Color() {Name="Đỏ", Code="#ff0000" },
-                    new Color() {Name="Xanh", Code="#1000ff" },
-                };
-                _context.Colors.AddRange(listColor);
-            }
+            //if (_context.Colors.Count() == 0)
+            //{
+            //    List<Color> listColor = new List<Color>()
+            //    {
+            //        new Color() {Name="Đen", Code="#000000" },
+            //        new Color() {Name="Trắng", Code="#FFFFFF"},
+            //        new Color() {Name="Đỏ", Code="#ff0000" },
+            //        new Color() {Name="Xanh", Code="#1000ff" },
+            //    };
+            //    _context.Colors.AddRange(listColor);
+            //}
 
             //if (_context.Slides.Count() == 0)
             //{
@@ -134,64 +135,64 @@ namespace OnlineShopCore.Data.EF
             //}
 
 
-            if (_context.Sizes.Count() == 0)
-            {
-                List<Size> listSize = new List<Size>()
-                {
-                    new Size() { Name="XXL" },
-                    new Size() { Name="XL"},
-                    new Size() { Name="L" },
-                    new Size() { Name="M" },
-                    new Size() { Name="S" },
-                    new Size() { Name="XS" }
-                };
-                _context.Sizes.AddRange(listSize);
-            }
+            //if (_context.Sizes.Count() == 0)
+            //{
+            //    List<Size> listSize = new List<Size>()
+            //    {
+            //        new Size() { Name="XXL" },
+            //        new Size() { Name="XL"},
+            //        new Size() { Name="L" },
+            //        new Size() { Name="M" },
+            //        new Size() { Name="S" },
+            //        new Size() { Name="XS" }
+            //    };
+            //    _context.Sizes.AddRange(listSize);
+            //}
 
-            if (_context.ProductCategories.Count() == 0)
-            {
-                List<ProductCategory> listProductCategory = new List<ProductCategory>()
-                {
-                    new ProductCategory() { Name="Áo nam",SeoAlias="ao-nam",ParentId = null,Status=Status.Active,SortOrder=1,
-                        Products = new List<Product>()
-                        {
-                            new Product(){Name = "Sản phẩm 1",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-1",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
-                            new Product(){Name = "Sản phẩm 2",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-2",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
-                            new Product(){Name = "Sản phẩm 3",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-3",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
-                            new Product(){Name = "Sản phẩm 4",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-4",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
-                            new Product(){Name = "Sản phẩm 5",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-5",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
-                        }
-                    },
-                    new ProductCategory() { Name="Áo nữ",SeoAlias="ao-nu",ParentId = null,Status=Status.Active ,SortOrder=2,
-                        Products = new List<Product>()
-                        {
-                            new Product(){Name = "Sản phẩm 6",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-6",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
-                            new Product(){Name = "Sản phẩm 7",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-7",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
-                            new Product(){Name = "Sản phẩm 8",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-8",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
-                            new Product(){Name = "Sản phẩm 9",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-9",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
-                            new Product(){Name = "Sản phẩm 10",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-10",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
-                        }},
-                    new ProductCategory() { Name="Giày nam",SeoAlias="giay-nam",ParentId = null,Status=Status.Active ,SortOrder=3,
-                        Products = new List<Product>()
-                        {
-                            new Product(){Name = "Sản phẩm 11",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-11",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
-                            new Product(){Name = "Sản phẩm 12",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-12",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
-                            new Product(){Name = "Sản phẩm 13",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-13",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
-                            new Product(){Name = "Sản phẩm 14",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-14",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
-                            new Product(){Name = "Sản phẩm 15",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-15",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
-                        }},
-                    new ProductCategory() { Name="Giày nữ",SeoAlias="giay-nu",ParentId = null,Status=Status.Active,SortOrder=4,
-                        Products = new List<Product>()
-                        {
-                            new Product(){Name = "Sản phẩm 16",DateCreated=DateTime.Now, Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-16",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
-                            new Product(){Name = "Sản phẩm 17",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-17",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
-                            new Product(){Name = "Sản phẩm 18",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-18",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
-                            new Product(){Name = "Sản phẩm 19",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-19",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
-                            new Product(){Name = "Sản phẩm 20",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-20",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
-                        }}
-                };
-                _context.ProductCategories.AddRange(listProductCategory);
-            }
+            //if (_context.Categories.Count() == 0)
+            //{
+            //    List<Category> listProductCategory = new List<Category>()
+            //    {
+            //        new Category() { Name="Áo nam",SeoAlias="ao-nam",ParentId = null,Status=Status.Active,SortOrder=1,
+            //            Products = new List<Product>()
+            //            {
+            //                new Product(){Name = "Sản phẩm 1",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-1",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
+            //                new Product(){Name = "Sản phẩm 2",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-2",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
+            //                new Product(){Name = "Sản phẩm 3",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-3",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
+            //                new Product(){Name = "Sản phẩm 4",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-4",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
+            //                new Product(){Name = "Sản phẩm 5",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-5",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
+            //            }
+            //        },
+            //        new Category() { Name="Áo nữ",SeoAlias="ao-nu",ParentId = null,Status=Status.Active ,SortOrder=2,
+            //            Products = new List<Product>()
+            //            {
+            //                new Product(){Name = "Sản phẩm 6",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-6",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
+            //                new Product(){Name = "Sản phẩm 7",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-7",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
+            //                new Product(){Name = "Sản phẩm 8",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-8",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
+            //                new Product(){Name = "Sản phẩm 9",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-9",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
+            //                new Product(){Name = "Sản phẩm 10",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-10",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
+            //            }},
+            //        new Category() { Name="Giày nam",SeoAlias="giay-nam",ParentId = null,Status=Status.Active ,SortOrder=3,
+            //            Products = new List<Product>()
+            //            {
+            //                new Product(){Name = "Sản phẩm 11",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-11",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
+            //                new Product(){Name = "Sản phẩm 12",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-12",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
+            //                new Product(){Name = "Sản phẩm 13",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-13",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
+            //                new Product(){Name = "Sản phẩm 14",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-14",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
+            //                new Product(){Name = "Sản phẩm 15",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-15",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
+            //            }},
+            //        new Category() { Name="Giày nữ",SeoAlias="giay-nu",ParentId = null,Status=Status.Active,SortOrder=4,
+            //            Products = new List<Product>()
+            //            {
+            //                new Product(){Name = "Sản phẩm 16",DateCreated=DateTime.Now, Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-16",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
+            //                new Product(){Name = "Sản phẩm 17",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-17",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
+            //                new Product(){Name = "Sản phẩm 18",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-18",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
+            //                new Product(){Name = "Sản phẩm 19",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-19",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
+            //                new Product(){Name = "Sản phẩm 20",DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-20",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
+            //            }}
+            //    };
+            //    _context.Categories.AddRange(listProductCategory);
+            //}
        
             await _context.SaveChangesAsync();
         }

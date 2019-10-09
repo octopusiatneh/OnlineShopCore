@@ -14,7 +14,6 @@ namespace OnlineShopCore.Data.Entities
     public class Product : DomainEntity<int>, ISwitchable, IDateTracking, IHasSeoMetaData
     {
         public Product() {
-            ProductTags = new List<ProductTag>();
         }
 
         public Product(string name, int categoryId, string Image,
@@ -24,8 +23,7 @@ namespace OnlineShopCore.Data.Entities
             string seoAlias, string seoMetaKeyword,
             string seoMetaDescription)
         {
-            Name = name;
-            CategoryId = categoryId;
+            Name = name;       
             this.Image = Image;
             Price = price;
             OriginalPrice = originalPrice;
@@ -42,8 +40,6 @@ namespace OnlineShopCore.Data.Entities
             SeoKeywords = seoMetaKeyword;
             DateCreated = DateTime.Now;
             SeoDescription = seoMetaDescription;
-            ProductTags = new List<ProductTag>();
-
         }
 
         public Product(int id, string name, int categoryId, string Image,
@@ -55,7 +51,6 @@ namespace OnlineShopCore.Data.Entities
         {
             Id = id;
             Name = name;
-            CategoryId = categoryId;
             this.Image = Image;
             Price = price;
             OriginalPrice = originalPrice;
@@ -72,16 +67,14 @@ namespace OnlineShopCore.Data.Entities
             SeoKeywords = seoMetaKeyword;
             SeoDescription = seoMetaDescription;
             DateCreated = dateCreated;
-            DateModified = DateTime.Now;
-            ProductTags = new List<ProductTag>();
+            DateModified = DateTime.Now;       
 
         }
         [StringLength(255)]
         [Required]
         public string Name { get; set; }
 
-        [Required]
-        public int CategoryId { get; set; }
+        public int PromotionId { get; set; }
 
         [StringLength(255)]
         public string Image { get; set; }
@@ -111,14 +104,11 @@ namespace OnlineShopCore.Data.Entities
 
         [StringLength(255)]
         public string Unit { get; set; }
+        public virtual ICollection<AuthorProduct> Authors { get; set; }
 
-        [ForeignKey("CategoryId")]
-        public virtual ProductCategory ProductCategory { set; get; }
-
-        public virtual ICollection<ProductTag> ProductTags { set; get; }
+        public virtual ICollection<CategoryProduct> Categories { get; set; }
 
         public string SeoPageTitle { set; get; }
-
         
         [StringLength(255)]
         public string SeoAlias { set; get; }
@@ -131,7 +121,6 @@ namespace OnlineShopCore.Data.Entities
 
         public DateTime DateCreated { set; get; }
         public DateTime DateModified { set; get; }
-
         public Status Status { set; get; }
     }
 }

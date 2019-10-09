@@ -8,17 +8,17 @@ using OnlineShopCore.Data.IRepositories;
 
 namespace OnlineShopCore.Data.EF.Repositories
 {
-    public class ProductCategoryRepository : EFRepository<ProductCategory, int>, IProductCategoryRepository
+    public class CategoryRepository : EFRepository<Category, int>, ICategoryRepository
     {
         AppDbContext _context;
-        public ProductCategoryRepository(AppDbContext context) : base(context)
+        public CategoryRepository(AppDbContext context) : base(context)
         {
             _context = context;
         }
 
-        public List<ProductCategory> GetByAlias(string alias)
+        public List<Category> GetByAlias(string alias)
         {
-            return _context.ProductCategories.Where(x => x.SeoAlias == alias).ToList();
+            return _context.Categories.Where(x => x.SeoAlias == alias).ToList();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace OnlineShopCore.Data.EF.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
+                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -214,6 +214,38 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.ToTable("AppUsers");
                 });
 
+            modelBuilder.Entity("OnlineShopCore.Data.Entities.Author", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuthorName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Authors");
+                });
+
+            modelBuilder.Entity("OnlineShopCore.Data.Entities.AuthorProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AuthorId");
+
+                    b.Property<int>("ProductId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("AuthorProduct");
+                });
+
             modelBuilder.Entity("OnlineShopCore.Data.Entities.Bill", b =>
                 {
                     b.Property<int>("Id")
@@ -276,101 +308,49 @@ namespace OnlineShopCore.Data.EF.Migrations
 
                     b.HasIndex("BillId");
 
-                    b.HasIndex("ColorId");
-
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("SizeId");
 
                     b.ToTable("BillDetails");
                 });
 
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.Blog", b =>
+            modelBuilder.Entity("OnlineShopCore.Data.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Content");
 
                     b.Property<DateTime>("DateCreated");
 
                     b.Property<DateTime>("DateModified");
 
-                    b.Property<string>("Description")
-                        .HasMaxLength(500);
+                    b.Property<string>("Name");
 
-                    b.Property<bool?>("HomeFlag");
-
-                    b.Property<bool?>("HotFlag");
-
-                    b.Property<string>("Image")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(256);
-
-                    b.Property<string>("SeoAlias")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("SeoDescription")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("SeoKeywords")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("SeoPageTitle")
-                        .HasMaxLength(256);
+                    b.Property<string>("SeoAlias");
 
                     b.Property<int>("Status");
 
-                    b.Property<string>("Tags");
-
-                    b.Property<int?>("ViewCount");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Blogs");
+                    b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.BlogTag", b =>
+            modelBuilder.Entity("OnlineShopCore.Data.Entities.CategoryProduct", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BlogId");
+                    b.Property<int>("CategoryId");
 
-                    b.Property<string>("TagId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .IsUnicode(false);
+                    b.Property<int>("ProductId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BlogId");
+                    b.HasIndex("CategoryId");
 
-                    b.HasIndex("TagId");
+                    b.HasIndex("ProductId");
 
-                    b.ToTable("BlogTags");
-                });
-
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.Color", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Code")
-                        .HasMaxLength(250);
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(250);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Colors");
+                    b.ToTable("CategoryProduct");
                 });
 
             modelBuilder.Entity("OnlineShopCore.Data.Entities.Contact", b =>
@@ -517,8 +497,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoryId");
-
                     b.Property<string>("Content");
 
                     b.Property<DateTime>("DateCreated");
@@ -543,7 +521,11 @@ namespace OnlineShopCore.Data.EF.Migrations
 
                     b.Property<decimal>("Price");
 
+                    b.Property<int>("PromotionId");
+
                     b.Property<decimal?>("PromotionPrice");
+
+                    b.Property<int?>("PublisherId");
 
                     b.Property<string>("SeoAlias")
                         .HasMaxLength(255);
@@ -568,48 +550,9 @@ namespace OnlineShopCore.Data.EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("PublisherId");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.ProductCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<DateTime>("DateModified");
-
-                    b.Property<string>("Description");
-
-                    b.Property<bool?>("HomeFlag");
-
-                    b.Property<int?>("HomeOrder");
-
-                    b.Property<string>("Image");
-
-                    b.Property<string>("Name");
-
-                    b.Property<int?>("ParentId");
-
-                    b.Property<string>("SeoAlias");
-
-                    b.Property<string>("SeoDescription");
-
-                    b.Property<string>("SeoKeywords");
-
-                    b.Property<string>("SeoPageTitle");
-
-                    b.Property<int>("SortOrder");
-
-                    b.Property<int>("Status");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProductCategories");
                 });
 
             modelBuilder.Entity("OnlineShopCore.Data.Entities.ProductImage", b =>
@@ -633,40 +576,17 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.ToTable("ProductImages");
                 });
 
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.ProductTag", b =>
+            modelBuilder.Entity("OnlineShopCore.Data.Entities.Publisher", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ProductId");
-
-                    b.Property<string>("TagId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .IsUnicode(false);
+                    b.Property<int>("NamePublisher");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("ProductTags");
-                });
-
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.Size", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(250);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sizes");
+                    b.ToTable("Publishers");
                 });
 
             modelBuilder.Entity("OnlineShopCore.Data.Entities.Slide", b =>
@@ -695,26 +615,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.ToTable("Slides");
                 });
 
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.Tag", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(50)
-                        .IsUnicode(false);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tags");
-                });
-
             modelBuilder.Entity("OnlineShopCore.Data.Entities.Announcement", b =>
                 {
                     b.HasOne("OnlineShopCore.Data.Entities.Bill", "Bill")
@@ -727,6 +627,19 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.HasOne("OnlineShopCore.Data.Entities.Announcement", "Announcement")
                         .WithMany("AnnouncementBills")
                         .HasForeignKey("AnnouncementId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("OnlineShopCore.Data.Entities.AuthorProduct", b =>
+                {
+                    b.HasOne("OnlineShopCore.Data.Entities.Author", "Author")
+                        .WithMany("Products")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("OnlineShopCore.Data.Entities.Product", "Product")
+                        .WithMany("Authors")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -744,32 +657,22 @@ namespace OnlineShopCore.Data.EF.Migrations
                         .HasForeignKey("BillId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("OnlineShopCore.Data.Entities.Color", "Color")
-                        .WithMany()
-                        .HasForeignKey("ColorId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("OnlineShopCore.Data.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("OnlineShopCore.Data.Entities.Size", "Size")
-                        .WithMany()
-                        .HasForeignKey("SizeId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.BlogTag", b =>
+            modelBuilder.Entity("OnlineShopCore.Data.Entities.CategoryProduct", b =>
                 {
-                    b.HasOne("OnlineShopCore.Data.Entities.Blog", "Blog")
-                        .WithMany("BlogTags")
-                        .HasForeignKey("BlogId")
+                    b.HasOne("OnlineShopCore.Data.Entities.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("OnlineShopCore.Data.Entities.Tag", "Tag")
-                        .WithMany()
-                        .HasForeignKey("TagId")
+                    b.HasOne("OnlineShopCore.Data.Entities.Product", "Product")
+                        .WithMany("Categories")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -788,10 +691,9 @@ namespace OnlineShopCore.Data.EF.Migrations
 
             modelBuilder.Entity("OnlineShopCore.Data.Entities.Product", b =>
                 {
-                    b.HasOne("OnlineShopCore.Data.Entities.ProductCategory", "ProductCategory")
+                    b.HasOne("OnlineShopCore.Data.Entities.Publisher")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PublisherId");
                 });
 
             modelBuilder.Entity("OnlineShopCore.Data.Entities.ProductImage", b =>
@@ -799,19 +701,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.HasOne("OnlineShopCore.Data.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.ProductTag", b =>
-                {
-                    b.HasOne("OnlineShopCore.Data.Entities.Product", "Product")
-                        .WithMany("ProductTags")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("OnlineShopCore.Data.Entities.Tag", "Tag")
-                        .WithMany()
-                        .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

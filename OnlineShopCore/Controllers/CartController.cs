@@ -207,8 +207,8 @@ namespace OnlineShopCore.Controllers
                     {
                         Product = product,
                         Quantity = quantity,
-                        Color = _billService.GetColor(color),
-                        Size = _billService.GetSize(size),
+                        //Color = _billService.GetColor(color),
+                        //Size = _billService.GetSize(size),
                         Price = product.PromotionPrice ?? product.Price
                     });
                     hasChanged = true;
@@ -228,8 +228,8 @@ namespace OnlineShopCore.Controllers
                 {
                     Product = product,
                     Quantity = quantity,
-                    Color = _billService.GetColor(color),
-                    Size = _billService.GetSize(size),
+                    //Color = _billService.GetColor(color),
+                    //Size = _billService.GetSize(size),
                     Price = product.PromotionPrice ?? product.Price
                 });
                 HttpContext.Session.Set(CommonConstants.CartSession, cart);
@@ -284,8 +284,8 @@ namespace OnlineShopCore.Controllers
                     {
                         var product = _productService.GetById(productId);
                         item.Product = product;
-                        item.Size = _billService.GetSize(size);
-                        item.Color = _billService.GetColor(color);
+                        //item.Size = _billService.GetSize(size);
+                        //item.Color = _billService.GetColor(color);
                         item.Quantity = quantity;
                         item.Price = product.PromotionPrice ?? product.Price;
                         hasChanged = true;
@@ -299,21 +299,6 @@ namespace OnlineShopCore.Controllers
             }
             return new EmptyResult();
         }
-
-        [HttpGet]
-        public IActionResult GetColors()
-        {
-            var colors = _billService.GetColors();
-            return new OkObjectResult(colors);
-        }
-
-        [HttpGet]
-        public IActionResult GetSizes()
-        {
-            var sizes = _billService.GetSizes();
-            return new OkObjectResult(sizes);
-        }
-
         #endregion AJAX Request
     }
 }

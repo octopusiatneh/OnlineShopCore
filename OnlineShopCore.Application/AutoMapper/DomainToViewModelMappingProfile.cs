@@ -16,15 +16,13 @@ namespace OnlineShopCore.Application.AutoMapper
         public DomainToViewModelMappingProfile()
         {
             CreateMap<Announcement, AnnouncementViewModel>().MaxDepth(2);
-            CreateMap<ProductCategory, ProductCategoryViewModel>();
+            CreateMap<Category, CategoryViewModel>();
             CreateMap<Product, ProductViewModel>();
             CreateMap<Function, FunctionViewModel>();
             CreateMap<AppUser, AppUserViewModel>();
             CreateMap<AppRole, AppRoleViewModel>();
             CreateMap<Bill, BillViewModel>();
             CreateMap<BillDetail, BillDetailViewModel>();
-            CreateMap<Color, ColorViewModel>();
-            CreateMap<Size, SizeViewModel>();
             CreateMap<Slide, SlideViewModel>();
 
             CreateMap<ProductImage, ProductImageViewModel>().MaxDepth(2);
