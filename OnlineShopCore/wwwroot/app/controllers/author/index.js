@@ -1,5 +1,5 @@
 ﻿var db;
-var productCategoryController = function () {
+var authorController = function () {
     this.initialize = function () {
         loadData();
         registerEvents();
@@ -16,7 +16,7 @@ var productCategoryController = function () {
 
         $('#btnCreate').off('click').on('click', function () {
             $('#modal-add-edit').modal('show');
-        });
+        });  
 
         $('body').on('click', '.btn-edit', function (e) {
             e.preventDefault();
@@ -24,7 +24,7 @@ var productCategoryController = function () {
             //loadDetails(that);
             $.ajax({
                 type: "GET",
-                url: "/Admin/productcategory/GetById",
+                url: "/Admin/Author/GetById",
                 data: { id: that },
                 dataType: "json",
                 beforeSend: function () {
@@ -33,10 +33,8 @@ var productCategoryController = function () {
                 success: function (response) {
                     var data = response;
                     $('#hidIdM').val(data.Id);
-                    $('#hidDateCreated').val(data.DateCreated)
-                    $('#txtNameM').val(data.Name);
-                    $('#txtSeoAliasM').val(data.SeoAlias);
-                    $('#ckStatusM').prop('checked', data.Status == 1);
+                    $('#txtNameM').val(data.AuthorName);                    
+                    $('#ckStatusM').prop('checked', data.Status == 1);       
                     $('#modal-add-edit').modal('show');
                     onlineshop.stopLoading();
                 },
@@ -51,17 +49,17 @@ var productCategoryController = function () {
             e.preventDefault();
             var that = $(this).data('id');
             //deleteProduct(that);
-            onlineshop.confirm('Bạn có muốn xóa danh mục này', function () {
+            onlineshop.confirm('Bạn có muốn xóa tác giả này?', function () {
                 $.ajax({
                     type: "POST",
-                    url: "/Admin/productcategory/Delete",
+                    url: "/Admin/Author/Delete",
                     data: { id: that },
                     dataType: "json",
                     beforeSend: function () {
                         onlineshop.startLoading();
                     },
                     success: function (response) {
-                        onlineshop.notify('Xóa danh mục thành công', 'success');
+                        onlineshop.notify('Xóa thành công', 'success');
                         onlineshop.stopLoading();
                         $('#zero_config').DataTable().ajax.reload()
 
@@ -78,17 +76,15 @@ var productCategoryController = function () {
             if ($('#frmMaintainance').valid()) {
                 e.preventDefault();
                 var id = parseInt($('#hidIdM').val());
-                var name = $('#txtNameM').val();
-                var seoAlias = $('#txtSeoAliasM').val();
+                var authorName = $('#txtNameM').val();    
                 var status = $('#ckStatusM').prop('checked') == true ? 1 : 0;
                 $.ajax({
                     type: "POST",
-                    url: "/Admin/productcategory/SaveEntity",
+                    url: "/Admin/Author/SaveEntity",
                     data: {
                         Id: id,
-                        Name: name,
-                        Status: status,
-                        SeoAlias: seoAlias,
+                        AuthorName: authorName,                   
+                        Status: status                 
                     },
                     dataType: "json",
                     beforeSend: function () {
@@ -116,28 +112,26 @@ var productCategoryController = function () {
     function resetFormMaintainance() {
         $('#hidIdM').val(0);
         $('#txtNameM').val('');
-        $('#txtSeoAliasM').val('');
-
         $('#ckStatusM').prop('checked', true);
     }
-
-    function loadData() {
+  
+    function loadData() {       
         db = $('#zero_config').dataTable({
             processing: true, // for show progress bar
             serverSide: false, // for process server side
-            order: [[2, "desc"]], // sort db by date created
+            order: [[0, "desc"]], // sort db by date created
             ajax: {
                 type: 'GET',
-                url: '/admin/productcategory/GetAll',
+                url: '/Admin/Author/GetAll',
                 dataSrc: '',
                 dataType: 'json'
             },
             columnDefs: [{
-                targets: [0, 1, 2, 3],
+                targets: [0, 1],
                 autoWidth: true
             }],
             columnDefs: [{
-                targets: [0, 3],
+                targets: [0],
                 sortable: false
             }],
             columns: [
@@ -147,12 +141,7 @@ var productCategoryController = function () {
                     }
                 },
                 {
-                    data: "Name"
-                },
-                {
-                    data: "DateCreated", render: function (data, type, row) {
-                        return data = moment(data).format('DD/MM/YYYY HH:mm:ss')
-                    }
+                    data: "AuthorName"
                 },
                 {
                     data: "Status", render: function (data, type, row) {
@@ -161,6 +150,6 @@ var productCategoryController = function () {
                 }
             ]
         });
-        $.fn.dataTable.moment('DD/MM/YYYY');
+        //$.fn.dataTable.moment('DD/MM/YYYY');
     }
 }

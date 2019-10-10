@@ -57,7 +57,8 @@ namespace OnlineShopCore.Data.EF
                     DateCreated = DateTime.Now,
                     DateModified = DateTime.Now,
                     Status = Status.Active,
-                    Avatar = @"/admin-side/assets/images/users/1.jpg"
+                    Avatar = @"/admin-side/assets/images/users/1.jpg",
+                    EmailConfirmed = true
                 }, "123654$");
                 var user = await _userManager.FindByNameAsync("admin");
                 await _userManager.AddToRoleAsync(user, "Admin");
@@ -91,6 +92,8 @@ namespace OnlineShopCore.Data.EF
                     new Function() {Id = "PRODUCT_CATEGORY",Name = "Danh mục",ParentId = "PRODUCT",SortOrder =1,Status = Status.Active,URL = "/admin/productcategory/index",IconCss = "fas fa-chevron-right"  },
                     new Function() {Id = "PRODUCT_LIST",Name = "Sản phẩm",ParentId = "PRODUCT",SortOrder = 2,Status = Status.Active,URL = "/admin/product/index",IconCss = "fas fa-chevron-right"  },
                     new Function() {Id = "BILL",Name = "Hóa đơn",ParentId = "PRODUCT",SortOrder = 3,Status = Status.Active,URL = "/admin/bill/index",IconCss = "fas fa-chevron-right"  },
+                    new Function() {Id = "AUTHOR",Name = "Tác giả",ParentId = "PRODUCT",SortOrder = 4,Status = Status.Active,URL = "/admin/author/index",IconCss = "fas fa-chevron-right"  },
+                    new Function() {Id = "PUBLISHER",Name = "Nhà xuất bản",ParentId = "PRODUCT",SortOrder = 5,Status = Status.Active,URL = "/admin/publisher/index",IconCss = "fas fa-chevron-right"  },
 
                     new Function() {Id = "UTILITY",Name = "Tiện ích",ParentId = null,SortOrder = 3,Status = Status.Active,URL = "/",IconCss = "fas fa-clone"  },
                     new Function() {Id = "SLIDE",Name = "Slide",ParentId = "UTILITY",SortOrder = 1,Status = Status.Active,URL = "/admin/slide/index",IconCss = "fas fa-chevron-right"  },
@@ -192,7 +195,7 @@ namespace OnlineShopCore.Data.EF
                 };
                 _context.ProductCategories.AddRange(listProductCategory);
             }
-       
+
             await _context.SaveChangesAsync();
         }
     }

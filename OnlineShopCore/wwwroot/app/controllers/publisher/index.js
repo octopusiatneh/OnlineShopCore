@@ -1,5 +1,5 @@
 ﻿var db;
-var productCategoryController = function () {
+var publisherController = function () {
     this.initialize = function () {
         loadData();
         registerEvents();
@@ -24,7 +24,7 @@ var productCategoryController = function () {
             //loadDetails(that);
             $.ajax({
                 type: "GET",
-                url: "/Admin/productcategory/GetById",
+                url: "/Admin/Publisher/GetById",
                 data: { id: that },
                 dataType: "json",
                 beforeSend: function () {
@@ -33,9 +33,7 @@ var productCategoryController = function () {
                 success: function (response) {
                     var data = response;
                     $('#hidIdM').val(data.Id);
-                    $('#hidDateCreated').val(data.DateCreated)
-                    $('#txtNameM').val(data.Name);
-                    $('#txtSeoAliasM').val(data.SeoAlias);
+                    $('#txtNameM').val(data.NamePubliser);
                     $('#ckStatusM').prop('checked', data.Status == 1);
                     $('#modal-add-edit').modal('show');
                     onlineshop.stopLoading();
@@ -51,17 +49,17 @@ var productCategoryController = function () {
             e.preventDefault();
             var that = $(this).data('id');
             //deleteProduct(that);
-            onlineshop.confirm('Bạn có muốn xóa danh mục này', function () {
+            onlineshop.confirm('Bạn có muốn NXB này?', function () {
                 $.ajax({
                     type: "POST",
-                    url: "/Admin/productcategory/Delete",
+                    url: "/Admin/Publisher/Delete",
                     data: { id: that },
                     dataType: "json",
                     beforeSend: function () {
                         onlineshop.startLoading();
                     },
                     success: function (response) {
-                        onlineshop.notify('Xóa danh mục thành công', 'success');
+                        onlineshop.notify('Xóa thành công', 'success');
                         onlineshop.stopLoading();
                         $('#zero_config').DataTable().ajax.reload()
 
@@ -78,17 +76,15 @@ var productCategoryController = function () {
             if ($('#frmMaintainance').valid()) {
                 e.preventDefault();
                 var id = parseInt($('#hidIdM').val());
-                var name = $('#txtNameM').val();
-                var seoAlias = $('#txtSeoAliasM').val();
+                var namePublisher = $('#txtNameM').val();
                 var status = $('#ckStatusM').prop('checked') == true ? 1 : 0;
                 $.ajax({
                     type: "POST",
-                    url: "/Admin/productcategory/SaveEntity",
+                    url: "/Admin/Publisher/SaveEntity",
                     data: {
                         Id: id,
-                        Name: name,
-                        Status: status,
-                        SeoAlias: seoAlias,
+                        NamePublisher: namePublisher,
+                        Status: status
                     },
                     dataType: "json",
                     beforeSend: function () {
@@ -116,8 +112,6 @@ var productCategoryController = function () {
     function resetFormMaintainance() {
         $('#hidIdM').val(0);
         $('#txtNameM').val('');
-        $('#txtSeoAliasM').val('');
-
         $('#ckStatusM').prop('checked', true);
     }
 
@@ -125,19 +119,19 @@ var productCategoryController = function () {
         db = $('#zero_config').dataTable({
             processing: true, // for show progress bar
             serverSide: false, // for process server side
-            order: [[2, "desc"]], // sort db by date created
+            order: [[0, "desc"]], // sort db by date created
             ajax: {
                 type: 'GET',
-                url: '/admin/productcategory/GetAll',
+                url: '/Admin/Publisher/GetAll',
                 dataSrc: '',
                 dataType: 'json'
             },
             columnDefs: [{
-                targets: [0, 1, 2, 3],
+                targets: [0, 1],
                 autoWidth: true
             }],
             columnDefs: [{
-                targets: [0, 3],
+                targets: [0],
                 sortable: false
             }],
             columns: [
@@ -147,12 +141,7 @@ var productCategoryController = function () {
                     }
                 },
                 {
-                    data: "Name"
-                },
-                {
-                    data: "DateCreated", render: function (data, type, row) {
-                        return data = moment(data).format('DD/MM/YYYY HH:mm:ss')
-                    }
+                    data: "NamePublisher"
                 },
                 {
                     data: "Status", render: function (data, type, row) {
@@ -161,6 +150,6 @@ var productCategoryController = function () {
                 }
             ]
         });
-        $.fn.dataTable.moment('DD/MM/YYYY');
+        //$.fn.dataTable.moment('DD/MM/YYYY');
     }
 }

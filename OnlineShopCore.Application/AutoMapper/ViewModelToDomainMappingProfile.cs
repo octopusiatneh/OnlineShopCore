@@ -15,6 +15,12 @@ namespace OnlineShopCore.Application.AutoMapper
     {
         public ViewModelToDomainMappingProfile()
         {
+            CreateMap<AuthorViewModel, Author>()
+                .ConstructUsing(c => new Author(c.Id, c.AuthorName, c.ParentId, c.SortOrder, c.Status));
+
+            CreateMap<PublisherViewModel, Publisher>()
+                .ConstructUsing(c => new Publisher(c.Id, c.NamePublisher, c.ParentId, c.SortOrder, c.Status));
+
             CreateMap<ProductCategoryViewModel, ProductCategory>()
                 .ConstructUsing(c => new ProductCategory(c.Name, c.Description, c.ParentId, c.HomeOrder, c.Image, c.HomeFlag,
                 c.SortOrder, c.Status, c.SeoPageTitle, c.SeoAlias, c.SeoKeywords, c.SeoDescription));

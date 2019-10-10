@@ -27,6 +27,9 @@ namespace OnlineShopCore.Application.AutoMapper
             CreateMap<Size, SizeViewModel>();
             CreateMap<Slide, SlideViewModel>();
 
+            CreateMap<Author, AuthorViewModel>();
+            CreateMap<Publisher, PublisherViewModel>();
+
             CreateMap<ProductImage, ProductImageViewModel>().MaxDepth(2);
 
             CreateMap<Contact, ContactViewModel>().MaxDepth(2);
