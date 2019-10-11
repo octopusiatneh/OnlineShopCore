@@ -32,6 +32,7 @@
 
 
   <ItemGroup>
+    <None Include="Areas\Admin\Views\SendNotification\Index.cshtml" />
     <None Include="wwwroot\admin-side\dist\css\icons\font-awesome\less\fa-brands.less" />
     <None Include="wwwroot\admin-side\dist\css\icons\font-awesome\less\fa-regular.less" />
     <None Include="wwwroot\admin-side\dist\css\icons\font-awesome\less\fa-solid.less" />
@@ -143,6 +144,7 @@
     <None Include="wwwroot\admin-side\dist\css\icons\weather-icons\sass\weather-icons-wind.scss" />
     <None Include="wwwroot\admin-side\dist\css\icons\weather-icons\sass\weather-icons.min.scss" />
     <None Include="wwwroot\admin-side\dist\css\icons\weather-icons\sass\weather-icons.scss" />
+    <None Include="wwwroot\app\controllers\send-notification\index.js" />
   </ItemGroup>
 
   <ItemGroup>

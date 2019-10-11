@@ -19,6 +19,7 @@ var productController = function () {
                 txtNameM: { required: true },
                 ddlCategoryIdM: { required: true },
                 ddlAuthorIdM: { required: true },
+                ddlPublisherIdM: { required: true },
                 txtPriceM: {
                     required: true,
                     number: true
@@ -38,6 +39,7 @@ var productController = function () {
             resetFormMaintainance();
             initTreeDropDownCategory();
             initTreeDropDownAuthor();
+            initTreeDropDownPublisher();
             $('#modal-add-edit').modal('show');
 
         });
@@ -89,6 +91,7 @@ var productController = function () {
                     $('#txtNameM').val(data.Name);
                     initTreeDropDownCategory(data.CategoryId);
                     initTreeDropDownAuthor(data.AuthorId);
+                    initTreeDropDownAuthor(data.PublisherId);
 
                     $('#txtDescM').val(data.Description);
                     $('#txtUnitM').val(data.Unit);
@@ -155,8 +158,8 @@ var productController = function () {
                 var name = $('#txtNameM').val();
                 var dateCreated = $('#hidDateCreated').val();
                 var categoryId = $('#ddlCategoryIdM').combotree('getValue');
-                var authorId = $('#ddlAuthorIdm').combotree('getValue');
-
+                var authorId = $('#ddlAuthorIdM').combotree('getValue');
+                var publisherId = $('#ddlPublisherIdM').combotree('getValue');
                 var description = $('#txtDescM').val();
                 var unit = $('#txtUnitM').val();
 
@@ -186,6 +189,7 @@ var productController = function () {
                         DateCreated: dateCreated,
                         CategoryId: categoryId,
                         AuthorId: authorId,
+                        PublisherId: publisherId,
                         Image: image,
                         Price: price,
                         OriginalPrice: originalPrice,
@@ -375,11 +379,50 @@ var productController = function () {
         });
     }
 
+    function initTreeDropDownPublisher(selectedId) {
+        $.ajax({
+            url: "/Admin/Publisher/GetAll",
+            type: 'GET',
+            dataType: 'json',
+            async: false,
+            success: function (response) {
+                var data = [];
+                $.each(response, function (i, item) {
+                    data.push({
+                        id: item.Id,
+                        text: item.NamePublisher,
+                        parentId: item.ParentId,
+                        sortOrder: item.SortOrder
+                    });
+                });
+                console.log("publisher")
+                console.log(data);
+                var arr = onlineshop.unflattern(data);
+                $('#ddlPublisherIdM').combotree({
+                    editable: true,
+                    autocomplete: true,
+                    data: arr
+                });
+
+                $('#ddlPublisherIdImportExcel').combotree({
+                    editable: true,
+                    autocomplete: true,
+                    data: arr
+                });
+
+                if (selectedId != undefined) {
+                    $('#ddlPublisherIdM').combotree('setValue', selectedId);
+                }
+            }
+        });
+    }
+
     function resetFormMaintainance() {
         $('#hidIdM').val(0);
         $('#txtNameM').val('');
-        //initTreeDropDownCategory();
-        //initTreeDropDownAuthor();
+        initTreeDropDownCategory();
+        initTreeDropDownAuthor();
+        initTreeDropDownPublisher();
 
         $('#txtDescM').val('');
         $('#txtUnitM').val('');

@@ -377,6 +377,7 @@ namespace OnlineShopCore.Data.EF.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 255, nullable: false),
                     CategoryId = table.Column<int>(nullable: false),
+                    AuthorId = table.Column<int>(nullable: false),
                     Image = table.Column<string>(maxLength: 255, nullable: true),
                     Price = table.Column<decimal>(nullable: false),
                     PromotionPrice = table.Column<decimal>(nullable: true),
@@ -395,7 +396,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
                     Status = table.Column<int>(nullable: false),
-                    AuthorId = table.Column<int>(nullable: true),
                     PublisherId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -406,7 +406,7 @@ namespace OnlineShopCore.Data.EF.Migrations
                         column: x => x.AuthorId,
                         principalTable: "Authors",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Products_ProductCategories_CategoryId",
                         column: x => x.CategoryId,

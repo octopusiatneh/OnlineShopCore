@@ -10,14 +10,14 @@ using OnlineShopCore.Data.EF;
 namespace OnlineShopCore.Data.EF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20191010091351_init")]
+    [Migration("20191011033827_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
+                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -467,7 +467,7 @@ namespace OnlineShopCore.Data.EF.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AuthorId");
+                    b.Property<int>("AuthorId");
 
                     b.Property<int>("CategoryId");
 
@@ -752,9 +752,10 @@ namespace OnlineShopCore.Data.EF.Migrations
 
             modelBuilder.Entity("OnlineShopCore.Data.Entities.Product", b =>
                 {
-                    b.HasOne("OnlineShopCore.Data.Entities.Author")
+                    b.HasOne("OnlineShopCore.Data.Entities.Author", "Author")
                         .WithMany("Products")
-                        .HasForeignKey("AuthorId");
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("OnlineShopCore.Data.Entities.ProductCategory", "ProductCategory")
                         .WithMany("Products")
