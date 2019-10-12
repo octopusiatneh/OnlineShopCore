@@ -1,5 +1,4 @@
-﻿var db;
-var productCategoryController = function () {
+﻿var productCategoryController = function () {
     this.initialize = function () {
         loadData();
         registerEvents();
@@ -10,21 +9,50 @@ var productCategoryController = function () {
             ignore: [],
             lang: 'en',
             rules: {
-                txtNameM: { required: true }
+                txtNameM: { required: true },
+                txtOrderM: { number: true },
+                txtHomeOrderM: { number: true }
             }
         });
 
         $('#btnCreate').off('click').on('click', function () {
+            initTreeDropDownCategory();
             $('#modal-add-edit').modal('show');
-        });  
+        });
+        $('#btnSelectImg').on('click', function () {
+            $('#fileInputImage').click();
+        });
 
-        $('body').on('click', '.btn-edit', function (e) {
+        $("#fileInputImage").on('change', function () {
+            var fileUpload = $(this).get(0);
+            var files = fileUpload.files;
+            var data = new FormData();
+            for (var i = 0; i < files.length; i++) {
+                data.append(files[i].name, files[i]);
+            }
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Upload/UploadImage",
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function (path) {
+                    $('#txtImage').val(path);
+                    onlineshop.notify('Upload image succesful!', 'success');
+
+                },
+                error: function () {
+                    onlineshop.notify('There was error uploading files!', 'error');
+                }
+            });
+        });
+
+        $('body').on('click', '#btnEdit', function (e) {
             e.preventDefault();
-            var that = $(this).data('id');
-            //loadDetails(that);
+            var that = $('#hidIdM').val();
             $.ajax({
                 type: "GET",
-                url: "/Admin/Category/GetById",
+                url: "/Admin/ProductCategory/GetById",
                 data: { id: that },
                 dataType: "json",
                 beforeSend: function () {
@@ -33,12 +61,26 @@ var productCategoryController = function () {
                 success: function (response) {
                     var data = response;
                     $('#hidIdM').val(data.Id);
-                    $('#hidDateCreated').val(data.DateCreated)
-                    $('#txtNameM').val(data.Name);    
-                    $('#txtSeoAliasM').val(data.SeoAlias);      
-                    $('#ckStatusM').prop('checked', data.Status == 1);       
+                    $('#txtNameM').val(data.Name);
+                    initTreeDropDownCategory(data.CategoryId);
+
+                    $('#txtDescM').val(data.Description);
+
+                    $('#txtImageM').val(data.ThumbnailImage);
+
+                    $('#txtSeoKeywordM').val(data.SeoKeywords);
+                    $('#txtSeoDescriptionM').val(data.SeoDescription);
+                    $('#txtSeoPageTitleM').val(data.SeoPageTitle);
+                    $('#txtSeoAliasM').val(data.SeoAlias);
+
+                    $('#ckStatusM').prop('checked', data.Status == 1);
+                    $('#ckShowHomeM').prop('checked', data.HomeFlag);
+                    $('#txtOrderM').val(data.SortOrder);
+                    $('#txtHomeOrderM').val(data.HomeOrder);
+
                     $('#modal-add-edit').modal('show');
                     onlineshop.stopLoading();
+
                 },
                 error: function (status) {
                     onlineshop.notify('Có lỗi xảy ra', 'error');
@@ -47,27 +89,25 @@ var productCategoryController = function () {
             });
         });
 
-        $('body').on('click', '.btn-delete', function (e) {
+        $('body').on('click', '#btnDelete', function (e) {
             e.preventDefault();
-            var that = $(this).data('id');
-            //deleteProduct(that);
-            onlineshop.confirm('Bạn có muốn xóa danh mục này', function () {
+            var that = $('#hidIdM').val();
+            onlineshop.confirm('Are you sure to delete?', function () {
                 $.ajax({
                     type: "POST",
-                    url: "/Admin/Category/Delete",
+                    url: "/Admin/ProductCategory/Delete",
                     data: { id: that },
                     dataType: "json",
                     beforeSend: function () {
                         onlineshop.startLoading();
                     },
                     success: function (response) {
-                        onlineshop.notify('Xóa danh mục thành công', 'success');
+                        onlineshop.notify('Deleted success', 'success');
                         onlineshop.stopLoading();
-                        $('#zero_config').DataTable().ajax.reload()
-
+                        loadData();
                     },
                     error: function (status) {
-                        onlineshop.notify('Xóa không thành công', 'error');
+                        onlineshop.notify('Has an error in deleting progress', 'error');
                         onlineshop.stopLoading();
                     }
                 });
@@ -78,33 +118,54 @@ var productCategoryController = function () {
             if ($('#frmMaintainance').valid()) {
                 e.preventDefault();
                 var id = parseInt($('#hidIdM').val());
-                var name = $('#txtNameM').val();    
+                var name = $('#txtNameM').val();
+                var parentId = $('#ddlCategoryIdM').combotree('getValue');
+                var description = $('#txtDescM').val();
+
+                var image = $('#txtImageM').val();
+                var order = parseInt($('#txtOrderM').val());
+                var homeOrder = $('#txtHomeOrderM').val();
+
+                var seoKeyword = $('#txtSeoKeywordM').val();
+                var seoMetaDescription = $('#txtSeoDescriptionM').val();
+                var seoPageTitle = $('#txtSeoPageTitleM').val();
                 var seoAlias = $('#txtSeoAliasM').val();
                 var status = $('#ckStatusM').prop('checked') == true ? 1 : 0;
+                var showHome = $('#ckShowHomeM').prop('checked');
+
                 $.ajax({
                     type: "POST",
-                    url: "/Admin/Category/SaveEntity",
+                    url: "/Admin/ProductCategory/SaveEntity",
                     data: {
                         Id: id,
-                        Name: name,                   
-                        Status: status,           
+                        Name: name,
+                        Description: description,
+                        ParentId: parentId,
+                        HomeOrder: homeOrder,
+                        SortOrder: order,
+                        HomeFlag: showHome,
+                        Image: image,
+                        Status: status,
+                        SeoPageTitle: seoPageTitle,
                         SeoAlias: seoAlias,
+                        SeoKeywords: seoKeyword,
+                        SeoDescription: seoMetaDescription
                     },
                     dataType: "json",
                     beforeSend: function () {
                         onlineshop.startLoading();
                     },
                     success: function (response) {
-                        onlineshop.notify('Thành công !', 'success');
+                        onlineshop.notify('Update success', 'success');
                         $('#modal-add-edit').modal('hide');
 
                         resetFormMaintainance();
 
                         onlineshop.stopLoading();
-                        $('#zero_config').DataTable().ajax.reload()
+                        loadData(true);
                     },
                     error: function () {
-                        onlineshop.notify('Lỗi!', 'error');
+                        onlineshop.notify('Has an error in update progress', 'error');
                         onlineshop.stopLoading();
                     }
                 });
@@ -116,51 +177,129 @@ var productCategoryController = function () {
     function resetFormMaintainance() {
         $('#hidIdM').val(0);
         $('#txtNameM').val('');
+        initTreeDropDownCategory('');
+
+        $('#txtDescM').val('');
+        $('#txtOrderM').val('');
+        $('#txtHomeOrderM').val('');
+        $('#txtImageM').val('');
+
+        $('#txtMetakeywordM').val('');
+        $('#txtMetaDescriptionM').val('');
+        $('#txtSeoPageTitleM').val('');
         $('#txtSeoAliasM').val('');
 
         $('#ckStatusM').prop('checked', true);
+        $('#ckShowHomeM').prop('checked', false);
     }
-  
-    function loadData() {       
-        db = $('#zero_config').dataTable({
-            processing: true, // for show progress bar
-            serverSide: false, // for process server side
-            order: [[2, "desc"]], // sort db by date created
-            ajax: {
-                type: 'GET',
-                url: '/admin/category/GetAll',
-                dataSrc: '',
-                dataType: 'json'
-            },
-            columnDefs: [{
-                targets: [0, 1, 2, 3],
-                autoWidth: true
-            }],
-            columnDefs: [{
-                targets: [0, 3],
-                sortable: false
-            }],
-            columns: [
-                {
-                    data: "Id", render: function (data, type, row) {
-                        return '<button style="width: 40px" data-toggle="tooltip" data-placement="top" title="Xóa" data-original-title="Delete" data-id="' + data + '" class="btn btn-danger btn-delete"><i class="fas fa-trash"></i></button> <button style="width: 40px" data-toggle="tooltip" data-placement="top" title="Sửa" data-original-title="Edit" data-id="' + data + '" class="btn btn-success btn-edit"><i class="fas fa-pencil-alt"></i></button>' /*<button style="width: 40px" data-toggle="tooltip" data-placement="top" title="Quantity managment" data-original-title="QUantity management" data-id="' + data + '" class="btn btn-info btn-quantity"><i class="fas fa-hashtag"></i></button> <button style="width: 40px" data-toggle="tooltip" data-placement="top" title="Wholesale price management" data-original-title="Wholesale price management" data-id="' + data + '" class="btn btn-warning btn-whole-price"><i class="fas fa-money-bill-alt"></i></button>*/;
-                    }
-                },
-                {
-                    data: "Name"
-                },            
-                {
-                    data: "DateCreated", render: function (data, type, row) {
-                        return data = moment(data).format('DD/MM/YYYY HH:mm:ss')
-                    }
-                },
-                {
-                    data: "Status", render: function (data, type, row) {
-                        return data = onlineshop.getStatus(data)
-                    }
+    function initTreeDropDownCategory(selectedId) {
+        $.ajax({
+            url: "/Admin/ProductCategory/GetAll",
+            type: 'GET',
+            dataType: 'json',
+            async: false,
+            success: function (response) {
+                var data = [];
+                $.each(response, function (i, item) {
+                    data.push({
+                        id: item.Id,
+                        text: item.Name,
+                        parentId: item.ParentId,
+                        sortOrder: item.SortOrder
+                    });
+                });
+                var arr = onlineshop.unflattern(data);
+                $('#ddlCategoryIdM').combotree({
+                    data: arr
+                });
+                if (selectedId != undefined) {
+                    $('#ddlCategoryIdM').combotree('setValue', selectedId);
                 }
-            ]
+            }
         });
-        $.fn.dataTable.moment('DD/MM/YYYY');
+    }
+    function loadData() {
+        $.ajax({
+            url: '/Admin/ProductCategory/GetAll',
+            dataType: 'json',
+            success: function (response) {
+                var data = [];
+                $.each(response, function (i, item) {
+                    data.push({
+                        id: item.Id,
+                        text: item.Name,
+                        parentId: item.ParentId,
+                        sortOrder: item.SortOrder
+                    });
+
+                });
+                var treeArr = onlineshop.unflattern(data);
+                treeArr.sort(function (a, b) {
+                    return a.sortOrder - b.sortOrder;
+                });
+                //var $tree = $('#treeProductCategory');
+
+                $('#treeProductCategory').tree({
+                    data: treeArr,
+                    dnd: true,
+                    onContextMenu: function (e,node) {
+                        e.preventDefault();
+                        // select the node
+                        //$('#tt').tree('select', node.target);
+                        $('#hidIdM').val(node.id);
+                        // display context menu
+                        $('#contextMenu').menu('show', {
+                            left: e.pageX,
+                            top: e.pageY
+                        });
+                    },
+                    onDrop: function (target, source, point) {
+                        console.log(target);
+                        console.log(source);
+                        console.log(point);
+                        var targetNode = $(this).tree('getNode', target);
+                        if (point === 'append') {
+                            var children = [];
+                            $.each(targetNode.children, function (i, item) {
+                                children.push({
+                                    key: item.id,
+                                    value: i
+                                });
+                            });
+
+                            //Update to database
+                            $.ajax({
+                                url: '/Admin/ProductCategory/UpdateParentId',
+                                type: 'post',
+                                dataType: 'json',
+                                data: {
+                                    sourceId: source.id,
+                                    targetId: targetNode.id,
+                                    items: children
+                                },
+                                success: function (res) {
+                                    loadData();
+                                }
+                            });
+                        }
+                        else if (point === 'top' || point === 'bottom') {
+                            $.ajax({
+                                url: '/Admin/ProductCategory/ReOrder',
+                                type: 'post',
+                                dataType: 'json',
+                                data: {
+                                    sourceId: source.id,
+                                    targetId: targetNode.id
+                                },
+                                success: function (res) {
+                                    loadData();
+                                }
+                            });
+                        }
+                    }
+                });
+
+            }
+        });
     }
 }

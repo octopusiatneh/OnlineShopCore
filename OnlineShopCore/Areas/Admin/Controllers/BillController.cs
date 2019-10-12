@@ -138,7 +138,21 @@ namespace OnlineShopCore.Areas.Admin.Controllers
                     Name = c.GetDescription()
                 }).ToList();
             return new OkObjectResult(enums);
-        } 
+        }
+
+        [HttpGet]
+        public IActionResult GetColors()
+        {
+            var colors = _billService.GetColors();
+            return new OkObjectResult(colors);
+        }
+
+        [HttpGet]
+        public IActionResult GetSizes()
+        {
+            var sizes = _billService.GetSizes();
+            return new OkObjectResult(sizes);
+        }
 
         [HttpPost]
         public IActionResult ExportExcel(int billId)

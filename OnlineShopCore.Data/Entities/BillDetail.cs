@@ -48,5 +48,11 @@ namespace OnlineShopCore.Data.Entities
 
         [ForeignKey("ProductId")]
         public virtual Product Product { set; get; }
+
+        [ForeignKey("ColorId")]
+        public virtual Color Color { set; get; }
+
+        [ForeignKey("SizeId")]
+        public virtual Size Size { set; get; }
     }
 }

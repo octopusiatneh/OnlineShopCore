@@ -6,8 +6,8 @@ using System.Text;
 
 namespace OnlineShopCore.Data.IRepositories
 {
-    public interface ICategoryRepository : IRepository<Category, int>
+    public interface IProductCategoryRepository : IRepository<ProductCategory, int>
     {
-        List<Category> GetByAlias(string alias);
+        List<ProductCategory> GetByAlias(string alias);
     }
 }

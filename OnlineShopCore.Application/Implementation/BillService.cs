@@ -20,8 +20,8 @@ namespace OnlineShopCore.Application.Implementation
     {
         private readonly IBillRepository _orderRepository;
         private readonly IBillDetailRepository _orderDetailRepository;
-        //private readonly IColorRepository _colorRepository;
-        //private readonly ISizeRepository _sizeRepository;
+        private readonly IColorRepository _colorRepository;
+        private readonly ISizeRepository _sizeRepository;
         private readonly IProductRepository _productRepository;
         private IRepository<Announcement, string> _announRepository;
         private IRepository<AnnouncementBill, int> _announBillRepository;
@@ -29,9 +29,9 @@ namespace OnlineShopCore.Application.Implementation
 
         public BillService(IBillRepository orderRepository,
            IBillDetailRepository orderDetailRepository,
-           //IColorRepository colorRepository,
-           //ISizeRepository sizeRepository,
+           IColorRepository colorRepository,
            IProductRepository productRepository,
+           ISizeRepository sizeRepository,
            IRepository<Announcement,string> announRepository,
            IRepository<AnnouncementBill, int> announBillRepository,
            IUnitOfWork unitOfWork)
@@ -40,8 +40,8 @@ namespace OnlineShopCore.Application.Implementation
             _announBillRepository = announBillRepository;
             _orderRepository = orderRepository;
             _orderDetailRepository = orderDetailRepository;
-            //_colorRepository = colorRepository;
-            //_sizeRepository = sizeRepository;
+            _colorRepository = colorRepository;
+            _sizeRepository = sizeRepository;
             _productRepository = productRepository;
             _unitOfWork = unitOfWork;
         }
@@ -113,10 +113,10 @@ namespace OnlineShopCore.Application.Implementation
             _orderRepository.Update(order);
         }
 
-        //public List<SizeViewModel> GetSizes()
-        //{
-        //    return _sizeRepository.FindAll().ProjectTo<SizeViewModel>().ToList();
-        //}
+        public List<SizeViewModel> GetSizes()
+        {
+            return _sizeRepository.FindAll().ProjectTo<SizeViewModel>().ToList();
+        }
 
         public void Save()
         {
@@ -170,14 +170,14 @@ namespace OnlineShopCore.Application.Implementation
         public List<BillDetailViewModel> GetBillDetails(int billId)
         {
             return _orderDetailRepository
-                .FindAll(x => x.BillId == billId, c => c.Bill, /*c => c.Color, c => c.Size,*/ c => c.Product)
+                .FindAll(x => x.BillId == billId, c => c.Bill, c => c.Color, c => c.Size, c => c.Product)
                 .ProjectTo<BillDetailViewModel>().ToList();
         }
 
-        //public List<ColorViewModel> GetColors()
-        //{
-        //    return _colorRepository.FindAll().ProjectTo<ColorViewModel>().ToList();
-        //}
+        public List<ColorViewModel> GetColors()
+        {
+            return _colorRepository.FindAll().ProjectTo<ColorViewModel>().ToList();
+        }
 
         public BillDetailViewModel CreateDetail(BillDetailViewModel billDetailVm)
         {
@@ -193,15 +193,15 @@ namespace OnlineShopCore.Application.Implementation
             _orderDetailRepository.Remove(detail);
         }
 
-        //public ColorViewModel GetColor(int id)
-        //{
-        //    return Mapper.Map<Color, ColorViewModel>(_colorRepository.FindById(id));
-        //}
+        public ColorViewModel GetColor(int id)
+        {
+            return Mapper.Map<Color, ColorViewModel>(_colorRepository.FindById(id));
+        }
 
-        //public SizeViewModel GetSize(int id)
-        //{
-        //    return Mapper.Map<Size, SizeViewModel>(_sizeRepository.FindById(id));
-        //}
+        public SizeViewModel GetSize(int id)
+        {
+            return Mapper.Map<Size, SizeViewModel>(_sizeRepository.FindById(id));
+        }
 
         public List<BillViewModel> GetAll()
         {

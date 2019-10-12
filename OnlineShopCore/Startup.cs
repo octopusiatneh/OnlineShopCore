@@ -139,12 +139,16 @@ namespace OnlineShopCore
             services.AddTransient(typeof(IRepository<,>), typeof(EFRepository<,>));
 
             //Repositories
-            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
             services.AddTransient<IFunctionRepository, FunctionRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<ITagRepository, TagRepository>();
+            services.AddTransient<IProductTagRepository, ProductTagRepository>();
             services.AddTransient<IPermissionRepository, PermissionRepository>();
             services.AddTransient<IBillRepository, BillRepository>();
             services.AddTransient<IBillDetailRepository, BillDetailRepository>();
+            services.AddTransient<IColorRepository, ColorRepository>();
+            services.AddTransient<ISizeRepository, SizeRepository>();
             services.AddTransient<IProductImageRepository, ProductImageRepository>();
             services.AddTransient<IFeedbackRepository, FeedbackRepository>();
 
@@ -155,7 +159,7 @@ namespace OnlineShopCore
             services.AddTransient<ISlideImageRepository, SlideImageRepository>();
 
             //Services
-            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IProductCategoryService, ProductCategoryService>();
             services.AddTransient<IFunctionService, FunctionService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ISlideService, SlideService>();

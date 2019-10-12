@@ -16,7 +16,7 @@ namespace OnlineShopCore.Models.ProductViewModels
 
         public List<ProductViewModel> RelatedProducts { get; set; }
 
-        public CategoryViewModel Category { get; set; }
+        public ProductCategoryViewModel Category { get; set; }
 
         public List<ProductImageViewModel> ProductImages { set; get; }
 

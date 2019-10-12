@@ -29,6 +29,12 @@ namespace OnlineShopCore.Application.Interfaces
 
         List<BillDetailViewModel> GetBillDetails(int billId);
 
+        List<ColorViewModel> GetColors();
+
+        List<SizeViewModel> GetSizes();
+        ColorViewModel GetColor(int id);
+
+        SizeViewModel GetSize(int id);
         void Save();
     }
 }

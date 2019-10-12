@@ -48,7 +48,7 @@ namespace OnlineShopCore.Application.ViewModels.Product
         public string Unit { get; set; }
 
        
-        public virtual CategoryViewModel Category { set; get; }
+        public virtual ProductCategoryViewModel ProductCategory { set; get; }
 
         public string SeoPageTitle { set; get; }
 

@@ -10,7 +10,7 @@ namespace OnlineShopCore.Models.ProductViewModels
 {
     public class ShoppingViewModel
     {
-        public List<CategoryViewModel> Category { get; set; }
+        public List<ProductCategoryViewModel> ProductCategory { get; set; }
         public PagedResult<ProductViewModel> Product { get; set; }
 
         public string SortBy { get; set; }

@@ -18,6 +18,7 @@ namespace OnlineShopCore.Models.ProductViewModels
     {
         public Product()
         {
+            ProductTags = new List<ProductTag>();
         }
 
         public Product(string name, int categoryId, string Image,
@@ -45,6 +46,8 @@ namespace OnlineShopCore.Models.ProductViewModels
             SeoKeywords = seoMetaKeyword;
             DateCreated = DateTime.Now;
             SeoDescription = seoMetaDescription;
+            ProductTags = new List<ProductTag>();
+
         }
 
         public Product(int id, string name, int categoryId, string Image,
@@ -74,6 +77,8 @@ namespace OnlineShopCore.Models.ProductViewModels
             SeoDescription = seoMetaDescription;
             DateCreated = dateCreated;
             DateModified = DateTime.Now;
+            ProductTags = new List<ProductTag>();
+
         }
         [StringLength(255)]
         [Required]
@@ -112,7 +117,9 @@ namespace OnlineShopCore.Models.ProductViewModels
         public string Unit { get; set; }
 
         [ForeignKey("CategoryId")]
-        public virtual Category ProductCategory { set; get; }
+        public virtual ProductCategory ProductCategory { set; get; }
+
+        public virtual ICollection<ProductTag> ProductTags { set; get; }
 
         public string SeoPageTitle { set; get; }
 

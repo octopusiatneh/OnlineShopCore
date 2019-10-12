@@ -295,7 +295,7 @@ var productController = function () {
 
     function initTreeDropDownCategory(selectedId) {
         $.ajax({
-            url: "/Admin/Category/GetAll",
+            url: "/Admin/ProductCategory/GetAll",
             type: 'GET',
             dataType: 'json',
             async: false,
@@ -400,7 +400,7 @@ var productController = function () {
                     }
                 },
                 { data: "Name" },
-                { data: "Category.Name" },
+                { data: "ProductCategory.Name" },
                 {
                     data: "Price", render: function (data, type, row) {
                         return data = onlineshop.formatNumber(data, 0)
