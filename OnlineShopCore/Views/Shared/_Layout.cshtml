@@ -240,6 +240,16 @@
     <!--===============================================================================================-->
     <script src="~/client-side/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+        var OneSignal = window.OneSignal || [];
+        OneSignal.push(function () {
+            OneSignal.init({
+                appId: "448b3a6a-030d-49e3-a422-5de60e7f7267",
+            });
+        });
+    </script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AVUbFuKee5wIXQvJi1g8soDDy2rO7r3FzLaTTvKiWPCinD7K0lYtJmHNm1TN1OMfc0z0rBJ_7Vu2Bq8A"></script>
     <script src="~/client-side/vendor/animsition/js/animsition.min.js"></script>
     <!--===============================================================================================-->
     <script src="~/client-side/vendor/bootstrap/js/popper.js"></script>

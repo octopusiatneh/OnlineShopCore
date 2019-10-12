@@ -1,10 +1,70 @@
 ﻿@model CheckoutViewModel
-@{ 
+@{
     var userInfo = ViewData["UserInfo"] as AppUser;
 }
 @section Scripts{
     <script src="~/app-client/controllers/cart/checkout.js" asp-append-version="true"></script>
     <recaptcha-script validation-message-element-id="recaptchaErrorMessage" />
+
+    <script>
+        //document.getElementById("billStatusContainer").style.display = "none";
+
+        $(function () {
+            $("input[name='paymentMethod']").click(function () {
+                if ($("#1").is(":checked")) {
+                    $("#paypal-button-container").show();
+                    $("#submit-form").attr("disabled", true);
+                } else {
+                    $("#paypal-button-container").hide();
+                    $('#submit-form').removeAttr("disabled");
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $("#submit-form").click(function () {
+                $("#billStatus-0").prop("checked", true);
+            });
+        });
+
+        var totalAmount = 0;
+        $.ajax({
+            url: '/Cart/GetCart',
+            type: 'GET',
+            dataType: 'json',
+            async: false,
+            success: function (response) {
+                $.each(response, function (i, item) {
+                    totalAmount += item.Price * item.Quantity;
+                });
+
+                console.log(totalAmount);
+            }
+        });
+        console.log(totalAmount);
+
+        paypal.Buttons({
+            createOrder: function (data, actions) {
+                // Set up the transaction
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: totalAmount.toString()
+                        }
+                    }]
+                });
+            },
+            onApprove: function (data, actions) {
+                // Capture the funds from the transaction
+                return actions.order.capture().then(function (details) {
+                    document.getElementById("billStatus-4").checked = true;
+                    document.forms["myform"].submit();
+                    // Show a success message to your buyer
+                    alert('Transaction completed by ' + details.payer.name.given_name);
+                });
+            }
+        }).render('#paypal-button-container');
+    </script>
 
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }
@@ -42,7 +102,7 @@
 else
 {
     <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
-        <form action="/checkout" method="post">
+        <form id="myform" action="/checkout" method="post">
             @Html.AntiForgeryToken()
             <h2 align="center">1. Customer Information</h2>
             <div class="m-l-25 m-r--38 m-lr-0-xl">
@@ -70,16 +130,32 @@ else
                             {
                                 <li>
                                     <label asp-for="@Model.PaymentMethods[i].Value">
-                                        <input type="radio" name="paymentMethod" asp-for="PaymentMethod" value="@Model.PaymentMethods[i].Value">
+                                        <input id="@Model.PaymentMethods[i].Value" type="radio" name="paymentMethod" asp-for="PaymentMethod" value="@Model.PaymentMethods[i].Value">
                                         @Model.PaymentMethods[i].Name
                                     </label>
                                 </li>
                             }
                         </ul>
                     </div>
+
+                    <div id="billStatusContainer" style="display:none">
+                        <ul>
+                            @for (int i = 0; i < Model.ListBillStatus.Count; i++)
+                            {
+                                <li>
+                                    <label asp-for="@Model.ListBillStatus[i].Value">
+                                        <input type="radio" name="billStatus" id="billStatus-@i" asp-for="BillStatus" value="@Model.ListBillStatus[i].Value">
+                                        @Model.ListBillStatus[i].Name
+                                    </label>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div id="paypal-button-container" style="display: none"></div>
                 </div>
-                <recaptcha /><span class="text-danger" id="recaptchaErrorMessage"></span>
-                <button type="submit" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
+                @*<recaptcha /><span class="text-danger" id="recaptchaErrorMessage"></span>*@
+                <button type="submit" id="submit-form" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
                     Confirm order
                 </button>
             </div>

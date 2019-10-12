@@ -23,7 +23,8 @@ namespace OnlineShopCore.Data.EF
         }
         public DbSet<Language> Languages { set; get; }
         public DbSet<Function> Functions { get; set; }
-
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Publisher> Publishers { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<AppRole> AppRoles { get; set; }
         public DbSet<Announcement> Announcements { set; get; }
@@ -45,7 +46,7 @@ namespace OnlineShopCore.Data.EF
 
         public DbSet<Permission> Permissions { get; set; }
 
-      
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             #region Identity Config

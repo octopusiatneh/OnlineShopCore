@@ -32,6 +32,7 @@
 
 
   <ItemGroup>
+    <None Include="Areas\Admin\Views\SendNotification\Index.cshtml" />
     <None Include="wwwroot\admin-side\dist\css\icons\font-awesome\less\fa-brands.less" />
     <None Include="wwwroot\admin-side\dist\css\icons\font-awesome\less\fa-regular.less" />
     <None Include="wwwroot\admin-side\dist\css\icons\font-awesome\less\fa-solid.less" />
@@ -143,6 +144,7 @@
     <None Include="wwwroot\admin-side\dist\css\icons\weather-icons\sass\weather-icons-wind.scss" />
     <None Include="wwwroot\admin-side\dist\css\icons\weather-icons\sass\weather-icons.min.scss" />
     <None Include="wwwroot\admin-side\dist\css\icons\weather-icons\sass\weather-icons.scss" />
+    <None Include="wwwroot\app\controllers\send-notification\index.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -154,6 +156,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Areas\Admin\Views\Author\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Admin\Views\Author\_AddEditModal.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Admin\Views\Publisher\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Admin\Views\Publisher\_AddEditModal.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\Admin\Views\Shared\Error.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

@@ -10,14 +10,14 @@ using OnlineShopCore.Data.EF;
 namespace OnlineShopCore.Data.EF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190907054044_init")]
+    [Migration("20191011033827_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
+                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -214,6 +214,25 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppUsers");
+                });
+
+            modelBuilder.Entity("OnlineShopCore.Data.Entities.Author", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuthorName");
+
+                    b.Property<int?>("ParentId");
+
+                    b.Property<int>("SortOrder");
+
+                    b.Property<int>("Status");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("OnlineShopCore.Data.Entities.Bill", b =>
@@ -448,6 +467,8 @@ namespace OnlineShopCore.Data.EF.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AuthorId");
+
                     b.Property<int>("CategoryId");
 
                     b.Property<string>("Content");
@@ -476,6 +497,8 @@ namespace OnlineShopCore.Data.EF.Migrations
 
                     b.Property<decimal?>("PromotionPrice");
 
+                    b.Property<int?>("PublisherId");
+
                     b.Property<string>("SeoAlias")
                         .HasMaxLength(255);
 
@@ -499,7 +522,11 @@ namespace OnlineShopCore.Data.EF.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuthorId");
+
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("PublisherId");
 
                     b.ToTable("Products");
                 });
@@ -584,6 +611,25 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.HasIndex("TagId");
 
                     b.ToTable("ProductTags");
+                });
+
+            modelBuilder.Entity("OnlineShopCore.Data.Entities.Publisher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("NamePublisher");
+
+                    b.Property<int?>("ParentId");
+
+                    b.Property<int>("SortOrder");
+
+                    b.Property<int>("Status");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Publishers");
                 });
 
             modelBuilder.Entity("OnlineShopCore.Data.Entities.Size", b =>
@@ -706,10 +752,19 @@ namespace OnlineShopCore.Data.EF.Migrations
 
             modelBuilder.Entity("OnlineShopCore.Data.Entities.Product", b =>
                 {
+                    b.HasOne("OnlineShopCore.Data.Entities.Author", "Author")
+                        .WithMany("Products")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("OnlineShopCore.Data.Entities.ProductCategory", "ProductCategory")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("OnlineShopCore.Data.Entities.Publisher")
+                        .WithMany("Products")
+                        .HasForeignKey("PublisherId");
                 });
 
             modelBuilder.Entity("OnlineShopCore.Data.Entities.ProductImage", b =>

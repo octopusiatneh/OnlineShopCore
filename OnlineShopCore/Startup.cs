@@ -151,8 +151,8 @@ namespace OnlineShopCore
             services.AddTransient<ISizeRepository, SizeRepository>();
             services.AddTransient<IProductImageRepository, ProductImageRepository>();
             services.AddTransient<IFeedbackRepository, FeedbackRepository>();
-
-
+            services.AddTransient<IAuthorRepository, AuthorRepository>();
+            services.AddTransient<IPublisherCompanyRepository, PublisherCompanyRepository>();
             services.AddTransient<IContactRepository, ContactRepository>();
 
             services.AddTransient<ISlideRepository, SlideRepository>();
@@ -168,6 +168,9 @@ namespace OnlineShopCore
             services.AddTransient<IAuthorizationHandler, BaseResourceAuthorizationHandler>();
             services.AddTransient<IBillService, BillService>();
             services.AddTransient<IFeedbackService, FeedbackService>();
+
+            services.AddTransient<IAuthorService, AuthorService>();
+            services.AddTransient<IPublisherService, PublisherService>();
 
             services.AddTransient<IContactService, ContactService>();
             services.AddTransient<IAnnouncementService, AnnouncementService>();

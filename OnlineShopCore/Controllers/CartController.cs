@@ -96,7 +96,7 @@ namespace OnlineShopCore.Controllers
                     {
                         CustomerMobile = model.CustomerMobile,
                         PaymentMethod = model.PaymentMethod,
-                        BillStatus = BillStatus.New,
+                        BillStatus = model.BillStatus,
                         CustomerAddress = model.CustomerAddress,
                         CustomerName = model.CustomerName,
                         CustomerMessage = model.CustomerMessage,

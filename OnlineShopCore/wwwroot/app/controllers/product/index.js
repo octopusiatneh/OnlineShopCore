@@ -18,6 +18,8 @@ var productController = function () {
             rules: {
                 txtNameM: { required: true },
                 ddlCategoryIdM: { required: true },
+                ddlAuthorIdM: { required: true },
+                ddlPublisherIdM: { required: true },
                 txtPriceM: {
                     required: true,
                     number: true
@@ -36,6 +38,8 @@ var productController = function () {
         $("#btnCreate").on('click', function () {
             resetFormMaintainance();
             initTreeDropDownCategory();
+            initTreeDropDownAuthor();
+            initTreeDropDownPublisher();
             $('#modal-add-edit').modal('show');
 
         });
@@ -86,6 +90,8 @@ var productController = function () {
                     $('#hidDateCreated').val(data.DateCreated)
                     $('#txtNameM').val(data.Name);
                     initTreeDropDownCategory(data.CategoryId);
+                    initTreeDropDownAuthor(data.AuthorId);
+                    initTreeDropDownPublisher(data.PublisherId);
 
                     $('#txtDescM').val(data.Description);
                     $('#txtUnitM').val(data.Unit);
@@ -135,7 +141,7 @@ var productController = function () {
                         onlineshop.notify('Delete successful', 'success');
                         onlineshop.stopLoading();
                         $('#zero_config').DataTable().ajax.reload()
-                       
+
                     },
                     error: function (status) {
                         onlineshop.notify('Has an error in delete progress', 'error');
@@ -152,7 +158,8 @@ var productController = function () {
                 var name = $('#txtNameM').val();
                 var dateCreated = $('#hidDateCreated').val();
                 var categoryId = $('#ddlCategoryIdM').combotree('getValue');
-
+                var authorId = $('#ddlAuthorIdM').combotree('getValue');
+                var publisherId = $('#ddlPublisherIdM').combotree('getValue');
                 var description = $('#txtDescM').val();
                 var unit = $('#txtUnitM').val();
 
@@ -181,6 +188,8 @@ var productController = function () {
                         Name: name,
                         DateCreated: dateCreated,
                         CategoryId: categoryId,
+                        AuthorId: authorId,
+                        PublisherId: publisherId,
                         Image: image,
                         Price: price,
                         OriginalPrice: originalPrice,
@@ -221,6 +230,7 @@ var productController = function () {
 
         $('#btn-import').on('click', function () {
             initTreeDropDownCategory();
+            initTreeDropDownAuthor();
             $('#modal-import-excel').modal('show');
         });
 
@@ -273,7 +283,6 @@ var productController = function () {
     function registerControls() {
         CKEDITOR.replace('txtContent', {});
 
-
         //Fix: cannot click on element ck in modal
         $.fn.modal.Constructor.prototype.enforceFocus = function () {
             $(document)
@@ -309,12 +318,18 @@ var productController = function () {
                         sortOrder: item.SortOrder
                     });
                 });
+                console.log("category")
+                console.log(data);
                 var arr = onlineshop.unflattern(data);
                 $('#ddlCategoryIdM').combotree({
+                    editable: true,
+                    autocomplete: true,
                     data: arr
                 });
 
                 $('#ddlCategoryIdImportExcel').combotree({
+                    editable: true,
+                    autocomplete: true,
                     data: arr
                 });
 
@@ -325,10 +340,88 @@ var productController = function () {
         });
     }
 
+    function initTreeDropDownAuthor(selectedId) {
+        $.ajax({
+            url: "/Admin/Author/GetAll",
+            type: 'GET',
+            dataType: 'json',
+            async: false,
+            success: function (response) {
+                var data = [];
+                $.each(response, function (i, item) {
+                    data.push({
+                        id: item.Id,
+                        text: item.AuthorName,
+                        parentId: item.ParentId,
+                        sortOrder: item.SortOrder
+                    });
+                });
+                console.log("author")
+                console.log(data);
+                var arr = onlineshop.unflattern(data);
+                $('#ddlAuthorIdM').combotree({
+                    editable: true,
+                    autocomplete: true,
+                    data: arr
+                });
+
+                $('#ddlAuthorIdImportExcel').combotree({
+                    editable: true,
+                    autocomplete: true,
+                    data: arr
+                });
+
+                if (selectedId != undefined) {
+                    $('#ddlAuthorIdM').combotree('setValue', selectedId);
+                }
+            }
+        });
+    }
+
+    function initTreeDropDownPublisher(selectedId) {
+        $.ajax({
+            url: "/Admin/Publisher/GetAll",
+            type: 'GET',
+            dataType: 'json',
+            async: false,
+            success: function (response) {
+                var data = [];
+                $.each(response, function (i, item) {
+                    data.push({
+                        id: item.Id,
+                        text: item.NamePublisher,
+                        parentId: item.ParentId,
+                        sortOrder: item.SortOrder
+                    });
+                });
+                console.log("publisher")
+                console.log(data);
+                var arr = onlineshop.unflattern(data);
+                $('#ddlPublisherIdM').combotree({
+                    editable: true,
+                    autocomplete: true,
+                    data: arr
+                });
+
+                $('#ddlPublisherIdImportExcel').combotree({
+                    editable: true,
+                    autocomplete: true,
+                    data: arr
+                });
+
+                if (selectedId != undefined) {
+                    $('#ddlPublisherIdM').combotree('setValue', selectedId);
+                }
+            }
+        });
+    }
+
     function resetFormMaintainance() {
         $('#hidIdM').val(0);
         $('#txtNameM').val('');
-        initTreeDropDownCategory('');
+        initTreeDropDownCategory();
+        initTreeDropDownAuthor();
+        initTreeDropDownPublisher();
 
         $('#txtDescM').val('');
         $('#txtUnitM').val('');
@@ -375,7 +468,7 @@ var productController = function () {
                         select.append('<option value="' + d + '">' + d + '</option>')
                     });
                 });
-            },           
+            },
             processing: true, // for show progress bar
             serverSide: false, // for process server side
             order: [[5, "desc"]],
