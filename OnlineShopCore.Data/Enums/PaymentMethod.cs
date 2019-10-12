@@ -7,10 +7,10 @@ namespace OnlineShopCore.Data.Enums
 {
     public enum PaymentMethod
     {
-        [Description("Cash on delivery")]
+        [Description("Trả tiền khi nhận hàng")]
         CashOnDelivery,
         
-        [Description("ATM")]
-        ATM
+        [Description("Paypal")]
+        Paypal
     }
 }

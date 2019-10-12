@@ -91,7 +91,7 @@ var productController = function () {
                     $('#txtNameM').val(data.Name);
                     initTreeDropDownCategory(data.CategoryId);
                     initTreeDropDownAuthor(data.AuthorId);
-                    initTreeDropDownAuthor(data.PublisherId);
+                    initTreeDropDownPublisher(data.PublisherId);
 
                     $('#txtDescM').val(data.Description);
                     $('#txtUnitM').val(data.Unit);
@@ -282,7 +282,6 @@ var productController = function () {
 
     function registerControls() {
         CKEDITOR.replace('txtContent', {});
-
 
         //Fix: cannot click on element ck in modal
         $.fn.modal.Constructor.prototype.enforceFocus = function () {

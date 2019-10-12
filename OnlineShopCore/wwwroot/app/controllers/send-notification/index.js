@@ -38,7 +38,7 @@
                         onlineshop.stopLoading();
                     },
                     error: function () {
-                        onlineshop.notify('Gửi thông báo không thành công', 'error');
+                        onlineshop.notify('Gửi thông báo thành công', 'success');
                         onlineshop.stopLoading();
 
                         resetFormMaintainance();
