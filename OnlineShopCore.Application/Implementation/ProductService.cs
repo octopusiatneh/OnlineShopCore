@@ -212,7 +212,7 @@ namespace OnlineShopCore.Application.Implementation
         {
             var query = _productRepository.FindAll(x => x.Status == Status.Active);
             if (!string.IsNullOrEmpty(keyword))
-                query = query.Where(x => x.Name.Contains(keyword));
+                query = query.Where(x => x.Name.Contains(keyword) || x.Author.AuthorName.Contains(keyword));
 
             int totalRow = query.Count();
 

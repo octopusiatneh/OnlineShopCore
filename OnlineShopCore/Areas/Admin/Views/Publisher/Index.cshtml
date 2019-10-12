@@ -1,6 +1,6 @@
-﻿@using OnlineShopCore.Application.ViewModels.Product
+﻿@using OnlineShopCore.Application.ViewModels
 @{
-    var sortOrder = ViewData["sortOrder"] as List<ProductCategoryViewModel>;
+    var sortOrder = ViewData["sortOrder"] as List<PublisherViewModel>;
 }
 @section Styles{
     <link href="~/lib/jQuery-EasyUI/themes/bootstrap/easyui.css" rel="stylesheet" />
@@ -9,18 +9,14 @@
 }
 
 @section Scripts{
-    <script src="~/app/controllers/product-category/index.js"></script>
+    <script src="~/app/controllers/publisher/index.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
     <script src="~/admin-side/assets/extra-libs/DataTables/datatables.min.js"></script>
     <script src="~/lib/datetime-moment/dist/datetime-moment.js"></script>
     <script>
-        var date = new Date().toJSON();
-        document.getElementById("hidDateCreated").value = date;
-    </script>
-    <script>
         document.getElementById("txtOrderM").value = @sortOrder.Count;
-        var productCategory = new productCategoryController();
-        productCategory.initialize();
+        var publisher = new publisherController();
+        publisher.initialize();
     </script>
 }
 
@@ -31,7 +27,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">Trang chính</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Danh mục</li>
+                        <li class="breadcrumb-item active" aria-current="page">NXB</li>
                     </ol>
                 </nav>
             </div>
@@ -43,14 +39,14 @@
     <div class="row">
         <div class="col-12">
             <div class="card-body">
-                <button class="btn btn-success" id="btnCreate" type="button" data-toggle="tooltip" data-placement="bottom" title="Tạo mới" style="margin-bottom:15px">Tạo mới</button>
+                <button class="btn btn-success" id="btnCreate" type="button" data-toggle="tooltip" data-placement="bottom" title="Thêm mới" style="margin-bottom:15px">Tạo mới</button>
                 <div class="table-responsive">
                     <table id="zero_config" class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>Action</th>
-                                <th>Tên danh mục</th>
-                                <th>Ngày tạo</th>
+                                <th>Tên NXB</th>
+                                @*<th>Ngày thêm</th>*@
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -60,8 +56,8 @@
                         <tfoot>
                             <tr>
                                 <th>Action</th>
-                                <th>Tên danh mục</th>
-                                <th>Ngày tạo</th>
+                                <th>Tên NXB</th>
+                                @*<th>Ngày thêm</th>*@
                                 <th>Status</th>
                             </tr>
                         </tfoot>
