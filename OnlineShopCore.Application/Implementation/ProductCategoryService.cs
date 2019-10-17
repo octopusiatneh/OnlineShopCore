@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Application.ViewModels.Product;
 using OnlineShopCore.Data.Entities;
 using OnlineShopCore.Data.Enums;
 using OnlineShopCore.Data.IRepositories;
 using OnlineShopCore.Infrastructure.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineShopCore.Application.Implementation
 {

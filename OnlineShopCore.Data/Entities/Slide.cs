@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using OnlineShopCore.Data.Enums;
+using OnlineShopCore.Infrastructure.SharedKernel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
-using OnlineShopCore.Data.Enums;
-using OnlineShopCore.Infrastructure.SharedKernel;
 
 namespace OnlineShopCore.Data.Entities
 {
     [Table("Slides")]
     public class Slide : DomainEntity<int>
     {
-        public Slide(int id, string name, string description, string image , Status status, string content)
+        public Slide(int id, string name, string description, string image, Status status, string content)
         {
             Id = id;
             Name = name;

@@ -1,16 +1,16 @@
-﻿using AutoMapper.QueryableExtensions;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
+using OnlineShopCore.Application.Interfaces;
+using OnlineShopCore.Application.ViewModels.System;
+using OnlineShopCore.Data.Entities;
+using OnlineShopCore.Data.Enums;
+using OnlineShopCore.Data.IRepositories;
+using OnlineShopCore.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using OnlineShopCore.Application.Interfaces;
-using OnlineShopCore.Application.ViewModels.System;
-using OnlineShopCore.Data.IRepositories;
-using OnlineShopCore.Infrastructure.Interfaces;
-using AutoMapper;
-using OnlineShopCore.Data.Entities;
-using OnlineShopCore.Data.Enums;
 
 namespace OnlineShopCore.Application.Implementation
 {

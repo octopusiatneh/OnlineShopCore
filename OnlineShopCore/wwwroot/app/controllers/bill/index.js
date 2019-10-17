@@ -50,6 +50,7 @@
         });
 
         $('body').on('click', '.btn-view', function (e) {
+            resetFormMaintainance();
             e.preventDefault();
             var that = $(this).data('id');
             $.ajax({
@@ -63,13 +64,22 @@
                     var data = response;
                     $('#hidId').val(data.Id);
                     $('#hidDateCreated').val(data.DateCreated);
-                    $('#txtCustomerName').val(data.CustomerName);    
+                    $('#txtCustomerName').val(data.CustomerName);
+                    $('#txtCustomerName').prop('disabled', true);
                     $('#txtCustomerAddress').val(data.CustomerAddress);
+                    $('#txtCustomerAddress').prop('disabled', true);
                     $('#txtCustomerMobile').val(data.CustomerMobile);
+                    $('#txtCustomerMobile').prop('disabled', true);
                     $('#txtCustomerMessage').val(data.CustomerMessage);
+                    $('#txtCustomerMessage').prop('disabled', true);
                     $('#ddlPaymentMethod').val(data.PaymentMethod);
+                    $('#ddlPaymentMethod').prop('disabled', true);
                     $('#ddlCustomerId').val(data.CustomerId);
                     $('#ddlBillStatus').val(data.BillStatus);
+                    if (data.BillStatus == '4') {
+                        $('#ddlBillStatus').prop('disabled', true);
+                    }
+                    
 
                     var billDetails = data.BillDetails;
                     if (data.BillDetails != null && data.BillDetails.length > 0) {
@@ -347,6 +357,14 @@
         $('#ddlCustomerId').val('');
         $('#ddlBillStatus').val('');
         $('#tbl-bill-details').html('');
+
+        $('#txtCustomerName').prop('disabled', false);
+        $('#txtCustomerAddress').prop('disabled', false);
+        $('#txtCustomerMobile').prop('disabled', false);
+        $('#txtCustomerMessage').prop('disabled', false);
+        $('#ddlPaymentMethod').prop('disabled', false);
+        $('#ddlBillStatus').prop('disabled', false);
+
     }
 
     function loadData() {

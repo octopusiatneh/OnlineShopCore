@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
-using OnlineShopCore.Data.Enums;
+﻿using OnlineShopCore.Data.Enums;
 using OnlineShopCore.Data.Interfaces;
 using OnlineShopCore.Infrastructure.SharedKernel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnlineShopCore.Data.Entities
 {
@@ -16,7 +13,7 @@ namespace OnlineShopCore.Data.Entities
         {
 
         }
-        public Function(string name,string url,string parentId,string iconCss,int sortOrder)
+        public Function(string name, string url, string parentId, string iconCss, int sortOrder)
         {
             this.Name = name;
             this.URL = url;

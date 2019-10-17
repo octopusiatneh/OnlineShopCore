@@ -1,8 +1,5 @@
-﻿using OnlineShopCore.Data.IRepositories;
-using OnlineShopCore.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using OnlineShopCore.Data.Entities;
+using OnlineShopCore.Data.IRepositories;
 
 namespace OnlineShopCore.Data.EF.Repositories
 {

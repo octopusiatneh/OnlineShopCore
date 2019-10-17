@@ -1,7 +1,6 @@
 ﻿using OnlineShopCore.Application.ViewModels.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace OnlineShopCore.Application.Interfaces
 {

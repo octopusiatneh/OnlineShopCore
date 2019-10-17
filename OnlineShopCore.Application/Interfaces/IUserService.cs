@@ -1,13 +1,11 @@
 ﻿using OnlineShopCore.Application.ViewModels.System;
 using OnlineShopCore.Utilities.Dtos;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OnlineShopCore.Application.Interfaces
 {
-   public  interface IUserService
+    public interface IUserService
     {
         Task<bool> AddAsync(AppUserViewModel userVm);
 

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OnlineShopCore.Application.ViewModels.Product;
+﻿using OnlineShopCore.Application.ViewModels.Product;
 using OnlineShopCore.Application.ViewModels.System;
 using OnlineShopCore.Data.Enums;
 using OnlineShopCore.Utilities.Dtos;
+using System.Collections.Generic;
 
 namespace OnlineShopCore.Application.Interfaces
 {

@@ -9,15 +9,7 @@
                             <input type="hidden" id="hidIdM" value="0" />
                             <label for="txtNameM" class="col-3 text-right control-label col-form-label">Tên danh mục</label>
                             <div class="col-9">
-
                                 <input type="text" name="txtNameM" class="form-control" id="txtNameM" placeholder="Name of category">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-3 text-right control-label col-form-label">Danh mục cha</label>
-                            <div class="col-9">
-
-                                <input id="ddlCategoryIdM" type="text" class="form-control" name="ddlCategoryIdM" value="">
                             </div>
                         </div>
 
@@ -28,15 +20,14 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                                <label class="col-3 text-right control-label col-form-label">
+                                    <input type="checkbox" checked="checked" id="ckStatusM">
+                                    <span class="text">Active</span>
+                                </label>
+                        </div>
+
                         <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" checked="checked" id="ckStatusM">
-                                        <span class="text">Active</span>
-                                    </label>
-                                </div>
-                            </div>
                             <div class="border-top">
                                 <div class="card-body">
                                     <button type="button" id="btnSave" class="btn btn-primary">Save changes</button>

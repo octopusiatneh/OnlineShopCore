@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using OnlineShopCore.Data.Enums;
+using OnlineShopCore.Infrastructure.SharedKernel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
-using OnlineShopCore.Data.Enums;
-using OnlineShopCore.Infrastructure.SharedKernel;
 
 namespace OnlineShopCore.Data.Entities
 {

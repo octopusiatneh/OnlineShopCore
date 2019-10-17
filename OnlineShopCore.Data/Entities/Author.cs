@@ -1,9 +1,7 @@
 ﻿using OnlineShopCore.Data.Enums;
 using OnlineShopCore.Infrastructure.SharedKernel;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace OnlineShopCore.Data.Entities
 {
@@ -15,7 +13,7 @@ namespace OnlineShopCore.Data.Entities
 
         }
 
-        public Author(string authorName, int? parentId,int sortOrder, Status status)
+        public Author(string authorName, int? parentId, int sortOrder, Status status)
         {
             AuthorName = authorName;
             SortOrder = sortOrder;

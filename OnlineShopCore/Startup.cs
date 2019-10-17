@@ -1,35 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OnlineShopCore.Data;
-using OnlineShopCore.Models;
-using OnlineShopCore.Services;
-using OnlineShopCore.Data.EF;
-using OnlineShopCore.Data.Entities;
-using AutoMapper;
-using OnlineShopCore.Application.Interfaces;
-using OnlineShopCore.Data.EF.Repositories;
-using OnlineShopCore.Data.IRepositories;
-using OnlineShopCore.Application.Implementation;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Serialization;
-using OnlineShopCore.Helpers;
-using OnlineShopCore.Infrastructure.Interfaces;
-using Microsoft.AspNetCore.Authorization;
-using OnlineShopCore.Authorization;
-using PaulMiami.AspNetCore.Mvc.Recaptcha;
-using OnlineShopCore.Hubs;
-using Microsoft.AspNetCore.Mvc.Razor;
-using System.Globalization;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Serialization;
+using OnlineShopCore.Application.Implementation;
+using OnlineShopCore.Application.Interfaces;
+using OnlineShopCore.Authorization;
+using OnlineShopCore.Data.EF;
+using OnlineShopCore.Data.EF.Repositories;
+using OnlineShopCore.Data.Entities;
+using OnlineShopCore.Data.IRepositories;
+using OnlineShopCore.Helpers;
+using OnlineShopCore.Hubs;
+using OnlineShopCore.Infrastructure.Interfaces;
+using OnlineShopCore.Services;
+using PaulMiami.AspNetCore.Mvc.Recaptcha;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace OnlineShopCore
 {
@@ -49,7 +45,8 @@ namespace OnlineShopCore
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                 o => o.MigrationsAssembly("OnlineShopCore.Data.EF")));
 
-            services.AddIdentity<AppUser, AppRole>(config=>{
+            services.AddIdentity<AppUser, AppRole>(config =>
+            {
                 config.SignIn.RequireConfirmedEmail = true;
             })
                 .AddEntityFrameworkStores<AppDbContext>()
@@ -128,10 +125,10 @@ namespace OnlineShopCore
                  };
 
                  opts.DefaultRequestCulture = new RequestCulture("en-US");
-                  // Formatting numbers, dates, etc.
-                  opts.SupportedCultures = supportedCultures;
-                  // UI strings that we have localized.
-                  opts.SupportedUICultures = supportedCultures;
+                 // Formatting numbers, dates, etc.
+                 opts.SupportedCultures = supportedCultures;
+                 // UI strings that we have localized.
+                 opts.SupportedUICultures = supportedCultures;
              });
 
 
@@ -142,8 +139,6 @@ namespace OnlineShopCore
             services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
             services.AddTransient<IFunctionRepository, FunctionRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
-            services.AddTransient<ITagRepository, TagRepository>();
-            services.AddTransient<IProductTagRepository, ProductTagRepository>();
             services.AddTransient<IPermissionRepository, PermissionRepository>();
             services.AddTransient<IBillRepository, BillRepository>();
             services.AddTransient<IBillDetailRepository, BillDetailRepository>();

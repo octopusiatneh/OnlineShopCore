@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using OnlineShopCore.Application.ViewModels.Product;
 using OnlineShopCore.Utilities.Dtos;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace OnlineShopCore.Models.ProductViewModels
 {

@@ -1,17 +1,13 @@
-﻿using OnlineShopCore.Data.Entities;
-using OnlineShopCore.Data.IRepositories;
+﻿using AutoMapper.QueryableExtensions;
+using OnlineShopCore.Application.Interfaces;
+using OnlineShopCore.Application.ViewModels.System;
+using OnlineShopCore.Data.Entities;
 using OnlineShopCore.Infrastructure.Interfaces;
 using OnlineShopCore.Utilities.Dtos;
-using OnlineShopCore.Application.ViewModels.System;
 using System.Linq;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper.QueryableExtensions;
-using OnlineShopCore.Application.Interfaces;
 
 namespace OnlineShopCore.Application.Implementation
-{ 
+{
     public class AnnouncementService : IAnnouncementService
     {
         private IRepository<Announcement, string> _announcementRepository;
@@ -58,7 +54,7 @@ namespace OnlineShopCore.Application.Implementation
             var announ = _announcementBillRepository.FindSingle(x => x.AnnouncementId == id);
             if (announ == null)
             {
-                _announcementBillRepository.Add(new AnnouncementBill(id,true));        
+                _announcementBillRepository.Add(new AnnouncementBill(id, true));
                 result = true;
             }
             else

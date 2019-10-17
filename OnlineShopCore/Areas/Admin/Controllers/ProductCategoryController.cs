@@ -2,7 +2,10 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Application.ViewModels.Product;
+using OnlineShopCore.Data.EF;
+using OnlineShopCore.Data.Entities;
 using OnlineShopCore.Utilities.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,10 +14,12 @@ namespace OnlineShopCore.Areas.Admin.Controllers
     public class ProductCategoryController : BaseController
     {
         private IProductCategoryService _productCategoryService;
+        private readonly AppDbContext _context;
 
-        public ProductCategoryController(IProductCategoryService productCategoryService)
+        public ProductCategoryController(IProductCategoryService productCategoryService, AppDbContext context)
         {
             _productCategoryService = productCategoryService;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -47,10 +52,18 @@ namespace OnlineShopCore.Areas.Admin.Controllers
                 if (productVm.Id == 0)
                 {
                     _productCategoryService.Add(productVm);
+                    //logging activity
+                    var userName = User.Identity.Name;
+                    _context.Loggings.Add(new Logging(DateTime.Now, userName, "create new category"));
+                    _context.SaveChanges();
                 }
                 else
                 {
                     _productCategoryService.Update(productVm);
+                    //logging activity
+                    var userName = User.Identity.Name;
+                    _context.Loggings.Add(new Logging(DateTime.Now, userName, "update category"));
+                    _context.SaveChanges();
                 }
                 _productCategoryService.Save();
                 return new OkObjectResult(productVm);
@@ -68,6 +81,10 @@ namespace OnlineShopCore.Areas.Admin.Controllers
             {
                 _productCategoryService.Delete(id);
                 _productCategoryService.Save();
+                //logging activity
+                var userName = User.Identity.Name;
+                _context.Loggings.Add(new Logging(DateTime.Now, userName, "create new product"));
+                _context.SaveChanges();
                 return new OkObjectResult(id);
             }
         }

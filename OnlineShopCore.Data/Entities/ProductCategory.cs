@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using OnlineShopCore.Data.Enums;
+﻿using OnlineShopCore.Data.Enums;
 using OnlineShopCore.Data.Interfaces;
 using OnlineShopCore.Infrastructure.SharedKernel;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnlineShopCore.Data.Entities
 {
@@ -17,8 +16,8 @@ namespace OnlineShopCore.Data.Entities
             Products = new List<Product>();
         }
 
-        public ProductCategory(string name,string description, int? parentId,int? homeOrder,
-            string image,bool? homeFlag,int sortOrder,Status status,string seoPageTitle,string seoAlias,
+        public ProductCategory(string name, string description, int? parentId, int? homeOrder,
+            string image, bool? homeFlag, int sortOrder, Status status, string seoPageTitle, string seoAlias,
             string seoKeywords, string seoDescription)
         {
             Name = name;

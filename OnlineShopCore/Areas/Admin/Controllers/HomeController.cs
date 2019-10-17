@@ -4,7 +4,7 @@ using OnlineShopCore.Extensions;
 
 namespace OnlineShopCore.Areas.Admin.Controllers
 {
-    [Authorize(Roles ="Staff,Admin")]
+    [Authorize(Roles = "Staff,Admin")]
     public class HomeController : BaseController
     {
         public IActionResult Index()

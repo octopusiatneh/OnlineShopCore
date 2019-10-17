@@ -1,12 +1,10 @@
 ﻿using OnlineShopCore.Data.Enums;
-using OnlineShopCore.Data.Entities;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace OnlineShopCore.Application.ViewModels.Product
 {
-  public  class ProductCategoryViewModel
+    public class ProductCategoryViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

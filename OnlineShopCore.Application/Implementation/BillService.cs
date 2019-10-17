@@ -1,18 +1,17 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
 using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Application.ViewModels.Product;
+using OnlineShopCore.Application.ViewModels.System;
 using OnlineShopCore.Data.Entities;
 using OnlineShopCore.Data.Enums;
 using OnlineShopCore.Data.IRepositories;
 using OnlineShopCore.Infrastructure.Interfaces;
 using OnlineShopCore.Utilities.Dtos;
-using OnlineShopCore.Application.ViewModels.System;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace OnlineShopCore.Application.Implementation
 {
@@ -32,7 +31,7 @@ namespace OnlineShopCore.Application.Implementation
            IColorRepository colorRepository,
            IProductRepository productRepository,
            ISizeRepository sizeRepository,
-           IRepository<Announcement,string> announRepository,
+           IRepository<Announcement, string> announRepository,
            IRepository<AnnouncementBill, int> announBillRepository,
            IUnitOfWork unitOfWork)
         {

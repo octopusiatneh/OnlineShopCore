@@ -1,8 +1,6 @@
 ﻿using OnlineShopCore.Application.ViewModels.Product;
 using OnlineShopCore.Data.Enums;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace OnlineShopCore.Application.ViewModels
 {

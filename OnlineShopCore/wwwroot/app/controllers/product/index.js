@@ -23,15 +23,7 @@ var productController = function () {
                 txtPriceM: {
                     required: true,
                     number: true
-                },
-                txtOriginalPriceM: {
-                    required: true,
-                    number: true
-                },
-                txtTagM: {
-                    required: true
                 }
-
             }
         });
         //todo: binding events to controls  
@@ -63,11 +55,11 @@ var productController = function () {
                 data: data,
                 success: function (path) {
                     $('#txtImage').val(path);
-                    onlineshop.notify('Upload image succesful!', 'success');
+                    onlineshop.notify('Tải ảnh lên thành công', 'success');
 
                 },
                 error: function () {
-                    onlineshop.notify('There was error uploading files!', 'error');
+                    onlineshop.notify('Tải ảnh lên thất bại!', 'error');
                 }
             });
         });
@@ -94,18 +86,9 @@ var productController = function () {
                     initTreeDropDownPublisher(data.PublisherId);
 
                     $('#txtDescM').val(data.Description);
-                    $('#txtUnitM').val(data.Unit);
-
                     $('#txtPriceM').val(data.Price);
-                    $('#txtOriginalPriceM').val(data.OriginalPrice);
                     $('#txtPromotionPriceM').val(data.PromotionPrice);
-
-                    $('#txtImage').val(data.Image);
-
-                    $('#txtTagM').val(data.Tags);
-                    $('#txtMetakeywordM').val(data.SeoKeywords);
-                    $('#txtMetaDescriptionM').val(data.SeoDescription);
-                    $('#txtSeoPageTitleM').val(data.SeoPageTitle);
+                    $('#txtImage').val(data.Image);          
                     $('#txtSeoAliasM').val(data.SeoAlias);
 
                     CKEDITOR.instances.txtContent.setData(data.Content);
@@ -118,7 +101,7 @@ var productController = function () {
 
                 },
                 error: function (status) {
-                    onlineshop.notify('Có lỗi xảy ra', 'error');
+                    onlineshop.notify('Có lỗi xảy ra!', 'error');
                     onlineshop.stopLoading();
                 }
             });
@@ -161,20 +144,11 @@ var productController = function () {
                 var authorId = $('#ddlAuthorIdM').combotree('getValue');
                 var publisherId = $('#ddlPublisherIdM').combotree('getValue');
                 var description = $('#txtDescM').val();
-                var unit = $('#txtUnitM').val();
 
                 var price = $('#txtPriceM').val();
-                var originalPrice = $('#txtOriginalPriceM').val();
                 var promotionPrice = $('#txtPromotionPriceM').val();
-
                 var image = $('#txtImage').val();
-
-                var tags = $('#txtTagM').val();
-                var seoKeyword = $('#txtMetakeywordM').val();
-                var seoMetaDescription = $('#txtMetaDescriptionM').val();
-                var seoPageTitle = $('#txtSeoPageTitleM').val();
                 var seoAlias = $('#txtSeoAliasM').val();
-
                 var content = CKEDITOR.instances.txtContent.getData();
                 var status = $('#ckStatusM').prop('checked') == true ? 1 : 0;
                 var hot = $('#ckHotM').prop('checked');
@@ -192,26 +166,20 @@ var productController = function () {
                         PublisherId: publisherId,
                         Image: image,
                         Price: price,
-                        OriginalPrice: originalPrice,
                         PromotionPrice: promotionPrice,
                         Description: description,
                         Content: content,
                         HomeFlag: showHome,
                         HotFlag: hot,
-                        Tags: tags,
-                        Unit: unit,
                         Status: status,
-                        SeoPageTitle: seoPageTitle,
-                        SeoAlias: seoAlias,
-                        SeoKeywords: seoKeyword,
-                        SeoDescription: seoMetaDescription
+                        SeoAlias: seoAlias
                     },
                     dataType: "json",
                     beforeSend: function () {
                         onlineshop.startLoading();
                     },
                     success: function (response) {
-                        onlineshop.notify('Update product successfully', 'success');
+                        onlineshop.notify('Lưu thành công!', 'success');
                         $('#modal-add-edit').modal('hide');
                         resetFormMaintainance();
 
@@ -219,7 +187,7 @@ var productController = function () {
                         $('#zero_config').DataTable().ajax.reload()
                     },
                     error: function () {
-                        onlineshop.notify('Has an error in saving product progress', 'error');
+                        onlineshop.notify('Có lỗi xảy ra!', 'error');
                         onlineshop.stopLoading();
                     }
                 });
@@ -231,6 +199,7 @@ var productController = function () {
         $('#btn-import').on('click', function () {
             initTreeDropDownCategory();
             initTreeDropDownAuthor();
+            initTreeDropDownPublisher();
             $('#modal-import-excel').modal('show');
         });
 
@@ -246,6 +215,8 @@ var productController = function () {
             }
             // Adding one more key to FormData object  
             fileData.append('categoryId', $('#ddlCategoryIdImportExcel').combotree('getValue'));
+            fileData.append('authorId', $('#ddlAuthorIdImportExcel').combotree('getValue'));
+            fileData.append('categoryId', $('#ddlPublisherIdImportExcel').combotree('getValue'));
             $.ajax({
                 url: '/Admin/Product/ImportExcel',
                 type: 'POST',
@@ -255,7 +226,6 @@ var productController = function () {
                 success: function (data) {
                     $('#modal-import-excel').modal('hide');
                     loadData();
-
                 }
             });
             return false;
@@ -424,18 +394,12 @@ var productController = function () {
         initTreeDropDownPublisher();
 
         $('#txtDescM').val('');
-        $('#txtUnitM').val('');
 
         $('#txtPriceM').val('');
-        $('#txtOriginalPriceM').val('');
         $('#txtPromotionPriceM').val('');
 
         $('#txtImage').val('');
 
-        $('#txtTagM').val('');
-        $('#txtMetakeywordM').val('');
-        $('#txtMetaDescriptionM').val('');
-        $('#txtSeoPageTitleM').val('');
         $('#txtSeoAliasM').val('');
 
         CKEDITOR.instances.txtContent.setData('');

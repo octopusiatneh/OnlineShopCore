@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using OnlineShopCore.Data.Entities;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using OnlineShopCore.Data.Entities;
 
 namespace OnlineShopCore.Helpers
 {

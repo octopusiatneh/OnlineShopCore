@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using OnlineShopCore.Application.ViewModels;
 using OnlineShopCore.Application.ViewModels.Common;
 using OnlineShopCore.Application.ViewModels.Product;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace OnlineShopCore.Models.ProductViewModels
 {
@@ -23,6 +21,10 @@ namespace OnlineShopCore.Models.ProductViewModels
         public List<ProductViewModel> LastestProducts { get; set; }
 
         public List<TagViewModel> Tags { set; get; }
+
+        public AuthorViewModel Author { get; set; }
+
+        public PublisherViewModel Publisher { get; set; }
 
         public List<SelectListItem> Colors { get; set; }
 

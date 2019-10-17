@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using OfficeOpenXml;
 using OfficeOpenXml.Table;
 using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Application.ViewModels.Product;
+using OnlineShopCore.Data.EF;
+using OnlineShopCore.Data.Entities;
 using OnlineShopCore.Utilities.Helpers;
 using System;
 using System.Collections.Generic;
@@ -17,16 +20,18 @@ namespace OnlineShopCore.Areas.Admin.Controllers
 {
     public class ProductController : BaseController
     {
-        private IProductService _productService;
-        private IProductCategoryService _productCategoryService;
-        private readonly IHostingEnvironment _hostingEnvironment;
+        readonly IProductService _productService;
+        readonly AppDbContext _context;
+        readonly IProductCategoryService _productCategoryService;
+        readonly IHostingEnvironment _hostingEnvironment;
 
         public ProductController(IProductService productService, IProductCategoryService productCategoryService,
-            IHostingEnvironment hostingEnvironment)
+            IHostingEnvironment hostingEnvironment, AppDbContext context)
         {
             _productService = productService;
             _productCategoryService = productCategoryService;
             _hostingEnvironment = hostingEnvironment;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -72,10 +77,18 @@ namespace OnlineShopCore.Areas.Admin.Controllers
                 if (productVm.Id == 0)
                 {
                     _productService.Add(productVm);
+                    //logging activity
+                    //var userName = User.Identity.Name;
+                    //_context.Loggings.Add(new Logging(DateTime.Now, userName, "create new product"));
+                    //_context.SaveChanges();
                 }
                 else
                 {
                     _productService.Update(productVm);
+                    //logging activity
+                    //var userName = User.Identity.Name;
+                    //_context.Loggings.Add(new Logging(DateTime.Now, userName, "update product"));
+                    //_context.SaveChanges();
                 }
                 _productService.Save();
                 return new OkObjectResult(productVm);
@@ -93,6 +106,10 @@ namespace OnlineShopCore.Areas.Admin.Controllers
             {
                 _productService.Delete(id);
                 _productService.Save();
+                //logging activity
+                var userName = User.Identity.Name;
+                _context.Loggings.Add(new Logging(DateTime.Now, userName, "update product"));
+                _context.SaveChanges();
 
                 return new OkObjectResult(id);
             }
@@ -114,7 +131,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult ImportExcel(IList<IFormFile> files, int categoryId)
+        public IActionResult ImportExcel(IList<IFormFile> files, int categoryId, int authorId, int publisherId)
         {
             if (files != null && files.Count > 0)
             {
@@ -136,7 +153,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
                     file.CopyTo(fs);
                     fs.Flush();
                 }
-                _productService.ImportExcel(filePath, categoryId);
+                _productService.ImportExcel(filePath, categoryId, authorId, publisherId);
                 _productService.Save();
                 return new OkObjectResult(filePath);
             }

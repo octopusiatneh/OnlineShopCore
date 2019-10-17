@@ -10,11 +10,13 @@ namespace OnlineShopCore.Controllers
     public class ProductController : Controller
     {
         private IProductCategoryService _productCategoryService;
+        private IAuthorService _authorService;
+        private IPublisherService _publisherService;
         private IProductService _productService;
         private IBillService _billService;
         private IConfiguration _configuration;
 
-        public ProductController(IProductService productService, IConfiguration configuration,
+        public ProductController(IProductService productService, IAuthorService authorService, IPublisherService publisherService, IConfiguration configuration,
            IBillService billService,
            IProductCategoryService productCategoryService)
         {
@@ -22,6 +24,8 @@ namespace OnlineShopCore.Controllers
             _productCategoryService = productCategoryService;
             _configuration = configuration;
             _billService = billService;
+            _authorService = authorService;
+            _publisherService = publisherService;
         }
 
         [Route("products")]
@@ -87,10 +91,12 @@ namespace OnlineShopCore.Controllers
         {
             var model = new DetailViewModel();
             model.Product = _productService.GetById(id);
+            model.Author = _authorService.GetById(model.Product.AuthorId);
+            model.Publisher = _publisherService.GetById(model.Product.PublisherId);
             model.Category = _productCategoryService.GetById(model.Product.CategoryId);
             model.RelatedProducts = _productService.GetRelatedProducts(id, 12);
             model.ProductImages = _productService.GetImages(id);
-            model.Tags = _productService.GetProductTags(id);
+
             model.Colors = _billService.GetColors().Select(x => new SelectListItem()
             {
                 Text = x.Name,

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace OnlineShopCore.Data.Enums
 {
@@ -9,7 +6,7 @@ namespace OnlineShopCore.Data.Enums
     {
         [Description("Trả tiền khi nhận hàng")]
         CashOnDelivery,
-        
+
         [Description("Paypal")]
         Paypal
     }

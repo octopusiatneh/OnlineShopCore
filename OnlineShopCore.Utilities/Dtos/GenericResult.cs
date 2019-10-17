@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OnlineShopCore.Utilities.Dtos
+﻿namespace OnlineShopCore.Utilities.Dtos
 {
     public class GenericResult
     {
