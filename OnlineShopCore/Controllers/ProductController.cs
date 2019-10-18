@@ -97,16 +97,6 @@ namespace OnlineShopCore.Controllers
             model.RelatedProducts = _productService.GetRelatedProducts(id, 12);
             model.ProductImages = _productService.GetImages(id);
 
-            model.Colors = _billService.GetColors().Select(x => new SelectListItem()
-            {
-                Text = x.Name,
-                Value = x.Id.ToString()
-            }).ToList();
-            model.Sizes = _billService.GetSizes().Select(x => new SelectListItem()
-            {
-                Text = x.Name,
-                Value = x.Id.ToString()
-            }).ToList();
             return View(model);
         }
     }

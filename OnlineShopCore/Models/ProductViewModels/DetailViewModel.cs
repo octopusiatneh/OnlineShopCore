@@ -20,14 +20,8 @@ namespace OnlineShopCore.Models.ProductViewModels
 
         public List<ProductViewModel> LastestProducts { get; set; }
 
-        public List<TagViewModel> Tags { set; get; }
-
         public AuthorViewModel Author { get; set; }
 
         public PublisherViewModel Publisher { get; set; }
-
-        public List<SelectListItem> Colors { get; set; }
-
-        public List<SelectListItem> Sizes { get; set; }
     }
 }

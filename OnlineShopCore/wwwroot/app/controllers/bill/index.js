@@ -1,16 +1,16 @@
 ﻿var BillController = function () {
     var cachedObj = {
         products: [],
-        colors: [],
-        sizes: [],
+        //colors: [],
+        //sizes: [],
         paymentMethods: [],
         billStatuses: []
     }
     this.initialize = function () {
         $.when(loadBillStatus(),
             loadPaymentMethod(),
-            loadColors(),
-            loadSizes(),
+            //loadColors(),
+            //loadSizes(),
             loadProducts())
             .done(function () {
                 loadData();
@@ -88,15 +88,15 @@
 
                         $.each(billDetails, function (i, item) {
                             var products = getProductOptions(item.ProductId);
-                            var colors = getColorOptions(item.ColorId);
-                            var sizes = getSizeOptions(item.SizeId);
+                            //var colors = getColorOptions(item.ColorId);
+                            //var sizes = getSizeOptions(item.SizeId);
 
                             render += Mustache.render(templateDetails,
                                 {
                                     Id: item.Id,
                                     Products: products,
-                                    Colors: colors,
-                                    Sizes: sizes,
+                                    //Colors: colors,
+                                    //Sizes: sizes,
                                     Quantity: item.Quantity
                                 });
                         });
@@ -133,8 +133,8 @@
                         Id: $(item).data('id'),                       
                         ProductId: $(item).find('select.ddlProductId').first().val(),
                         Quantity: $(item).find('input.txtQuantity').first().val(),
-                        ColorId: $(item).find('select.ddlColorId').first().val(),
-                        SizeId: $(item).find('select.ddlSizeId').first().val(),
+                        //ColorId: $(item).find('select.ddlColorId').first().val(),
+                        //SizeId: $(item).find('select.ddlSizeId').first().val(),
                         BillId: id
                     });
                 });
@@ -160,7 +160,7 @@
                         onlineshop.startLoading();
                     },
                     success: function (response) {
-                        onlineshop.notify('Save order successful', 'success');
+                        onlineshop.notify('Lưu đơn hàng thành công!', 'success');
                         $('#modal-detail').modal('hide');
                         resetFormMaintainance();
 
@@ -168,7 +168,7 @@
                         loadData(true);
                     },
                     error: function () {
-                        onlineshop.notify('Has an error in progress', 'error');
+                        onlineshop.notify('Có lỗi xảy ra!', 'error');
                         onlineshop.stopLoading();
                     }
                 });
@@ -180,15 +180,14 @@
         $('#btnAddDetail').on('click', function () {
             var template = $('#template-table-bill-details').html();
             var products = getProductOptions(null);
-            var colors = getColorOptions(null);
-            var sizes = getSizeOptions(null);
+            //var colors = getColorOptions(null);
+            //var sizes = getSizeOptions(null);
             var render = Mustache.render(template,
                 {
                     Id: 0,
-                    Products: products,
-                   
-                    Colors: colors,
-                    Sizes: sizes,
+                    Products: products, 
+                    //Colors: colors,
+                    //Sizes: sizes,
                     Quantity: 0,
                     Total: 0
                 });

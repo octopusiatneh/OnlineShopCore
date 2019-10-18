@@ -59,7 +59,7 @@ namespace OnlineShopCore.Controllers
 
             var model = new CheckoutViewModel();
             var session = HttpContext.Session.Get<List<ShoppingCartViewModel>>(CommonConstants.CartSession);
-            if (session.Any(x => x.Color == null || x.Size == null))
+            if (session.Any(x => x.Quantity == 0))
             {
                 return Redirect("/shopping-cart");
             }
@@ -86,8 +86,6 @@ namespace OnlineShopCore.Controllers
                         {
                             Product = item.Product,
                             Price = item.Price,
-                            ColorId = item.Color.Id,
-                            SizeId = item.Size.Id,
                             Quantity = item.Quantity,
                             ProductId = item.Product.Id
                         });
@@ -126,9 +124,10 @@ namespace OnlineShopCore.Controllers
                         await _hubContext.Clients.All.SendAsync("ReceiveMessage", announcement);
                         _billService.Save();
                         ClearCart();
+                        
                         //var content = await _viewRenderService.RenderToStringAsync("Cart/_BillMail", billViewModel);
                         //Send mail
-                        //await _emailSender.SendEmailAsync(_configuration["MailSettings:AdminMail"], "New bill from Panda Shop", content);
+                        //await _emailSender.SendEmailAsync(_configuration["MailSettings:AdminMail"], "New bill from Coza Store", content);
                         ViewData["Success"] = true;
                     }
                     catch (Exception ex)
@@ -142,6 +141,10 @@ namespace OnlineShopCore.Controllers
         }
 
         #region AJAX Request
+        /// <summary>
+        /// Get the current logged in user for quickly user information implement
+        /// </summary>
+        /// <returns></returns>
         private async Task<AppUser> GetCurrentUser()
         {
             return await _manager.GetUserAsync(HttpContext.User);
@@ -175,7 +178,7 @@ namespace OnlineShopCore.Controllers
         /// <param name="quantity"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult AddToCart(int productId, int quantity, int color, int size)
+        public IActionResult AddToCart(int productId, int quantity)
         {
             //Get product detail
             var product = _productService.GetById(productId);
@@ -207,8 +210,6 @@ namespace OnlineShopCore.Controllers
                     {
                         Product = product,
                         Quantity = quantity,
-                        Color = _billService.GetColor(color),
-                        Size = _billService.GetSize(size),
                         Price = product.PromotionPrice ?? product.Price
                     });
                     hasChanged = true;
@@ -228,8 +229,6 @@ namespace OnlineShopCore.Controllers
                 {
                     Product = product,
                     Quantity = quantity,
-                    Color = _billService.GetColor(color),
-                    Size = _billService.GetSize(size),
                     Price = product.PromotionPrice ?? product.Price
                 });
                 HttpContext.Session.Set(CommonConstants.CartSession, cart);
@@ -272,7 +271,7 @@ namespace OnlineShopCore.Controllers
         /// <param name="productId"></param>
         /// <param name="quantity"></param>
         /// <returns></returns>
-        public IActionResult UpdateCart(int productId, int quantity, int color, int size)
+        public IActionResult UpdateCart(int productId, int quantity)
         {
             var session = HttpContext.Session.Get<List<ShoppingCartViewModel>>(CommonConstants.CartSession);
             if (session != null)
@@ -284,8 +283,6 @@ namespace OnlineShopCore.Controllers
                     {
                         var product = _productService.GetById(productId);
                         item.Product = product;
-                        item.Size = _billService.GetSize(size);
-                        item.Color = _billService.GetColor(color);
                         item.Quantity = quantity;
                         item.Price = product.PromotionPrice ?? product.Price;
                         hasChanged = true;
@@ -299,21 +296,6 @@ namespace OnlineShopCore.Controllers
             }
             return new EmptyResult();
         }
-
-        [HttpGet]
-        public IActionResult GetColors()
-        {
-            var colors = _billService.GetColors();
-            return new OkObjectResult(colors);
-        }
-
-        [HttpGet]
-        public IActionResult GetSizes()
-        {
-            var sizes = _billService.GetSizes();
-            return new OkObjectResult(sizes);
-        }
-
         #endregion AJAX Request
     }
 }

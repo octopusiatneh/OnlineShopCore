@@ -52,7 +52,7 @@ namespace OnlineShopCore.Application.Implementation
             foreach (var detail in orderDetails)
             {
                 var product = _productRepository.FindById(detail.ProductId);
-                detail.Price = product.Price;
+                //detail.Price = product.Price;
             }
             var announcement = Mapper.Map<AnnouncementViewModel, Announcement>(announcementVm);
             _announRepository.Add(announcement);
@@ -169,7 +169,7 @@ namespace OnlineShopCore.Application.Implementation
         public List<BillDetailViewModel> GetBillDetails(int billId)
         {
             return _orderDetailRepository
-                .FindAll(x => x.BillId == billId, c => c.Bill, c => c.Color, c => c.Size, c => c.Product)
+                .FindAll(x => x.BillId == billId, c => c.Bill, c => c.Product)
                 .ProjectTo<BillDetailViewModel>().ToList();
         }
 
@@ -188,7 +188,7 @@ namespace OnlineShopCore.Application.Implementation
         public void DeleteDetail(int productId, int billId, int colorId, int sizeId)
         {
             var detail = _orderDetailRepository.FindSingle(x => x.ProductId == productId
-           && x.BillId == billId && x.ColorId == colorId && x.SizeId == sizeId);
+           && x.BillId == billId);
             _orderDetailRepository.Remove(detail);
         }
 

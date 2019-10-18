@@ -36,10 +36,8 @@ function loadData() {
                         Image: item.Product.Image,
                         Price: onlineshop.formatNumber(item.Price, 0),
                         Quantity: item.Quantity,
-                        Colors: getColorOptions(item.Color == null ? 0 : item.Color.Id),
-                        Sizes: getSizeOptions(item.Size == null ? "" : item.Size.Id),
                         Amount: onlineshop.formatNumber(item.Price * item.Quantity, 0),
-                        Url: '/' + item.Product.SeoAlias + "-p." + item.Product.Id + ".html"
+                        Url: '/' + item.Product.SeoAlias + "-st-" + item.Product.Id
                     });
                 totalAmount += item.Price * item.Quantity;
             });

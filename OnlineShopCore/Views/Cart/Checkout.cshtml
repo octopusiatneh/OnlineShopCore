@@ -10,16 +10,17 @@
                 $("input[name='paymentMethod']").click(function () {
                     if ($("#1").is(":checked")) {
                         $("#paypal-button-container").show();
+                        $('#submit-form').hide();
                         $("#submit-form").attr("disabled", true);
                     } else {
                         $("#paypal-button-container").hide();
                         $('#submit-form').removeAttr("disabled");
+                        $('#submit-form').show();
                     }
                 });
             });
-        paypal.Buttons().render('#paypal-button-container');
     </script>
-    @*<script>
+    <script>
             $(function () {
                 $("input[name='paymentMethod']").click(function () {
                     if ($("#1").is(":checked")) {
@@ -75,7 +76,7 @@
                     });
                 }
             }).render('#paypal-button-container');
-        </script>*@
+        </script>
 
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }
