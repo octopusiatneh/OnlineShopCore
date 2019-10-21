@@ -78,19 +78,20 @@ namespace OnlineShopCore.Areas.Admin.Controllers
                 {
                     _productService.Add(productVm);
                     //logging activity
-                    //var userName = User.Identity.Name;
-                    //_context.Loggings.Add(new Logging(DateTime.Now, userName, "create new product"));
-                    //_context.SaveChanges();
+                    var userName = User.Identity.Name;
+                    _context.Loggings.Add(new Logging(DateTime.Now, userName, "create new product"));
+
                 }
                 else
                 {
                     _productService.Update(productVm);
                     //logging activity
-                    //var userName = User.Identity.Name;
-                    //_context.Loggings.Add(new Logging(DateTime.Now, userName, "update product"));
-                    //_context.SaveChanges();
+                    var userName = User.Identity.Name;
+                    _context.Loggings.Add(new Logging(DateTime.Now, userName, "update product"));
+
                 }
                 _productService.Save();
+                _context.SaveChanges();
                 return new OkObjectResult(productVm);
             }
         }
@@ -108,7 +109,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
                 _productService.Save();
                 //logging activity
                 var userName = User.Identity.Name;
-                _context.Loggings.Add(new Logging(DateTime.Now, userName, "update product"));
+                _context.Loggings.Add(new Logging(DateTime.Now, userName, "delete product"));
                 _context.SaveChanges();
 
                 return new OkObjectResult(id);

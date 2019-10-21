@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
+using OnlineShopCore.Application.Dapper.Implementation;
+using OnlineShopCore.Application.Dapper.Intefaces;
 using OnlineShopCore.Application.Implementation;
 using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Authorization;
@@ -163,6 +165,7 @@ namespace OnlineShopCore
             services.AddTransient<IAuthorizationHandler, BaseResourceAuthorizationHandler>();
             services.AddTransient<IBillService, BillService>();
             services.AddTransient<IFeedbackService, FeedbackService>();
+            services.AddTransient<IReportService, ReportService>();
 
             services.AddTransient<IAuthorService, AuthorService>();
             services.AddTransient<IPublisherService, PublisherService>();

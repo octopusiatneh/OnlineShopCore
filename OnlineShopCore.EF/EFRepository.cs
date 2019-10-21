@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace OnlineShopCore.Data.EF
 {
@@ -67,7 +69,13 @@ namespace OnlineShopCore.Data.EF
 
         public void Remove(T entity)
         {
-            _context.Set<T>().Remove(entity);
+            //Soft delete
+            dynamic obj = entity;
+            obj.Status = 0;
+            _context.Set<T>().Update(obj);
+
+            //Hard delete
+            //_context.Set<T>().Remove(entity);
         }
 
         public void Remove(K id)

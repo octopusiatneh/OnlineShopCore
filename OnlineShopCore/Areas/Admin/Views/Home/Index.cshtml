@@ -1,11 +1,46 @@
 ﻿ <!-- ============================================================== -->
 <!-- Bread crumb and right sidebar toggle -->
 <!-- ============================================================== -->
+@section Scripts{
+    <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/chat.js"></script>
+    <!-- Flot -->
+    <script src="~/lib/flot/jquery.flot.js"></script>
+    <script src="~/lib/flot/jquery.flot.pie.js"></script>
+    <script src="~/lib/flot/jquery.flot.time.js"></script>
+    <script src="~/lib/flot/jquery.flot.stack.js"></script>
+    <script src="~/lib/flot/jquery.flot.resize.js"></script>
 
+    <!-- Flot plugins -->
+    <script src="~/lib/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="~/lib/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="~/lib/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="~/admin-side/assets/libs/moment/moment.js"></script>
+    <script src="~/lib/DateJS/build/date.js"></script>
+    <script src="~/app/controllers/home/index.js" asp-append-version="true"></script>
+    <script>
+        var homeObj = new HomeController();
+        homeObj.initialize();
+    </script>
+}
 <div class="container-fluid">
-
+    <!-- Chart -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Biểu đồ doanh thu</h5>
+                    <div id="chart_plot_02" style="height: 400px;"></div>
+                    @*<p id="choices" class="m-t-20"></p>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Chart -->
+    <!-- Card -->
     <div class="col-lg-12">
-        <!-- Card -->
+
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Chat Option</h4>
@@ -34,5 +69,3 @@
 <!-- End Container fluid  -->
 <!-- ============================================================== -->
 <!-- ============================================================== -->
-<script src="~/lib/signalr/dist/browser/signalr.js"></script>
-<script src="~/js/chat.js"></script>

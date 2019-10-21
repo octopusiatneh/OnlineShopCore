@@ -148,6 +148,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OnlineShopCore.Application.Dapper\OnlineShopCore.Application.Dapper.csproj" />
     <ProjectReference Include="..\OnlineShopCore.Application\OnlineShopCore.Application.csproj" />
     <ProjectReference Include="..\OnlineShopCore.Data\OnlineShopCore.Data.csproj" />
     <ProjectReference Include="..\OnlineShopCore.EF\OnlineShopCore.Data.EF.csproj" />

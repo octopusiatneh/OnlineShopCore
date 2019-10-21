@@ -55,7 +55,11 @@ namespace OnlineShopCore.Application.Implementation
 
         public List<ProductViewModel> GetAll()
         {
-            return _productRepository.FindAll(x => x.ProductCategory).ProjectTo<ProductViewModel>().ToList();
+            //get all active product
+            return _productRepository.FindAll(x => x.Status == Status.Active).ProjectTo<ProductViewModel>().ToList();
+
+            //get all product(active & inactive)
+            //return _productRepository.FindAll().ProjectTo<ProductViewModel>().ToList();
         }
 
         public ProductViewModel GetById(int id)
