@@ -83,7 +83,7 @@ namespace OnlineShopCore.Data.EF
             {
                 _context.Functions.AddRange(new List<Function>()
                 {
-                    new Function() {Id = "SYSTEM", Name = "Hệ thống",ParentId = null,SortOrder = 1,Status = Status.Active,URL = "/",IconCss = "fas fa-cogs"  },
+                    new Function() {Id = "SYSTEM", Name = "Hệ thống",ParentId = null,SortOrder = 4,Status = Status.Active,URL = "/",IconCss = "fas fa-cogs"  },
                     new Function() {Id = "ROLE", Name = "Nhóm",ParentId = "SYSTEM",SortOrder = 1,Status = Status.Active,URL = "/admin/role/index",IconCss = "fas fa-chevron-right"  },
                     new Function() {Id = "USER", Name = "Người dùng",ParentId = "SYSTEM",SortOrder =2,Status = Status.Active,URL = "/admin/user/index",IconCss = "fas fa-chevron-right"  },
 
@@ -97,6 +97,9 @@ namespace OnlineShopCore.Data.EF
                     new Function() {Id = "UTILITY",Name = "Tiện ích",ParentId = null,SortOrder = 3,Status = Status.Active,URL = "/",IconCss = "fas fa-clone"  },
                     new Function() {Id = "SLIDE",Name = "Slide",ParentId = "UTILITY",SortOrder = 1,Status = Status.Active,URL = "/admin/slide/index",IconCss = "fas fa-chevron-right"  },
                     new Function() {Id = "NOTIFICATION",Name = "Notification",ParentId = "UTILITY",SortOrder = 2,Status = Status.Active,URL = "/admin/sendnotification/index",IconCss = "fas fa-chevron-right"  },
+
+                    new Function() {Id = "HOME", Name = "Trang chủ", ParentId = null, SortOrder = 1, Status = Status.Active, URL = "/", IconCss = "fas fa-chevron-right"},
+                    new Function() {Id = "DASBOARD", Name = "Dasbooard", ParentId = "HOME", SortOrder = 1, Status = Status.Active, URL = "/admin/home/index", IconCss = "fas fa-home"},
 
                 });
             }
