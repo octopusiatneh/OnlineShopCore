@@ -4,11 +4,10 @@ using System.Text;
 
 namespace OnlineShopCore.Application.Dapper.ViewModels
 {
-    public class RevenueReportViewModel
+    public class NewUserReportViewModel
     {
         public DateTime Date { get; set; }
 
-        public decimal Revenue { get; set; }
-
+        public decimal TotalNewUser { get; set; }
     }
 }

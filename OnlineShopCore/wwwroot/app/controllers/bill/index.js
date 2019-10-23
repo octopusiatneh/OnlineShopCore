@@ -1,16 +1,12 @@
 ﻿var BillController = function () {
     var cachedObj = {
         products: [],
-        //colors: [],
-        //sizes: [],
         paymentMethods: [],
         billStatuses: []
     }
     this.initialize = function () {
         $.when(loadBillStatus(),
             loadPaymentMethod(),
-            //loadColors(),
-            //loadSizes(),
             loadProducts())
             .done(function () {
                 loadData();
@@ -43,6 +39,7 @@
             resetFormMaintainance();
             $('#modal-detail').modal('show');
         });
+
         $("#ddl-show-page").on('change', function () {
             onlineshop.configs.pageSize = $(this).val();
             onlineshop.configs.pageIndex = 1;
@@ -88,20 +85,17 @@
 
                         $.each(billDetails, function (i, item) {
                             var products = getProductOptions(item.ProductId);
-                            //var colors = getColorOptions(item.ColorId);
-                            //var sizes = getSizeOptions(item.SizeId);
 
                             render += Mustache.render(templateDetails,
                                 {
                                     Id: item.Id,
                                     Products: products,
-                                    //Colors: colors,
-                                    //Sizes: sizes,
                                     Quantity: item.Quantity
                                 });
                         });
                         $('#tbl-bill-details').html(render);
                     }
+                    $('tbl-bill-details').prop('disable', true);
                     $('#modal-detail').modal('show');
                     onlineshop.stopLoading();
 
@@ -263,34 +257,6 @@
         });
     }
 
-    function loadColors() {
-        return $.ajax({
-            type: "GET",
-            url: "/Admin/Bill/GetColors",
-            dataType: "json",
-            success: function (response) {
-                cachedObj.colors = response;
-            },
-            error: function () {
-                onlineshop.notify('Has an error in progress', 'error');
-            }
-        });
-    }
-
-    function loadSizes() {
-        return $.ajax({
-            type: "GET",
-            url: "/Admin/Bill/GetSizes",
-            dataType: "json",
-            success: function (response) {
-                cachedObj.sizes = response;
-            },
-            error: function () {
-                onlineshop.notify('Has an error in progress', 'error');
-            }
-        });
-    }
-
     function getProductOptions(selectedId) {
         var products = "<select class='form-control ddlProductId'>";
         $.each(cachedObj.products, function (i, product) {
@@ -319,30 +285,6 @@
         if (status.length > 0)
             return status[0].Name;
         else return '';
-    }
-
-    function getColorOptions(selectedId) {
-        var colors = "<select class='form-control ddlColorId'>";
-        $.each(cachedObj.colors, function (i, color) {
-            if (selectedId === color.Id)
-                colors += '<option value="' + color.Id + '" selected="select">' + color.Name + '</option>';
-            else
-                colors += '<option value="' + color.Id + '">' + color.Name + '</option>';
-        });
-        colors += "</select>";
-        return colors;
-    }
-
-    function getSizeOptions(selectedId) {
-        var sizes = "<select class='form-control ddlSizeId'>";
-        $.each(cachedObj.sizes, function (i, size) {
-            if (selectedId === size.Id)
-                sizes += '<option value="' + size.Id + '" selected="select">' + size.Name + '</option>';
-            else
-                sizes += '<option value="' + size.Id + '">' + size.Name + '</option>';
-        });
-        sizes += "</select>";
-        return sizes;
     }
 
     function resetFormMaintainance() {

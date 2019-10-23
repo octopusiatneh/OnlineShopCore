@@ -65,12 +65,6 @@ namespace OnlineShopCore.Areas.Admin.Controllers
             return new OkResult();
         }
 
-        [HttpGet]
-        public IActionResult GetAllPaging(string startDate, string endDate, string keyword, int page, int pageSize)
-        {
-            var model = _billService.GetAllPaging(startDate, endDate, keyword, page, pageSize);
-            return new OkObjectResult(model);
-        }
 
         [HttpGet]
         public IActionResult GetAll()
@@ -140,20 +134,6 @@ namespace OnlineShopCore.Areas.Admin.Controllers
             return new OkObjectResult(enums);
         }
 
-        [HttpGet]
-        public IActionResult GetColors()
-        {
-            var colors = _billService.GetColors();
-            return new OkObjectResult(colors);
-        }
-
-        [HttpGet]
-        public IActionResult GetSizes()
-        {
-            var sizes = _billService.GetSizes();
-            return new OkObjectResult(sizes);
-        }
-
         [HttpPost]
         public IActionResult ExportExcel(int billId)
         {
@@ -179,37 +159,41 @@ namespace OnlineShopCore.Areas.Admin.Controllers
                     var billDetail = _billService.GetDetail(billId);
 
                     // Insert customer data into template
-                    worksheet.Cells[4, 1].Value = "Customer Name: " + billDetail.CustomerName;
-                    worksheet.Cells[5, 1].Value = "Address: " + billDetail.CustomerAddress;
-                    worksheet.Cells[6, 1].Value = "Phone: " + billDetail.CustomerMobile;
+                    worksheet.Cells[6, 1].Value = "Họ tên khách hàng: " + billDetail.CustomerName;
+                    worksheet.Cells[7, 1].Value = "Số điện thoại: " + billDetail.CustomerMobile;
                     // Start Row for Detail Rows
-                    int rowIndex = 9;
+                    int rowIndex = 10;
 
                     // load order details
                     var orderDetails = _billService.GetBillDetails(billId);
                     int count = 1;
                     foreach (var orderDetail in orderDetails)
                     {
-                        // Cell 1, Carton Count
+                        // Cell 1, Order (thứ tự)
                         worksheet.Cells[rowIndex, 1].Value = count.ToString();
-                        // Cell 2, Order Number (Outline around columns 2-7 make it look like 1 column)
+                        // Cell 2, Product name
                         worksheet.Cells[rowIndex, 2].Value = orderDetail.Product.Name;
-                        // Cell 8, Weight in LBS (convert KG to LBS, and rounding to whole number)
+                        // Cell 3, Quantity
                         worksheet.Cells[rowIndex, 3].Value = orderDetail.Quantity.ToString();
-
+                        // Cell 4, Price
                         worksheet.Cells[rowIndex, 4].Value = orderDetail.Price.ToString("N0");
-                        worksheet.Cells[rowIndex, 5].Value = (orderDetail.Price * orderDetail.Quantity).ToString("N0");
+                        // Cell 5, Total
+                        worksheet.Cells[rowIndex, 6].Value = (orderDetail.Price * orderDetail.Quantity).ToString("N0");
                         // Increment Row Counter
                         rowIndex++;
                         count++;
                     }
                     decimal total = (decimal)(orderDetails.Sum(x => x.Quantity * x.Price));
-                    worksheet.Cells[24, 5].Value = total.ToString("N0");
+                    worksheet.Cells[rowIndex, 1].Value = "Tổng tiền (bằng số): ";
+                    worksheet.Cells[rowIndex, 6].Value = total.ToString("N0");
+                    worksheet.Cells[rowIndex, 6].Style.Font.Bold = true;
+                    rowIndex++;
+                    var numberWord = TextHelper.ToString(total);
+                    worksheet.Cells[rowIndex, 1].Value = "Tổng tiền (bằng chữ): ";
+                    worksheet.Cells[rowIndex, 2].Value = numberWord;
 
-                    var numberWord = "Total amount (by word): " + TextHelper.ToString(total);
-                    worksheet.Cells[26, 1].Value = numberWord;
                     var billDate = billDetail.DateCreated;
-                    worksheet.Cells[28, 3].Value = billDate.Day + ", " + billDate.Month + ", " + billDate.Year;
+                    worksheet.Cells[5, 2].Value = "Ngày " + billDate.Day + " tháng " + billDate.Month + " năm " + billDate.Year;
 
                     package.SaveAs(file); //Save the workbook.
                 }

@@ -238,8 +238,10 @@ namespace OnlineShopCore.Controllers
                     BirthDay = model.BirthDay,
                     Address = model.Address,
                     Status = Status.Active,
+                    DateCreated = DateTime.Now,
                     Avatar = string.Empty
                 };
+                await _userManager.AddToRoleAsync(user, "Customer");
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

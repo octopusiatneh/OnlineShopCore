@@ -165,7 +165,11 @@ namespace OnlineShopCore
             services.AddTransient<IAuthorizationHandler, BaseResourceAuthorizationHandler>();
             services.AddTransient<IBillService, BillService>();
             services.AddTransient<IFeedbackService, FeedbackService>();
+
+            //Report Service
             services.AddTransient<IReportService, ReportService>();
+            services.AddTransient<IUserReportService, UserReportService>();
+            services.AddTransient<IOrderReportService, OrderReportService>();
 
             services.AddTransient<IAuthorService, AuthorService>();
             services.AddTransient<IPublisherService, PublisherService>();

@@ -10,10 +10,14 @@ namespace OnlineShopCore.Areas.Admin.Controllers
     public class HomeController : BaseController
     {
         private readonly IReportService _reportService;
-
-        public HomeController(IReportService reportService)
+        private readonly IUserReportService _userReportService;
+        private readonly IOrderReportService _orderReportService;
+        public HomeController(IReportService reportService,
+            IUserReportService userReportService, IOrderReportService orderReportService)
         {
             _reportService = reportService;
+            _userReportService = userReportService;
+            _orderReportService = orderReportService;
         }
         public IActionResult Index()
         {
@@ -25,6 +29,16 @@ namespace OnlineShopCore.Areas.Admin.Controllers
         public async Task<IActionResult> GetRevenue(string fromDate, string toDate)
         {
             return new OkObjectResult(await _reportService.GetReport(fromDate, toDate));
+        }
+
+        public async Task<IActionResult> GetNewUser(string fromDate, string toDate)
+        {
+            return new OkObjectResult(await _userReportService.GetReport(fromDate, toDate));
+        }
+
+        public async Task<IActionResult> GetNewOrder(string fromDate, string toDate)
+        {
+            return new OkObjectResult(await _orderReportService.GetReport(fromDate, toDate));
         }
     }
 }

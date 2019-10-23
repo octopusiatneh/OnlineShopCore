@@ -20,7 +20,7 @@ namespace OnlineShopCore.Services
             string sHTML = File.ReadAllText(@"..\OnlineShopCore\wwwroot\templates\emailContactTemp.txt");
             sHTML = sHTML.Replace("id=\"veryImportant\" href=\"#\""
                 , $"id=\"veryImportant\" href='{HtmlEncoder.Default.Encode(link)}' ");
-            return emailSender.SendEmailAsync(email, "Welcome to CozaStore!!",
+            return emailSender.SendEmailAsync(email, "New contact for CozaStore!!",
                 sHTML);
         }
     }
