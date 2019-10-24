@@ -15,25 +15,25 @@
         <form asp-action="ExternalLoginConfirmation" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="FullName">Full name</label>
+                <label asp-for="FullName">Họ và tên</label>
                 <input asp-for="FullName" class="form-control" />
                 <span asp-validation-for="FullName" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="DoB">Date of birth</label>
+                <label asp-for="DoB">Ngày sinh</label>
                 <input asp-for="DoB" type="date" class="form-control" />
                 <span asp-validation-for="DoB" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="PhoneNumber"></label>
+                <label asp-for="PhoneNumber">Số điện thoại</label>
                 <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Address"></label>
+                <label asp-for="Address">Địa chỉ</label>
                 <input asp-for="Address" class="form-control" />
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
@@ -42,10 +42,9 @@
                 <recaptcha />
                 <span class="text-danger" id="recaptchaErrorMessage"></span>
             </div>
-            <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Sign up</button></div>
+            <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Lưu thông tin</button></div>
         </form>
     </div>
-</div>
 </div>
 @section Styles{
     <link href="~/client-side/css/Registration-Form-with-Photo.css" rel="stylesheet" />

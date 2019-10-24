@@ -9,7 +9,6 @@ using OnlineShopCore.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace OnlineShopCore.Application.Implementation
 {
@@ -50,7 +49,7 @@ namespace OnlineShopCore.Application.Implementation
         }
         public List<SlideViewModel> GetSlide()
         {
-            return _slideRepository.FindAll(x=> x.Status == Status.Active).OrderBy(x => x.Id)
+            return _slideRepository.FindAll(x => x.Status == Status.Active).OrderBy(x => x.Id)
                  .ProjectTo<SlideViewModel>().ToList();
         }
 
@@ -76,6 +75,6 @@ namespace OnlineShopCore.Application.Implementation
             _slideRepository.Update(slide);
         }
 
-        
+
     }
 }

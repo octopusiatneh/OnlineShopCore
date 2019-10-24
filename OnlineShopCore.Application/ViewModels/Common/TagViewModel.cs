@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OnlineShopCore.Application.ViewModels.Common
+﻿namespace OnlineShopCore.Application.ViewModels.Common
 {
     public class TagViewModel
     {

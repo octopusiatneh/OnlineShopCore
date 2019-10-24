@@ -1,35 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OnlineShopCore.Data;
-using OnlineShopCore.Models;
-using OnlineShopCore.Services;
-using OnlineShopCore.Data.EF;
-using OnlineShopCore.Data.Entities;
-using AutoMapper;
-using OnlineShopCore.Application.Interfaces;
-using OnlineShopCore.Data.EF.Repositories;
-using OnlineShopCore.Data.IRepositories;
-using OnlineShopCore.Application.Implementation;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Serialization;
-using OnlineShopCore.Helpers;
-using OnlineShopCore.Infrastructure.Interfaces;
-using Microsoft.AspNetCore.Authorization;
-using OnlineShopCore.Authorization;
-using PaulMiami.AspNetCore.Mvc.Recaptcha;
-using OnlineShopCore.Hubs;
-using Microsoft.AspNetCore.Mvc.Razor;
-using System.Globalization;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Serialization;
+using OnlineShopCore.Application.Dapper.Implementation;
+using OnlineShopCore.Application.Dapper.Intefaces;
+using OnlineShopCore.Application.Implementation;
+using OnlineShopCore.Application.Interfaces;
+using OnlineShopCore.Authorization;
+using OnlineShopCore.Data.EF;
+using OnlineShopCore.Data.EF.Repositories;
+using OnlineShopCore.Data.Entities;
+using OnlineShopCore.Data.IRepositories;
+using OnlineShopCore.Helpers;
+using OnlineShopCore.Hubs;
+using OnlineShopCore.Infrastructure.Interfaces;
+using OnlineShopCore.Services;
+using PaulMiami.AspNetCore.Mvc.Recaptcha;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Threading.Tasks;
 
 namespace OnlineShopCore
 {
@@ -49,7 +49,8 @@ namespace OnlineShopCore
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                 o => o.MigrationsAssembly("OnlineShopCore.Data.EF")));
 
-            services.AddIdentity<AppUser, AppRole>(config=>{
+            services.AddIdentity<AppUser, AppRole>(config =>
+            {
                 config.SignIn.RequireConfirmedEmail = true;
             })
                 .AddEntityFrameworkStores<AppDbContext>()
@@ -74,7 +75,7 @@ namespace OnlineShopCore
             });
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromHours(2);
+                options.IdleTimeout = TimeSpan.FromMilliseconds(100000);
                 options.Cookie.HttpOnly = true;
             });
             services.AddAutoMapper();
@@ -88,6 +89,17 @@ namespace OnlineShopCore
                 {
                     facebookOpts.AppId = Configuration["Authentication:Facebook:AppId"];
                     facebookOpts.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                    //facebookOpts.Events = new OAuthEvents()
+                    //{
+                    //    OnRemoteFailure = ctx =>
+                    //    {
+                    //        var authProperties = facebookOpts.StateDataFormat.Unprotect(ctx.Request.Query["state"]);
+                    //        // do something
+                    //        ctx.Response.Redirect("/login.html");
+                    //        ctx.HandleResponse();
+                    //        return Task.FromResult(0);
+                    //    }
+                    //};
                 })
                 .AddGoogle(googleOpts =>
                 {
@@ -128,10 +140,10 @@ namespace OnlineShopCore
                  };
 
                  opts.DefaultRequestCulture = new RequestCulture("en-US");
-                  // Formatting numbers, dates, etc.
-                  opts.SupportedCultures = supportedCultures;
-                  // UI strings that we have localized.
-                  opts.SupportedUICultures = supportedCultures;
+                 // Formatting numbers, dates, etc.
+                 opts.SupportedCultures = supportedCultures;
+                 // UI strings that we have localized.
+                 opts.SupportedUICultures = supportedCultures;
              });
 
 
@@ -142,8 +154,6 @@ namespace OnlineShopCore
             services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
             services.AddTransient<IFunctionRepository, FunctionRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
-            services.AddTransient<ITagRepository, TagRepository>();
-            services.AddTransient<IProductTagRepository, ProductTagRepository>();
             services.AddTransient<IPermissionRepository, PermissionRepository>();
             services.AddTransient<IBillRepository, BillRepository>();
             services.AddTransient<IBillDetailRepository, BillDetailRepository>();
@@ -169,6 +179,12 @@ namespace OnlineShopCore
             services.AddTransient<IBillService, BillService>();
             services.AddTransient<IFeedbackService, FeedbackService>();
 
+            //Report Service
+            services.AddTransient<IReportService, ReportService>();
+            services.AddTransient<IUserReportService, UserReportService>();
+            services.AddTransient<IOrderReportService, OrderReportService>();
+            services.AddTransient<ITopProductReportService, TopProductReportService>();
+
             services.AddTransient<IAuthorService, AuthorService>();
             services.AddTransient<IPublisherService, PublisherService>();
 
@@ -181,9 +197,18 @@ namespace OnlineShopCore
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            app.UseExceptionHandler("/Home/Error");
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
 
-            app.UseStatusCodePagesWithReExecute("/Error/{0}");
+
+            if (env.IsProduction() || env.IsStaging() || env.IsEnvironment("Staging_2"))
+            {
+                app.UseExceptionHandler("/Home/Error");
+
+                app.UseStatusCodePagesWithReExecute("/Error/{0}");
+            }
 
             app.UseSession();
 

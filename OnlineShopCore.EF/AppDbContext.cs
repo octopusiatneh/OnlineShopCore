@@ -1,18 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using OnlineShopCore.Data.Entities;
 using Microsoft.EntityFrameworkCore;
-using OnlineShopCore.Data.EF.Extensions;
-using OnlineShopCore.Data.EF.Configurations;
-using System.Linq;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using OnlineShopCore.Data.Interfaces;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using OnlineShopCore.Data.EF.Configurations;
+using OnlineShopCore.Data.EF.Extensions;
+using OnlineShopCore.Data.Entities;
+using OnlineShopCore.Data.Interfaces;
+using System;
 using System.IO;
+using System.Linq;
 
 namespace OnlineShopCore.Data.EF
 {
@@ -21,31 +19,46 @@ namespace OnlineShopCore.Data.EF
         public AppDbContext(DbContextOptions options) : base(options)
         {
         }
+
         public DbSet<Language> Languages { set; get; }
+
         public DbSet<Function> Functions { get; set; }
+
         public DbSet<Author> Authors { get; set; }
+
         public DbSet<Publisher> Publishers { get; set; }
+
         public DbSet<AppUser> AppUsers { get; set; }
+
         public DbSet<AppRole> AppRoles { get; set; }
+
         public DbSet<Announcement> Announcements { set; get; }
+
         public DbSet<AnnouncementBill> AnnouncementBills { set; get; }
+
         public DbSet<Feedback> Feedbacks { set; get; }
+
         public DbSet<Bill> Bills { set; get; }
+
         public DbSet<BillDetail> BillDetails { set; get; }
+
         public DbSet<Color> Colors { set; get; }
+
         public DbSet<Contact> Contacts { set; get; }
+
         public DbSet<Product> Products { set; get; }
+
         public DbSet<ProductCategory> ProductCategories { set; get; }
+
         public DbSet<ProductImage> ProductImages { set; get; }
-        public DbSet<ProductTag> ProductTags { set; get; }
+
+        public DbSet<Logging> Loggings { get; set; }
 
         public DbSet<Size> Sizes { set; get; }
+
         public DbSet<Slide> Slides { set; get; }
 
-        public DbSet<Tag> Tags { set; get; }
-
         public DbSet<Permission> Permissions { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -66,9 +79,7 @@ namespace OnlineShopCore.Data.EF
 
             #endregion Identity Config
 
-            builder.AddConfiguration(new TagConfiguration());
             builder.AddConfiguration(new ContactDetailConfiguration());
-            builder.AddConfiguration(new ProductTagConfiguration());
 
             //base.OnModelCreating(builder);
         }

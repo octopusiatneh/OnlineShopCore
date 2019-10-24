@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Application.ViewModels.System;
 using OnlineShopCore.Data.Entities;
@@ -9,7 +7,6 @@ using OnlineShopCore.Utilities.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OnlineShopCore.Application.Implementation
@@ -62,7 +59,7 @@ namespace OnlineShopCore.Application.Implementation
                 var userVm = Mapper.Map<AppUser, AppUserViewModel>(item);
                 userVm.Roles = roles.ToList();
                 usersVm.Add(userVm);
-            }        
+            }
             return usersVm;
         }
 

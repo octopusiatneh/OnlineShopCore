@@ -1,7 +1,6 @@
 ﻿using OnlineShopCore.Application.ViewModels.System;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OnlineShopCore.Application.Interfaces
@@ -12,7 +11,7 @@ namespace OnlineShopCore.Application.Interfaces
 
         Task<List<FunctionViewModel>> GetAll(string filter);
 
-        IEnumerable<FunctionViewModel> GetAllWithParentId(string parentId);
+        Task<List<FunctionViewModel>> GetAllWithParentId(string parentId);
 
         FunctionViewModel GetById(string id);
 

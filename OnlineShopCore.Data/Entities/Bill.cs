@@ -1,11 +1,11 @@
-﻿using System;
+﻿using OnlineShopCore.Data.Enums;
+using OnlineShopCore.Data.Interfaces;
+using OnlineShopCore.Infrastructure.SharedKernel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using OnlineShopCore.Data.Enums;
-using OnlineShopCore.Data.Interfaces;
-using OnlineShopCore.Infrastructure.SharedKernel;
 
 namespace OnlineShopCore.Data.Entities
 {
@@ -24,14 +24,14 @@ namespace OnlineShopCore.Data.Entities
             BillStatus = billStatus;
             PaymentMethod = paymentMethod;
             Status = status;
-            
+
             DateCreated = dateCreated;
             DateModified = DateTime.Now;
             CustomerId = customerId;
         }
 
         public Bill(int id, string customerName, string customerAddress, string customerMobile, string customerMessage,
-           BillStatus billStatus, PaymentMethod paymentMethod, Status status, Guid? customerId  )
+           BillStatus billStatus, PaymentMethod paymentMethod, Status status, Guid? customerId)
         {
             Id = id;
             CustomerName = customerName;

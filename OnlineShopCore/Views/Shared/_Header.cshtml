@@ -18,9 +18,9 @@
 
                     @if (!User.Identity.IsAuthenticated)
                     {
-                    <a href="/login.html" class="flex-c-m trans-04 p-lr-25">
-                        @Localizer["SignIn"]
-                    </a>
+                        <a href="/login.html" class="flex-c-m trans-04 p-lr-25">
+                            @Localizer["SignIn"]
+                        </a>
                     }
                 </div>
             </div>
@@ -54,18 +54,25 @@
 
                         @if (User.Identity.IsAuthenticated)
                         {
-                        <li>
-                            <a>@Localizer["Account"] <i class="fa fa-user"></i></a>
-                            <ul class="sub-menu">
-                                <li><a href="/account.html">@Localizer["Profile"]</a></li>
-                                <li><a href="/orders-list.html">@Localizer["Order"]</a></li>
-                                <li>
-                                    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
-                                        <a href="#" onclick="document.getElementById('logoutForm').submit()"><span>@Localizer["SignOut"]</span></a>
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
+                            <li>
+                                <a>@Localizer["Account"] <i class="fa fa-user"></i></a>
+                                <ul class="sub-menu">
+                                    <li><a href="/account.html">@Localizer["Profile"]</a></li>
+                                    <li><a href="/orders-list.html">@Localizer["Order"]</a></li>
+                                    <li>
+                                        <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
+                                            <a href="#" onclick="document.getElementById('logoutForm').submit()"><span>@Localizer["SignOut"]</span></a>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+
+                        @if ( this.User.IsInRole("Admin") || this.User.IsInRole("Staff") )
+                        {
+                            <li>
+                                <a href="/admin/home">@Localizer["Dashboard"]</a>
+                            </li>
                         }
                     </ul>
                 </div>
@@ -131,9 +138,9 @@
 
                     @if (!User.Identity.IsAuthenticated)
                     {
-                    <a href="/login.html" class="flex-c-m trans-04 p-lr-25">
-                        @Localizer["SignIn"]
-                    </a>
+                        <a href="/login.html" class="flex-c-m trans-04 p-lr-25">
+                            @Localizer["SignIn"]
+                        </a>
                     }
                 </div>
             </li>
@@ -158,21 +165,21 @@
 
             @if (User.Identity.IsAuthenticated)
             {
-            <li>
-                <a>@Localizer["Account"]<i class="fa fa-user"></i></a>
-                <ul class="sub-menu-m">
-                    <li><a href="/account.html">@Localizer["Profile"]</a></li>
-                    <li><a href="/orders-list.html">@Localizer["Order"]</a></li>
-                    <li>
-                        <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
-                            <a href="#" onclick="document.getElementById('logoutForm').submit()"><span>@Localizer["SignOut"]</span></a>
-                        </form>
-                    </li>
-                </ul>
-                <span class="arrow-main-menu-m">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
-                </span>
-            </li>
+                <li>
+                    <a>@Localizer["Account"]<i class="fa fa-user"></i></a>
+                    <ul class="sub-menu-m">
+                        <li><a href="/account.html">@Localizer["Profile"]</a></li>
+                        <li><a href="/orders-list.html">@Localizer["Order"]</a></li>
+                        <li>
+                            <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
+                                <a href="#" onclick="document.getElementById('logoutForm').submit()"><span>@Localizer["SignOut"]</span></a>
+                            </form>
+                        </li>
+                    </ul>
+                    <span class="arrow-main-menu-m">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                </li>
             }
         </ul>
     </div>

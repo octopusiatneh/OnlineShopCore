@@ -126,6 +126,9 @@
   <data name="Contact" xml:space="preserve">
     <value>Contact</value>
   </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
   <data name="Free" xml:space="preserve">
     <value>Free shipping for standard order over $100</value>
   </data>

@@ -117,11 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdditionalInformation" xml:space="preserve">
-    <value>Thông tin thêm</value>
-  </data>
   <data name="AddToCart" xml:space="preserve">
     <value>Thêm vào giỏ</value>
+  </data>
+  <data name="AuthorName" xml:space="preserve">
+    <value>Tác giả</value>
   </data>
   <data name="Color" xml:space="preserve">
     <value>Màu</value>
@@ -129,14 +129,29 @@
   <data name="Description" xml:space="preserve">
     <value>Miêu tả</value>
   </data>
+  <data name="DetailInformation" xml:space="preserve">
+    <value>Thông tin chi tiết</value>
+  </data>
   <data name="Dimensions" xml:space="preserve">
     <value>Kích cỡ</value>
   </data>
   <data name="Materials" xml:space="preserve">
     <value>Vật liệu</value>
   </data>
+  <data name="NumberOfPages" xml:space="preserve">
+    <value>Số trang</value>
+  </data>
+  <data name="PublisherName" xml:space="preserve">
+    <value>Nhà xuất bản</value>
+  </data>
+  <data name="PublishYear" xml:space="preserve">
+    <value>Năm xuất bản</value>
+  </data>
   <data name="RelatedProducts" xml:space="preserve">
     <value>Sản phẩm liên quan</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Khách hàng nhận xét</value>
   </data>
   <data name="Size" xml:space="preserve">
     <value>Kích cỡ</value>

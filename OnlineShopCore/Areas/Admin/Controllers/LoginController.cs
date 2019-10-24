@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OnlineShopCore.Data.EF;
 using OnlineShopCore.Data.Entities;
 using OnlineShopCore.Models.AccountViewModels;
 using OnlineShopCore.Utilities.Dtos;
+using System;
 using System.Threading.Tasks;
 
 namespace OnlineShopCore.Areas.Admin.Controllers
@@ -13,15 +15,17 @@ namespace OnlineShopCore.Areas.Admin.Controllers
     public class LoginController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
+        private readonly AppDbContext _context;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ILogger _logger;
 
         public LoginController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager
-          , ILogger<LoginController> logger)
+          , ILogger<LoginController> logger, AppDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -42,6 +46,8 @@ namespace OnlineShopCore.Areas.Admin.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    _context.Loggings.Add(new Logging(DateTime.Now, model.Email, "sign in"));
+                    _context.SaveChanges();
                     return new OkObjectResult(new GenericResult(true));
                 }
                 if (result.IsLockedOut)

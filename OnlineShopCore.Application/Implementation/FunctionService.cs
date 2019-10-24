@@ -1,23 +1,23 @@
-﻿using AutoMapper.QueryableExtensions;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
+using OnlineShopCore.Application.Interfaces;
+using OnlineShopCore.Application.ViewModels.System;
+using OnlineShopCore.Data.Entities;
+using OnlineShopCore.Data.Enums;
+using OnlineShopCore.Data.IRepositories;
+using OnlineShopCore.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using OnlineShopCore.Application.Interfaces;
-using OnlineShopCore.Application.ViewModels.System;
-using OnlineShopCore.Data.IRepositories;
-using OnlineShopCore.Infrastructure.Interfaces;
-using AutoMapper;
-using OnlineShopCore.Data.Entities;
-using OnlineShopCore.Data.Enums;
 
 namespace OnlineShopCore.Application.Implementation
 {
     public class FunctionService : IFunctionService
     {
-        private IFunctionRepository _functionRepository;
-        private IUnitOfWork _unitOfWork;
+        private readonly IFunctionRepository _functionRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public FunctionService(IMapper mapper,
@@ -60,9 +60,13 @@ namespace OnlineShopCore.Application.Implementation
             return query.OrderBy(x => x.ParentId).ProjectTo<FunctionViewModel>().ToListAsync();
         }
 
-        public IEnumerable<FunctionViewModel> GetAllWithParentId(string parentId)
+        public Task<List<FunctionViewModel>> GetAllWithParentId(string parentId)
         {
-            return _functionRepository.FindAll(x => x.ParentId == parentId).ProjectTo<FunctionViewModel>();
+            var query = _functionRepository.FindAll(x => x.Status == Status.Active);
+
+            query = query.Where(x => x.ParentId.Contains(parentId) || x.Id == (parentId));
+
+            return query.OrderBy(x => x.ParentId).ProjectTo<FunctionViewModel>().ToListAsync();
         }
         public void Save()
         {

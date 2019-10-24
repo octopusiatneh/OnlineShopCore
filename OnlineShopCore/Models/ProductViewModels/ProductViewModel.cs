@@ -1,5 +1,4 @@
-﻿using OnlineShopCore.Application.ViewModels.Product;
-using OnlineShopCore.Data.Entities;
+﻿using OnlineShopCore.Data.Entities;
 using OnlineShopCore.Data.Enums;
 using OnlineShopCore.Data.Interfaces;
 using OnlineShopCore.Infrastructure.SharedKernel;
@@ -8,25 +7,20 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace OnlineShopCore.Models.ProductViewModels
 {
     [Table("Products")]
-    public class Product : DomainEntity<int>, ISwitchable, IDateTracking, IHasSeoMetaData
+    public class Product : DomainEntity<int>, ISwitchable, IDateTracking
     {
         public Product()
         {
-            ProductTags = new List<ProductTag>();
+
         }
 
         public Product(string name, int categoryId, int authorId, int publisherId, string Image,
-            decimal price, decimal originalPrice, decimal? promotionPrice,
-            string description, string content, bool? homeFlag, bool? hotFlag,
-            string tags, string unit, Status status, string seoPageTitle,
-            string seoAlias, string seoMetaKeyword,
-            string seoMetaDescription)
+            decimal price, decimal? promotionPrice, string description, string content, bool? homeFlag,
+            bool? hotFlag, Status status, string seoAlias)
         {
             Name = name;
             CategoryId = categoryId;
@@ -34,30 +28,21 @@ namespace OnlineShopCore.Models.ProductViewModels
             PublisherId = publisherId;
             this.Image = Image;
             Price = price;
-            OriginalPrice = originalPrice;
             PromotionPrice = promotionPrice;
             Description = description;
             Content = content;
             HomeFlag = homeFlag;
             HotFlag = hotFlag;
-            Tags = tags;
-            Unit = unit;
             Status = status;
-            SeoPageTitle = seoPageTitle;
             SeoAlias = seoAlias;
-            SeoKeywords = seoMetaKeyword;
             DateCreated = DateTime.Now;
-            SeoDescription = seoMetaDescription;
-            ProductTags = new List<ProductTag>();
-
         }
 
         public Product(int id, string name, int categoryId, int authorId, int publisherId, string Image,
-             decimal price, decimal originalPrice, decimal? promotionPrice,
+             decimal price, decimal? promotionPrice,
              string description, string content, bool? homeFlag, bool? hotFlag,
-             string tags, string unit, Status status, string seoPageTitle,
-             string seoAlias, string seoMetaKeyword,
-             string seoMetaDescription, DateTime dateCreated)
+             Status status,
+             string seoAlias, DateTime dateCreated)
         {
             Id = id;
             Name = name;
@@ -66,24 +51,17 @@ namespace OnlineShopCore.Models.ProductViewModels
             AuthorId = authorId;
             this.Image = Image;
             Price = price;
-            OriginalPrice = originalPrice;
             PromotionPrice = promotionPrice;
             Description = description;
             Content = content;
             HomeFlag = homeFlag;
             HotFlag = hotFlag;
-            Tags = tags;
-            Unit = unit;
             Status = status;
-            SeoPageTitle = seoPageTitle;
             SeoAlias = seoAlias;
-            SeoKeywords = seoMetaKeyword;
-            SeoDescription = seoMetaDescription;
             DateCreated = dateCreated;
             DateModified = DateTime.Now;
-            ProductTags = new List<ProductTag>();
-
         }
+        #region Property
         [StringLength(255)]
         [Required]
         public string Name { get; set; }
@@ -115,10 +93,6 @@ namespace OnlineShopCore.Models.ProductViewModels
 
         public decimal? PromotionPrice { get; set; }
 
-        [Required]
-        public decimal OriginalPrice { get; set; }
-
-        [StringLength(255)]
         public string Description { get; set; }
 
         public string Content { get; set; }
@@ -130,30 +104,14 @@ namespace OnlineShopCore.Models.ProductViewModels
         public int? ViewCount { get; set; }
 
         [StringLength(255)]
-        public string Tags { get; set; }
-
-        [StringLength(255)]
-        public string Unit { get; set; }
-
-       
-
-        public virtual ICollection<ProductTag> ProductTags { set; get; }
-
-        public string SeoPageTitle { set; get; }
-
-
-        [StringLength(255)]
         public string SeoAlias { set; get; }
 
-        [StringLength(255)]
-        public string SeoKeywords { set; get; }
-
-        [StringLength(255)]
-        public string SeoDescription { set; get; }
-
         public DateTime DateCreated { set; get; }
+
         public DateTime DateModified { set; get; }
 
         public Status Status { set; get; }
     }
+
+    #endregion
 }

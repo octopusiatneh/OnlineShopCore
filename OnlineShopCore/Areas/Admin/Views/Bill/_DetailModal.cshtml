@@ -55,9 +55,7 @@
                                 <table class="table table-bordered col-11">
                                     <thead>
                                         <tr>
-                                            <th>Tên sản phẩm</th>
-                                            <th>Màu</th>
-                                            <th>Kích cỡ</th>
+                                            <th>Tên sản phẩm</th>                                    
                                             <th>Số lượng</th>
                                             <th></th>
                                         </tr>
@@ -73,9 +71,7 @@
                                 </table>
                                 <script type="x-tmpl-mustache" id="template-table-bill-details">
                                     <tr data-id="{{Id}}">
-                                        <td>{{{Products}}}</td>
-                                        <td>{{{Colors}}}</td>
-                                        <td>{{{Sizes}}}</td>
+                                        <td>{{{Products}}}</td>   
                                         <td><input type="number" class="txtQuantity form-control" value="{{Quantity}}" /></td>
                                         <td><button class="btn btn-xs btn-danger btn-delete-detail" type="button"><i class="fa fa-trash"></i></button></td>
                                     </tr>
@@ -85,8 +81,9 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="button" id="btnSave" class="btn btn-success">Save</button>
-                                <button type="button" data-dismiss="modal" class="btn btn-danger">Close</button>
+                                <button type="button" id="btnSave" class="btn btn-success">Lưu</button>
+                                <button type="button" id="btnExport" class="btn btn-default">Xuất hóa đơn excel</button>
+                                <button type="button" data-dismiss="modal" class="btn btn-danger">Đóng</button>
                             </div>
                         </div>
                     </div>

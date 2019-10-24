@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
+using OnlineShopCore.Application.Interfaces;
+using OnlineShopCore.Utilities.Constants;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using OnlineShopCore.Application.Interfaces;
-using OnlineShopCore.Utilities.Constants;
 
 namespace OnlineShopCore.Authorization
 {

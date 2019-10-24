@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
 using OnlineShopCore.Application.ViewModels;
-using OnlineShopCore.Application.ViewModels.Common;
 using OnlineShopCore.Application.ViewModels.Product;
 using OnlineShopCore.Application.ViewModels.System;
 using OnlineShopCore.Application.ViewModels.Utilities;
 using OnlineShopCore.Data.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OnlineShopCore.Application.AutoMapper
 {
@@ -26,12 +23,11 @@ namespace OnlineShopCore.Application.AutoMapper
                 c.SortOrder, c.Status, c.SeoPageTitle, c.SeoAlias, c.SeoKeywords, c.SeoDescription));
 
             CreateMap<ProductViewModel, Product>()
-               .ConstructUsing(c => new Product(c.Name, c.CategoryId, c.AuthorId, c.PublisherId, c.Image, c.Price, c.OriginalPrice,
-               c.PromotionPrice, c.Description, c.Content, c.HomeFlag, c.HotFlag, c.Tags, c.Unit, c.Status,
-              c.SeoPageTitle, c.SeoAlias, c.SeoKeywords, c.SeoDescription));
+               .ConstructUsing(c => new Product(c.Name, c.CategoryId, c.AuthorId, c.PublisherId, c.Image, c.Price,
+               c.PromotionPrice, c.Description, c.Content, c.HomeFlag, c.HotFlag, c.Status, c.SeoAlias, c.ViewCount));
 
             CreateMap<AppUserViewModel, AppUser>()
-             .ConstructUsing(c => new AppUser(c.Id.GetValueOrDefault(Guid.Empty), c.FullName,c.Address ,c.UserName,
+             .ConstructUsing(c => new AppUser(c.Id.GetValueOrDefault(Guid.Empty), c.FullName, c.Address, c.UserName,
               c.Email, c.PhoneNumber, c.Avatar, c.Status));
 
             CreateMap<PermissionViewModel, Permission>()
@@ -44,18 +40,16 @@ namespace OnlineShopCore.Application.AutoMapper
 
             CreateMap<BillDetailViewModel, BillDetail>()
              .ConstructUsing(c => new BillDetail(c.Id, c.BillId, c.ProductId,
-             c.Quantity, c.Price, c.ColorId, c.SizeId));
+             c.Quantity, c.Price));
 
             CreateMap<ContactViewModel, Contact>()
                .ConstructUsing(c => new Contact(c.Id, c.Name, c.Phone, c.Email, c.Website, c.Address, c.Other, c.Lng, c.Lat, c.Status));
 
-       
-
             CreateMap<SlideViewModel, Slide>()
-              .ConstructUsing(c => new Slide(c.Id, c.Name, c.Description, c.Image, c.Status, c.Content));
+              .ConstructUsing(c => new Slide(c.Id, c.Image, c.Status));
 
             CreateMap<AnnouncementViewModel, Announcement>()
-                .ConstructUsing(c => new Announcement(c.Title, c.Content,c.Status));
+                .ConstructUsing(c => new Announcement(c.Title, c.Content, c.Status));
 
             CreateMap<AnnouncementBillViewModel, AnnouncementBill>()
                .ConstructUsing(c => new AnnouncementBill(c.AnnouncementId, c.HasRead));

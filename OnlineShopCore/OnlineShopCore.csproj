@@ -23,7 +23,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Localization" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.1.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.10" />
     <PackageReference Include="PaulMiami.AspNetCore.Mvc.Recaptcha" Version="1.2.1" />
     <PackageReference Include="Serilog.Extensions.Logging.File" Version="1.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="1.0.0" />
@@ -148,6 +148,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OnlineShopCore.Application.Dapper\OnlineShopCore.Application.Dapper.csproj" />
     <ProjectReference Include="..\OnlineShopCore.Application\OnlineShopCore.Application.csproj" />
     <ProjectReference Include="..\OnlineShopCore.Data\OnlineShopCore.Data.csproj" />
     <ProjectReference Include="..\OnlineShopCore.EF\OnlineShopCore.Data.EF.csproj" />

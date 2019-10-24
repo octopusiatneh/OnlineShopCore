@@ -1,9 +1,7 @@
-﻿using System;
+﻿using OnlineShopCore.Data.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
-using OnlineShopCore.Application.ViewModels.System;
-using OnlineShopCore.Data.Enums;
 
 namespace OnlineShopCore.Application.ViewModels.Product
 {

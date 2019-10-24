@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using OnlineShopCore.Application.ViewModels.System;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace OnlineShopCore.Hubs

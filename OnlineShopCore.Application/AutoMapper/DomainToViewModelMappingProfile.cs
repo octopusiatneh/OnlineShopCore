@@ -1,17 +1,13 @@
 ﻿using AutoMapper;
 using OnlineShopCore.Application.ViewModels;
-using OnlineShopCore.Application.ViewModels.Common;
 using OnlineShopCore.Application.ViewModels.Product;
 using OnlineShopCore.Application.ViewModels.System;
 using OnlineShopCore.Application.ViewModels.Utilities;
 using OnlineShopCore.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OnlineShopCore.Application.AutoMapper
 {
-   public class DomainToViewModelMappingProfile:Profile
+    public class DomainToViewModelMappingProfile : Profile
     {
         public DomainToViewModelMappingProfile()
         {

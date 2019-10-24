@@ -5,10 +5,8 @@ using OnlineShopCore.Application.ViewModels;
 using OnlineShopCore.Data.Entities;
 using OnlineShopCore.Data.IRepositories;
 using OnlineShopCore.Infrastructure.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace OnlineShopCore.Application.Implementation
 {

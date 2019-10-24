@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using OnlineShopCore.Infrastructure.SharedKernel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
-using OnlineShopCore.Infrastructure.SharedKernel;
 
 namespace OnlineShopCore.Data.Entities
 {
@@ -24,5 +21,5 @@ namespace OnlineShopCore.Data.Entities
         [ForeignKey("AnnouncementId")]
         public virtual Announcement Announcement { get; set; }
     }
-    
+
 }

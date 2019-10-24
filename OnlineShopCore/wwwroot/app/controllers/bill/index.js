@@ -1,16 +1,12 @@
 ﻿var BillController = function () {
     var cachedObj = {
         products: [],
-        colors: [],
-        sizes: [],
         paymentMethods: [],
         billStatuses: []
     }
     this.initialize = function () {
         $.when(loadBillStatus(),
             loadPaymentMethod(),
-            loadColors(),
-            loadSizes(),
             loadProducts())
             .done(function () {
                 loadData();
@@ -43,6 +39,7 @@
             resetFormMaintainance();
             $('#modal-detail').modal('show');
         });
+
         $("#ddl-show-page").on('change', function () {
             onlineshop.configs.pageSize = $(this).val();
             onlineshop.configs.pageIndex = 1;
@@ -50,6 +47,7 @@
         });
 
         $('body').on('click', '.btn-view', function (e) {
+            resetFormMaintainance();
             e.preventDefault();
             var that = $(this).data('id');
             $.ajax({
@@ -63,13 +61,22 @@
                     var data = response;
                     $('#hidId').val(data.Id);
                     $('#hidDateCreated').val(data.DateCreated);
-                    $('#txtCustomerName').val(data.CustomerName);    
+                    $('#txtCustomerName').val(data.CustomerName);
+                    $('#txtCustomerName').prop('disabled', true);
                     $('#txtCustomerAddress').val(data.CustomerAddress);
+                    $('#txtCustomerAddress').prop('disabled', true);
                     $('#txtCustomerMobile').val(data.CustomerMobile);
+                    $('#txtCustomerMobile').prop('disabled', true);
                     $('#txtCustomerMessage').val(data.CustomerMessage);
+                    $('#txtCustomerMessage').prop('disabled', true);
                     $('#ddlPaymentMethod').val(data.PaymentMethod);
+                    $('#ddlPaymentMethod').prop('disabled', true);
                     $('#ddlCustomerId').val(data.CustomerId);
                     $('#ddlBillStatus').val(data.BillStatus);
+                    if (data.BillStatus == '4') {
+                        $('#ddlBillStatus').prop('disabled', true);
+                    }
+                    
 
                     var billDetails = data.BillDetails;
                     if (data.BillDetails != null && data.BillDetails.length > 0) {
@@ -78,20 +85,17 @@
 
                         $.each(billDetails, function (i, item) {
                             var products = getProductOptions(item.ProductId);
-                            var colors = getColorOptions(item.ColorId);
-                            var sizes = getSizeOptions(item.SizeId);
 
                             render += Mustache.render(templateDetails,
                                 {
                                     Id: item.Id,
                                     Products: products,
-                                    Colors: colors,
-                                    Sizes: sizes,
                                     Quantity: item.Quantity
                                 });
                         });
                         $('#tbl-bill-details').html(render);
                     }
+                    $('tbl-bill-details').prop('disable', true);
                     $('#modal-detail').modal('show');
                     onlineshop.stopLoading();
 
@@ -123,8 +127,8 @@
                         Id: $(item).data('id'),                       
                         ProductId: $(item).find('select.ddlProductId').first().val(),
                         Quantity: $(item).find('input.txtQuantity').first().val(),
-                        ColorId: $(item).find('select.ddlColorId').first().val(),
-                        SizeId: $(item).find('select.ddlSizeId').first().val(),
+                        //ColorId: $(item).find('select.ddlColorId').first().val(),
+                        //SizeId: $(item).find('select.ddlSizeId').first().val(),
                         BillId: id
                     });
                 });
@@ -150,7 +154,7 @@
                         onlineshop.startLoading();
                     },
                     success: function (response) {
-                        onlineshop.notify('Save order successful', 'success');
+                        onlineshop.notify('Lưu đơn hàng thành công!', 'success');
                         $('#modal-detail').modal('hide');
                         resetFormMaintainance();
 
@@ -158,7 +162,7 @@
                         loadData(true);
                     },
                     error: function () {
-                        onlineshop.notify('Has an error in progress', 'error');
+                        onlineshop.notify('Có lỗi xảy ra!', 'error');
                         onlineshop.stopLoading();
                     }
                 });
@@ -170,15 +174,14 @@
         $('#btnAddDetail').on('click', function () {
             var template = $('#template-table-bill-details').html();
             var products = getProductOptions(null);
-            var colors = getColorOptions(null);
-            var sizes = getSizeOptions(null);
+            //var colors = getColorOptions(null);
+            //var sizes = getSizeOptions(null);
             var render = Mustache.render(template,
                 {
                     Id: 0,
-                    Products: products,
-                   
-                    Colors: colors,
-                    Sizes: sizes,
+                    Products: products, 
+                    //Colors: colors,
+                    //Sizes: sizes,
                     Quantity: 0,
                     Total: 0
                 });
@@ -254,34 +257,6 @@
         });
     }
 
-    function loadColors() {
-        return $.ajax({
-            type: "GET",
-            url: "/Admin/Bill/GetColors",
-            dataType: "json",
-            success: function (response) {
-                cachedObj.colors = response;
-            },
-            error: function () {
-                onlineshop.notify('Has an error in progress', 'error');
-            }
-        });
-    }
-
-    function loadSizes() {
-        return $.ajax({
-            type: "GET",
-            url: "/Admin/Bill/GetSizes",
-            dataType: "json",
-            success: function (response) {
-                cachedObj.sizes = response;
-            },
-            error: function () {
-                onlineshop.notify('Has an error in progress', 'error');
-            }
-        });
-    }
-
     function getProductOptions(selectedId) {
         var products = "<select class='form-control ddlProductId'>";
         $.each(cachedObj.products, function (i, product) {
@@ -312,30 +287,6 @@
         else return '';
     }
 
-    function getColorOptions(selectedId) {
-        var colors = "<select class='form-control ddlColorId'>";
-        $.each(cachedObj.colors, function (i, color) {
-            if (selectedId === color.Id)
-                colors += '<option value="' + color.Id + '" selected="select">' + color.Name + '</option>';
-            else
-                colors += '<option value="' + color.Id + '">' + color.Name + '</option>';
-        });
-        colors += "</select>";
-        return colors;
-    }
-
-    function getSizeOptions(selectedId) {
-        var sizes = "<select class='form-control ddlSizeId'>";
-        $.each(cachedObj.sizes, function (i, size) {
-            if (selectedId === size.Id)
-                sizes += '<option value="' + size.Id + '" selected="select">' + size.Name + '</option>';
-            else
-                sizes += '<option value="' + size.Id + '">' + size.Name + '</option>';
-        });
-        sizes += "</select>";
-        return sizes;
-    }
-
     function resetFormMaintainance() {
         $('#hidId').val(0);
         $('#txtCustomerName').val('');
@@ -347,6 +298,14 @@
         $('#ddlCustomerId').val('');
         $('#ddlBillStatus').val('');
         $('#tbl-bill-details').html('');
+
+        $('#txtCustomerName').prop('disabled', false);
+        $('#txtCustomerAddress').prop('disabled', false);
+        $('#txtCustomerMobile').prop('disabled', false);
+        $('#txtCustomerMessage').prop('disabled', false);
+        $('#ddlPaymentMethod').prop('disabled', false);
+        $('#ddlBillStatus').prop('disabled', false);
+
     }
 
     function loadData() {

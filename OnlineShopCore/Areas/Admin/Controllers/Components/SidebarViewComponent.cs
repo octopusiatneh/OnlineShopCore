@@ -30,7 +30,9 @@ namespace OnlineShopCore.Areas.Admin.Components
             else
             {
                 //TODO get by permission
-                functions = await _functionService.GetAll(string.Empty);
+                functions = await _functionService.GetAllWithParentId("Home");
+                functions.AddRange(await _functionService.GetAllWithParentId("PRODUCT"));
+                functions.AddRange( await _functionService.GetAllWithParentId("UTILITY"));
             }
             return View(functions);
         }

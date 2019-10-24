@@ -238,6 +238,7 @@ namespace OnlineShopCore.Controllers
                     BirthDay = model.BirthDay,
                     Address = model.Address,
                     Status = Status.Active,
+                    DateCreated = DateTime.Now,
                     Avatar = string.Empty
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -308,6 +309,7 @@ namespace OnlineShopCore.Controllers
                 _logger.LogInformation("User logged in with {Name} provider.", info.LoginProvider);
                 return RedirectToLocal(returnUrl);
             }
+
             if (result.IsLockedOut)
             {
                 return RedirectToAction(nameof(Lockout));
@@ -319,11 +321,8 @@ namespace OnlineShopCore.Controllers
                 ViewData["LoginProvider"] = info.LoginProvider;
                 // Test xem lấy ra được gì thôi chứ cũng chẳng có gì đâu -,-
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-                var lastName = info.Principal.FindFirstValue(ClaimTypes.Surname);
-                var firstName = info.Principal.FindFirstValue(ClaimTypes.GivenName);
-                var address = info.Principal.FindFirstValue(ClaimTypes.StreetAddress);
-                var dob = info.Principal.FindFirstValue(ClaimTypes.DateOfBirth);
-                var phoneNumber = info.Principal.FindFirstValue(ClaimTypes.MobilePhone);
+                var name = info.Principal.FindFirstValue(ClaimTypes.Name);
+
                 return View("ExternalLogin", new ExternalLoginViewModel());
             }
         }
@@ -350,7 +349,9 @@ namespace OnlineShopCore.Controllers
                     Address = model.Address,
                     FullName = model.FullName,
                     BirthDay = DateTime.Parse(model.DoB),
-                    PhoneNumber = model.PhoneNumber
+                    PhoneNumber = model.PhoneNumber,
+                    DateCreated = DateTime.Now,
+                    EmailConfirmed = true
                 };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)

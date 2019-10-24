@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OnlineShopCore.Infrastructure.Interfaces;
+﻿using OnlineShopCore.Infrastructure.Interfaces;
 
 namespace OnlineShopCore.Data.EF
 {

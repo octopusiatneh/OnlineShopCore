@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Application.ViewModels.Product;
 using OnlineShopCore.Data.Entities;
 using OnlineShopCore.Data.Enums;
 using OnlineShopCore.Data.IRepositories;
 using OnlineShopCore.Infrastructure.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineShopCore.Application.Implementation
 {
@@ -39,8 +37,13 @@ namespace OnlineShopCore.Application.Implementation
 
         public List<ProductCategoryViewModel> GetAll()
         {
-            return _productCategoryRepository.FindAll().OrderBy(x => x.ParentId)
+            //Get all active category
+            return _productCategoryRepository.FindAll(x => x.Status == Status.Active).OrderBy(x => x.ParentId)
                  .ProjectTo<ProductCategoryViewModel>().ToList();
+
+            //Get all category (active & inactive)
+            //return _productCategoryRepository.FindAll().OrderBy(x => x.ParentId)
+            //     .ProjectTo<ProductCategoryViewModel>().ToList();
         }
 
         public List<ProductCategoryViewModel> GetAll(string keyword)

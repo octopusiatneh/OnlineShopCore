@@ -1,11 +1,10 @@
 ﻿using OnlineShopCore.Data.Enums;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace OnlineShopCore.Application.ViewModels.System
 {
-    public  class AppUserViewModel
+    public class AppUserViewModel
     {
         public AppUserViewModel()
         {

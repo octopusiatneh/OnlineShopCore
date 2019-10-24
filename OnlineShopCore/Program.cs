@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OnlineShopCore.Data.EF;
-using Google.Cloud.Diagnostics.AspNetCore;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.AspNetCore.Http;
+using System;
 
 namespace OnlineShopCore
 {

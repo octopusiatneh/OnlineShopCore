@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using OnlineShopCore.Data.Interfaces;
 using OnlineShopCore.Data.Enums;
+using OnlineShopCore.Data.Interfaces;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnlineShopCore.Data.Entities
