@@ -11,7 +11,7 @@ BEGIN
                 on b.Id = bd.BillId
                 where b.DateCreated <= cast(@toDate as date) 
 				AND b.DateCreated >= cast(@fromDate as date)
-                group by b.DateCreated
+              group by Cast(b.DateCreated as DATE)
 END
 
 EXEC dbo.GetRevenueDaily @fromDate = '01/01/2019',

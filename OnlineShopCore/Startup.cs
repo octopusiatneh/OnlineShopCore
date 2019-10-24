@@ -75,7 +75,7 @@ namespace OnlineShopCore
             });
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(1);
+                options.IdleTimeout = TimeSpan.FromMilliseconds(100000);
                 options.Cookie.HttpOnly = true;
             });
             services.AddAutoMapper();
@@ -201,6 +201,7 @@ namespace OnlineShopCore
             {
                 app.UseDeveloperExceptionPage();
             }
+
 
             if (env.IsProduction() || env.IsStaging() || env.IsEnvironment("Staging_2"))
             {

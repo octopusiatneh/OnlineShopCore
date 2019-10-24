@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Infrastructure", "4 - I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShopCore.Application", "OnlineShopCore.Application\OnlineShopCore.Application.csproj", "{E05EBE5D-5F0E-4AA0-A944-74D5D1C8635B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShopCore.Application.Dapper", "OnlineShopCore.Application.Dapper\OnlineShopCore.Application.Dapper.csproj", "{76DEF5F7-5744-4BD9-863A-FAC77CC60A86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShopCore.Application.Dapper", "OnlineShopCore.Application.Dapper\OnlineShopCore.Application.Dapper.csproj", "{76DEF5F7-5744-4BD9-863A-FAC77CC60A86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

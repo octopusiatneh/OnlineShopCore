@@ -238,6 +238,7 @@ namespace OnlineShopCore.Controllers
                     BirthDay = model.BirthDay,
                     Address = model.Address,
                     Status = Status.Active,
+                    DateCreated = DateTime.Now,
                     Avatar = string.Empty
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -349,6 +350,7 @@ namespace OnlineShopCore.Controllers
                     FullName = model.FullName,
                     BirthDay = DateTime.Parse(model.DoB),
                     PhoneNumber = model.PhoneNumber,
+                    DateCreated = DateTime.Now,
                     EmailConfirmed = true
                 };
                 var result = await _userManager.CreateAsync(user);

@@ -84,7 +84,8 @@ namespace OnlineShopCore.Controllers
             try
             {
                 string term = HttpContext.Request.Query["term"].ToString();
-                var model = _productService.GetAll().Where(p => p.Name.ToLower().Contains(term) || p.Author.AuthorName.ToLower().Contains(term)).Select(p => p.Name).ToList();
+                var model = _productService.GetAll().Where(p => p.Name.ToLower().Contains(term) || p.Author.AuthorName.ToLower()
+                .Contains(term)).Select(p => p.Name).ToList();
                 return Ok(model);
             }
             catch

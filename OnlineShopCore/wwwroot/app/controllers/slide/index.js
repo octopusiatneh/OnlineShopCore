@@ -12,9 +12,6 @@ var slideController = function () {
             errorClass: 'red',
             ignore: [],
             lang: 'en',
-            rules: {
-                txtNameM: { required: true }
-            }
         });
         //todo: binding events to controls  
         $("#btnCreate").on('click', function () {
@@ -65,10 +62,7 @@ var slideController = function () {
                 success: function (response) {
                     var data = response;
                     $('#hidIdM').val(data.Id);
-                    $('#txtNameM').val(data.Name);
                     $('#txtImage').val(data.Image);
-                    $('#txtDescM').val(data.Description);
-                    $('#txtContentM').val(data.Content);                
                     $('#ckStatusM').prop('checked', data.Status == 1);
                     $('#modal-add-edit').modal('show');
                     onlineshop.stopLoading();
@@ -109,22 +103,15 @@ var slideController = function () {
         $('#btnSave').on('click', function (e) {
             if ($('#frmMaintainance').valid()) {
                 e.preventDefault();
-                var id = $('#hidIdM').val();
-                var name = $('#txtNameM').val();
-                var description = $('#txtDescM').val();          
+                var id = $('#hidIdM').val();         
                 var image = $('#txtImage').val();
-
-                var content = $('#txtContentM').val();
                 var status = $('#ckStatusM').prop('checked') == true ? 1 : 0;          
                 $.ajax({
                     type: "POST",
                     url: "/Admin/Slide/SaveEntity",
                     data: {
-                        Id: id,
-                        Name: name,              
+                        Id: id,          
                         Image: image,              
-                        Description: description,
-                        Content: content,
                         Status: status
                     },
                     dataType: "json",
@@ -170,13 +157,7 @@ var slideController = function () {
 
     function resetFormMaintainance() {
         $('#hidIdM').val(0);
-        $('#txtNameM').val('');  
-
-        $('#txtDescM').val('');
-
         $('#txtImage').val('');
-
-        $('#txtContentM').val('');
         $('#ckStatusM').prop('checked', true);
     }
 
@@ -196,7 +177,7 @@ var slideController = function () {
                 autoWidth: true
             }],
             columnDefs: [{
-                targets: [0,3,2],
+                targets: [0,1,2],
                 sortable: false
             }],
             columns: [
@@ -204,8 +185,7 @@ var slideController = function () {
                     data: "Id", render: function (data, type, row) {
                         return '<button style="width: 40px" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete" data-id="' + data + '" class="btn btn-danger btn-delete"><i class="fas fa-trash"></i></button> <button style="width: 40px" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit" data-id="' + data + '" class="btn btn-success btn-edit"><i class="fas fa-pencil-alt"></i></button>';
                     }
-                },
-                { data: "Name" },         
+                },        
                 {
                     data: "Image", render: function (data, type, row) {
                         return data == null ? '<img src="~/admin-side/assets/images/No-image-found.jpg" width=35' : '<img src="' + data + '" width=35 />'

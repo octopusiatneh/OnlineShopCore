@@ -46,7 +46,7 @@ namespace OnlineShopCore.Application.AutoMapper
                .ConstructUsing(c => new Contact(c.Id, c.Name, c.Phone, c.Email, c.Website, c.Address, c.Other, c.Lng, c.Lat, c.Status));
 
             CreateMap<SlideViewModel, Slide>()
-              .ConstructUsing(c => new Slide(c.Id, c.Name, c.Description, c.Image, c.Status, c.Content));
+              .ConstructUsing(c => new Slide(c.Id, c.Image, c.Status));
 
             CreateMap<AnnouncementViewModel, Announcement>()
                 .ConstructUsing(c => new Announcement(c.Title, c.Content, c.Status));
