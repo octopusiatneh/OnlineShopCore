@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +29,7 @@ using PaulMiami.AspNetCore.Mvc.Recaptcha;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace OnlineShopCore
 {
@@ -73,7 +75,7 @@ namespace OnlineShopCore
             });
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromHours(2);
+                options.IdleTimeout = TimeSpan.FromMinutes(1);
                 options.Cookie.HttpOnly = true;
             });
             services.AddAutoMapper();
@@ -87,6 +89,17 @@ namespace OnlineShopCore
                 {
                     facebookOpts.AppId = Configuration["Authentication:Facebook:AppId"];
                     facebookOpts.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                    //facebookOpts.Events = new OAuthEvents()
+                    //{
+                    //    OnRemoteFailure = ctx =>
+                    //    {
+                    //        var authProperties = facebookOpts.StateDataFormat.Unprotect(ctx.Request.Query["state"]);
+                    //        // do something
+                    //        ctx.Response.Redirect("/login.html");
+                    //        ctx.HandleResponse();
+                    //        return Task.FromResult(0);
+                    //    }
+                    //};
                 })
                 .AddGoogle(googleOpts =>
                 {
@@ -170,6 +183,7 @@ namespace OnlineShopCore
             services.AddTransient<IReportService, ReportService>();
             services.AddTransient<IUserReportService, UserReportService>();
             services.AddTransient<IOrderReportService, OrderReportService>();
+            services.AddTransient<ITopProductReportService, TopProductReportService>();
 
             services.AddTransient<IAuthorService, AuthorService>();
             services.AddTransient<IPublisherService, PublisherService>();
@@ -183,9 +197,17 @@ namespace OnlineShopCore
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            app.UseExceptionHandler("/Home/Error");
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
 
-            app.UseStatusCodePagesWithReExecute("/Error/{0}");
+            if (env.IsProduction() || env.IsStaging() || env.IsEnvironment("Staging_2"))
+            {
+                app.UseExceptionHandler("/Home/Error");
+
+                app.UseStatusCodePagesWithReExecute("/Error/{0}");
+            }
 
             app.UseSession();
 

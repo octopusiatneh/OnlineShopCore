@@ -11,7 +11,7 @@ namespace OnlineShopCore.Application.Interfaces
 
         Task<List<FunctionViewModel>> GetAll(string filter);
 
-        IEnumerable<FunctionViewModel> GetAllWithParentId(string parentId);
+        Task<List<FunctionViewModel>> GetAllWithParentId(string parentId);
 
         FunctionViewModel GetById(string id);
 

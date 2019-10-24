@@ -13,6 +13,7 @@ namespace OnlineShopCore.Application.Interfaces
         List<ProductViewModel> GetByName(string keyword);
         ProductViewModel Add(ProductViewModel product);
         void Update(ProductViewModel product);
+        void IncreaseViewCount(int id);
         void Delete(int id);
         ProductViewModel GetById(int id);
         void ImportExcel(string filePath, int categoryId,int authorId, int publisherId);

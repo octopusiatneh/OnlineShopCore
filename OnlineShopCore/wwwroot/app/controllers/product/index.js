@@ -144,7 +144,7 @@ var productController = function () {
                 var authorId = $('#ddlAuthorIdM').combotree('getValue');
                 var publisherId = $('#ddlPublisherIdM').combotree('getValue');
                 var description = $('#txtDescM').val();
-
+                var viewCount = $('#hidViewCount').val();
                 var price = $('#txtPriceM').val();
                 var promotionPrice = $('#txtPromotionPriceM').val();
                 var image = $('#txtImage').val();
@@ -168,6 +168,7 @@ var productController = function () {
                         Price: price,
                         PromotionPrice: promotionPrice,
                         Description: description,
+                        ViewCount: viewCount,
                         Content: content,
                         HomeFlag: showHome,
                         HotFlag: hot,

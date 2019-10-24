@@ -24,7 +24,7 @@ namespace OnlineShopCore.Application.AutoMapper
 
             CreateMap<ProductViewModel, Product>()
                .ConstructUsing(c => new Product(c.Name, c.CategoryId, c.AuthorId, c.PublisherId, c.Image, c.Price,
-               c.PromotionPrice, c.Description, c.Content, c.HomeFlag, c.HotFlag, c.Status, c.SeoAlias));
+               c.PromotionPrice, c.Description, c.Content, c.HomeFlag, c.HotFlag, c.Status, c.SeoAlias, c.ViewCount));
 
             CreateMap<AppUserViewModel, AppUser>()
              .ConstructUsing(c => new AppUser(c.Id.GetValueOrDefault(Guid.Empty), c.FullName, c.Address, c.UserName,

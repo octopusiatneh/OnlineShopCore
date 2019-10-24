@@ -1,14 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using OnlineShopCore.Application.Interfaces;
+using OnlineShopCore.Data.EF;
 using OnlineShopCore.Models.ProductViewModels;
+using OnlineShopCore.Utilities.Constants;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace OnlineShopCore.Controllers
 {
     public class ProductController : Controller
     {
+        readonly AppDbContext _context;
         private IProductCategoryService _productCategoryService;
         private IAuthorService _authorService;
         private IPublisherService _publisherService;
@@ -17,7 +23,7 @@ namespace OnlineShopCore.Controllers
         private IConfiguration _configuration;
 
         public ProductController(IProductService productService, IAuthorService authorService, IPublisherService publisherService, IConfiguration configuration,
-           IBillService billService,
+           IBillService billService, AppDbContext context,
            IProductCategoryService productCategoryService)
         {
             _productService = productService;
@@ -26,6 +32,7 @@ namespace OnlineShopCore.Controllers
             _billService = billService;
             _authorService = authorService;
             _publisherService = publisherService;
+            _context = context;
         }
 
         [Route("products")]
@@ -86,17 +93,37 @@ namespace OnlineShopCore.Controllers
             }
         }
 
-        [Route("{alias}-st-{id}", Name = "ProductDetail")]
+        [Route("{alias}-p{id}", Name = "ProductDetail")]
         public IActionResult Details(int id)
         {
+           
+
             var model = new DetailViewModel();
-            model.Product = _productService.GetById(id);
+            model.Product = _productService.GetById(id);    
+
             model.Author = _authorService.GetById(model.Product.AuthorId);
             model.Publisher = _publisherService.GetById(model.Product.PublisherId);
             model.Category = _productCategoryService.GetById(model.Product.CategoryId);
             model.RelatedProducts = _productService.GetRelatedProducts(id, 12);
             model.ProductImages = _productService.GetImages(id);
 
+           
+
+            var session = HttpContext.Session.GetString(model.Product.SeoAlias);
+            if (session != null)
+            {
+                //The session variable exists. So the user has already visited this site and sessions is still alive.
+                //Ignore this visit. No need to update the counter.    
+            }
+            else
+            {
+                //create a session for visit product markd
+                HttpContext.Session.SetString(model.Product.SeoAlias, "Visited");
+                _productService.IncreaseViewCount(id);
+                _context.SaveChanges();
+            }
+
+           
             return View(model);
         }
     }

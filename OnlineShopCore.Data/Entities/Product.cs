@@ -19,7 +19,7 @@ namespace OnlineShopCore.Data.Entities
         public Product(string name, int categoryId, int authorId, int publisherId, string Image,
             decimal price, decimal? promotionPrice,
             string description, string content, bool? homeFlag, bool? hotFlag,
-           Status status, string seoAlias)
+           Status status, string seoAlias, int viewCount)
         {
             Name = name;
             CategoryId = categoryId;
@@ -34,6 +34,7 @@ namespace OnlineShopCore.Data.Entities
             HotFlag = hotFlag;
             Status = status;
             SeoAlias = seoAlias;
+            ViewCount = viewCount;
         }
 
         public Product(int id, string name, int categoryId, int authorId, int publisherId, string Image,
@@ -100,7 +101,7 @@ namespace OnlineShopCore.Data.Entities
 
         public bool? HotFlag { get; set; }
 
-        public int? ViewCount { get; set; }
+        public int ViewCount { get; set; }
 
         [StringLength(255)]
         public string SeoAlias { set; get; }

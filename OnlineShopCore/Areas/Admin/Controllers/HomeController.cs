@@ -12,12 +12,14 @@ namespace OnlineShopCore.Areas.Admin.Controllers
         private readonly IReportService _reportService;
         private readonly IUserReportService _userReportService;
         private readonly IOrderReportService _orderReportService;
-        public HomeController(IReportService reportService,
+        private readonly ITopProductReportService _topProductReportService;
+        public HomeController(IReportService reportService, ITopProductReportService topProductReportService,
             IUserReportService userReportService, IOrderReportService orderReportService)
         {
             _reportService = reportService;
             _userReportService = userReportService;
             _orderReportService = orderReportService;
+            _topProductReportService = topProductReportService;
         }
         public IActionResult Index()
         {
@@ -39,6 +41,11 @@ namespace OnlineShopCore.Areas.Admin.Controllers
         public async Task<IActionResult> GetNewOrder(string fromDate, string toDate)
         {
             return new OkObjectResult(await _orderReportService.GetReport(fromDate, toDate));
+        }
+
+        public async Task<IActionResult> GetTopVisitProduct()
+        {
+            return new OkObjectResult(await _topProductReportService.GetReport());
         }
     }
 }

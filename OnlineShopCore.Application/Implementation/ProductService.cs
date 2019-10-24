@@ -245,6 +245,9 @@ namespace OnlineShopCore.Application.Implementation
             return product.ProjectTo<ProductViewModel>().ToList();
         }
 
-
+        public void IncreaseViewCount(int id)
+        {
+            _productRepository.FindById(id).ViewCount += 1;
+        }
     }
 }

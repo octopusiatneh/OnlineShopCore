@@ -35,7 +35,7 @@ namespace OnlineShopCore.Application.ViewModels.Product
 
         public bool? HotFlag { get; set; }
 
-        public int? ViewCount { get; set; }
+        public int ViewCount { get; set; }
 
         public virtual ProductCategoryViewModel ProductCategory { set; get; }
 

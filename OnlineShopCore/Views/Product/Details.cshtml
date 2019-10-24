@@ -167,7 +167,7 @@
                     }
 
                     <div class="stext-102 cl3 p-t-23">
-                        @if (product.Content.Length >= 200)
+                        @if (product.Content != null && product.Content.Length >= 200)
                         {
                             @Html.Raw(product.Content.Substring(0, 199))
                             <text> ... </text>
@@ -315,7 +315,7 @@
                     <div class="tab-pane fade" id="review" role="tabpanel">
                         <div class="row">
                             <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
-                                <div class="fb-comments" data-href="https://localhost:44379/@product.SeoAlias-st-@product.Id" data-width="" data-numposts="8"></div>
+                                <div class="fb-comments" data-href="https://localhost:44379/@product.SeoAlias-p@product.Id" data-width="" data-numposts="8"></div>
                             </div>
                         </div>
                     </div>
@@ -345,7 +345,7 @@
             <div class="slick2">
                 @foreach (var item in Model.RelatedProducts)
                 {
-                    var url = item.SeoAlias + "-st-" + item.Id;
+                    var url = item.SeoAlias + "-p" + item.Id;
                     url = url.ToLower();
                     <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
                         <!-- Block2 -->

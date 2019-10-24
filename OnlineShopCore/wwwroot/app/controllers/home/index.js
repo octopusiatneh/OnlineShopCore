@@ -3,6 +3,7 @@
         loadRevenueData();
         loadUserData();
         loadOrderData();
+        loadTopVisitProductData();
     }
 
     function loadRevenueData(from, to) {
@@ -27,7 +28,7 @@
                 onlineshop.notify('Có lỗi xảy ra khi tải dữ liệu doanh thu', 'error');
                 onlineshop.stopLoading();
             }
-        });   
+        });
     }
 
     function loadUserData(from, to) {
@@ -75,6 +76,26 @@
             },
             error: function (status) {
                 onlineshop.notify('Có lỗi xảy ra khi tải dữ liệu đơn hàng', 'error');
+                onlineshop.stopLoading();
+            }
+        });
+    }
+
+    function loadTopVisitProductData() {
+        $.ajax({
+            type: "GET",
+            url: "/Admin/Home/GetTopVisitProduct",
+            dataType: "json",
+            beforeSend: function () {
+                onlineshop.startLoading();
+            },
+            success: function (response) {
+                initTopVisitProductChart(response);
+                onlineshop.stopLoading();
+
+            },
+            error: function (status) {
+                onlineshop.notify('Có lỗi xảy ra khi tải dữ liệu', 'error');
                 onlineshop.stopLoading();
             }
         });
@@ -169,7 +190,7 @@
                         }
                     }], chart_plot_02_settings);
             }
-                
+
             else {
                 document.getElementById("chart_plot_02").innerHTML = "Không có dữ liệu hóa đơn!!";
             }
@@ -364,6 +385,49 @@
             }
             else {
                 document.getElementById("chart_order").innerHTML = "Không có đơn hàng mới!!";
+            }
+        }
+    }
+
+    function initTopVisitProductChart(dataList) {
+        var arrTopProduct = [];
+        $.each(dataList, function (i, item) {
+            arrTopProduct.push({
+                'label': item.label,
+                'data': item.data
+            });
+        }); 
+
+        var options = {
+            series: {
+                pie: {
+                    show: true,
+                    radius: 3 / 4,
+                    label: {
+                        show: true,
+                        radius: 3 / 4,
+                        formatter: function (label, series) {
+                            return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
+                        },
+                        background: {
+                            opacity: 0.5,
+                            color: '#000'
+                        }
+                    },
+                    innerRadius: 0.2
+                },
+                legend: {
+                    show: false
+                }
+            },
+        };
+
+        if ($("#chart_top_product").length > 0) {
+            if (arrTopProduct.length > 0) {
+                $.plot($("#chart_top_product"), arrTopProduct, options);
+            }
+            else {
+                document.getElementById("chart_top_product").innerHTML = "Không có dữ liệu!!";
             }
         }
     }

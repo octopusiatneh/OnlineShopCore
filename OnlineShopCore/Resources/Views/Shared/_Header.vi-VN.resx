@@ -126,6 +126,9 @@
   <data name="Contact" xml:space="preserve">
     <value>Liên hệ</value>
   </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Trang quản trị</value>
+  </data>
   <data name="Free" xml:space="preserve">
     <value>Giao hàng miễn phí cho đơn hàng trên $100</value>
   </data>

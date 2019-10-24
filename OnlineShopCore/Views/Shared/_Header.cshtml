@@ -68,10 +68,10 @@
                             </li>
                         }
 
-                        @if (this.User.IsInRole("Admin"))
+                        @if ( this.User.IsInRole("Admin") || this.User.IsInRole("Staff") )
                         {
                             <li>
-                                <a href="/admin/home">Trang quản trị</a>
+                                <a href="/admin/home">@Localizer["Dashboard"]</a>
                             </li>
                         }
                     </ul>

@@ -4,14 +4,14 @@
 AS
 BEGIN
 		  SELECT
-    CONVERT(VARCHAR(10), us.DateCreated, 101) as Date,
+    CAST(us.DateCreated AS DATE) as Date,
     COUNT(*) as TotalNewUser
 FROM
     AppUsers us
 	where us.DateCreated >= cast(@fromDate as date)
 				and us.DateCreated <= cast(@toDate as date)
 GROUP BY
-    CONVERT(VARCHAR(10), us.DateCreated, 101)
+    CAST(us.DateCreated AS DATE)
 END
 
 EXEC dbo.GetTotalNewUser @fromDate = '10/1/2019',

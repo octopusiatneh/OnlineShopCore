@@ -16,8 +16,8 @@ namespace OnlineShopCore.Application.Implementation
 {
     public class FunctionService : IFunctionService
     {
-        private IFunctionRepository _functionRepository;
-        private IUnitOfWork _unitOfWork;
+        private readonly IFunctionRepository _functionRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public FunctionService(IMapper mapper,
@@ -60,9 +60,13 @@ namespace OnlineShopCore.Application.Implementation
             return query.OrderBy(x => x.ParentId).ProjectTo<FunctionViewModel>().ToListAsync();
         }
 
-        public IEnumerable<FunctionViewModel> GetAllWithParentId(string parentId)
+        public Task<List<FunctionViewModel>> GetAllWithParentId(string parentId)
         {
-            return _functionRepository.FindAll(x => x.ParentId == parentId).ProjectTo<FunctionViewModel>();
+            var query = _functionRepository.FindAll(x => x.Status == Status.Active);
+
+            query = query.Where(x => x.ParentId.Contains(parentId) || x.Id == (parentId));
+
+            return query.OrderBy(x => x.ParentId).ProjectTo<FunctionViewModel>().ToListAsync();
         }
         public void Save()
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using OnlineShopCore.Application.Interfaces;
@@ -8,6 +9,7 @@ using System.Linq;
 
 namespace OnlineShopCore.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,Staff")]
     public class SlideController : BaseController
     {
         private ISlideService _slideService;
