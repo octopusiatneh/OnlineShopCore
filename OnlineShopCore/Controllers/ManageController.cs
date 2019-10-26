@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OnlineShopCore.Data.EF;
 using OnlineShopCore.Data.Entities;
 using OnlineShopCore.Models.ManageViewModels;
 using OnlineShopCore.Services;
@@ -15,11 +16,12 @@ using System.Threading.Tasks;
 namespace OnlineShopCore.Controllers
 {
     [Authorize]
-    [Route("[controller]/[action]")]
+    //[Route("[controller]/[action]")]
     public class ManageController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly AppDbContext _context;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly UrlEncoder _urlEncoder;
@@ -31,9 +33,11 @@ namespace OnlineShopCore.Controllers
           UserManager<AppUser> userManager,
           SignInManager<AppUser> signInManager,
           IEmailSender emailSender,
+          AppDbContext context,
           ILogger<ManageController> logger,
           UrlEncoder urlEncoder)
         {
+            _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
@@ -45,6 +49,7 @@ namespace OnlineShopCore.Controllers
         public string StatusMessage { get; set; }
 
         [HttpGet]
+        [Route("account.html")]
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -56,13 +61,42 @@ namespace OnlineShopCore.Controllers
             var model = new IndexViewModel
             {
                 Username = user.UserName,
+                FullName = user.FullName,
                 Email = user.Email,
+                Address = user.Address,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
                 StatusMessage = StatusMessage
             };
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetOrderHistory()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            var query = from us in _context.AppUsers
+                        join b in _context.Bills on us.Id equals b.CustomerId
+                        join bd in _context.BillDetails on b.Id equals bd.BillId
+                        join p in _context.Products on bd.ProductId equals p.Id
+                        where us.Id == user.Id
+                        select new OrderHistoryViewModel
+                        {
+                            ProductName = p.Name,
+                            BillId = b.Id,
+                            Image = p.Image,
+                            Quantity = bd.Quantity,
+                            Price = bd.Price
+                        };
+            var list = query.ToList();
+
+            return new ObjectResult(list);
         }
 
         [HttpPost]

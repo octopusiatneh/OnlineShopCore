@@ -6,6 +6,8 @@ namespace OnlineShopCore.Models.ManageViewModels
     {
         public string Username { get; set; }
 
+        public string FullName { get; set; }
+
         public bool IsEmailConfirmed { get; set; }
 
         [Required]
@@ -15,6 +17,8 @@ namespace OnlineShopCore.Models.ManageViewModels
         [Phone]
         [Display(Name = "Phone number")]
         public string PhoneNumber { get; set; }
+
+        public string Address { get; set; }
 
         public string StatusMessage { get; set; }
     }
