@@ -109,6 +109,14 @@ namespace OnlineShopCore.Controllers
             return new ObjectResult(list);
         }
 
+        [HttpPut]
+        public IActionResult CancelOrder(int billId)
+        {
+            _billService.UpdateStatus(billId, BillStatus.Cancelled);
+
+            return new OkResult();
+        }
+
         [HttpGet]
         public IActionResult GetBillStatus()
         {

@@ -27,7 +27,7 @@
 
 
             <div class="text-center">
-                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+                <img src="https://api.adorable.io/avatars/285/abott@adorable.png" class="avatar img-circle img-thumbnail" alt="avatar">
                 <h6>Upload a different photo...</h6>
                 <input type="file" class="text-center center-block file-upload">
             </div></hr><br>
@@ -120,8 +120,8 @@
 
                     <script id="template-order-history" type="x-tmpl-mustache">
                         <tr class="tr-display-bill-id-{{BillId}}">
-                            <td colspan=3 >
-                                <h5>Đơn hàng số: {{BillId}} | {{BillStatus}}</h5>
+                            <td colspan=3>
+                                <h5>Đơn hàng số: {{BillId}} | {{BillStatus}} | <button data-id="{{BillId}}" id="btn-cancel-order">Hủy đơn hàng</button> </h5>
                             </td>
                         </tr>
                         <tr class="table_row" data-id="{{ProductId}}">
@@ -139,6 +139,26 @@
                     </script>
 
                     <script id="template-order-history-2" type="x-tmpl-mustache">
+                        <tr class="table_row" data-id="{{ProductId}}">
+                            <td class="column-1">
+                                <div class="itemcart1">
+                                    <img src="{{Image}}" style="width:60px;height:80px" alt="{{ProductName}}" />
+                                </div>
+                            </td>
+                            <td class="column-2">{{ProductName}}</td>
+                            <td class="column-3 txt-center">$ {{Price}}</td>
+                            <td class="column-4">
+                                <input data-id="{{ProductId}}" readonly tabindex="-1" class="mtext-104 cl3 txt-center txtQuantity" value="{{Quantity}}">
+                            </td>
+                        </tr>
+                    </script>
+
+                    <script id="template-order-history-with-canceled-status" type="x-tmpl-mustache">
+                        <tr class="tr-display-bill-id-{{BillId}}">
+                            <td colspan=3>
+                                <h5>Đơn hàng số: {{BillId}} | {{BillStatus}}</h5>
+                            </td>
+                        </tr>
                         <tr class="table_row" data-id="{{ProductId}}">
                             <td class="column-1">
                                 <div class="itemcart1">

@@ -18,7 +18,6 @@ namespace OnlineShopCore.Application.Interfaces
 
         BillViewModel GetDetail(int billId);
 
-
         BillDetailViewModel CreateDetail(BillDetailViewModel billDetailVm);
 
         void DeleteDetail(int productId, int billId, int colorId, int sizeId);
@@ -28,13 +27,7 @@ namespace OnlineShopCore.Application.Interfaces
         List<BillDetailViewModel> GetBillDetails(int billId);
 
         string GetBillStatus(int billId);
-
-        List<ColorViewModel> GetColors();
-
-        List<SizeViewModel> GetSizes();
-        ColorViewModel GetColor(int id);
-
-        SizeViewModel GetSize(int id);
+        
         void Save();
     }
 }
