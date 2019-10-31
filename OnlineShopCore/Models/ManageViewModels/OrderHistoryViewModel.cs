@@ -1,4 +1,5 @@
 ﻿using OnlineShopCore.Application.ViewModels.Product;
+using OnlineShopCore.Data.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace OnlineShopCore.Models.ManageViewModels
         public string ProductName { get; set; }
 
         public int BillId { get; set; }
+
+        public BillStatus Billstatus { get; set; }
 
         public string Image { get; set; }
 

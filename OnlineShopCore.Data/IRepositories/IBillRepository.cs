@@ -5,5 +5,6 @@ namespace OnlineShopCore.Data.IRepositories
 {
     public interface IBillRepository : IRepository<Bill, int>
     {
+        
     }
 }

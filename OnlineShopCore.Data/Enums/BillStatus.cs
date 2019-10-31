@@ -4,15 +4,15 @@ namespace OnlineShopCore.Data.Enums
 {
     public enum BillStatus
     {
-        [Description("New bill")]
+        [Description("Chưa duyệt")]
         New,
-        [Description("In Progress")]
+        [Description("Đã chuyển cho bên vận chuyển")]
         InProgress,
-        [Description("Returned")]
+        [Description("Đơn hàng bị trả")]
         Returned,
-        [Description("Cancelled")]
+        [Description("Đơn hàng bị hủy")]
         Cancelled,
-        [Description("Completed")]
+        [Description("Đã giao hàng")]
         Completed
     }
 }

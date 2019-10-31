@@ -1,5 +1,9 @@
 ﻿var AccountController = function () {
+    var cachedObj = {
+        billStatuses: []
+    }
     this.initialize = function () {
+        loadBillStatus();
         loadData();
     }
 
@@ -12,6 +16,7 @@
             success: function (response) {
                 var template = $('#template-order-history').html();
                 var template2 = $('#template-order-history-2').html();
+
                 var temp;
                 var isDuplicate;
                 var render = "";
@@ -22,17 +27,21 @@
                         isDuplicate = false;
                         temp = temp2;
                     }
-                    else
+                    else {
                         isDuplicate = true;
+                    }
+                    console.log(item);
+
                     if (!isDuplicate) {
                         render += Mustache.render(template,
                             {
                                 ProductName: item.ProductName,
+                                BillStatus: getBillStatusName(item.Billstatus),
                                 Image: item.Image,
                                 BillId: item.BillId,
                                 Price: onlineshop.formatNumber(item.Price, 0),
-                                Quantity: item.Quantity,
-                                //Url: '/' + item.Product.SeoAlias + "-st-" + item.Product.Id
+                                Quantity: item.Quantity
+                                //Url: '/' + item.Product.SeoAlias + "-p" + item.Product.Id
                             });
                     }
                     else {
@@ -40,15 +49,15 @@
                         render += Mustache.render(template2,
                             {
                                 ProductName: item.ProductName,
+                                BillStatus: getBillStatusName(item.Billstatus),
                                 Image: item.Image,
                                 Price: onlineshop.formatNumber(item.Price, 0),
-                                Quantity: item.Quantity,
-                                //Url: '/' + item.Product.SeoAlias + "-st-" + item.Product.Id
+                                Quantity: item.Quantity
+                                //Url: '/' + item.Product.SeoAlias + "-p" + item.Product.Id
                             });
                     }
-                    
                 });
-                
+
                 if (render !== "") {
                     $('#table-order-history-content').html(render);
                 }
@@ -57,5 +66,23 @@
             }
         });
         return false;
+    }
+
+    function getBillStatusName(i) {
+        if (i >= 0)
+            return cachedObj.billStatuses[i].Name;
+        else
+            return '';
+    }
+
+    function loadBillStatus() {
+        return $.ajax({
+            type: "GET",
+            url: "/Manage/GetBillStatus",
+            dataType: "json",
+            success: function (response) {
+                cachedObj.billStatuses = response;
+            }
+        });
     }
 }

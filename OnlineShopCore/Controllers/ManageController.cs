@@ -3,11 +3,16 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OnlineShopCore.Application.Interfaces;
+using OnlineShopCore.Application.ViewModels.Common;
 using OnlineShopCore.Data.EF;
 using OnlineShopCore.Data.Entities;
+using OnlineShopCore.Data.Enums;
 using OnlineShopCore.Models.ManageViewModels;
 using OnlineShopCore.Services;
+using OnlineShopCore.Utilities.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -20,6 +25,8 @@ namespace OnlineShopCore.Controllers
     public class ManageController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
+        private readonly IBillService _billService;
+
         private readonly SignInManager<AppUser> _signInManager;
         private readonly AppDbContext _context;
         private readonly IEmailSender _emailSender;
@@ -35,9 +42,11 @@ namespace OnlineShopCore.Controllers
           IEmailSender emailSender,
           AppDbContext context,
           ILogger<ManageController> logger,
+          IBillService billService,
           UrlEncoder urlEncoder)
         {
             _context = context;
+            _billService = billService;
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
@@ -89,6 +98,7 @@ namespace OnlineShopCore.Controllers
                         select new OrderHistoryViewModel
                         {
                             ProductName = p.Name,
+                            Billstatus = b.BillStatus,
                             BillId = b.Id,
                             Image = p.Image,
                             Quantity = bd.Quantity,
@@ -97,6 +107,18 @@ namespace OnlineShopCore.Controllers
             var list = query.ToList();
 
             return new ObjectResult(list);
+        }
+
+        [HttpGet]
+        public IActionResult GetBillStatus()
+        {
+            List<EnumModel> enums = ((BillStatus[])Enum.GetValues(typeof(BillStatus)))
+                .Select(c => new EnumModel()
+                {
+                    Value = (int)c,
+                    Name = c.GetDescription()
+                }).ToList();
+            return new OkObjectResult(enums);
         }
 
         [HttpPost]

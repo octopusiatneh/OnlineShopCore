@@ -71,7 +71,7 @@
                     $('#txtCustomerMessage').prop('disabled', true);
                     $('#ddlPaymentMethod').val(data.PaymentMethod);
                     $('#ddlPaymentMethod').prop('disabled', true);
-                    $('#ddlCustomerId').val(data.CustomerId);
+                    $('#hidCustomerId').val(data.CustomerId);
                     $('#ddlBillStatus').val(data.BillStatus);
                     if (data.BillStatus == '4') {
                         $('#ddlBillStatus').prop('disabled', true);
@@ -114,7 +114,7 @@
                 var dateCreated = $('#hidDateCreated').val();
                 var customerName = $('#txtCustomerName').val();
                 var customerAddress = $('#txtCustomerAddress').val();
-                var customerId = $('#ddlCustomerId').val();
+                var customerId = $('#hidCustomerId').val();
                 var customerMobile = $('#txtCustomerMobile').val();
                 var customerMessage = $('#txtCustomerMessage').val();
                 var paymentMethod = $('#ddlPaymentMethod').val();
