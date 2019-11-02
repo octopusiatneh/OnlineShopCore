@@ -97,7 +97,7 @@
                             Price: onlineshop.formatNumber(item.Price, 0),
                             Quantity: item.Quantity,
                             Amount: onlineshop.formatNumber(item.Price * item.Quantity, 0),
-                            Url: '/' + item.Product.SeoAlias + "-st-" + item.Product.Id
+                            Url: '/' + item.Product.SeoAlias + "-p" + item.Product.Id
                         });
                     totalAmount += item.Price * item.Quantity;
                 });

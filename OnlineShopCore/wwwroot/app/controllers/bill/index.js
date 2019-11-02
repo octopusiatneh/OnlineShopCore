@@ -15,11 +15,11 @@
         registerEvents();
     }
 
-   
+
 
     function registerEvents() {
 
-       
+
 
         //Init validation
         $('#frmMaintainance').validate({
@@ -73,31 +73,59 @@
                     $('#ddlPaymentMethod').prop('disabled', true);
                     $('#hidCustomerId').val(data.CustomerId);
                     $('#ddlBillStatus').val(data.BillStatus);
-                    if (data.BillStatus == '4') {
+                    if (data.BillStatus == '4' || data.BillStatus == '3') {
                         $('#ddlBillStatus').prop('disabled', true);
+
+                        var billDetails = data.BillDetails;
+                        if (data.BillDetails != null && data.BillDetails.length > 0) {
+                            var render = '';
+                            var templateDetails = $('#template-table-bill-details').html();
+
+                            $.each(billDetails, function (i, item) {
+                                var products = getProductOptions(item.ProductId);
+
+                                render += Mustache.render(templateDetails,
+                                    {
+                                        Id: item.Id,
+                                        Products: products,
+                                        Quantity: item.Quantity
+                                    });
+                            });
+                            $('#tbl-bill-details').html(render);
+                        }
+                        $('tbl-bill-details').prop('disable', true);
+                        $('#modal-detail').modal('show');
+                        $("#tbl-bill-details input").prop('disabled', true);
+                        $("#tbl-bill-details select").prop('disabled', true);
+                        $("#tbl-bill-details button").prop('disabled', true);
+                        $("#btnAddDetail").prop('disabled', true);
+                        onlineshop.stopLoading();
                     }
-                    
 
-                    var billDetails = data.BillDetails;
-                    if (data.BillDetails != null && data.BillDetails.length > 0) {
-                        var render = '';
-                        var templateDetails = $('#template-table-bill-details').html();
+                    else {
+                        var billDetails = data.BillDetails;
+                        if (data.BillDetails != null && data.BillDetails.length > 0) {
+                            var render = '';
+                            var templateDetails = $('#template-table-bill-details').html();
 
-                        $.each(billDetails, function (i, item) {
-                            var products = getProductOptions(item.ProductId);
+                            $.each(billDetails, function (i, item) {
+                                var products = getProductOptions(item.ProductId);
 
-                            render += Mustache.render(templateDetails,
-                                {
-                                    Id: item.Id,
-                                    Products: products,
-                                    Quantity: item.Quantity
-                                });
-                        });
-                        $('#tbl-bill-details').html(render);
+                                render += Mustache.render(templateDetails,
+                                    {
+                                        Id: item.Id,
+                                        Products: products,
+                                        Quantity: item.Quantity
+                                    });
+                            });
+                            $('#tbl-bill-details').html(render);
+                        }
+                        $('tbl-bill-details').prop('disable', true);
+                        $('#modal-detail').modal('show');
+                        onlineshop.stopLoading();
                     }
-                    $('tbl-bill-details').prop('disable', true);
-                    $('#modal-detail').modal('show');
-                    onlineshop.stopLoading();
+
+
 
                 },
                 error: function (e) {
@@ -124,7 +152,7 @@
                 var billDetails = [];
                 $.each($('#tbl-bill-details tr'), function (i, item) {
                     billDetails.push({
-                        Id: $(item).data('id'),                       
+                        Id: $(item).data('id'),
                         ProductId: $(item).find('select.ddlProductId').first().val(),
                         Quantity: $(item).find('input.txtQuantity').first().val(),
                         //ColorId: $(item).find('select.ddlColorId').first().val(),
@@ -140,7 +168,7 @@
                         Id: id,
                         BillStatus: billStatus,
                         DateCreated: dateCreated,
-                        CustomerAddress: customerAddress,   
+                        CustomerAddress: customerAddress,
                         CustomerId: customerId,
                         CustomerMessage: customerMessage,
                         CustomerMobile: customerMobile,
@@ -158,7 +186,7 @@
                         $('#modal-detail').modal('hide');
                         resetFormMaintainance();
 
-                        onlineshop.stopLoading();          
+                        onlineshop.stopLoading();
                         loadData(true);
                     },
                     error: function () {
@@ -179,7 +207,7 @@
             var render = Mustache.render(template,
                 {
                     Id: 0,
-                    Products: products, 
+                    Products: products,
                     //Colors: colors,
                     //Sizes: sizes,
                     Quantity: 0,
@@ -305,7 +333,7 @@
         $('#txtCustomerMessage').prop('disabled', false);
         $('#ddlPaymentMethod').prop('disabled', false);
         $('#ddlBillStatus').prop('disabled', false);
-
+        $("#btnAddDetail").prop('disabled', false);
     }
 
     function loadData() {
@@ -388,26 +416,36 @@
                     column.data().unique().sort().each(function (d, j) {
                         select.append('<option value="' + getBillStatusName(d) + '">' + getBillStatusName(d) + '</option>')
                     });
-                }); 
+                });
             },
             processing: true, // for show progress bar
             serverSide: false, // for process server side
             destroy: true,
-            order: [[3, "desc"]],
+            order: [[3, "asc"]],
             ajax: {
                 type: 'GET',
                 url: '/admin/bill/GetAll',
                 dataSrc: '',
                 dataType: 'json'
             },
-            columnDefs: [{
-                targets: [0, 1, 2, 3, 4],
-                autoWidth: true
-            }],
-            columnDefs: [{
-                targets: [0, 2, 4],
-                sortable: false
-            }],
+            columnDefs: [
+                {
+                    targets: [0, 1, 2, 3, 4],
+                    searchable: false
+                },
+                {
+                    targets: [0, 1, 2, 3, 4],
+                    autoWidth: true
+                },
+                {
+                    targets: [0, 2, 4],
+                    sortable: false
+                },
+                {
+                    targets: [5],
+                    visible: false
+                }
+            ],
             columns: [
                 {
                     data: "Id", render: function (data, type, row) {
@@ -420,7 +458,6 @@
                         return data = getPaymentMethodName(data)
                     }
                 },
-              
                 {
                     data: "DateCreated", render: function (data, type, row) {
                         return data = moment(data).format('DD/MM/YYYY HH:mm:ss')
@@ -429,6 +466,11 @@
                 {
                     data: "BillStatus", render: function (data, type, row) {
                         return data = getBillStatusName(data)
+                    }
+                },
+                {
+                    data: "Id", render: function (data, type, row) {
+                        return data = data
                     }
                 }
             ]

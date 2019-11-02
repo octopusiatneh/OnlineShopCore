@@ -3,80 +3,81 @@
     var userInfo = ViewData["UserInfo"] as AppUser;
 }
 @section Scripts{
+    <script src="https://www.paypal.com/sdk/js?client-id=AVUbFuKee5wIXQvJi1g8soDDy2rO7r3FzLaTTvKiWPCinD7K0lYtJmHNm1TN1OMfc0z0rBJ_7Vu2Bq8A"></script>
     <script src="~/app-client/controllers/cart/checkout.js" asp-append-version="true"></script>
-    
+
     <script>
-         $(function () {
-                $("input[name='paymentMethod']").click(function () {
-                    if ($("#1").is(":checked")) {
-                        $("#paypal-button-container").show();
-                        $('#submit-form').hide();
-                        $("#submit-form").attr("disabled", true);
-                    } else {
-                        $("#paypal-button-container").hide();
-                        $('#submit-form').removeAttr("disabled");
-                        $('#submit-form').show();
-                    }
-                });
+        $(function () {
+            $("input[name='paymentMethod']").click(function () {
+                if ($("#1").is(":checked")) {
+                    $("#paypal-button-container").show();
+                    $('#submit-form').hide();
+                    $("#submit-form").attr("disabled", true);
+                } else {
+                    $("#paypal-button-container").hide();
+                    $('#submit-form').removeAttr("disabled");
+                    $('#submit-form').show();
+                }
             });
+        });
     </script>
     <script>
-            $(function () {
-                $("input[name='paymentMethod']").click(function () {
-                    if ($("#1").is(":checked")) {
-                        $("#paypal-button-container").show();
-                        $("#submit-form").attr("disabled", true);
-                    } else {
-                        $("#paypal-button-container").hide();
-                        $('#submit-form').removeAttr("disabled");
-                    }
-                });
-            });
-
-            $(document).ready(function () {
-                $("#submit-form").click(function () {
-                    $("#billStatus-0").prop("checked", true);
-                });
-            });
-
-            var totalAmount = 0;
-            $.ajax({
-                url: '/Cart/GetCart',
-                type: 'GET',
-                dataType: 'json',
-                async: false,
-                success: function (response) {
-                    $.each(response, function (i, item) {
-                        totalAmount += item.Price * item.Quantity;
-                    });
-
-                    console.log(totalAmount);
+        $(function () {
+            $("input[name='paymentMethod']").click(function () {
+                if ($("#1").is(":checked")) {
+                    $("#paypal-button-container").show();
+                    $("#submit-form").attr("disabled", true);
+                } else {
+                    $("#paypal-button-container").hide();
+                    $('#submit-form').removeAttr("disabled");
                 }
             });
-            console.log(totalAmount);
+        });
 
-            paypal.Buttons({
-                createOrder: function (data, actions) {
-                    // Set up the transaction
-                    return actions.order.create({
-                        purchase_units: [{
-                            amount: {
-                                value: totalAmount.toString()
-                            }
-                        }]
-                    });
-                },
-                onApprove: function (data, actions) {
-                    // Capture the funds from the transaction
-                    return actions.order.capture().then(function (details) {
-                        document.getElementById("billStatus-4").checked = true;
-                        document.forms["myform"].submit();
-                        // Show a success message to your buyer
-                        alert('Transaction completed by ' + details.payer.name.given_name);
-                    });
-                }
-            }).render('#paypal-button-container');
-        </script>
+        $(document).ready(function () {
+            $("#submit-form").click(function () {
+                $("#billStatus-0").prop("checked", true);
+            });
+        });
+
+        var totalAmount = 0;
+        $.ajax({
+            url: '/Cart/GetCart',
+            type: 'GET',
+            dataType: 'json',
+            async: false,
+            success: function (response) {
+                $.each(response, function (i, item) {
+                    totalAmount += item.Price * item.Quantity;
+                });
+
+                console.log(totalAmount);
+            }
+        });
+        console.log(totalAmount);
+
+        paypal.Buttons({
+            createOrder: function (data, actions) {
+                // Set up the transaction
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: totalAmount.toString()
+                        }
+                    }]
+                });
+            },
+            onApprove: function (data, actions) {
+                // Capture the funds from the transaction
+                return actions.order.capture().then(function (details) {
+                    document.getElementById("billStatus-4").checked = true;
+                    document.forms["myform"].submit();
+                    // Show a success message to your buyer
+                    alert('Transaction completed by ' + details.payer.name.given_name);
+                });
+            }
+        }).render('#paypal-button-container');
+    </script>
 
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }
@@ -129,9 +130,9 @@ else
                             }
                             else
                             {
-                                <input class="stext-111 cl2 plh3 size-116 p-lr-15" type="text" id="txtName" asp-for="CustomerName" placeholder="Full name" >
-                                <input class="stext-111 cl2 plh3 size-116 p-lr-15" type="text" id="txtAddress" asp-for="CustomerAddress" placeholder="Shipping address" >
-                                <input class="stext-111 cl2 plh3 size-116 p-lr-15" type="text" id="txtPhone" asp-for="CustomerMobile" placeholder="Phone number" >
+                                <input class="stext-111 cl2 plh3 size-116 p-lr-15" type="text" id="txtName" asp-for="CustomerName" placeholder="Full name">
+                                <input class="stext-111 cl2 plh3 size-116 p-lr-15" type="text" id="txtAddress" asp-for="CustomerAddress" placeholder="Shipping address">
+                                <input class="stext-111 cl2 plh3 size-116 p-lr-15" type="text" id="txtPhone" asp-for="CustomerMobile" placeholder="Phone number">
                             }
                         </div>
 
