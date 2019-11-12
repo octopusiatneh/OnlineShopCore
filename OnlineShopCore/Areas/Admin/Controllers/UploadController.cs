@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OnlineShopCore.Utilities.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -72,7 +73,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
                 var file = files[0];
                 var filename = ContentDispositionHeaderValue
                                     .Parse(file.ContentDisposition)
-                                    .FileName
+                                    .FileName = (TextHelper.ToUnsignFileName(file.Name))
                                     .Trim('"');
 
                 var imageFolder = $@"\uploaded\images\{now.ToString("yyyyMMdd")}";

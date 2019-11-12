@@ -118,72 +118,54 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AdditionalInfor" xml:space="preserve">
-    <value>Ghi chú cho đơn hàng</value>
+    <value>Additional Information</value>
   </data>
   <data name="Address" xml:space="preserve">
-    <value>Địa chỉ</value>
+    <value>Address</value>
+  </data>
+  <data name="ArriveTime" xml:space="preserve">
+    <value>Delivery date:</value>
   </data>
   <data name="CartTotal" xml:space="preserve">
-    <value>Giỏ hàng của bạn</value>
-  </data>
-  <data name="ClearCart" xml:space="preserve">
-    <value>Xóa giỏ hàng</value>
+    <value>Payment</value>
   </data>
   <data name="ContactPhone" xml:space="preserve">
-    <value>Số điện thoại liên hệ</value>
-  </data>
-  <data name="ContinueShopping" xml:space="preserve">
-    <value>Tiếp tục mua sắm</value>
+    <value>Contact Phone</value>
   </data>
   <data name="CustomerInfor" xml:space="preserve">
-    <value>Thông tin khách hàng</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Xóa</value>
+    <value>Customer Information</value>
   </data>
   <data name="District" xml:space="preserve">
-    <value>Chọn quận/huyện...</value>
-  </data>
-  <data name="Home" xml:space="preserve">
-    <value>Trang chủ</value>
+    <value>Select a district...</value>
   </data>
   <data name="Paragraph" xml:space="preserve">
-    <value>Không có phương thức vận chuyển có sẵn. Vui lòng kiểm tra lại địa chỉ của bạn hoặc liên hệ với chúng tôi nếu bạn cần bất kỳ sự giúp đỡ nào.</value>
+    <value>There are no shipping methods available. Please double check your address, or contact us if you need any help.</value>
   </data>
-  <data name="Price" xml:space="preserve">
-    <value>Đơn giá</value>
+  <data name="PaymentMethod" xml:space="preserve">
+    <value>Payment method:</value>
   </data>
   <data name="Proceed" xml:space="preserve">
-    <value>Đặt hàng</value>
-  </data>
-  <data name="ProceedToCheckout" xml:space="preserve">
-    <value>Tiến hành đặt hàng</value>
-  </data>
-  <data name="Product" xml:space="preserve">
-    <value>Sản phẩm</value>
+    <value>Proceed to checkout</value>
   </data>
   <data name="Province" xml:space="preserve">
-    <value>Chọn tỉnh/thành phố...</value>
-  </data>
-  <data name="Quantity" xml:space="preserve">
-    <value>Số lượng</value>
+    <value>Select a province...</value>
   </data>
   <data name="ShipFee" xml:space="preserve">
-    <value>Phí ship</value>
+    <value>Shipping Fee:</value>
   </data>
-  <data name="ShopingCart" xml:space="preserve">
-    <value>Giỏ hàng</value>
+  <data name="ShippingMethod" xml:space="preserve">
+    <value>Shipping method...</value>
   </data>
-  <data name="Subtotal" xml:space="preserve">
-    <value>Tổng tiền (chưa tính phí ship)</value>
+  <data name="SubTotal" xml:space="preserve">
+    <value>Subtotal</value>
   </data>
   <data name="Total" xml:space="preserve">
-    <value>Tổng cộng</value>
+    <value>Total:</value>
   </data>
   <data name="Ward" xml:space="preserve">
-    <value>Chọn phường/xã...</value>
+    <value>Select a ward...</value>
   </data>
   <data name="YourName" xml:space="preserve">
-    <value>Tên của bạn</value>
+    <value>Your name</value>
   </data>
 </root>

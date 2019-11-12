@@ -42,8 +42,6 @@ namespace OnlineShopCore.Data.EF
 
         public DbSet<BillDetail> BillDetails { set; get; }
 
-        public DbSet<Color> Colors { set; get; }
-
         public DbSet<Contact> Contacts { set; get; }
 
         public DbSet<Product> Products { set; get; }
@@ -53,8 +51,6 @@ namespace OnlineShopCore.Data.EF
         public DbSet<ProductImage> ProductImages { set; get; }
 
         public DbSet<Logging> Loggings { get; set; }
-
-        public DbSet<Size> Sizes { set; get; }
 
         public DbSet<Slide> Slides { set; get; }
 
@@ -94,10 +90,9 @@ namespace OnlineShopCore.Data.EF
                 if (changedOrAddedItem != null)
                 {
                     if (item.State == EntityState.Added)
-                    {
                         changedOrAddedItem.DateCreated = DateTime.Now;
-                    }
-                    changedOrAddedItem.DateModified = DateTime.Now;
+                    if (item.State == EntityState.Modified)
+                        changedOrAddedItem.DateModified = DateTime.Now;
                 }
             }
             return base.SaveChanges();

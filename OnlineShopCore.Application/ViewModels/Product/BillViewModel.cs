@@ -17,6 +17,16 @@ namespace OnlineShopCore.Application.ViewModels.Product
         [MaxLength(256)]
         public string CustomerAddress { set; get; }
 
+        //public int ServiceID { get; set; }
+
+        public string Province { get; set; }
+
+        public int DistrictID { get; set; }
+
+        public string WardCode { get; set; }
+
+        public int CODAmount { get; set; }
+
         [Required]
         [MaxLength(50)]
         public string CustomerMobile { set; get; }

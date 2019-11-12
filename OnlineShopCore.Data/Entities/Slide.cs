@@ -15,6 +15,12 @@ namespace OnlineShopCore.Data.Entities
             Status = status;
         }
 
+        public Slide(string image, Status status)
+        {
+            Image = image;
+            Status = status;
+        }
+
         [StringLength(250)]
         [Required]
         public string Image { set; get; }

@@ -6,10 +6,17 @@
     var product = Model.Product;
     var author = Model.Author;
     var publisher = Model.Publisher;
+
 }
 
 @section Scripts{
     <script src="~/app-client/controllers/product/detail.js"></script>
+    <script>
+        var price = onlineshop.formatNumber(@product.Price, 0);
+        //var promotionPrice = onlineshop.formatNumber(@product.PromotionPrice, 0);
+        document.getElementById('price').innerHTML = price;
+        //document.getElementById('promotion-price').innerHTML = promotionPrice;
+    </script>
     <script>
         var productObj = new ProductDetailController();
         productObj.initialize();
@@ -149,20 +156,20 @@
                     @if (product.PromotionPrice.HasValue)
                     {
                         <span class="mtext-106 cl2" style="font-size: 250%">
-                            @Html.Raw("&#36;")@product.PromotionPrice <span class="badge badge-danger">Hot</span>
+                            @Html.Raw("VNĐ") <text id="promotion-price"></text> <span class="badge badge-danger">Hot</span>
                         </span>
 
                         <br />
 
                         <span class="mtext-106 cl2">
-                            <strike>@Html.Raw("&#36;")@product.Price</strike>
+                            <strike>@Html.Raw("VNĐ")<text id="price"></text></strike>
                         </span>
 
                     }
                     else
                     {
                         <span class="mtext-106 cl2">
-                            @Html.Raw("&#36;") @product.Price
+                            @Html.Raw("VNĐ") <text id="price"></text>
                         </span>
                     }
 

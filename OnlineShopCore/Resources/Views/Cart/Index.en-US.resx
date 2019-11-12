@@ -117,20 +117,44 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AdditionalInfor" xml:space="preserve">
+    <value>Additional Information</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="CartTotal" xml:space="preserve">
+    <value>Cart Total</value>
+  </data>
   <data name="ClearCart" xml:space="preserve">
     <value>Clear cart</value>
+  </data>
+  <data name="ContactPhone" xml:space="preserve">
+    <value>Contact Phone</value>
   </data>
   <data name="ContinueShopping" xml:space="preserve">
     <value>Continue shopping</value>
   </data>
+  <data name="CustomerInfor" xml:space="preserve">
+    <value>Customer Information</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="District" xml:space="preserve">
+    <value>Select a district...</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="Paragraph" xml:space="preserve">
+    <value>There are no shipping methods available. Please double check your address, or contact us if you need any help.</value>
+  </data>
   <data name="Price" xml:space="preserve">
     <value>Price</value>
+  </data>
+  <data name="Proceed" xml:space="preserve">
+    <value>Proceed to checkout</value>
   </data>
   <data name="ProceedToCheckout" xml:space="preserve">
     <value>Proceed to Checkout</value>
@@ -138,13 +162,28 @@
   <data name="Product" xml:space="preserve">
     <value>Product</value>
   </data>
+  <data name="Province" xml:space="preserve">
+    <value>Select a province...</value>
+  </data>
   <data name="Quantity" xml:space="preserve">
     <value>Quantity</value>
+  </data>
+  <data name="ShipFee" xml:space="preserve">
+    <value>Shipping Fee</value>
   </data>
   <data name="ShopingCart" xml:space="preserve">
     <value>Shoping Cart</value>
   </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Subtotal</value>
+  </data>
   <data name="Total" xml:space="preserve">
     <value>Total</value>
+  </data>
+  <data name="Ward" xml:space="preserve">
+    <value>Select a ward...</value>
+  </data>
+  <data name="YourName" xml:space="preserve">
+    <value>Your name</value>
   </data>
 </root>

@@ -75,7 +75,7 @@
 
                     console.log(isDuplicate)
                     if (!isDuplicate) {
-                        if (item.Billstatus !== 4 && item.Billstatus !== 3) {
+                        if (item.Billstatus !== 4 && item.Billstatus !== 3 && item.Billstatus !== 1) {
                             console.log('render template 1')
                             render += Mustache.render(template,
                                 {

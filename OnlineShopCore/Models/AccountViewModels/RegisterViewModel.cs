@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnlineShopCore.Models.AccountViewModels
@@ -36,5 +38,11 @@ namespace OnlineShopCore.Models.AccountViewModels
 
         [Display(Name = "Avatar")]
         public string Avatar { get; set; }
+
+        public string Province { get; set; }
+
+        public int DistrictID { get; set; }
+
+        public int WardCode { get; set; }
     }
 }

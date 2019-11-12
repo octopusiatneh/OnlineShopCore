@@ -30,12 +30,15 @@ namespace OnlineShopCore.Data.Entities
             CustomerId = customerId;
         }
 
-        public Bill(int id, string customerName, string customerAddress, string customerMobile, string customerMessage,
-           BillStatus billStatus, PaymentMethod paymentMethod, Status status, Guid? customerId)
+        public Bill(int id, string customerName, string customerAddress, string province, int districtID, string wardCode, int codAmount, string customerMobile, string customerMessage, BillStatus billStatus, PaymentMethod paymentMethod, Status status, Guid? customerId)
         {
             Id = id;
             CustomerName = customerName;
             CustomerAddress = customerAddress;
+            Province = province;
+            DistrictID = districtID;
+            WardCode = wardCode;
+            CODAmount = codAmount;
             CustomerMobile = customerMobile;
             CustomerMessage = customerMessage;
             BillStatus = billStatus;
@@ -52,6 +55,16 @@ namespace OnlineShopCore.Data.Entities
         [MaxLength(256)]
         public string CustomerAddress { set; get; }
 
+        //public int ServiceID { get; set; }
+
+        public string Province { get; set; }
+
+        public int DistrictID { get; set; }
+
+        public string WardCode { get; set; }
+
+        public int CODAmount { get; set; }
+
         [Required]
         [MaxLength(50)]
         public string CustomerMobile { set; get; }
@@ -64,6 +77,7 @@ namespace OnlineShopCore.Data.Entities
         public BillStatus BillStatus { set; get; }
 
         public DateTime DateCreated { set; get; }
+
         public DateTime DateModified { set; get; }
 
         [DefaultValue(Status.Active)]

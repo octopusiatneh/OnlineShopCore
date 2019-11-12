@@ -19,6 +19,10 @@ namespace OnlineShopCore.Application.ViewModels.System
         public string Address { get; set; }
         public string PhoneNumber { set; get; }
         public string Avatar { get; set; }
+
+        public string Province { get; set; }
+        public int DistrictID { get; set; }
+        public int WardCode { get; set; }
         public Status Status { get; set; }
 
         public string Gender { get; set; }

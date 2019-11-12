@@ -14,5 +14,4 @@ BEGIN
               group by Cast(b.DateCreated as DATE)
 END
 
-EXEC dbo.GetRevenueDaily @fromDate = '01/01/2019',
-                         @toDate = '12/31/2019' 
+EXEC dbo.GetRevenueDaily

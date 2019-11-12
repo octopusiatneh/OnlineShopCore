@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Application.ViewModels.Common;
 using OnlineShopCore.Data.EF;
@@ -14,6 +15,7 @@ using OnlineShopCore.Utilities.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -81,6 +83,108 @@ namespace OnlineShopCore.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
+        public async Task<JsonResult> GetWards(int districtID)
+        {
+            var url = "https://dev-online-gateway.ghn.vn/apiv3-api/api/v1/apiv3/GetWards";
+
+            var requestBody = JsonConvert.SerializeObject(new { token = "TokenStaging", DistrictID = districtID });
+            var data = new StringContent(requestBody, Encoding.UTF8, "application/json");
+
+            HttpClient client = new HttpClient();
+
+            HttpResponseMessage response = client.PostAsync(url, data).Result;
+
+            var resp = await response.Content.ReadAsStringAsync();
+
+            RootObject rootObject = JsonConvert.DeserializeObject<RootObject>(resp);
+            return Json(rootObject.data.Wards);
+        }
+
+        [AllowAnonymous]
+        public async Task<JsonResult> CalculateFee(int weight, int toDistrictID, int serviceID)
+        {
+            var url = "https://dev-online-gateway.ghn.vn/apiv3-api/api/v1/apiv3/CalculateFee";
+
+            var requestBody = JsonConvert.SerializeObject(new { token = "TokenStaging", Weight = weight, FromDistrictID = 1456, ToDistrictID = toDistrictID, ServiceID = serviceID });
+            var data = new StringContent(requestBody, Encoding.UTF8, "application/json");
+
+            HttpClient client = new HttpClient();
+
+            HttpResponseMessage response = client.PostAsync(url, data).Result;
+
+            var resp = await response.Content.ReadAsStringAsync();
+
+            RootObject rootObject = JsonConvert.DeserializeObject<RootObject>(resp);
+            return Json(rootObject.data.ServiceFee);
+        }
+
+        [AllowAnonymous]
+        public async Task<JsonResult> CalculateDeliveryDate(int toDistrictID)
+        {
+            var url = "https://dev-online-gateway.ghn.vn/apiv3-api/api/v1/apiv3/FindAvailableServices";
+
+            var requestBody = JsonConvert.SerializeObject(new { token = "TokenStaging", FromDistrictID = 1456, ToDistrictID = toDistrictID });
+            var data = new StringContent(requestBody, Encoding.UTF8, "application/json");
+
+            HttpClient client = new HttpClient();
+
+            HttpResponseMessage response = client.PostAsync(url, data).Result;
+
+            var resp = await response.Content.ReadAsStringAsync();
+
+            RootObjectDeliveryDate rootObject = JsonConvert.DeserializeObject<RootObjectDeliveryDate>(resp);
+            return Json(rootObject.data);
+        }
+
+        private class Ward
+        {
+            public string WardCode { get; set; }
+            public string WardName { get; set; }
+            public string DistrictCode { get; set; }
+            public int ProvinceID { get; set; }
+            public int DistrictID { get; set; }
+        }
+
+        private class Data
+        {
+            [JsonProperty("Wards")]
+            public List<Ward> Wards { get; set; }
+
+            [JsonProperty("ServiceFee")]
+            public int ServiceFee { get; set; }
+        }
+
+        private class RootObject
+        {
+            public int code { get; set; }
+            public string msg { get; set; }
+            public Data data { get; set; }
+        }
+
+        private class RootObjectDeliveryDate
+        {
+            public int code { get; set; }
+            public string msg { get; set; }
+            public List<Datum> data { get; set; }
+        }
+        public class Extra
+        {
+            public int MaxValue { get; set; }
+            public string Name { get; set; }
+            public int ServiceFee { get; set; }
+            public int ServiceID { get; set; }
+        }
+
+        public class Datum
+        {
+            public DateTime ExpectedDeliveryTime { get; set; }
+            public List<Extra> Extras { get; set; }
+            public string Name { get; set; }
+            public int ServiceFee { get; set; }
+            public int ServiceID { get; set; }
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetOrderHistory()
         {
@@ -128,6 +232,8 @@ namespace OnlineShopCore.Controllers
                 }).ToList();
             return new OkObjectResult(enums);
         }
+
+        #region 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -553,8 +659,6 @@ namespace OnlineShopCore.Controllers
             return View(nameof(ShowRecoveryCodes), model);
         }
 
-        #region Helpers
-
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -602,6 +706,6 @@ namespace OnlineShopCore.Controllers
             model.AuthenticatorUri = GenerateQrCodeUri(user.Email, unformattedKey);
         }
 
-        #endregion Helpers
+        #endregion
     }
 }

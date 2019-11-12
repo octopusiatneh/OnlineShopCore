@@ -181,6 +181,8 @@ namespace OnlineShopCore.Data.EF.Migrations
 
                     b.Property<DateTime>("DateModified");
 
+                    b.Property<int>("DistrictID");
+
                     b.Property<string>("Email");
 
                     b.Property<bool>("EmailConfirmed");
@@ -201,6 +203,8 @@ namespace OnlineShopCore.Data.EF.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
+                    b.Property<string>("Province");
+
                     b.Property<string>("SecurityStamp");
 
                     b.Property<int>("Status");
@@ -208,6 +212,8 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName");
+
+                    b.Property<int>("WardCode");
 
                     b.HasKey("Id");
 
@@ -241,6 +247,8 @@ namespace OnlineShopCore.Data.EF.Migrations
 
                     b.Property<int>("BillStatus");
 
+                    b.Property<int>("CODAmount");
+
                     b.Property<string>("CustomerAddress")
                         .IsRequired()
                         .HasMaxLength(256);
@@ -262,9 +270,15 @@ namespace OnlineShopCore.Data.EF.Migrations
 
                     b.Property<DateTime>("DateModified");
 
+                    b.Property<int>("DistrictID");
+
                     b.Property<int>("PaymentMethod");
 
+                    b.Property<string>("Province");
+
                     b.Property<int>("Status");
+
+                    b.Property<string>("WardCode");
 
                     b.HasKey("Id");
 
@@ -294,23 +308,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("BillDetails");
-                });
-
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.Color", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Code")
-                        .HasMaxLength(250);
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(250);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Colors");
                 });
 
             modelBuilder.Entity("OnlineShopCore.Data.Entities.Contact", b =>
@@ -598,20 +595,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Publishers");
-                });
-
-            modelBuilder.Entity("OnlineShopCore.Data.Entities.Size", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(250);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sizes");
                 });
 
             modelBuilder.Entity("OnlineShopCore.Data.Entities.Slide", b =>

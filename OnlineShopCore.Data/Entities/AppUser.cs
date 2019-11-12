@@ -11,7 +11,7 @@ namespace OnlineShopCore.Data.Entities
     {
         public AppUser() { }
         public AppUser(Guid id, string fullName, string address, string userName,
-            string email, string phoneNumber, string avatar, Status status)
+            string email, string phoneNumber, string avatar,string province, int districtID, int wardCode, Status status)
         {
             Id = id;
             FullName = fullName;
@@ -20,6 +20,9 @@ namespace OnlineShopCore.Data.Entities
             Email = email;
             PhoneNumber = phoneNumber;
             Avatar = avatar;
+            Province = province;
+            DistrictID = districtID;
+            WardCode = wardCode;
             Status = status;
         }
 
@@ -32,6 +35,11 @@ namespace OnlineShopCore.Data.Entities
         public decimal Balance { get; set; }
 
         public string Avatar { get; set; }
+        public string Province { get; set; }
+
+        public int DistrictID { get; set; }
+
+        public int WardCode { get; set; }
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }

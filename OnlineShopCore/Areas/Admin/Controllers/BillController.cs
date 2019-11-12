@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json;
 using OfficeOpenXml;
 using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Application.ViewModels.Common;
@@ -17,6 +18,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineShopCore.Areas.Admin.Controllers
 {
@@ -47,6 +51,54 @@ namespace OnlineShopCore.Areas.Admin.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateOrderGHN(string customerName, string customerPhone, string customerAddress, int toDistrictID, int toWardCode, string customerMessage, int codAmount)
+        {
+            var url = "https://dev-online-gateway.ghn.vn/apiv3-api/api/v1/apiv3/CreateOrder";
+
+            var requestBody = JsonConvert.SerializeObject(new
+            {
+                token = "c6a869b80fbb4c2fb41079ffe864eda7",
+                PaymentTypeID = 2,
+                FromDistrictID = 1456,
+                FromWardCode = "21502",
+                ToDistrictID = toDistrictID,
+                ToWardCode = toWardCode.ToString(),
+                ClientContactName = "Coza Store",
+                ClientContactPhone = "0904285240",
+                ClientAddress = "155 Sư Vạn Hạnh (nd), P.13, Q.10",
+                CustomerName = customerName,
+                CustomerPhone = customerPhone,
+                ShippingAddress = customerAddress,
+                CoDAmount = codAmount,
+                NoteCode = "CHOXEMHANGKHONGTHU",
+                ServiceID = 53321,
+                Weight = 1000,
+                Length = 10,
+                Width = 10,
+                Height = 10,
+                ReturnContactName = "Coza Store",
+                ReturnContactPhone = "0904285240",
+                ReturnAddress = "155 Sư Vạn Hạnh (nd), P.13, Q.10",
+                ReturnDistrictID = 1456,
+                ExternalReturnCode = "",
+                Note = customerMessage
+
+            });
+            var data = new StringContent(requestBody, Encoding.UTF8, "application/json");
+
+            HttpClient client = new HttpClient();
+
+            HttpResponseMessage response = client.PostAsync(url, data).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                return Ok();
+            }
+            else
+                return View();
         }
 
         [HttpGet]

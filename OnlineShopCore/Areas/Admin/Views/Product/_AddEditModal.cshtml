@@ -5,120 +5,81 @@
                 <form class="form-horizontal" role="form" id="frmMaintainance">
                     <div class="card-body">
                         <div class="form-group row">
-                            <input type="hidden" id="hidIdM" value="" />
-                            <input type="hidden" id="hidViewCount" value="0" />
-                            <input type="hidden" id="hidDateCreated" value="date" />
-                            <label class="col-6 control-label col-form-label">Tên sản phẩm</label>
-                            <div class="col-sm-9">
+                            <div class="col-8">
+                                <input type="hidden" id="hidIdM" value="" />
+                                <input type="hidden" id="hidViewCount" value="0" />
+                                <input type="hidden" id="hidDateCreated" value="date" />
+                                <label class="control-label col-form-label">Tên sản phẩm</label>
+                                <div>
+                                    <input type="text" name="txtNameM" class="form-control" id="txtNameM">
+                                </div>
 
-                                <input type="text" name="txtNameM" class="form-control" id="txtNameM" placeholder="Name">
-                            </div>
-                        </div>
+                                <label class="control-label col-form-label">Giá bán</label>
+                                <div>
+                                    <input type="text" name="txtPriceM" class="form-control" id="txtPriceM">
+                                </div>
 
-                        <div class="form-group row">
-                            <label for="lname" class="col-6 control-label col-form-label">Danh mục</label>
-                            <div class="col-sm-9">
-                                <input id="ddlCategoryIdM" required name="ddlCategoryIdM" value="1">
-                            </div>
-                        </div>
+                                <label for="txtImageM" class="control-label col-form-label">Thumbnail</label>
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="text" name="txtImage" class="form-control" id="txtImage" />
+                                        <input type="file" id="fileInputImage" style="display:none" />
+                                    </div>
+                                    <div class="col">
+                                        <span class="input-group-btn">
+                                            <input type="button" id="btnSelectImg" class="btn btn-default" value="Browser" />
+                                        </span>
+                                    </div>                                                              
+                                </div>
 
-                        <div class="form-group row">
-                            <label for="lname" class="col-6 control-label col-form-label">Tác giả</label>
-                            <div class="col-sm-9">
-                                <input id="ddlAuthorIdM" required name="ddlAuthorIdM" value="1">
-                            </div>
-                        </div>
+                                <label for="txtContentM" class="control-label col-form-label">Mô tả</label>
+                                <div>
+                                    <input type="text" class="form-control" id="txtContent" placeholder="Content">
+                                </div>
 
-                        <div class="form-group row">
-                            <label for="lname" class="col-6 control-label col-form-label">Nhà xuất bản</label>
-                            <div class="col-sm-9">
-                                <input id="ddlPublisherIdM" required name="ddlPublisherIdM" value="1">
-                            </div>
-                        </div>
+                                <div style="padding-top:7px">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" checked="checked" id="ckStatusM">
+                                            <span class="text">Active</span>
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" id="ckHotM">
+                                            <span class="text">Đánh dấu bán chạy</span>
+                                        </label>
 
-                        @*<div class="form-group row">
-                            <label for="txtDescM" class="col-6 control-label col-form-label">Tiêu đề</label>
-                            <div class="col-sm-9">
-
-                                <input type="text" name="txtDescM" class="form-control" id="txtDescM" placeholder="">
-                            </div>
-                        </div>*@
-
-                        <div class="form-group row">
-                            <label class="col-6 control-label col-form-label">Giá bán</label>
-                            <div class="col-sm-9">
-
-                                <input type="text" name="txtPriceM" class="form-control" id="txtPriceM" placeholder="">
-                            </div>
-                        </div>
-
-                        @*<div class="form-group row">
-                            <label class="col-6 control-label col-form-label">Giá gốc</label>
-                            <div class="col-sm-9">
-
-                                <input type="text" name="txtOriginalPriceM" class="form-control" id="txtOriginalPriceM" placeholder="Original price">
-                            </div>
-                        </div>*@
-
-                        <div class="form-group row">
-                            <label for="cono1" class="col-6 control-label col-form-label">Giá khuyến mãi</label>
-                            <div class="col-sm-9">
-                                <input type="text" name="txtPromotionPriceM" class="form-control" id="txtPromotionPriceM" placeholder="Promotion">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="txtImageM" class="col-6 control-label col-form-label">Thumbnail</label>
-                            <div class="col-sm-9">
-                                <input type="text" name="txtImage" class="form-control" id="txtImage" />
-                                <input type="file" id="fileInputImage" style="display:none" />
-                                <span class="input-group-btn">
-                                    <input type="button" id="btnSelectImg" class="btn btn-default" value="Browser" />
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="txtContentM" class="col-6 control-label col-form-label">Mô tả</label>
-                            <div class="col-sm-9">
-
-                                <input type="text" class="form-control" id="txtContent" placeholder="Content">
-                            </div>
-                        </div>
-
-                        @*<div class="form-group row">
-                            <label for="txtTagM" class="col-6 control-label col-form-label">Tag (separated by comma)</label>
-                            <div class="col-sm-9">
-                                <input type="text" name="txtTagM" class="form-control" id="txtTagM" placeholder="Tag (separated by comma)">
-                            </div>
-                        </div>*@
-
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" checked="checked" id="ckStatusM">
-                                        <span class="text">Active</span>
-                                    </label>
-                                    <label>
-                                        <input type="checkbox" id="ckHotM">
-                                        <span class="text">Đánh dấu bán chạy</span>
-                                    </label>
-
-                                    <label>
-                                        <input type="checkbox" checked="checked" id="ckShowHomeM">
-                                        <span class="text">Đánh dấu lựa chọn hàng đầu</span>
-                                    </label>
+                                        <label>
+                                            <input type="checkbox" checked="checked" id="ckShowHomeM">
+                                            <span class="text">Đánh dấu lựa chọn hàng đầu</span>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="border-top">
-                        <div class="card-body">
-                            <button type="button" id="btnSave" class="btn btn-primary">Lưu</button>
-                            <button type="button" id="btnCancel" data-dismiss="modal" class="btn btn-danger">Hủy</button>
-                        </div>
-                    </div>
+
+
+                            <div class="col-4">
+                                <label for="lname" class="control-label col-form-label">Danh mục</label>
+                                <div>
+                                    <input id="ddlCategoryIdM" required name="ddlCategoryIdM" value="1">
+                                </div>
+
+                                <label for="lname" class="control-label col-form-label">Tác giả</label>
+                                <div>
+                                    <input id="ddlAuthorIdM" required name="ddlAuthorIdM" value="1">
+                                </div>
+
+                                <label for="lname" class="control-label col-form-label">Nhà xuất bản</label>
+                                <div>
+                                    <input id="ddlPublisherIdM" required name="ddlPublisherIdM" value="1">
+                                </div>
+
+                                <div style="padding-top:7px">
+                                    <button type="button" id="btnSave" class="btn btn-primary">Lưu</button>
+                                    <button type="button" id="btnCancel" data-dismiss="modal" class="btn btn-danger">Hủy</button>
+                                </div>                   
+                            </div>
+                        </div>                  
+                    </div>        
                 </form>
             </div>
         </div>

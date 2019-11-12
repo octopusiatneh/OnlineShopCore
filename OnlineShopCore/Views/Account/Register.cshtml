@@ -4,8 +4,52 @@
     <link href="~/client-side/css/Registration-Form-with-Photo.css" rel="stylesheet" />
 }
 @section Scripts {
+    <script src="~/app-client/shared/VietNamDistrictDatabase.js"></script>
     @await Html.PartialAsync("_ValidationScriptsPartial")
     <recaptcha-script validation-message-element-id="recaptchaErrorMessage" />
+    <script>
+        $('#comboProvince').on("change", function () {
+            var provinceName = $("#comboProvince option:selected").val();
+            getcbDistrict(provinceName);
+        });
+
+        $('#comboDistrict').on("change", function () {
+            districtID = $("#comboDistrict option:selected").attr('value');
+            alert(districtID)
+            getcbWard();
+        });
+
+        function getcbDistrict(provinceName) {
+            var arrDistrictName = [];
+            for (let i in data) {
+                if (data[i].ProvinceName === provinceName) {
+                    arrDistrictName.push({ DistrictID: data[i].DistrictID, DistrictName: data[i].DistrictName })
+                }
+
+                var cbDistrict = "";
+                for (let i in arrDistrictName) {
+                    cbDistrict += '<option value=' + arrDistrictName[i].DistrictID + ">" + arrDistrictName[i].DistrictName + '</option>';
+                }
+                document.getElementById('comboDistrict').innerHTML = cbDistrict;
+            }
+        }
+
+        function getcbWard() {
+            $.ajax({
+                url: "/Manage/GetWards",
+                data: {
+                    districtID: districtID
+                },
+                success: function (response) {
+                    var cbWard = "";
+                    for (let i in response) {
+                        cbWard += '<option value=' + response[i].WardCode + ">" + response[i].WardName + '</option>';
+                    }
+                    document.getElementById('comboWard').innerHTML = cbWard;
+                }
+            })
+        }
+    </script>
 }
 <div class="register-photo">
     <div class="form-container">
@@ -19,6 +63,24 @@
             <div class="form-group"><input asp-for="BirthDay" class="form-control" type="date" name="birthDay" placeholder="@Localizer["Date"]"></div>
             <div class="form-group"><input asp-for="PhoneNumber" class="form-control" type="text" name="phoneNumber" placeholder=" @Localizer["Phone"]"></div>
             <div class="form-group"><input asp-for="Address" class="form-control" type="text" name="address" placeholder="@Localizer["Address"]"></div>
+            <div class="form-group">
+                <select asp-for="Province" id="comboProvince" class="form-control" asp-items="ViewBag.Province">
+                    <option>Chọn tỉnh/thành phố</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <select asp-for="DistrictID" id="comboDistrict" class="form-control">
+                    <option>Chọn quận/huyện</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <select asp-for="WardCode" id="comboWard" class="form-control" name="wardCode">
+                    <option>Chọn phường/xã</option>
+                </select>
+            </div>
+
             <div class="form-group">
                 <recaptcha />
                 <span class="text-danger" id="recaptchaErrorMessage"></span>

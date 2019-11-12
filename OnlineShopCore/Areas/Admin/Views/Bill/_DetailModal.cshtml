@@ -7,15 +7,15 @@
                         <div class="form-group row">
                             <input type="hidden" id="hidId" value="0" />
                             <input type="hidden" id="hidDateCreated" value="date" />
-                            
+                            <input type="hidden" id="hidProvince" value="" />
+                            <input type="hidden" id="hidToDistrictID" value="0" />
+                            <input type="hidden" id="hidToWardCode" value="0" />
+                            <input id="hidCustomerId" type="hidden" value="" />
+                            <input id="hidCODAmount" type="hidden" value="" />
                             <label for="txtCustomerName" class="col-6 control-label col-form-label">Họ tên khách hàng</label>
                             <div class="col-12">
                                 <input type="text" name="txtCustomerName" class="form-control" id="txtCustomerName" placeholder="">
                             </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <input id="hidCustomerId" type="hidden" value=""/>
                         </div>
 
                         <div class="form-group row">
@@ -46,6 +46,12 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label class="col-6 control-label col-form-label">Tiền thu hộ (COD)</label>
+                            <div class="col-12">
+                                <input type="text" id="txtCODAmount" class="form-control" />
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label f class="col-6 control-label col-form-label">Trạng thái đơn hàng</label>
                             <div class="col-12">
@@ -88,6 +94,7 @@
                             <div class="col-sm-offset-2 col-sm-10">
                                 <button type="button" id="btnSave" class="btn btn-success">Lưu</button>
                                 <button type="button" id="btnExport" class="btn btn-default">Xuất hóa đơn excel</button>
+                                <button type="button" id="btnCreateOrderGHN" class="btn btn-primary">Tạo đơn hàng GHN</button>
                                 <button type="button" data-dismiss="modal" class="btn btn-danger">Đóng</button>
                             </div>
                         </div>

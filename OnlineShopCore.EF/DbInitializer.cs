@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using OnlineShopCore.Data.Entities;
 using OnlineShopCore.Data.Enums;
 using OnlineShopCore.Utilities.Constants;
@@ -104,55 +105,6 @@ namespace OnlineShopCore.Data.EF
                 });
             }
 
-            if (_context.Colors.Count() == 0)
-            {
-                List<Color> listColor = new List<Color>()
-                {
-                    new Color() {Name="Đen", Code="#000000" },
-                    new Color() {Name="Trắng", Code="#FFFFFF"},
-                    new Color() {Name="Đỏ", Code="#ff0000" },
-                    new Color() {Name="Xanh", Code="#1000ff" },
-                };
-                _context.Colors.AddRange(listColor);
-            }
-
-            //if (_context.Slides.Count() == 0)
-            //{
-            //    List<Slide> slides = new List<Slide>()
-            //    {
-            //        new Slide() {Name="Slide 1",Image="/client-side/images/slider/slide-1.jpg",Url="#",DisplayOrder = 0,GroupAlias = "top",Status = Status.Active },
-            //        new Slide() {Name="Slide 2",Image="/client-side/images/slider/slide-2.jpg",Url="#",DisplayOrder = 1,GroupAlias = "top",Status = Status.Active },
-            //        new Slide() {Name="Slide 3",Image="/client-side/images/slider/slide-3.jpg",Url="#",DisplayOrder = 2,GroupAlias = "top",Status = Status.Active },
-
-            //        new Slide() {Name="Slide 1",Image="/client-side/images/brand1.png",Url="#",DisplayOrder = 1,GroupAlias = "brand",Status = Status.Active },
-            //        new Slide() {Name="Slide 2",Image="/client-side/images/brand2.png",Url="#",DisplayOrder = 2,GroupAlias = "brand",Status = Status.Active },
-            //        new Slide() {Name="Slide 3",Image="/client-side/images/brand3.png",Url="#",DisplayOrder = 3,GroupAlias = "brand",Status = Status.Active },
-            //        new Slide() {Name="Slide 4",Image="/client-side/images/brand4.png",Url="#",DisplayOrder = 4,GroupAlias = "brand",Status = Status.Active },
-            //        new Slide() {Name="Slide 5",Image="/client-side/images/brand5.png",Url="#",DisplayOrder = 5,GroupAlias = "brand",Status = Status.Active },
-            //        new Slide() {Name="Slide 6",Image="/client-side/images/brand6.png",Url="#",DisplayOrder = 6,GroupAlias = "brand",Status = Status.Active },
-            //        new Slide() {Name="Slide 7",Image="/client-side/images/brand7.png",Url="#",DisplayOrder = 7,GroupAlias = "brand",Status = Status.Active },
-            //        new Slide() {Name="Slide 8",Image="/client-side/images/brand8.png",Url="#",DisplayOrder = 8,GroupAlias = "brand",Status = Status.Active },
-            //        new Slide() {Name="Slide 9",Image="/client-side/images/brand9.png",Url="#",DisplayOrder = 9,GroupAlias = "brand",Status = Status.Active },
-            //        new Slide() {Name="Slide 10",Image="/client-side/images/brand10.png",Url="#",DisplayOrder = 10,GroupAlias = "brand",Status = Status.Active },
-            //        new Slide() {Name="Slide 11",Image="/client-side/images/brand11.png",Url="#",DisplayOrder = 11,GroupAlias = "brand",Status = Status.Active },
-            //    };
-            //    _context.Slides.AddRange(slides);
-            //}
-
-
-            if (_context.Sizes.Count() == 0)
-            {
-                List<Size> listSize = new List<Size>()
-                {
-                    new Size() { Name="XXL" },
-                    new Size() { Name="XL"},
-                    new Size() { Name="L" },
-                    new Size() { Name="M" },
-                    new Size() { Name="S" },
-                    new Size() { Name="XS" }
-                };
-                _context.Sizes.AddRange(listSize);
-            }
             if (_context.Authors.Count() == 0)
             {
                 List<Author> listAuthor = new List<Author>()
@@ -170,7 +122,7 @@ namespace OnlineShopCore.Data.EF
                 List<Publisher> listPublisher = new List<Publisher>()
                 {
                     new Publisher() {NamePublisher="Kim Đồng", SortOrder = 1, ParentId=null, Status = Status.Active},
-                    new Publisher() {NamePublisher="NXB Trẻ", SortOrder = 2, ParentId=null, Status = Status.Active},
+                    new Publisher() {NamePublisher="NXB Trẻ", SortOrder = 2, ParentId=null, Status = Status.Active}
                 };
                 _context.Publishers.AddRange(listPublisher);
             }
@@ -182,42 +134,40 @@ namespace OnlineShopCore.Data.EF
                     new ProductCategory() { Name="Kinh dị",SeoAlias="kinh-di",ParentId = null,Status=Status.Active,SortOrder=1,
                         Products = new List<Product>()
                         {
-                            new Product(){Name = "Sản phẩm 1", AuthorId=1, PublisherId=1,DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-1",Price = 1000,Status = Status.Active},
-                            new Product(){Name = "Sản phẩm 5", AuthorId=1, PublisherId=1,DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-5",Price = 1000,Status = Status.Active},
-                            new Product(){Name = "Sản phẩm 2", AuthorId=1, PublisherId=1,DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-2",Price = 1000,Status = Status.Active},
-                            new Product(){Name = "Sản phẩm 3", AuthorId=1, PublisherId=1,DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-3",Price = 1000,Status = Status.Active},
-                            new Product(){Name = "Sản phẩm 4", AuthorId=1, PublisherId=1,DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-4",Price = 1000,Status = Status.Active},
+                            new Product(){Name = "Đối thoại với Thaksin", AuthorId=1, PublisherId=1,DateCreated=DateTime.Now,Image="/uploaded/images/20191026/doi_thoai_voi_thaksin.500x780",SeoAlias = "doi-thoai-voi-thaksin",Price = 169000,Status = Status.Active},
+
                         }
                     },
-                    new ProductCategory() { Name="Lãng mạng",SeoAlias="ao-nu",ParentId = null,Status=Status.Active ,SortOrder=2,
+                    new ProductCategory() { Name="Lãng mạng",SeoAlias="lang-man",ParentId = null,Status=Status.Active ,SortOrder=2,
                         Products = new List<Product>()
                         {
-                            new Product(){Name = "Sản phẩm 6", AuthorId = 2, PublisherId=1,DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-6",Price = 1000,Status = Status.Active},
-                            new Product(){Name = "Sản phẩm 7", AuthorId = 2, PublisherId=1,DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-7",Price = 1000,Status = Status.Active},
-                            new Product(){Name = "Sản phẩm 8", AuthorId = 2, PublisherId=1,DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-8",Price = 1000,Status = Status.Active},
-                            new Product(){Name = "Sản phẩm 9", AuthorId = 2, PublisherId=1,DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-9",Price = 1000,Status = Status.Active},
-                            new Product(){Name = "Sản phẩm 10", AuthorId = 2, PublisherId=1,DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-10",Price = 1000,Status = Status.Active},
+                            new Product(){Name = "Sống những ngày không hối tiếc", AuthorId = 2, PublisherId=1,DateCreated=DateTime.Now,Image="/uploaded/images/20191026/song-nhung-ngay-khong-hoi-tiec.450x652.w.b",SeoAlias = "song-nhung-ngay-khong-hoi-tiec",Price = 98000,Status = Status.Active},
+
                         }},
-                    new ProductCategory() { Name="Truyện tranh",SeoAlias="giay-nam",ParentId = null,Status=Status.Active ,SortOrder=3,
+                    new ProductCategory() { Name="Truyện tranh",SeoAlias="truyen-tranh",ParentId = null,Status=Status.Active ,SortOrder=3,
                         Products = new List<Product>()
                         {
-                            new Product(){Name = "Sản phẩm 11", AuthorId = 3, PublisherId=2,DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-11",Price = 1000,Status = Status.Active},
-                            new Product(){Name = "Sản phẩm 12", AuthorId = 3, PublisherId=2,DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-12",Price = 1000,Status = Status.Active},
-                            new Product(){Name = "Sản phẩm 13", AuthorId = 3, PublisherId=2,DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-13",Price = 1000,Status = Status.Active},
-                            new Product(){Name = "Sản phẩm 14", AuthorId = 3, PublisherId=2,DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-14",Price = 1000,Status = Status.Active},
-                            new Product(){Name = "Sản phẩm 15", AuthorId = 3, PublisherId=2,DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-15",Price = 1000,Status = Status.Active},
+                            new Product(){Name = "Đồng hành du học cùng con", AuthorId = 3, PublisherId=2,DateCreated=DateTime.Now,Image="/uploaded/images/20191026/dong-hanh-du-hoc-cung-con-tb",SeoAlias = "dong-hanh-du-hoc-cung-con",Price = 78000,Status = Status.Active},
+
                         }},
-                    new ProductCategory() { Name="Kinh tế",SeoAlias="giay-nu",ParentId = null,Status=Status.Active,SortOrder=4,
+                    new ProductCategory() { Name="Kinh tế",SeoAlias="kinh-te",ParentId = null,Status=Status.Active,SortOrder=4,
                         Products = new List<Product>()
                         {
-                            new Product(){Name = "Sản phẩm 16", AuthorId = 4, PublisherId=2,DateCreated=DateTime.Now, Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-16",Price = 1000,Status = Status.Active},
-                            new Product(){Name = "Sản phẩm 17", AuthorId = 4, PublisherId=2,DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-17",Price = 1000,Status = Status.Active},
-                            new Product(){Name = "Sản phẩm 18", AuthorId = 4, PublisherId=2,DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-18",Price = 1000,Status = Status.Active},
-                            new Product(){Name = "Sản phẩm 19", AuthorId = 4, PublisherId=2,DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-19",Price = 1000,Status = Status.Active},
-                            new Product(){Name = "Sản phẩm 20", AuthorId = 4, PublisherId=2,DateCreated=DateTime.Now,Image="~/admin-side/assets/images/No-image-found.jpg",SeoAlias = "san-pham-20",Price = 1000,Status = Status.Active},
+                            new Product(){Name = "Lưỡng giới", AuthorId = 4, PublisherId=2,DateCreated=DateTime.Now, Image="/uploaded/images/20191026/luong-gioi-bm.450x652.w.b",SeoAlias = "luong-gioi",Price = 329000,Status = Status.Active},
+
                         }}
                 };
                 _context.ProductCategories.AddRange(listProductCategory);
+            }
+
+            if (_context.Slides.Count() == 0)
+            {
+                List<Slide> listSlide = new List<Slide>()
+                {
+                   new Slide("/uploaded/images/20191026/slide1.jpg",Status.Active),
+                   new Slide("/uploaded/images/20191026/slide2.jpg",Status.Active)
+                };
+                _context.Slides.AddRange(listSlide);
             }
 
             await _context.SaveChangesAsync();

@@ -14,5 +14,4 @@ GROUP BY
     CAST(us.DateCreated AS DATE)
 END
 
-EXEC dbo.GetTotalNewUser @fromDate = '10/1/2019',
-                         @toDate = '10/31/2019' 
+EXEC dbo.GetTotalNewUser

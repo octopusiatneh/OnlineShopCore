@@ -26,30 +26,7 @@
                     loadData();
                 }
             });
-        });
-        $('body').on('keyup', '.txtQuantity', function (e) {
-            e.preventDefault();
-            var id = $(this).data('id');
-            var q = $(this).val();
-            if (q > 0) {
-                $.ajax({
-                    url: '/Cart/UpdateCart',
-                    type: 'post',
-                    data: {
-                        productId: id,
-                        quantity: q
-                    },
-                    success: function () {
-                        onlineshop.notify('Update quantity is successful', 'success');
-                        loadHeaderCart();
-                        loadData();
-                    }
-                });
-            } else {
-                onlineshop.notify('Your quantity is invalid', 'error');
-            }
-
-        });
+        });    
 
         $('#btnClearAll').on('click', function (e) {
             e.preventDefault();
@@ -79,6 +56,7 @@
     function loadHeaderMobile() {
         $("#cartButtonMobile").load("/AjaxContent/HeaderMobile");
     }
+
     function loadData() {
         $.ajax({
             url: '/Cart/GetCart',

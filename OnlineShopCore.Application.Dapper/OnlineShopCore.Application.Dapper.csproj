@@ -5,6 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="SqlCommands\GetRevenueReport.sql" />
+    <None Remove="SqlCommands\GetTopVisitProductReport.sql" />
+    <None Remove="SqlCommands\GetTotalNewOrderReport.sql" />
+    <None Remove="SqlCommands\GetTotalNewUserReport.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="SqlCommands\GetRevenueReport.sql" />
+    <EmbeddedResource Include="SqlCommands\GetTopVisitProductReport.sql" />
+    <EmbeddedResource Include="SqlCommands\GetTotalNewOrderReport.sql" />
+    <EmbeddedResource Include="SqlCommands\GetTotalNewUserReport.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="1.50.4" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
   </ItemGroup>

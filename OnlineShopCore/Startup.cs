@@ -75,7 +75,7 @@ namespace OnlineShopCore
             });
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMilliseconds(100000);
+                options.IdleTimeout = TimeSpan.FromDays(30);
                 options.Cookie.HttpOnly = true;
             });
             services.AddAutoMapper();

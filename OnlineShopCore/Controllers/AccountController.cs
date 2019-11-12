@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using OnlineShopCore.Data.Entities;
 using OnlineShopCore.Data.Enums;
@@ -9,6 +10,7 @@ using OnlineShopCore.Models.AccountViewModels;
 using OnlineShopCore.Services;
 using PaulMiami.AspNetCore.Mvc.Recaptcha;
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -209,6 +211,72 @@ namespace OnlineShopCore.Controllers
         public IActionResult Register(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
+            ViewBag.Province = new List<SelectListItem>()
+            {
+                new SelectListItem {Text="Hồ Chí Minh" },
+                new SelectListItem {Text="Hà Nội"},
+                new SelectListItem {Text="An Giang"},
+                new SelectListItem {Text="Bà Rịa - Vũng Tàu"},
+                new SelectListItem {Text= "Bạc Liêu" },
+                new SelectListItem {Text="Bắc Giang"},
+                new SelectListItem {Text="Bắc Kạn"},
+                new SelectListItem {Text="Bắc Ninh"},
+                new SelectListItem {Text="Bến Tre"},
+                new SelectListItem {Text="Bình Định"},
+                new SelectListItem {Text="Bình Dương"},
+                new SelectListItem {Text="Bình Phước"},
+                new SelectListItem {Text="Bình Thuận"},
+                new SelectListItem {Text="Cà Mau"},
+                new SelectListItem {Text="Cao Bằng"},
+                new SelectListItem {Text="Cần Thơ"},
+                new SelectListItem {Text="Đà Nẵng"},
+                new SelectListItem {Text="Hải Phòng"},
+                new SelectListItem {Text="Gia Lai"},
+                new SelectListItem {Text="Hòa Bình"},
+                new SelectListItem {Text="Hà Giang"},
+                new SelectListItem {Text="Hà Nam"},
+                new SelectListItem {Text="Hưng Yên"},
+                new SelectListItem {Text="Hải Dương"},
+                new SelectListItem {Text="Hà Tĩnh"},
+                new SelectListItem {Text="Điện Biên"},
+                new SelectListItem {Text="Hậu Giang"},
+                new SelectListItem {Text="Đắk Lắk"},
+                new SelectListItem {Text="Đắk Nông"},
+                new SelectListItem {Text="Đồng Nai"},
+                new SelectListItem {Text="Đồng Tháp"},
+                new SelectListItem {Text="Kiên Giang"},
+                new SelectListItem {Text="Khánh Hòa"},
+                new SelectListItem {Text="Lai Châu"},
+                new SelectListItem {Text="Kon Tum"},
+                new SelectListItem {Text="Long An"},
+                new SelectListItem {Text="Lâm Đồng"},
+                new SelectListItem {Text="Lào Cai"},
+                new SelectListItem {Text="Lạng Sơn"},
+                new SelectListItem {Text="Nghệ An"},
+                new SelectListItem {Text="Nam Định"},
+                new SelectListItem {Text="Ninh Bình"},
+                new SelectListItem {Text="Ninh Thuận"},
+                new SelectListItem {Text="Phú Thọ"},
+                new SelectListItem {Text="Phú Yên"},
+                new SelectListItem {Text="Quảng Bình"},
+                new SelectListItem {Text="Quảng Nam"},
+                new SelectListItem {Text="Quảng Ngãi"},
+                new SelectListItem {Text="Quảng Trị"},
+                new SelectListItem {Text="Quảng Ninh"},
+                new SelectListItem {Text="Sóc Trăng"},
+                new SelectListItem {Text="Thanh Hóa"},
+                new SelectListItem {Text="Sơn La"},
+                new SelectListItem {Text="Thái Bình"},
+                new SelectListItem {Text="Thừa Thiên - Huế"},
+                new SelectListItem {Text="Thái Nguyên"},
+                new SelectListItem {Text="Tiền Giang"},
+                new SelectListItem {Text="Trà Vinh"},
+                new SelectListItem {Text="Tuyên Quang"},
+                new SelectListItem {Text="Tây Ninh"},
+                new SelectListItem {Text="Vĩnh Long"},
+                new SelectListItem {Text="Vĩnh Phúc"},
+                new SelectListItem {Text="Yên Bái"},
+            };
             return View();
         }
 
@@ -239,7 +307,9 @@ namespace OnlineShopCore.Controllers
                     Address = model.Address,
                     Status = Status.Active,
                     DateCreated = DateTime.Now,
-                    Avatar = string.Empty
+                    Avatar = string.Empty,
+                    DistrictID = model.DistrictID,
+                    WardCode = model.WardCode
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

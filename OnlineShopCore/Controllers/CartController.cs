@@ -96,6 +96,10 @@ namespace OnlineShopCore.Controllers
                         PaymentMethod = model.PaymentMethod,
                         BillStatus = model.BillStatus,
                         CustomerAddress = model.CustomerAddress,
+                        Province = model.Province,
+                        DistrictID = model.DistrictID,
+                        WardCode = model.WardCode,
+                        CODAmount = model.CODAmount,
                         CustomerName = model.CustomerName,
                         CustomerMessage = model.CustomerMessage,
                         BillDetails = details
