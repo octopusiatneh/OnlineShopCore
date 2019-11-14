@@ -19,8 +19,6 @@ namespace OnlineShopCore.Application.Implementation
     {
         private readonly IBillRepository _orderRepository;
         private readonly IBillDetailRepository _orderDetailRepository;
-        private readonly IColorRepository _colorRepository;
-        private readonly ISizeRepository _sizeRepository;
         private readonly IProductRepository _productRepository;
         private IRepository<Announcement, string> _announRepository;
         private IRepository<AnnouncementBill, int> _announBillRepository;
@@ -28,9 +26,7 @@ namespace OnlineShopCore.Application.Implementation
 
         public BillService(IBillRepository orderRepository,
            IBillDetailRepository orderDetailRepository,
-           IColorRepository colorRepository,
            IProductRepository productRepository,
-           ISizeRepository sizeRepository,
            IRepository<Announcement, string> announRepository,
            IRepository<AnnouncementBill, int> announBillRepository,
            IUnitOfWork unitOfWork)
@@ -39,8 +35,6 @@ namespace OnlineShopCore.Application.Implementation
             _announBillRepository = announBillRepository;
             _orderRepository = orderRepository;
             _orderDetailRepository = orderDetailRepository;
-            _colorRepository = colorRepository;
-            _sizeRepository = sizeRepository;
             _productRepository = productRepository;
             _unitOfWork = unitOfWork;
         }

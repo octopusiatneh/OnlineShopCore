@@ -1,33 +1,45 @@
 ﻿var toDistrictID = 0;
 var subTotalAmount = 0;
 var total = 0;
+var serviceValue = 0;
+var provinceValue = 0;
 getCartSubTotal();
 
 $('#comboProvince').on("change", function () {
-    var provinceName = $("#comboProvince option:selected").val();
-    getcbDistrict(provinceName);
-    toDistrictID = $("#comboDistrict option:selected").attr('value');
-    getcbWard();
-    calculateDeliveryDate();
+    provinceValue = $("#comboProvince option:selected").val();
+    if (provinceValue == 0) {
+        $('#comboDistrict').empty().trigger('change');
+        $("#comboDistrict").append("<option value='0' selected>Chọn quận/huyện...</option>").trigger('change');
+        $('#comboWard').empty().trigger('change');
+        $("#comboWard").append("<option value='0' selected>Chọn huyện/xã...</option>").trigger('change');
+    }
+    if (provinceValue != 0) {
+        var provinceName = $("#comboProvince option:selected").val();
+        getcbDistrict(provinceName);
+        toDistrictID = $("#comboDistrict option:selected").attr('value');
+        getcbWard();
+        if (serviceValue != 0) {
+            calculateShippingFee();
+            calculateDeliveryDate();
+        }   
+    }
 });
 
 $('#comboDistrict').on("change", function () {
     toDistrictID = $("#comboDistrict option:selected").attr('value');
-    getcbWard();
-    calculateDeliveryDate();
-    calculateDeliveryDate();
-});
-
-$('#comboWard').on('change', function () {
-    calculateShippingFee();
+    if (serviceValue != 0) {
+        getcbWard();
+        calculateShippingFee();
+        calculateDeliveryDate();
+    }
 });
 
 $('#comboShippingMethod').on('change', function () {
-    if (toDistrictID != 0) {
-        console.log('serviceID selected:' + $("#comboShippingMethod option:selected").attr('value'))
+    serviceValue = $("#comboShippingMethod option:selected").val();
+    if (toDistrictID != 0 && serviceValue != 0) {
         calculateShippingFee();
         calculateDeliveryDate();
-    }     
+    }
 });
 
 function getcbDistrict(provinceName) {
@@ -47,9 +59,14 @@ function getcbDistrict(provinceName) {
 
 function getcbWard() {
     $.ajax({
+        type: "POST",
         url: "/Manage/GetWards",
         data: {
             districtID: toDistrictID
+        },
+        beforeSend: function () {
+            // setting a timeout  
+            document.getElementById('form-container').style.display = 'block';
         },
         success: function (response) {
             var cbWard = "";
@@ -57,10 +74,9 @@ function getcbWard() {
                 cbWard += '<option value=' + response[i].WardCode + ">" + response[i].WardName + '</option>';
             }
             document.getElementById('comboWard').innerHTML = cbWard;
+            document.getElementById('form-container').style.display = 'none';
         }
     })
-
-    calculateShippingFee();
 }
 
 function getCartSubTotal() {
@@ -80,6 +96,7 @@ function getCartSubTotal() {
 
 function calculateShippingFee() {
     $.ajax({
+        type: "POST",
         url: "/Manage/CalculateFee",
         data: {
             weight: 1000,
@@ -92,27 +109,37 @@ function calculateShippingFee() {
             total += subTotalAmount + response;
             document.getElementById('total-container').innerHTML = (onlineshop.formatNumber(total, 0)) + " VNĐ";
             $('#hid-total').val(total);
+        },
+        error: function () {
+            document.getElementById('form-container').style.display = 'none';
+            swal("Lỗi!", "Hình thức giao hàng hiện tại không hợp lệ, vui lòng chọn hình thức giao hàng khác.", "error");
+            $('#comboShippingMethod').val('0').trigger('change');
+
         }
     })
 }
 
 function calculateDeliveryDate() {
     $.ajax({
+        type: "POST",
         url: "/Manage/CalculateDeliveryDate",
         data: {
             toDistrictID: toDistrictID,
         },
+        beforeSend: function () {
+            // setting a timeout  
+            document.getElementById('form-container').style.display = 'block';
+        },
         success: function (response) {
             var s = $("#comboShippingMethod option:selected").attr('value');
             response.forEach(function (element) {
-                console.log(element.ServiceID)
+
                 if (element.ServiceID == s) {
                     var formattedDate = moment(element.ExpectedDeliveryTime).format("DD/MM/YYYY HH:MM");
-                    console.log('Yup its inside the if')
-                    console.log(formattedDate)
                     $('#lblArriveTime').text(formattedDate);
                 }
             })
+            document.getElementById('form-container').style.display = 'none';
         }
     })
 }

@@ -86,9 +86,9 @@ namespace OnlineShopCore.Controllers
         [AllowAnonymous]
         public async Task<JsonResult> GetWards(int districtID)
         {
-            var url = "https://dev-online-gateway.ghn.vn/apiv3-api/api/v1/apiv3/GetWards";
+            var url = "https://console.ghn.vn/api/v1/apiv3/GetWards";
 
-            var requestBody = JsonConvert.SerializeObject(new { token = "TokenStaging", DistrictID = districtID });
+            var requestBody = JsonConvert.SerializeObject(new { token = "5dbbdfbb12d00d48ea469675", DistrictID = districtID });
             var data = new StringContent(requestBody, Encoding.UTF8, "application/json");
 
             HttpClient client = new HttpClient();
@@ -104,9 +104,9 @@ namespace OnlineShopCore.Controllers
         [AllowAnonymous]
         public async Task<JsonResult> CalculateFee(int weight, int toDistrictID, int serviceID)
         {
-            var url = "https://dev-online-gateway.ghn.vn/apiv3-api/api/v1/apiv3/CalculateFee";
+            var url = "https://console.ghn.vn/api/v1/apiv3/CalculateFee";
 
-            var requestBody = JsonConvert.SerializeObject(new { token = "TokenStaging", Weight = weight, FromDistrictID = 1456, ToDistrictID = toDistrictID, ServiceID = serviceID });
+            var requestBody = JsonConvert.SerializeObject(new { token = "5dbbdfbb12d00d48ea469675", Weight = weight, FromDistrictID = 1456, ToDistrictID = toDistrictID, ServiceID = serviceID });
             var data = new StringContent(requestBody, Encoding.UTF8, "application/json");
 
             HttpClient client = new HttpClient();
@@ -122,9 +122,9 @@ namespace OnlineShopCore.Controllers
         [AllowAnonymous]
         public async Task<JsonResult> CalculateDeliveryDate(int toDistrictID)
         {
-            var url = "https://dev-online-gateway.ghn.vn/apiv3-api/api/v1/apiv3/FindAvailableServices";
+            var url = "https://console.ghn.vn/api/v1/apiv3/FindAvailableServices";
 
-            var requestBody = JsonConvert.SerializeObject(new { token = "TokenStaging", FromDistrictID = 1456, ToDistrictID = toDistrictID });
+            var requestBody = JsonConvert.SerializeObject(new { token = "5dbbdfbb12d00d48ea469675", FromDistrictID = 1456, ToDistrictID = toDistrictID });
             var data = new StringContent(requestBody, Encoding.UTF8, "application/json");
 
             HttpClient client = new HttpClient();

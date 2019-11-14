@@ -22,6 +22,8 @@ namespace OnlineShopCore.Data.EF
 
         public DbSet<Language> Languages { set; get; }
 
+        public DbSet<VoteLog> Votes { get; set; }
+
         public DbSet<Function> Functions { get; set; }
 
         public DbSet<Author> Authors { get; set; }

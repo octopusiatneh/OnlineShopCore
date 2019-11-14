@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AdditionalInfor" xml:space="preserve">
-    <value>Additional Information</value>
+    <value>Note for shipper</value>
   </data>
   <data name="Address" xml:space="preserve">
     <value>Address</value>
@@ -141,8 +141,14 @@
   <data name="Paragraph" xml:space="preserve">
     <value>There are no shipping methods available. Please double check your address, or contact us if you need any help.</value>
   </data>
+  <data name="PaymentFail" xml:space="preserve">
+    <value>Have an error in order progress. Please contact to customer service.</value>
+  </data>
   <data name="PaymentMethod" xml:space="preserve">
     <value>Payment method:</value>
+  </data>
+  <data name="PaymentSuccess" xml:space="preserve">
+    <value>Thank you for your order. We are going to confirm your order soon.</value>
   </data>
   <data name="Proceed" xml:space="preserve">
     <value>Proceed to checkout</value>

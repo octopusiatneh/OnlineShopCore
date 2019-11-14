@@ -1,0 +1,21 @@
+﻿@{
+    var url = Context.Request.Path;
+}
+@if (!User.Identity.IsAuthenticated)
+{
+    <text>Please <a href="/Account/Login?ReturnUrl=@url" title="Login to rate">Login</a> to rate</text>
+    return;
+}
+
+@if (Context.Request.Cookies[url] == null)
+{
+    <div id="rateBox" class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+
+    </div>
+}
+else
+{
+    <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+        <text><span class="stext-102 cl3 size-205 p-lr-5">You've already voted this product !</span></text>
+    </div>
+}

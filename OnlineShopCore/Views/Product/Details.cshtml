@@ -6,11 +6,12 @@
     var product = Model.Product;
     var author = Model.Author;
     var publisher = Model.Publisher;
-
+    var urlCookie = Context.Request.Path;
 }
 
 @section Scripts{
     <script src="~/app-client/controllers/product/detail.js"></script>
+    <script src="~/lib/fxss-rate/rate.js"></script>
     <script>
         var price = onlineshop.formatNumber(@product.Price, 0);
         //var promotionPrice = onlineshop.formatNumber(@product.PromotionPrice, 0);
@@ -89,6 +90,101 @@
             })
         });
     </script>
+    <script>
+        var productId = @product.Id;
+        var pointToInit = 0;
+        var totalUserVoted = 0;
+        var url = "@urlCookie";
+        $("#rateBox").rate({
+            // 0：svg  1：Font class  2：Unicode
+            type: 0,
+            // the number of stars
+            length: 5,
+            // initial value
+            value: 3.5,
+            // allows half star
+            half: true,
+            // supports decimal?
+            decimal: true,
+            // is readonly?
+            readonly: false,
+            // shows the current rating value on hover
+            hover: false,
+            // shows rating text
+            text: true,
+            // an array of rating text
+            textList: ['Bad', 'Poor', 'Medium', 'Good', 'Perfect'],
+            // color
+            theme: '#FFB800',
+            // text/star size
+            size: '20px',
+            // space between stars
+            gutter: '3px',
+            // default CSS classes
+            selectClass: 'fxss_rate_select',
+            incompleteClass: '',
+            customClass: '',
+            callback: function (object) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Product/SendRatingAsync",
+                    data: {
+                        VoteForId: productId,
+                        Vote: object.index + 1,
+                        url: url
+                    }
+                });
+            }
+        });
+        $.ajax({
+            url: '/Product/GetProductRating',
+            type: 'GET',
+            data: {
+                productId: productId
+            },
+            success: function (response) {
+                console.log(response)
+                pointToInit = response.RatingPoint;
+                totalUserVoted = response.TotalVote;
+                $("#total-vote").text(totalUserVoted);
+                $("#rating-point").text(pointToInit.toFixed(1));
+               $("#ratebox-show-container").rate({
+            type: 0,
+            // the number of stars
+            length: 5,
+            // initial value
+            value: pointToInit.toFixed(1),
+            // allows half star
+            half: true,
+            // supports decimal?
+            decimal: true,
+            // is readonly?
+            readonly: true,
+            // color
+            theme: '#FFB800',
+            // text/star size
+            size: '20px',
+            // space between stars
+            gutter: '3px',
+            // default CSS classes
+            selectClass: 'fxss_rate_select',
+            incompleteClass: '',
+            customClass: ''
+        });
+            }
+        })
+    </script>
+    @if (ViewBag.Message != null)
+    {
+        <script>
+            swal("Lỗi", @ViewBag.Message, "error");
+        </script>
+    }
+
+}
+
+@section Styles {
+    <link href="~/lib/fxss-rate/rate.css" rel="stylesheet" />
 }
 
 <div class="container">
@@ -252,11 +348,7 @@
                 </ul>
 
                 <!-- Tab panes -->
-
-
                 <div class="tab-content p-t-43">
-
-
                     <!-- - -->
                     <div class="tab-pane fade show active" id="description" role="tabpanel">
                         <div class="how-pos2 p-lr-15-md">
@@ -319,7 +411,11 @@
                     </div>
 
                     <!--Comments - -->
-                    <div class="tab-pane fade" id="review" role="tabpanel">
+                    <div id="review" class="tab-pane fade" role="tabpanel">
+                        <div class="row">
+                            <partial name="_VoteNow.cshtml" />
+                        </div>
+
                         <div class="row">
                             <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
                                 <div class="fb-comments" data-href="https://localhost:44379/@product.SeoAlias-p@product.Id" data-width="" data-numposts="8"></div>
@@ -332,8 +428,11 @@
     </div>
 
     <div class="bg6 flex-c-m flex-w size-302 m-t-73 p-tb-15">
-        <span class="stext-107 cl6 p-lr-25">
-            SKU: JAK-01
+        <div id="ratebox-show-container" class="p-lr-25">
+        </div>
+
+        <span class="p-lr-25 small">
+            Overall rating: <span id="total-vote"></span> | Rating <span id="rating-point"></span> out of <span>5</span>
         </span>
     </div>
 </section>

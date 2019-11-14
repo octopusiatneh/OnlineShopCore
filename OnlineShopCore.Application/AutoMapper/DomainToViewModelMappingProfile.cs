@@ -19,8 +19,6 @@ namespace OnlineShopCore.Application.AutoMapper
             CreateMap<AppRole, AppRoleViewModel>();
             CreateMap<Bill, BillViewModel>();
             CreateMap<BillDetail, BillDetailViewModel>();
-            CreateMap<Color, ColorViewModel>();
-            CreateMap<Size, SizeViewModel>();
             CreateMap<Slide, SlideViewModel>();
 
             CreateMap<Author, AuthorViewModel>();

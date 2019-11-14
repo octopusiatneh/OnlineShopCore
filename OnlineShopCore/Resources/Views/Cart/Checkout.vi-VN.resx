@@ -141,8 +141,14 @@
   <data name="Paragraph" xml:space="preserve">
     <value>Không có phương thức vận chuyển có sẵn. Vui lòng kiểm tra lại địa chỉ của bạn hoặc liên hệ với chúng tôi nếu bạn cần bất kỳ sự giúp đỡ nào.</value>
   </data>
+  <data name="PaymentFail" xml:space="preserve">
+    <value>Có lỗi xảy ra trong quá trình đặt hàng, vui lòng liên lạc với dịch vụ CSKH nếu bạn có thắc mắc.</value>
+  </data>
   <data name="PaymentMethod" xml:space="preserve">
     <value>Phương thức thanh toán:</value>
+  </data>
+  <data name="PaymentSuccess" xml:space="preserve">
+    <value>Đặt hàng thành công, đơn hàng sẽ được xác nhận qua số điện thoại bạn đã cung cấp. Hãy giữ điện thoại bên mình.</value>
   </data>
   <data name="Proceed" xml:space="preserve">
     <value>Đặt hàng</value>

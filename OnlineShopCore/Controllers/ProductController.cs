@@ -1,20 +1,24 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Data.EF;
+using OnlineShopCore.Data.Entities;
 using OnlineShopCore.Models.ProductViewModels;
 using OnlineShopCore.Utilities.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace OnlineShopCore.Controllers
 {
     public class ProductController : Controller
     {
         readonly AppDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
         private IProductCategoryService _productCategoryService;
         private IAuthorService _authorService;
         private IPublisherService _publisherService;
@@ -22,10 +26,11 @@ namespace OnlineShopCore.Controllers
         private IBillService _billService;
         private IConfiguration _configuration;
 
-        public ProductController(IProductService productService, IAuthorService authorService, IPublisherService publisherService, IConfiguration configuration,
+        public ProductController(UserManager<AppUser> userManager, IProductService productService, IAuthorService authorService, IPublisherService publisherService, IConfiguration configuration,
            IBillService billService, AppDbContext context,
            IProductCategoryService productCategoryService)
         {
+            _userManager = userManager;
             _productService = productService;
             _productCategoryService = productCategoryService;
             _configuration = configuration;
@@ -47,6 +52,53 @@ namespace OnlineShopCore.Controllers
             model.Product = _productService.GetAllPaging(string.Empty, page, pageSize);
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendRatingAsync(VoteViewModel model, string url)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var cookie = HttpContext.Request.Cookies.ContainsKey(url);
+            if(!cookie)
+            {
+                //check if he had voted
+                var isIt = _context.Votes.Where(v => v.UserName.Equals(user.UserName) && v.VoteForId == model.VoteForId).FirstOrDefault();
+                if (isIt != null)
+                {
+                    // keep the rating flag to stop voting by this member
+                    Response.Cookies.Append(url, "true");
+                }
+                else
+                {
+                    var userName = user.UserName.ToString();
+                    var voteForId = model.VoteForId;
+                    var vote = model.Vote;
+                    VoteLog vm = new VoteLog(voteForId, userName, vote);
+
+                    _context.Votes.Add(vm);
+
+                    _context.SaveChanges();
+
+                    // keep the rating flag to stop voting by this member
+                    Response.Cookies.Append(url, "true");
+                }
+            }        
+            return Ok();
+        }
+
+        [HttpGet]
+        public JsonResult GetProductRating(int productId)
+        {
+            var query = from v in _context.Votes
+                        where v.VoteForId == productId
+                        select v.Vote;
+            VoteShowViewModel voteShowVm = new VoteShowViewModel
+            {
+                TotalVote = query.Count(),
+                RatingPoint = query.Average()
+            };
+
+            return Json(voteShowVm);
         }
 
         [Route("filter")]
@@ -97,10 +149,10 @@ namespace OnlineShopCore.Controllers
         [Route("{alias}-p{id}", Name = "ProductDetail")]
         public IActionResult Details(int id)
         {
-           
-
-            var model = new DetailViewModel();
-            model.Product = _productService.GetById(id);    
+            var model = new DetailViewModel
+            {
+                Product = _productService.GetById(id)
+            };
 
             model.Author = _authorService.GetById(model.Product.AuthorId);
             model.Publisher = _publisherService.GetById(model.Product.PublisherId);
@@ -108,7 +160,7 @@ namespace OnlineShopCore.Controllers
             model.RelatedProducts = _productService.GetRelatedProducts(id, 12);
             model.ProductImages = _productService.GetImages(id);
 
-           
+
 
             var session = HttpContext.Session.GetString(model.Product.SeoAlias);
             if (session != null)
@@ -124,7 +176,7 @@ namespace OnlineShopCore.Controllers
                 _context.SaveChanges();
             }
 
-           
+
             return View(model);
         }
     }

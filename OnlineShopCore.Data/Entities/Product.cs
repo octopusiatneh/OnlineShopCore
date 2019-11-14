@@ -103,6 +103,8 @@ namespace OnlineShopCore.Data.Entities
 
         public int ViewCount { get; set; }
 
+        public string Votes { get; set; }
+
         [StringLength(255)]
         public string SeoAlias { set; get; }
 

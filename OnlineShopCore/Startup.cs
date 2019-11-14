@@ -157,8 +157,6 @@ namespace OnlineShopCore
             services.AddTransient<IPermissionRepository, PermissionRepository>();
             services.AddTransient<IBillRepository, BillRepository>();
             services.AddTransient<IBillDetailRepository, BillDetailRepository>();
-            services.AddTransient<IColorRepository, ColorRepository>();
-            services.AddTransient<ISizeRepository, SizeRepository>();
             services.AddTransient<IProductImageRepository, ProductImageRepository>();
             services.AddTransient<IFeedbackRepository, FeedbackRepository>();
             services.AddTransient<IAuthorRepository, AuthorRepository>();

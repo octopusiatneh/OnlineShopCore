@@ -5,7 +5,7 @@
 
     function registerEvents() {
         $('#btnAddToCart').on('click', function (e) {
-           
+
             e.preventDefault();
             var id = parseInt($(this).data('id'));
             $.ajax({
