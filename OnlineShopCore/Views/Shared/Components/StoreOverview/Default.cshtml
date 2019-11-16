@@ -56,11 +56,11 @@
                                                 <span class="stext-105 cl3">
                                                     @if (product.PromotionPrice.HasValue)
                                                     {
-                                                        <strike>@product.PromotionPrice</strike> @product.PromotionPrice
+                                                        <strike>@product.Price.ToString("C0") </strike>@product.PromotionPrice?.ToString("C0")
                                                     }
                                                     else
                                                     {
-                                                        @product.Price
+                                                        @product.Price.ToString("C0")
                                                     }
                                                 </span>
                                             </div>
@@ -96,14 +96,14 @@
                                                     @product.Name
                                                 </a>
 
-                                                <span class="stext-105 cl3">
+                                                <span class="stext-105 cl3 newest-price-container">
                                                     @if (product.PromotionPrice.HasValue)
                                                     {
-                                                        <strike>@product.Price</strike> @product.PromotionPrice
+                                                        <strike>@product.Price.ToString("C0") </strike>@product.PromotionPrice?.ToString("C0")
                                                     }
                                                     else
                                                     {
-                                                        @product.Price
+                                                       @product.Price.ToString("C0")
                                                     }
                                                 </span>
                                             </div>
@@ -142,11 +142,11 @@
                                                 <span class="stext-105 cl3">
                                                     @if (product.PromotionPrice.HasValue)
                                                     {
-                                                        <strike>@product.Price</strike> @product.PromotionPrice
+                                                        <strike>@product.Price.ToString("C0") </strike>@product.PromotionPrice?.ToString("C0")
                                                     }
                                                     else
                                                     {
-                                                        @product.Price
+                                                        @product.Price.ToString("C0")
                                                     }
                                                 </span>
                                             </div>

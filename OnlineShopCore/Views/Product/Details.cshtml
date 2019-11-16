@@ -174,12 +174,6 @@
             }
         })
     </script>
-    @if (ViewBag.Message != null)
-    {
-        <script>
-            swal("Lỗi", @ViewBag.Message, "error");
-        </script>
-    }
 
 }
 
@@ -252,20 +246,20 @@
                     @if (product.PromotionPrice.HasValue)
                     {
                         <span class="mtext-106 cl2" style="font-size: 250%">
-                            @Html.Raw("VNĐ") <text id="promotion-price"></text> <span class="badge badge-danger">Hot</span>
+                            @product.PromotionPrice?.ToString("C0") <span class="badge badge-danger">Hot</span>
                         </span>
 
                         <br />
 
                         <span class="mtext-106 cl2">
-                            <strike>@Html.Raw("VNĐ")<text id="price"></text></strike>
+                            <strike>@product.Price.ToString("C0")</strike>
                         </span>
 
                     }
                     else
                     {
                         <span class="mtext-106 cl2">
-                            @Html.Raw("VNĐ") <text id="price"></text>
+                            @product.Price.ToString("C0")
                         </span>
                     }
 
@@ -471,11 +465,11 @@
                                     <span class="stext-105 cl3">
                                         @if (item.PromotionPrice.HasValue)
                                         {
-                                            <strike>@Html.Raw("&#36;")@item.Price</strike> @Html.Raw("&#36;")@item.PromotionPrice
+                                            <strike>@item.Price.ToString("C0") </strike>@item.PromotionPrice?.ToString("C0")
                                         }
                                         else
                                         {
-                                            @Html.Raw("&#36;") @item.Price
+                                            @item.Price.ToString("C0")
                                         }
                                     </span>
                                 </div>

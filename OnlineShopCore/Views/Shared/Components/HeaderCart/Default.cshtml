@@ -16,7 +16,7 @@
             {
                 foreach (var item in Model)
                 {
-                    var url = item.Product.SeoAlias + "-st-" + item.Product.Id;
+                    var url = item.Product.SeoAlias + "-p" + item.Product.Id;
 
             <li class="header-cart-item flex-w flex-t m-b-12">
                 <div class="header-cart-item-img">
@@ -29,7 +29,7 @@
                     </a>
 
                     <span class="header-cart-item-info">
-                        @item.Quantity x $@((item.Product.PromotionPrice ?? item.Product.Price))
+                        @item.Quantity x @(item.Product.PromotionPrice.HasValue ? item.Product.PromotionPrice?.ToString("C0") : item.Product.Price.ToString("C0"))
                     </span>
                 </div>
             </li>
@@ -42,7 +42,7 @@
         </ul>
         <div class="w-full">
             <div class="header-cart-total w-full p-tb-40">
-                @Localizer["Total"]: $ @Model.Sum(x => x.Quantity * x.Price)
+                @Localizer["Total"]: @Model.Sum(x => x.Quantity * x.Price).ToString("C0")
             </div>
 
             <div class="header-cart-buttons flex-w w-full">
