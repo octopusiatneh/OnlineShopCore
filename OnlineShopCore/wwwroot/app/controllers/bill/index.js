@@ -58,6 +58,7 @@
                     var data = response;
                     console.log(data)
                     $('#hidId').val(data.Id);
+                    $('#hidServiceID').val(data.ServiceID);
                     $('#hidProvince').val(data.Province);
                     $('#hidToDistrictID').val(data.DistrictID);
                     $('#hidToWardCode').val(data.WardCode);
@@ -143,16 +144,18 @@
             //e.preventDefault();
 
             var toDistrictID = $('#hidToDistrictID').val();
+            var serviceID = $('#hidServiceID').val();
             var toWardCode = $('#hidToWardCode').val();
             var customerName = $('#txtCustomerName').val();
             var customerPhone = $('#txtCustomerMobile').val();
             var customerAddress = $('#txtCustomerAddress').val();
             var customerMessage = $('#txtCustomerMessage').val();
-            var codAmount = $('#hidCODAmount').val();      
+            var codAmount = $('#hidCODAmount').val();
             $.ajax({
                 type: "POST",
                 url: "/Admin/Bill/CreateOrderGHN",
                 data: {
+                    serviceID,
                     toDistrictID,
                     toWardCode,
                     customerName,
@@ -165,13 +168,13 @@
                     onlineshop.notify('Tạo đơn hàng GHN thành công!', 'success');
                     $('#modal-detail').modal('hide');
                     changeBillStatus();
-                    resetFormMaintainance();               
+                    resetFormMaintainance();
                 },
                 error: function () {
                     onlineshop.notify('Có lỗi xảy ra!', 'error');
                 }
             })
-            
+
         });
 
         $('#btnSave').on('click', function (e) {
@@ -181,7 +184,7 @@
                 var province = $('#hidProvince').val();
                 var toDistrictID = $('#hidToDistrictID').val();
                 var toWardCode = $('#hidToWardCode').val();
-                var codAmount = $('#hidCODAmount').val(); 
+                var codAmount = $('#hidCODAmount').val();
                 var dateCreated = $('#hidDateCreated').val();
                 var customerName = $('#txtCustomerName').val();
                 var customerAddress = $('#txtCustomerAddress').val();
@@ -429,6 +432,11 @@
         $('#ddlCustomerId').val('');
         $('#ddlBillStatus').val('');
         $('#tbl-bill-details').html('');
+
+        $('#hidProvinceName').val('');
+        $('#hidToWardCode').val('');
+        $('#hidToDistrictID').val('');
+        $('#hidServiceID').val('');
 
         $('#txtCustomerName').prop('disabled', false);
         $('#txtCustomerAddress').prop('disabled', false);

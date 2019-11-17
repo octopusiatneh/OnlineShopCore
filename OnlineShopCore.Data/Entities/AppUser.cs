@@ -37,9 +37,9 @@ namespace OnlineShopCore.Data.Entities
         public string Avatar { get; set; }
         public string Province { get; set; }
 
-        public int DistrictID { get; set; }
+        public int? DistrictID { get; set; }
 
-        public int WardCode { get; set; }
+        public int? WardCode { get; set; }
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }

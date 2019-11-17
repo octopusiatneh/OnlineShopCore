@@ -4,6 +4,7 @@ using OfficeOpenXml;
 using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Application.ViewModels.Common;
 using OnlineShopCore.Application.ViewModels.Product;
+using OnlineShopCore.Application.ViewModels.Utilities;
 using OnlineShopCore.Data.Entities;
 using OnlineShopCore.Data.Enums;
 using OnlineShopCore.Data.IRepositories;
@@ -19,13 +20,15 @@ namespace OnlineShopCore.Application.Implementation
     public class ProductService : IProductService
     {
         readonly IProductRepository _productRepository;
+        readonly IPromotionRepository _promotionReposirory;
         readonly IUnitOfWork _unitOfWork;
         readonly IProductImageRepository _productImageRepository;
 
 
-        public ProductService(IProductRepository productRepository, IProductImageRepository productImageRepository, IUnitOfWork unitOfWork)
+        public ProductService(IProductRepository productRepository, IPromotionRepository promotionReposirory, IProductImageRepository productImageRepository, IUnitOfWork unitOfWork)
         {
             _productRepository = productRepository;
+            _promotionReposirory = promotionReposirory;
             _productImageRepository = productImageRepository;
             _unitOfWork = unitOfWork;
         }
@@ -62,6 +65,11 @@ namespace OnlineShopCore.Application.Implementation
             //return _productRepository.FindAll().ProjectTo<ProductViewModel>().ToList();
         }
 
+        public List<ProductViewModel> GetAllWithNoPromotionPrice()
+        {
+            return _productRepository.FindAll(x => x.Status == Status.Active && x.PromotionPrice == null).ProjectTo<ProductViewModel>().ToList();
+        }
+
         public ProductViewModel GetById(int id)
         {
             return Mapper.Map<Product, ProductViewModel>(_productRepository.FindById(id));
@@ -89,7 +97,7 @@ namespace OnlineShopCore.Application.Implementation
                     decimal.TryParse(workSheet.Cells[i, 4].Value.ToString(), out var promotionPrice);
 
                     product.PromotionPrice = promotionPrice;
-                    product.Content = workSheet.Cells[i, 5].Value.ToString();  
+                    product.Content = workSheet.Cells[i, 5].Value.ToString();
 
                     bool.TryParse(workSheet.Cells[i, 8].Value.ToString(), out var hotFlag);
                     product.HotFlag = hotFlag;
@@ -228,6 +236,13 @@ namespace OnlineShopCore.Application.Implementation
                 .ToList();
         }
 
+        public List<PromotionViewModel> GetPromotion()
+        {
+            return _promotionReposirory.FindAll(x => x.Status == Status.Active)
+                .ProjectTo<PromotionViewModel>()
+                .ToList();
+        }
+
         public List<ProductViewModel> GetRelatedProducts(int id, int top)
         {
             var product = _productRepository.FindById(id);
@@ -237,7 +252,7 @@ namespace OnlineShopCore.Application.Implementation
             .Take(top)
             .ProjectTo<ProductViewModel>()
             .ToList();
-        }     
+        }
 
         public List<ProductViewModel> GetByName(string keyword)
         {

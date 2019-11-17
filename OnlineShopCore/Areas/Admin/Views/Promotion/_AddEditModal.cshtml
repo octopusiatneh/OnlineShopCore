@@ -1,0 +1,64 @@
+﻿<div id="modal-add-edit" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="card">
+                <form class="form-horizontal" role="form" id="frmMaintainance">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <input type="hidden" id="hidId" value="0" />
+                            <input type="hidden" id="hidDateCreated" value="date" />
+                            <label class="col-6 control-label col-form-label">Tên chương trình khuyến mãi</label>
+                            <div class="col-12">
+                                <input type="text" class="form-control" id="txtPromotionName">
+                            </div>
+
+                            <label class="col-6 control-label col-form-label">Ngày kết thúc</label>
+                            <div class="col-12">
+                                <input type="text" class="form-control" id="date-expired" data-input> <!-- input is mandatory -->
+                            </div>       
+                        </div>
+
+
+
+                        <div class="form-group row">
+                            <label class="col-2 control-label col-form-label">Danh sách sản phẩm</label>
+                            <div>
+                                <table class="table table-bordered col-11">
+                                    <thead>
+                                        <tr>
+                                            <th>Tên sản phẩm</th>
+                                            <th>% khuyến mãi</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbl-bill-details"></tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="5">
+                                                <button class="btn btn-xs btn-success" id="btnAddDetail" type="button">Add</button>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <script type="x-tmpl-mustache" id="template-table-bill-details">
+                                    <tr data-id="{{Id}}">
+                                        <td>{{{Products}}}</td>
+                                        <td><input type="number" class="txtPromotionPercent form-control" value="{{PromotionPercent}}" /></td>
+                                        <td><button class="btn btn-xs btn-danger btn-delete-detail" type="button"><i class="fa fa-trash"></i></button></td>
+                                    </tr>
+                                </script>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="button" id="btnSave" class="btn btn-success">Lưu</button>
+                                <button type="button" data-dismiss="modal" class="btn btn-danger">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

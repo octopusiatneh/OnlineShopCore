@@ -1,5 +1,6 @@
 ﻿using OnlineShopCore.Application.ViewModels.Common;
 using OnlineShopCore.Application.ViewModels.Product;
+using OnlineShopCore.Application.ViewModels.Utilities;
 using OnlineShopCore.Utilities.Dtos;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ namespace OnlineShopCore.Application.Interfaces
     public interface IProductService : IDisposable
     {
         List<ProductViewModel> GetAll();
+        List<ProductViewModel> GetAllWithNoPromotionPrice();
         PagedResult<ProductViewModel> Filter(string filter, int page, int pageSize);
         List<ProductViewModel> GetByName(string keyword);
         ProductViewModel Add(ProductViewModel product);
@@ -24,6 +26,7 @@ namespace OnlineShopCore.Application.Interfaces
         List<ProductViewModel> GetLastest(int top);
         List<ProductViewModel> GetHotProduct(int top);
         List<ProductViewModel> GetHomeProduct(int top);
+        List<PromotionViewModel> GetPromotion();
         List<ProductViewModel> GetRelatedProducts(int id, int top);
 
     }

@@ -20,7 +20,8 @@ namespace OnlineShopCore.Application.AutoMapper
             CreateMap<Bill, BillViewModel>();
             CreateMap<BillDetail, BillDetailViewModel>();
             CreateMap<Slide, SlideViewModel>();
-
+            CreateMap<Promotion, PromotionViewModel>();
+            CreateMap<PromotionDetail, PromotionDetailViewModel>();
             CreateMap<Author, AuthorViewModel>();
             CreateMap<Publisher, PublisherViewModel>();
 

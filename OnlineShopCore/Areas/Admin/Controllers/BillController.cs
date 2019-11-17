@@ -54,18 +54,18 @@ namespace OnlineShopCore.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateOrderGHN(string customerName, string customerPhone, string customerAddress, int toDistrictID, int toWardCode, string customerMessage, int codAmount)
+        public IActionResult CreateOrderGHN(int serviceID, string customerName, string customerPhone, string customerAddress, int toDistrictID, string toWardCode, string customerMessage, int codAmount)
         {
             var url = "https://dev-online-gateway.ghn.vn/apiv3-api/api/v1/apiv3/CreateOrder";
 
             var requestBody = JsonConvert.SerializeObject(new
             {
-                token = "c6a869b80fbb4c2fb41079ffe864eda7",
+                token = "TokenStaging",
                 PaymentTypeID = 2,
                 FromDistrictID = 1456,
                 FromWardCode = "21502",
                 ToDistrictID = toDistrictID,
-                ToWardCode = toWardCode.ToString(),
+                ToWardCode = toWardCode,
                 ClientContactName = "Coza Store",
                 ClientContactPhone = "0904285240",
                 ClientAddress = "155 Sư Vạn Hạnh (nd), P.13, Q.10",
@@ -74,7 +74,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
                 ShippingAddress = customerAddress,
                 CoDAmount = codAmount,
                 NoteCode = "CHOXEMHANGKHONGTHU",
-                ServiceID = 53321,
+                ServiceID = serviceID,
                 Weight = 1000,
                 Length = 10,
                 Width = 10,
@@ -116,7 +116,6 @@ namespace OnlineShopCore.Areas.Admin.Controllers
 
             return new OkResult();
         }
-
 
         [HttpGet]
         public IActionResult GetAll()

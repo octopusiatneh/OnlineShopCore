@@ -20,8 +20,8 @@ namespace OnlineShopCore.Application.Implementation
         private readonly IBillRepository _orderRepository;
         private readonly IBillDetailRepository _orderDetailRepository;
         private readonly IProductRepository _productRepository;
-        private IRepository<Announcement, string> _announRepository;
-        private IRepository<AnnouncementBill, int> _announBillRepository;
+        private readonly IRepository<Announcement, string> _announRepository;
+        private readonly IRepository<AnnouncementBill, int> _announBillRepository;
         private readonly IUnitOfWork _unitOfWork;
 
         public BillService(IBillRepository orderRepository,
@@ -190,8 +190,7 @@ namespace OnlineShopCore.Application.Implementation
 
         public void DeleteDetail(int productId, int billId, int colorId, int sizeId)
         {
-            var detail = _orderDetailRepository.FindSingle(x => x.ProductId == productId
-           && x.BillId == billId);
+            var detail = _orderDetailRepository.FindSingle(x => x.ProductId == productId && x.BillId == billId);
             _orderDetailRepository.Remove(detail);
         }
 

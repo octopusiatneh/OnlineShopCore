@@ -40,6 +40,11 @@ $('#comboShippingMethod').on('change', function () {
         calculateShippingFee();
         calculateDeliveryDate();
     }
+    else {
+        $('#shipping-fee-container').text('Không có phương thức vận chuyển có sẵn. Vui lòng kiểm tra lại địa chỉ của bạn hoặc liên hệ với chúng tôi nếu bạn cần bất kỳ sự giúp đỡ nào.');
+        $('#lblArriveTime').text('...');
+        $('#total-container').text('...');
+    }
 });
 
 function getcbDistrict(provinceName) {
@@ -112,9 +117,12 @@ function calculateShippingFee() {
         },
         error: function () {
             document.getElementById('form-container').style.display = 'none';
+            $('#shipping-fee-container').text('Không có phương thức vận chuyển có sẵn. Vui lòng kiểm tra lại địa chỉ của bạn hoặc liên hệ với chúng tôi nếu bạn cần bất kỳ sự giúp đỡ nào.');
+            $('#lblArriveTime').text('...');
+            $('#total-container').text('...');
             swal("Lỗi!", "Hình thức giao hàng hiện tại không hợp lệ, vui lòng chọn hình thức giao hàng khác.", "error");
             $('#comboShippingMethod').val('0').trigger('change');
-
+            
         }
     })
 }

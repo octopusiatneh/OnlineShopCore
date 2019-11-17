@@ -1,0 +1,140 @@
+﻿@inject IViewLocalizer Localizer
+@model HomeViewModel
+<!-- Product -->
+@foreach (var promo in @Model.Promotions)
+{
+    <section class="sec-product bg0 p-t-100 p-b-50">
+        <div class="container">
+            <div class="p-b-32">
+                <h3 class="ltext-105 cl5 txt-center respon1">
+                    @promo.PromotionName
+                </h3>
+            </div>
+            <div style="text-align:center;padding-bottom:32px">
+                <div id="clockdiv-@promo.Id" class="clock-container">
+                    <div>
+                        <span class="days"></span>
+                        <div class="smalltext">Days</div>
+                    </div>
+                    <div>
+                        <span class="hours"></span>
+                        <div class="smalltext">Hours</div>
+                    </div>
+                    <div>
+                        <span class="minutes"></span>
+                        <div class="smalltext">Minutes</div>
+                    </div>
+                    <div>
+                        <span class="seconds"></span>
+                        <div class="smalltext">Seconds</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Tab01 -->
+            <div class="tab01">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item p-b-10">
+                        <a class="nav-link active" data-toggle="tab" href="#best-seller" role="tab">Tất cả sản phẩm</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content p-t-50">
+                    <!-- Hot -->
+                    <div class="tab-pane fade show active" id="best-seller" role="tabpanel">
+                        <!-- Slide2 -->
+                        <div class="wrap-slick2">
+                            <div class="slick2">
+                                @foreach (var item in promo.PromotionDetails)
+                                {
+                                    var product = item.Product;
+                                    var url = product.SeoAlias + "-p" + product.Id;
+                                    url = url.ToLower();
+                                    <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+                                        <!-- Block2 -->
+                                        <div class="block2">
+                                            <div class="block2-pic hov-img0">
+                                                <a href="@url">
+                                                    <img src="@product.Image" alt="IMG-PRODUCT">
+                                                </a>
+                                            </div>
+
+                                            <div class="block2-txt flex-w flex-t p-t-14">
+                                                <div class="block2-txt-child1 flex-col-l ">
+                                                    <a href="@url" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                                        @product.Name
+                                                    </a>
+
+                                                    <span class="stext-105 cl3">
+                                                        @if (product.PromotionPrice.HasValue)
+                                                        {
+                                                            <strike>@product.Price.ToString("C0") </strike>@product.PromotionPrice?.ToString("C0")
+                                                        }
+                                                        else
+                                                        {
+                                                            @product.Price.ToString("C0")
+                                                        }
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function getTimeRemaining(endtime) {
+            var t = Date.parse(endtime) - Date.parse(new Date());
+            var seconds = Math.floor((t / 1000) % 60);
+            var minutes = Math.floor((t / 1000 / 60) % 60);
+            var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+            var days = Math.floor(t / (1000 * 60 * 60 * 24));
+            return {
+                'total': t,
+                'days': days,
+                'hours': hours,
+                'minutes': minutes,
+                'seconds': seconds
+            };
+        }
+
+        function initializeClock(id, endtime) {
+            var clock = document.getElementById(id);
+            var daysSpan = clock.querySelector('.days');
+            var hoursSpan = clock.querySelector('.hours');
+            var minutesSpan = clock.querySelector('.minutes');
+            var secondsSpan = clock.querySelector('.seconds');
+
+            function updateClock() {
+                var t = getTimeRemaining(endtime);
+
+                daysSpan.innerHTML = t.days;
+                hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+                minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+                secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+                if (t.total <= 0) {
+                    clearInterval(timeinterval);
+                    $.ajax({
+                        url:'/Admin/Promotion/SetOutOfDate',
+                        data: {
+                            //TODO: call method to cancel promotion => status = inactive and clear the product's promotion price                           
+                        }              
+                    })
+                }
+            }
+
+            updateClock();
+            var timeinterval = setInterval(updateClock, 1000);
+        }
+        var deadline = "@promo.DateExpired.ToString("o")"
+        initializeClock('clockdiv-@promo.Id', deadline);
+    </script>
+}

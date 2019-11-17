@@ -17,7 +17,7 @@ namespace OnlineShopCore.Application.ViewModels.Product
         [MaxLength(256)]
         public string CustomerAddress { set; get; }
 
-        //public int ServiceID { get; set; }
+        public int ServiceID { get; set; }
 
         public string Province { get; set; }
 

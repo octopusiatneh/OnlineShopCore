@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineShopCore.Data.EF;
 
 namespace OnlineShopCore.Data.EF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191116080810_promotion")]
+    partial class promotion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -275,8 +277,6 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.Property<int>("PaymentMethod");
 
                     b.Property<string>("Province");
-
-                    b.Property<int>("ServiceID");
 
                     b.Property<int>("Status");
 
@@ -590,12 +590,9 @@ namespace OnlineShopCore.Data.EF.Migrations
 
                     b.Property<DateTime>("DateCreated");
 
-                    b.Property<DateTime>("DateExpired");
-
                     b.Property<DateTime>("DateModified");
 
-                    b.Property<string>("PromotionName")
-                        .IsRequired();
+                    b.Property<string>("PromotionName");
 
                     b.Property<int>("Status");
 

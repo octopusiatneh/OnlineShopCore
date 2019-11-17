@@ -48,6 +48,13 @@ namespace OnlineShopCore.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        public IActionResult GetAllWithNoPromotionPrice()
+        {
+            var model = _productService.GetAllWithNoPromotionPrice();
+            return new OkObjectResult(model);
+        }
+
+        [HttpGet]
         public IActionResult GetAllCategories()
         {
             var model = _productCategoryService.GetAll();

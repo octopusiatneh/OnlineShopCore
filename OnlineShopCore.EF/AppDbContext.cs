@@ -30,6 +30,10 @@ namespace OnlineShopCore.Data.EF
 
         public DbSet<Publisher> Publishers { get; set; }
 
+        public DbSet<Promotion> Promotions { get; set; }
+
+        public DbSet<PromotionDetail> PromotionDetails { get; set; }
+
         public DbSet<AppUser> AppUsers { get; set; }
 
         public DbSet<AppRole> AppRoles { get; set; }

@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+@model HomeViewModel
 @section Scripts{
     <script>
         $(".js-select2").each(function () {
@@ -72,6 +72,7 @@
             })
         });
     </script>
+    
 }
 
 <!-- Slider -->
@@ -82,6 +83,9 @@
 
 <!-- Store overview -->
 @await Component.InvokeAsync("StoreOverview")
+
+<!-- Promotion-->
+@await Component.InvokeAsync("Promotion")
 
 <!-- Blogs-->
 @*@await Component.InvokeAsync("Blogs")*@

@@ -32,6 +32,7 @@ namespace OnlineShopCore.Controllers
             homeVm.LastestProducts = _productService.GetLastest(16);
             homeVm.HotProducts = _productService.GetHotProduct(16);
             homeVm.TopSellProducts = _productService.GetHomeProduct(16);
+            homeVm.Promotions = _productService.GetPromotion();
 
             return View(homeVm);
         }

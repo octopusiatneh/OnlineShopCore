@@ -12,6 +12,7 @@
                             <input type="hidden" id="hidToWardCode" value="0" />
                             <input id="hidCustomerId" type="hidden" value="" />
                             <input id="hidCODAmount" type="hidden" value="" />
+                            <input id="hidServiceID" type="hidden" value="" />
                             <label for="txtCustomerName" class="col-6 control-label col-form-label">Họ tên khách hàng</label>
                             <div class="col-12">
                                 <input type="text" name="txtCustomerName" class="form-control" id="txtCustomerName" placeholder="">
@@ -66,7 +67,7 @@
                                 <table class="table table-bordered col-11">
                                     <thead>
                                         <tr>
-                                            <th>Tên sản phẩm</th>                                    
+                                            <th>Tên sản phẩm</th>
                                             <th>Số lượng</th>
                                             <th></th>
                                         </tr>
@@ -82,7 +83,7 @@
                                 </table>
                                 <script type="x-tmpl-mustache" id="template-table-bill-details">
                                     <tr data-id="{{Id}}">
-                                        <td>{{{Products}}}</td>   
+                                        <td>{{{Products}}}</td>
                                         <td><input type="number" class="txtQuantity form-control" value="{{Quantity}}" /></td>
                                         <td><button class="btn btn-xs btn-danger btn-delete-detail" type="button"><i class="fa fa-trash"></i></button></td>
                                     </tr>

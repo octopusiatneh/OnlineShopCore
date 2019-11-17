@@ -11,6 +11,7 @@ namespace OnlineShopCore.Models
         public IEnumerable<ProductViewModel> LastestProducts { get; set; }
         public IEnumerable<ProductViewModel> HotProducts { get; set; }
         public IEnumerable<ProductViewModel> TopSellProducts { get; set; }
+        public IEnumerable<PromotionViewModel> Promotions { get; set; }
 
     }
 }
