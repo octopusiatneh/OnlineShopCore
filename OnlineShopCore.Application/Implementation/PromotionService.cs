@@ -8,6 +8,7 @@ using OnlineShopCore.Data.IRepositories;
 using OnlineShopCore.Infrastructure.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace OnlineShopCore.Application.Implementation
 {
@@ -117,16 +118,19 @@ namespace OnlineShopCore.Application.Implementation
         public void UpdateStatus(int promotionId)
         {
             var promo = _promotionRepository.FindById(promotionId);
-            promo.Status = Status.InActive;
-            var promotDetails = _promotionDetailRepository.FindAll(x => x.PromotionId == promo.Id);
-
-            foreach (var detail in promotDetails)
+            if (DateTime.Now >= promo.DateExpired)
             {
-                var product = _productRepository.FindById(detail.ProductId);
-                product.PromotionPrice = null;
-                _productRepository.Update(product);
+                promo.Status = Status.InActive;
+                var promotDetails = _promotionDetailRepository.FindAll(x => x.PromotionId == promo.Id);
+
+                foreach (var detail in promotDetails)
+                {
+                    var product = _productRepository.FindById(detail.ProductId);
+                    product.PromotionPrice = null;
+                    _productRepository.Update(product);
+                }
+                Save();
             }
-            Save();
         }
     }
 }
