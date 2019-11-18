@@ -11,6 +11,8 @@ namespace OnlineShopCore.Application.Interfaces
 
         void Update(PromotionViewModel promoVm);
 
+        void UpdateStatus(int promotionId);
+
         List<PromotionViewModel> GetAll();
 
         PromotionViewModel GetDetail(int promotionId);

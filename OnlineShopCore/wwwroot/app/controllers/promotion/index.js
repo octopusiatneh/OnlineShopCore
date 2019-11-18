@@ -94,7 +94,8 @@ var promotionController = function () {
                         Id: id,
                         PromotionName: promotionName,
                         DateExpired: dateExpired,
-                        PromotionDetails: promotionDetails
+                        PromotionDetails: promotionDetails,
+                        Status: 1
                     },
                     dataType: "json",
                     beforeSend: function () {
@@ -122,7 +123,6 @@ var promotionController = function () {
                 {
                     Id: 0,
                     Products: products,
-                    Quantity: 0
                 });
             $('#tbl-bill-details').append(render);
         });
@@ -182,12 +182,8 @@ var promotionController = function () {
             },
             columnDefs: [
                 {
-                    targets: [1, 2],
+                    targets: [1],
                     searchable: false
-                },
-                {
-                    targets: [0, 1, 2],
-                    autoWidth: true
                 },
                 {
                     targets: [0],
@@ -205,6 +201,11 @@ var promotionController = function () {
                 },
                 {
                     data: "DateCreated", render: function (data, type, row) {
+                        return data = moment(data).format('DD/MM/YYYY HH:mm:ss')
+                    }
+                },
+                {
+                    data: "DateExpired", render: function (data, type, row) {
                         return data = moment(data).format('DD/MM/YYYY HH:mm:ss')
                     }
                 }

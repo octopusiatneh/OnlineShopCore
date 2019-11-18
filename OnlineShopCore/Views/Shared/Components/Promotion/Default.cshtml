@@ -3,7 +3,7 @@
 <!-- Product -->
 @foreach (var promo in @Model.Promotions)
 {
-    <section class="sec-product bg0 p-t-100 p-b-50">
+    <section id="promotion-container-@promo.Id" class="sec-product bg0 p-t-100 p-b-50">
         <div class="container">
             <div class="p-b-32">
                 <h3 class="ltext-105 cl5 txt-center respon1">
@@ -121,14 +121,25 @@
                 secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
 
                 if (t.total <= 0) {
+                    setInvisible();
+                    setOutOfDate();                  
                     clearInterval(timeinterval);
-                    $.ajax({
-                        url:'/Admin/Promotion/SetOutOfDate',
-                        data: {
-                            //TODO: call method to cancel promotion => status = inactive and clear the product's promotion price                           
-                        }              
-                    })
                 }
+            }
+
+            function setInvisible() {
+                $('#promotion-container-@promo.Id').hide(1000);
+            }
+
+            function setOutOfDate() {
+                var promotionId = @promo.Id;
+                return $.ajax({
+                    type: 'PUT',
+                    url: '/Admin/Promotion/SetOutOfDate',
+                    data: {
+                        promotionId: promotionId
+                        }
+                });
             }
 
             updateClock();

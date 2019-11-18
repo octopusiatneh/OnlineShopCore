@@ -1,23 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using OnlineShopCore.Application.Interfaces;
-using OnlineShopCore.Application.ViewModels.Product;
 using OnlineShopCore.Application.ViewModels.Utilities;
+using OnlineShopCore.Data.Enums;
+using OnlineShopCore.Infrastructure.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineShopCore.Areas.Admin.Controllers
 {
     public class PromotionController : BaseController
     {
         private readonly IPromotionService _promotionService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public PromotionController(IPromotionService promotionService)
+        public PromotionController(IPromotionService promotionService, IUnitOfWork unitOfWork)
         {
             _promotionService = promotionService;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
@@ -38,6 +40,15 @@ namespace OnlineShopCore.Areas.Admin.Controllers
         {
             var model = _promotionService.GetAll();
             return new OkObjectResult(model);
+        }
+
+        [AllowAnonymous]
+        [HttpPut]
+        public IActionResult SetOutOfDate(int promotionID)
+        {
+            _promotionService.UpdateStatus(promotionID);
+
+            return new OkResult();
         }
 
         [HttpPost]

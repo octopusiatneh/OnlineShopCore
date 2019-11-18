@@ -3,12 +3,11 @@ using AutoMapper.QueryableExtensions;
 using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Application.ViewModels.Utilities;
 using OnlineShopCore.Data.Entities;
+using OnlineShopCore.Data.Enums;
 using OnlineShopCore.Data.IRepositories;
 using OnlineShopCore.Infrastructure.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace OnlineShopCore.Application.Implementation
 {
@@ -32,7 +31,7 @@ namespace OnlineShopCore.Application.Implementation
             foreach (var detail in promoDetails)
             {
                 var product = _productRepository.FindById(detail.ProductId);
-                product.PromotionPrice = product.Price - ( product.Price * detail.PromotionPercent / 100);
+                product.PromotionPrice = product.Price - (product.Price * detail.PromotionPercent / 100);
             }
             _promotionRepository.Add(promo);
         }
@@ -113,6 +112,21 @@ namespace OnlineShopCore.Application.Implementation
             _promotionDetailRepository.RemoveMultiple(existedDetails.Except(updatedDetails).ToList());
 
             _promotionRepository.Update(promo);
+        }
+
+        public void UpdateStatus(int promotionId)
+        {
+            var promo = _promotionRepository.FindById(promotionId);
+            promo.Status = Status.InActive;
+            var promotDetails = _promotionDetailRepository.FindAll(x => x.PromotionId == promo.Id);
+
+            foreach (var detail in promotDetails)
+            {
+                var product = _productRepository.FindById(detail.ProductId);
+                product.PromotionPrice = null;
+                _productRepository.Update(product);
+            }
+            Save();
         }
     }
 }
