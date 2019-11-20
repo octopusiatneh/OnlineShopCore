@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Data.EF;
 using OnlineShopCore.Data.Entities;
+using OnlineShopCore.Data.Enums;
 using OnlineShopCore.Models.ProductViewModels;
 using OnlineShopCore.Utilities.Constants;
 using System;
@@ -59,7 +60,7 @@ namespace OnlineShopCore.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             var cookie = HttpContext.Request.Cookies.ContainsKey(url);
-            if(!cookie)
+            if (!cookie)
             {
                 //check if he had voted
                 var isIt = _context.Votes.Where(v => v.UserName.Equals(user.UserName) && v.VoteForId == model.VoteForId).FirstOrDefault();
@@ -82,7 +83,7 @@ namespace OnlineShopCore.Controllers
                     // keep the rating flag to stop voting by this member
                     Response.Cookies.Append(url, "true");
                 }
-            }        
+            }
             return Ok();
         }
 
@@ -149,34 +150,32 @@ namespace OnlineShopCore.Controllers
         [Route("{alias}-p{id}", Name = "ProductDetail")]
         public IActionResult Details(int id)
         {
-            var model = new DetailViewModel
-            {
-                Product = _productService.GetById(id)
-            };
-
+            var model = new DetailViewModel();
+            var product = _productService.GetById(id);
+            model.Product = product;
+            model.Status = product.Status;
             model.Author = _authorService.GetById(model.Product.AuthorId);
             model.Publisher = _publisherService.GetById(model.Product.PublisherId);
             model.Category = _productCategoryService.GetById(model.Product.CategoryId);
             model.RelatedProducts = _productService.GetRelatedProducts(id, 12);
             model.ProductImages = _productService.GetImages(id);
 
-
-
-            var session = HttpContext.Session.GetString(model.Product.SeoAlias);
-            if (session != null)
+            if(model.Status != Status.InActive)
             {
-                //The session variable exists. So the user has already visited this site and sessions is still alive.
-                //Ignore this visit. No need to update the counter.    
+                var session = HttpContext.Session.GetString(model.Product.SeoAlias);
+                if (session != null)
+                {
+                    //The session variable exists. So the user has already visited this site and sessions is still alive.
+                    //Ignore this visit. No need to update the counter.    
+                }
+                else
+                {
+                    //create a session for visit product markd
+                    HttpContext.Session.SetString(model.Product.SeoAlias, "Visited");
+                    _productService.IncreaseViewCount(id);
+                    _context.SaveChanges();
+                }
             }
-            else
-            {
-                //create a session for visit product markd
-                HttpContext.Session.SetString(model.Product.SeoAlias, "Visited");
-                _productService.IncreaseViewCount(id);
-                _context.SaveChanges();
-            }
-
-
             return View(model);
         }
     }

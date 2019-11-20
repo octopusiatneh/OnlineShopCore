@@ -13,6 +13,8 @@ namespace OnlineShopCore.Data.Enums
         [Description("Đơn hàng bị hủy")]
         Cancelled,
         [Description("Đã giao hàng")]
-        Completed
+        Completed,
+        [Description("Đã thanh toán")]
+        Paid
     }
 }

@@ -9,14 +9,23 @@
     <recaptcha-script validation-message-element-id="recaptchaErrorMessage" />
     <script>
         $('#comboProvince').on("change", function () {
-            var provinceName = $("#comboProvince option:selected").val();
-            getcbDistrict(provinceName);
+            provinceValue = $("#comboProvince option:selected").val();
+            if (provinceValue == 0) {
+                $('#comboDistrict').empty().trigger('change');
+                $("#comboDistrict").append("<option value='0' selected>Chọn quận/huyện...</option>").trigger('change');
+                $('#comboWard').empty().trigger('change');
+                $("#comboWard").append("<option value='0' selected>Chọn phường/xã...</option>").trigger('change');
+            }
+            if (provinceValue != 0) {
+                var provinceName = $("#comboProvince option:selected").val();
+                getcbDistrict(provinceName);
+                toDistrictID = $("#comboDistrict option:selected").attr('value');
+                getcbWard();      
+            }
         });
 
         $('#comboDistrict').on("change", function () {
-            districtID = $("#comboDistrict option:selected").attr('value');
-            alert(districtID)
-            getcbWard();
+            toDistrictID = $("#comboDistrict option:selected").attr('value');    
         });
 
         function getcbDistrict(provinceName) {
@@ -36,9 +45,14 @@
 
         function getcbWard() {
             $.ajax({
+                type: "POST",
                 url: "/Manage/GetWards",
                 data: {
-                    districtID: districtID
+                    districtID: toDistrictID
+                },
+                beforeSend: function () {
+                    // setting a timeout
+                    document.getElementById('form-container').style.display = 'block';
                 },
                 success: function (response) {
                     var cbWard = "";
@@ -46,14 +60,30 @@
                         cbWard += '<option value=' + response[i].WardCode + ">" + response[i].WardName + '</option>';
                     }
                     document.getElementById('comboWard').innerHTML = cbWard;
+                    document.getElementById('form-container').style.display = 'none';
                 }
             })
         }
+
+        $(".js-select2").each(function () {
+            $(this).select2({
+                minimumResultsForSearch: 20,
+                dropdownParent: $(this).next('.dropDownSelect2')
+            });
+        })
+
     </script>
 }
 <div class="register-photo">
+    <div id="form-container" style="display:none">
+        <div id="overlay">
+            <div class="loader" style="width: 3rem; height: 3rem;">
+            </div>
+        </div>
+    </div>
     <div class="form-container">
         <div class="image-holder"></div>
+
         <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
             <h2 class="text-center"><strong>@Localizer["Create"]</strong>@Localizer["Account"]</h2>
             <div class="form-group"><input asp-for="FullName" class="form-control" type="text" name="fullName" placeholder="@Localizer["FullName"]"></div>
@@ -63,22 +93,88 @@
             <div class="form-group"><input asp-for="BirthDay" class="form-control" type="date" name="birthDay" placeholder="@Localizer["Date"]"></div>
             <div class="form-group"><input asp-for="PhoneNumber" class="form-control" type="text" name="phoneNumber" placeholder=" @Localizer["Phone"]"></div>
             <div class="form-group"><input asp-for="Address" class="form-control" type="text" name="address" placeholder="@Localizer["Address"]"></div>
-            <div class="form-group">
-                <select asp-for="Province" id="comboProvince" class="form-control" asp-items="ViewBag.Province">
-                    <option>Chọn tỉnh/thành phố</option>
+            <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+                <select id="comboProvince" asp-for="Province" class="js-select2 form-control">
+                    <option value="0">@Localizer["Province"]</option>
+                    <option>Hồ Chí Minh</option>
+                    <option>Hà Nội</option>
+                    <option>An Giang</option>
+                    <option>Bà Rịa - Vũng Tàu</option>
+                    <option>Bạc Liêu</option>
+                    <option>Bắc Giang</option>
+                    <option>Bắc Kạn</option>
+                    <option>Bắc Ninh</option>
+                    <option>Bến Tre</option>
+                    <option>Bình Định</option>
+                    <option>Bình Dương</option>
+                    <option>Bình Phước</option>
+                    <option>Bình Thuận</option>
+                    <option>Cà Mau</option>
+                    <option>Cao Bằng</option>
+                    <option>Cần Thơ</option>
+                    <option>Đà Nẵng</option>
+                    <option>Hải Phòng</option>
+                    <option>Gia Lai</option>
+                    <option>Hòa Bình</option>
+                    <option>Hà Giang</option>
+                    <option>Hà Nam</option>
+                    <option>Hưng Yên</option>
+                    <option>Hải Dương</option>
+                    <option>Hà Tĩnh</option>
+                    <option>Điện Biên</option>
+                    <option>Hậu Giang</option>
+                    <option>Đắk Lắk</option>
+                    <option>Đắk Nông</option>
+                    <option>Đồng Nai</option>
+                    <option>Đồng Tháp</option>
+                    <option>Kiên Giang</option>
+                    <option>Khánh Hòa</option>
+                    <option>Lai Châu</option>
+                    <option>Kon Tum</option>
+                    <option>Long An</option>
+                    <option>Lâm Đồng</option>
+                    <option>Lào Cai</option>
+                    <option>Lạng Sơn</option>
+                    <option>Nghệ An</option>
+                    <option>Nam Định</option>
+                    <option>Ninh Bình</option>
+                    <option>Ninh Thuận</option>
+                    <option>Phú Thọ</option>
+                    <option>Phú Yên</option>
+                    <option>Quảng Bình</option>
+                    <option>Quảng Nam</option>
+                    <option>Quảng Ngãi</option>
+                    <option>Quảng Trị</option>
+                    <option>Quảng Ninh</option>
+                    <option>Sóc Trăng</option>
+                    <option>Thanh Hóa</option>
+                    <option>Sơn La</option>
+                    <option>Thái Bình</option>
+                    <option>Thừa Thiên - Huế</option>
+                    <option>Thái Nguyên</option>
+                    <option>Tiền Giang</option>
+                    <option>Trà Vinh</option>
+                    <option>Tuyên Quang</option>
+                    <option>Tây Ninh</option>
+                    <option>Vĩnh Long</option>
+                    <option>Vĩnh Phúc</option>
+                    <option>Yên Bái</option>
                 </select>
+                <div class="dropDownSelect2"></div>
             </div>
 
-            <div class="form-group">
-                <select asp-for="DistrictID" id="comboDistrict" class="form-control">
-                    <option>Chọn quận/huyện</option>
+            <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+                <select id="comboDistrict" class="js-select2 form-control" asp-for="DistrictID">
+                    <option value="0">@Localizer["District"]</option>
                 </select>
+                <div class="dropDownSelect2"></div>
             </div>
 
-            <div class="form-group">
-                <select asp-for="WardCode" id="comboWard" class="form-control" name="wardCode">
-                    <option>Chọn phường/xã</option>
+            <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+                <select id="comboWard" class="js-select2 form-control" asp-for="WardCode">
+                    <option value="0">@Localizer["Ward"]</option>
                 </select>
+                <div class="dropDownSelect2"></div>
             </div>
 
             <div class="form-group">

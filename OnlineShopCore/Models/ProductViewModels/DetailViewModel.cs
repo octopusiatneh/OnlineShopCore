@@ -2,6 +2,7 @@
 using OnlineShopCore.Application.ViewModels;
 using OnlineShopCore.Application.ViewModels.Common;
 using OnlineShopCore.Application.ViewModels.Product;
+using OnlineShopCore.Data.Enums;
 using System.Collections.Generic;
 
 namespace OnlineShopCore.Models.ProductViewModels
@@ -10,7 +11,7 @@ namespace OnlineShopCore.Models.ProductViewModels
     {
         public ProductViewModel Product { get; set; }
 
-        public bool Available { get; set; }
+        public Status Status { get; set; }
 
         public List<ProductViewModel> RelatedProducts { get; set; }
 

@@ -11,17 +11,16 @@ namespace OnlineShopCore.Application.ViewModels.Utilities
         public int Id { get; set; }
 
         [Required]
-        public string PromotionName { get; set; }
+        public DateTime DateEnd { get; set; }
 
         public DateTime DateModified { get; set; }
-
         [Required]
-
-        public DateTime DateExpired { get; set; }
-
-        public Status Status { get; set; }
+        public DateTime DateStart { get; set; }
 
         public List<PromotionDetailViewModel> PromotionDetails { set; get; }
 
+        [Required]
+        public string PromotionName { get; set; }
+        public Status Status { get; set; }
     }
 }

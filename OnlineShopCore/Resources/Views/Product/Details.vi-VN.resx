@@ -123,9 +123,6 @@
   <data name="AuthorName" xml:space="preserve">
     <value>Tác giả</value>
   </data>
-  <data name="Color" xml:space="preserve">
-    <value>Màu</value>
-  </data>
   <data name="Description" xml:space="preserve">
     <value>Miêu tả</value>
   </data>
@@ -135,11 +132,11 @@
   <data name="Dimensions" xml:space="preserve">
     <value>Kích cỡ</value>
   </data>
-  <data name="Materials" xml:space="preserve">
-    <value>Vật liệu</value>
-  </data>
   <data name="NumberOfPages" xml:space="preserve">
     <value>Số trang</value>
+  </data>
+  <data name="ProductUnavailable" xml:space="preserve">
+    <value>Sản phẩm ngừng kinh doanh</value>
   </data>
   <data name="PublisherName" xml:space="preserve">
     <value>Nhà xuất bản</value>
@@ -152,11 +149,5 @@
   </data>
   <data name="Review" xml:space="preserve">
     <value>Khách hàng nhận xét</value>
-  </data>
-  <data name="Size" xml:space="preserve">
-    <value>Kích cỡ</value>
-  </data>
-  <data name="Weight" xml:space="preserve">
-    <value>Cân nặng</value>
   </data>
 </root>

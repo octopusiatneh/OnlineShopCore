@@ -3,10 +3,22 @@ var promotionController = function () {
     var cachedObj = {
         products: []
     }
+
+    var cachedObjFull = {
+        products: []
+    }
     this.initialize = function () {
-        loadProducts();
+        loadProductsFull();
         loadData();
         registerEvents();
+    }
+
+    this.loadProducts = function () {
+        loadProducts();
+    }
+
+    this.resetTableDetail = function () {
+        resetTableDetail();
     }
 
     function registerEvents() {
@@ -42,7 +54,8 @@ var promotionController = function () {
                     $('#hidId').val(data.Id);
                     $('#txtPromotionName').val(data.PromotionName);
                     $('#hidDateCreated').val(data.DateCreated);
-                    $('#date-expired').val(moment(data.DateExpired).format("DD/MM/YYYY HH:MM"));
+                    $('#date-start').val(moment(data.DateStart).format("DD/MM/YYYY HH:MM"));
+                    $('#date-end').val(moment(data.DateEnd).format("DD/MM/YYYY HH:MM"));
 
                     var promotionDetails = data.PromotionDetails;
                     if (data.PromotionDetails != null && data.PromotionDetails.length > 0) {
@@ -50,7 +63,7 @@ var promotionController = function () {
                         var templateDetails = $('#template-table-bill-details').html();
 
                         $.each(promotionDetails, function (i, item) {
-                            var products = getProductOptions(item.ProductId);
+                            var products = getProductOptionsFull(item.ProductId);
 
                             render += Mustache.render(templateDetails,
                                 {
@@ -75,7 +88,8 @@ var promotionController = function () {
                 e.preventDefault();
                 var id = $('#hidId').val();
                 var promotionName = $('#txtPromotionName').val();
-                var dateExpired = $('#date-expired').val();
+                var dateStart = $('#date-start').val();
+                var dateEnd = $('#date-end').val();
                 //promotion detail
                 var promotionDetails = [];
                 $.each($('#tbl-bill-details tr'), function (i, item) {
@@ -93,7 +107,8 @@ var promotionController = function () {
                     data: {
                         Id: id,
                         PromotionName: promotionName,
-                        DateExpired: dateExpired,
+                        DateStart: dateStart,
+                        DateEnd: dateEnd,
                         PromotionDetails: promotionDetails,
                         Status: 1
                     },
@@ -133,24 +148,54 @@ var promotionController = function () {
 
     };
 
+    //get available product for dropdown list select product
     function loadProducts() {
+        var dateStart = $('#date-start').val();
         return $.ajax({
             type: "GET",
-            url: "/Admin/Product/GetAllWithNoPromotionPrice",
-            dataType: "json",
+            url: "/Admin/Product/GetAvailableProductForPromotion",
+            data: {
+                dateStart: dateStart
+            },
             success: function (response) {
-                console.log(response)
                 cachedObj.products = response;
+                console.log(cachedObj)
             },
             error: function () {
-                onlineshop.notify('Has an error in progress', 'error');
+                onlineshop.notify('Has an error in getting available product progress', 'error');
+            }
+        });
+    }
+
+    //get cache product for btn-view click => get all product to display
+    function loadProductsFull() {
+        return $.ajax({
+            type: "GET",
+            url: "/Admin/Product/GetAll",
+            success: function (response) {
+                cachedObjFull.products = response;
+            },
+            error: function () {
+                onlineshop.notify('Has an error in getting available product progress', 'error');
             }
         });
     }
 
     function getProductOptions(selectedId) {
-        var products = "<select class='form-control ddlProductId'>";
+        products = "<select class='form-control ddlProductId'>";
         $.each(cachedObj.products, function (i, product) {
+            if (selectedId === product.Id)
+                products += '<option value="' + product.Id + '" selected="select">' + product.Name + '</option>';
+            else
+                products += '<option value="' + product.Id + '">' + product.Name + '</option>';
+        });
+        products += "</select>";
+        return products;
+    }
+
+    function getProductOptionsFull(selectedId) {
+        products = "<select class='form-control ddlProductId'>";
+        $.each(cachedObjFull.products, function (i, product) {
             if (selectedId === product.Id)
                 products += '<option value="' + product.Id + '" selected="select">' + product.Name + '</option>';
             else
@@ -164,7 +209,12 @@ var promotionController = function () {
         $('#hidId').val(0);
         $('#txtPromotionName').val('');
         $('#tbl-bill-details').html('');
-        $('#date-expired').val('');
+        $('#date-start').val('');
+        $('#date-end').val('');
+    }
+
+    function resetTableDetail() {
+        $('#tbl-bill-details').html('');
     }
 
     function loadData() {
@@ -182,7 +232,7 @@ var promotionController = function () {
             },
             columnDefs: [
                 {
-                    targets: [1],
+                    targets: [2, 3, 4],
                     searchable: false
                 },
                 {
@@ -205,7 +255,12 @@ var promotionController = function () {
                     }
                 },
                 {
-                    data: "DateExpired", render: function (data, type, row) {
+                    data: "DateStart", render: function (data, type, row) {
+                        return data = moment(data).format('DD/MM/YYYY HH:mm:ss')
+                    }
+                },
+                {
+                    data: "DateEnd", render: function (data, type, row) {
                         return data = moment(data).format('DD/MM/YYYY HH:mm:ss')
                     }
                 }

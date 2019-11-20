@@ -59,8 +59,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
                 IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
                 return new BadRequestObjectResult(allErrors);
             }
-
-            if (promoVm.DateExpired > DateTime.Now)
+            if (promoVm.DateEnd > DateTime.Now && promoVm.DateStart < promoVm.DateEnd)
             {
                 if (promoVm.Id == 0)
                 {

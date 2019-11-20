@@ -19,7 +19,7 @@ namespace OnlineShopCore.Application.AutoMapper
                 .ConstructUsing(c => new Publisher(c.Id, c.NamePublisher, c.ParentId, c.SortOrder, c.Status));
 
             CreateMap<PromotionViewModel, Promotion>()
-                .ConstructUsing(c => new Promotion(c.Id, c.PromotionName, c.DateExpired, c.Status));
+                .ConstructUsing(c => new Promotion(c.Id, c.PromotionName, c.DateEnd, c.Status));
 
             CreateMap<PromotionDetailViewModel, PromotionDetail>()
              .ConstructUsing(c => new PromotionDetail(c.Id, c.PromotionId, c.ProductId, c.PromotionPercent));

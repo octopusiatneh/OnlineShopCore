@@ -15,8 +15,6 @@
         registerEvents();
     }
 
-
-
     function registerEvents() {
         //Init validation
         $('#frmMaintainance').validate({
@@ -51,12 +49,8 @@
                 type: "GET",
                 url: "/Admin/Bill/GetById",
                 data: { id: that },
-                beforeSend: function () {
-                    onlineshop.startLoading();
-                },
                 success: function (response) {
                     var data = response;
-                    console.log(data)
                     $('#hidId').val(data.Id);
                     $('#hidServiceID').val(data.ServiceID);
                     $('#hidProvince').val(data.Province);
@@ -78,7 +72,7 @@
                     $('#ddlPaymentMethod').prop('disabled', true);
                     $('#hidCustomerId').val(data.CustomerId);
                     $('#ddlBillStatus').val(data.BillStatus);
-                    if (data.BillStatus == '4' || data.BillStatus == '3') {
+                    if (data.BillStatus != '0' && data.BillStatus != '5') {
                         $('#ddlBillStatus').prop('disabled', true);
 
                         var billDetails = data.BillDetails;
@@ -104,7 +98,8 @@
                         $("#tbl-bill-details select").prop('disabled', true);
                         $("#tbl-bill-details button").prop('disabled', true);
                         $("#btnAddDetail").prop('disabled', true);
-                        onlineshop.stopLoading();
+                        $("#btnSave").hide();
+                        $("#btnCreateOrderGHN").prop('disabled', true);                  
                     }
 
                     else {
@@ -126,8 +121,8 @@
                             $('#tbl-bill-details').html(render);
                         }
                         $('tbl-bill-details').prop('disable', true);
+                        $("#btnSave").show();
                         $('#modal-detail').modal('show');
-                        onlineshop.stopLoading();
                     }
 
 
@@ -164,14 +159,19 @@
                     customerMessage,
                     codAmount
                 },
+                beforeSend: function () {
+                    document.getElementById('form-container').style.display = 'block';
+                },
                 success: function () {
                     onlineshop.notify('Tạo đơn hàng GHN thành công!', 'success');
                     $('#modal-detail').modal('hide');
                     changeBillStatus();
                     resetFormMaintainance();
+                    document.getElementById('form-container').style.display = 'none';
                 },
                 error: function () {
                     onlineshop.notify('Có lỗi xảy ra!', 'error');
+                    document.getElementById('form-container').style.display = 'none';
                 }
             })
 
@@ -181,6 +181,7 @@
             if ($('#frmMaintainance').valid()) {
                 e.preventDefault();
                 var id = $('#hidId').val();
+                var serviceID = $('#hidServiceID').val();
                 var province = $('#hidProvince').val();
                 var toDistrictID = $('#hidToDistrictID').val();
                 var toWardCode = $('#hidToWardCode').val();
@@ -210,6 +211,7 @@
                     url: "/Admin/Bill/SaveEntity",
                     data: {
                         Id: id,
+                        ServiceID: serviceID,
                         Province: province,
                         DistrictID: toDistrictID,
                         WardCode: toWardCode,
@@ -285,9 +287,11 @@
             });
         });
     };
+
     function changeBillStatus() {
         if ($('#frmMaintainance').valid()) {
             var id = $('#hidId').val();
+            var serviceID = $('#hidServiceID').val();
             var province = $('#hidProvince').val();
             var toDistrictID = $('#hidToDistrictID').val();
             var toWardCode = $('#hidToWardCode').val();
@@ -317,6 +321,7 @@
                 url: "/Admin/Bill/SaveEntity",
                 data: {
                     Id: id,
+                    ServiceID: serviceID,
                     Province: province,
                     DistrictID: toDistrictID,
                     WardCode: toWardCode,
@@ -445,6 +450,7 @@
         $('#txtCODAmount').prop('disabled', false);
         $('#ddlPaymentMethod').prop('disabled', false);
         $('#ddlBillStatus').prop('disabled', false);
+        $("#btnCreateOrderGHN").prop('disabled', false);
         $("#btnAddDetail").prop('disabled', false);
     }
 
@@ -456,7 +462,9 @@
             $.fn.dataTable.ext.search.push(
                 function (settings, data, dataIndex) {
                     var min = $('#fromDate').datepicker("getDate");
+                    console.log(min)
                     var max = $('#toDate').datepicker("getDate");
+                    console.log(max)
                     var d = data[3].split("/");
                     var startDate = new Date(d[1] + "/" + d[0] + "/" + d[2]);
                     if (min == null && max == null) { return true; }
@@ -533,7 +541,7 @@
             processing: true, // for show progress bar
             serverSide: false, // for process server side
             destroy: true,
-            order: [[3, "asc"]],
+            order: [[3, "dsc"]],
             ajax: {
                 type: 'GET',
                 url: '/admin/bill/GetAll',
@@ -542,7 +550,7 @@
             },
             columnDefs: [
                 {
-                    targets: [0, 1, 2, 3, 4],
+                    targets: [0, 2, 4],
                     searchable: false
                 },
                 {

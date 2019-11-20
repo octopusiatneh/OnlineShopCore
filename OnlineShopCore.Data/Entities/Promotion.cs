@@ -16,32 +16,37 @@ namespace OnlineShopCore.Data.Entities
 
         }
 
-        public Promotion(int id, string promotionName, DateTime dateExpired, Status status)
+        public Promotion(int id, string promotionName, DateTime dateEnd, Status status)
         {
             Id = id;
             PromotionName = promotionName;
-            DateExpired = dateExpired;
+            DateEnd = dateEnd;
             Status = status;
         }
 
-        public Promotion(string promotionName, DateTime dateExpired, Status status)
+        public Promotion(string promotionName, DateTime dateEnd, Status status)
         {
             PromotionName = promotionName;
-            DateExpired = dateExpired;
+            DateEnd = dateEnd;
             Status = status;
         }
 
-        [Required]
-        public string PromotionName { get; set; }
         public DateTime DateCreated { get; set; }
+
+        [Required]
+        public DateTime DateEnd { get; set; }
+
         public DateTime DateModified { get; set; }
 
         [Required]
-        public DateTime DateExpired { get; set; }
+        public DateTime DateStart { get; set; }
+
+        public virtual ICollection<PromotionDetail> PromotionDetails { set; get; }
+
+        [Required]
+        public string PromotionName { get; set; }
 
         [DefaultValue(Status.Active)]
         public Status Status { get; set; } = Status.Active;
-
-        public virtual ICollection<PromotionDetail> PromotionDetails { set; get; }
     }
 }

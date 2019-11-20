@@ -118,7 +118,7 @@ namespace OnlineShopCore.Application.Implementation
         public void UpdateStatus(int promotionId)
         {
             var promo = _promotionRepository.FindById(promotionId);
-            if (DateTime.Now >= promo.DateExpired)
+            if (DateTime.Now >= promo.DateEnd)
             {
                 promo.Status = Status.InActive;
                 var promotDetails = _promotionDetailRepository.FindAll(x => x.PromotionId == promo.Id);

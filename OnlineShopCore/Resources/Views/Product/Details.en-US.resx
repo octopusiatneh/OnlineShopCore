@@ -123,9 +123,6 @@
   <data name="AuthorName" xml:space="preserve">
     <value>Author</value>
   </data>
-  <data name="Color" xml:space="preserve">
-    <value>Color</value>
-  </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
@@ -135,11 +132,11 @@
   <data name="Dimensions" xml:space="preserve">
     <value>Dimensions</value>
   </data>
-  <data name="Materials" xml:space="preserve">
-    <value>Materials</value>
-  </data>
   <data name="NumberOfPages" xml:space="preserve">
     <value>Pages</value>
+  </data>
+  <data name="ProductUnavailable" xml:space="preserve">
+    <value>Product is unavailable</value>
   </data>
   <data name="PublisherName" xml:space="preserve">
     <value>Publisher</value>
@@ -152,11 +149,5 @@
   </data>
   <data name="Review" xml:space="preserve">
     <value>Review</value>
-  </data>
-  <data name="Size" xml:space="preserve">
-    <value>Size</value>
-  </data>
-  <data name="Weight" xml:space="preserve">
-    <value>Weight</value>
   </data>
 </root>

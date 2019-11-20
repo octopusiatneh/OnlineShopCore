@@ -11,7 +11,7 @@ $('#comboProvince').on("change", function () {
         $('#comboDistrict').empty().trigger('change');
         $("#comboDistrict").append("<option value='0' selected>Chọn quận/huyện...</option>").trigger('change');
         $('#comboWard').empty().trigger('change');
-        $("#comboWard").append("<option value='0' selected>Chọn huyện/xã...</option>").trigger('change');
+        $("#comboWard").append("<option value='0' selected>Chọn phường/xã...</option>").trigger('change');
     }
     if (provinceValue != 0) {
         var provinceName = $("#comboProvince option:selected").val();
@@ -46,6 +46,10 @@ $('#comboShippingMethod').on('change', function () {
         $('#total-container').text('...');
     }
 });
+
+$('#btn-proceed').click(function () {
+    document.getElementById('form-container').style.display = 'block';
+})
 
 function getcbDistrict(provinceName) {
     var arrDistrictName = [];

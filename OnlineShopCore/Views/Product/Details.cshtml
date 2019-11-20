@@ -235,190 +235,210 @@
                     </div>
                 </div>
             </div>
+            @if (product.Status != OnlineShopCore.Data.Enums.Status.InActive)
+            {
+                <div class="col-md-6 col-lg-5 p-b-30">
+                    <div class="p-r-50 p-t-5 p-lr-0-lg">
+                        <h4 class="mtext-105 cl2 js-name-detail p-b-14">
+                            @product.Name
+                        </h4>
 
-            <div class="col-md-6 col-lg-5 p-b-30">
-                <div class="p-r-50 p-t-5 p-lr-0-lg">
-                    <h4 class="mtext-105 cl2 js-name-detail p-b-14">
-                        @product.Name
-                    </h4>
 
-
-                    @if (product.PromotionPrice.HasValue)
-                    {
-                        <span class="mtext-106 cl2" style="font-size: 250%">
-                            @product.PromotionPrice?.ToString("C0") <span class="badge badge-danger">Hot</span>
-                        </span>
-
-                        <br />
-
-                        <span class="mtext-106 cl2">
-                            <strike>@product.Price.ToString("C0")</strike>
-                        </span>
-
-                    }
-                    else
-                    {
-                        <span class="mtext-106 cl2">
-                            @product.Price.ToString("C0")
-                        </span>
-                    }
-
-                    <div class="stext-102 cl3 p-t-23">
-                        @if (product.Content != null && product.Content.Length >= 200)
+                        @if (product.PromotionPrice.HasValue)
                         {
-                            @Html.Raw(product.Content.Substring(0, 199))
-                            <text> ... </text>
+                            <span class="mtext-106 cl2" style="font-size: 250%">
+                                @product.PromotionPrice?.ToString("C0") <span class="badge badge-danger">Hot</span>
+                            </span>
+
+                            <br />
+
+                            <span class="mtext-106 cl2">
+                                <strike>@product.Price.ToString("C0")</strike>
+                            </span>
+
                         }
                         else
                         {
-                            @Html.Raw(product.Content)
+                            <span class="mtext-106 cl2">
+                                @product.Price.ToString("C0")
+                            </span>
                         }
-                    </div>
 
-                    <!--  -->
-                    <div class="p-t-33">
-                        <div class="flex-w flex-r-m p-b-10">
-                            <div class="size-204 flex-w flex-m respon6-next">
-                                <div class="wrap-num-product flex-w m-r-20 m-tb-10">
-                                    <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                        <i class="fs-16 zmdi zmdi-minus"></i>
+                        <div class="stext-102 cl3 p-t-23">
+                            @if (product.Content != null && product.Content.Length >= 200)
+                            {
+                                @Html.Raw(product.Content.Substring(0, 199))
+                                <text> ... </text>
+                            }
+                            else
+                            {
+                                @Html.Raw(product.Content)
+                            }
+                        </div>
+
+                        <!--  -->
+                        <div class="p-t-33">
+                            <div class="flex-w flex-r-m p-b-10">
+                                <div class="size-204 flex-w flex-m respon6-next">
+                                    <div class="wrap-num-product flex-w m-r-20 m-tb-10">
+                                        <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                            <i class="fs-16 zmdi zmdi-minus"></i>
+                                        </div>
+
+                                        <input id="txtQuantity" class="mtext-104 cl3 txt-center num-product" type="number" name="txtQuantity" value="1">
+
+                                        <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                                            <i class="fs-16 zmdi zmdi-plus"></i>
+                                        </div>
                                     </div>
 
-                                    <input id="txtQuantity" class="mtext-104 cl3 txt-center num-product" type="number" name="txtQuantity" value="1">
-
-                                    <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                        <i class="fs-16 zmdi zmdi-plus"></i>
-                                    </div>
+                                    <button id="btnAddToCart" data-id="@product.Id" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                        @Localizer["AddToCart"]
+                                    </button>
                                 </div>
-
-                                <button id="btnAddToCart" data-id="@product.Id" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                    @Localizer["AddToCart"]
-                                </button>
                             </div>
                         </div>
-                    </div>
 
-                    <!--  -->
-                    <div class="flex-w flex-m p-l-100 p-t-40 respon7">
-                        <div class="flex-m bor9 p-r-10 m-r-11">
-                            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
-                                <i class="zmdi zmdi-favorite"></i>
+                        <!--  -->
+                        <div class="flex-w flex-m p-l-100 p-t-40 respon7">
+                            <div class="flex-m bor9 p-r-10 m-r-11">
+                                <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
+                                    <i class="zmdi zmdi-favorite"></i>
+                                </a>
+                            </div>
+
+                            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+
+                            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+
+                            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
+                                <i class="fa fa-google-plus"></i>
                             </a>
                         </div>
-
-                        <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
-                            <i class="fa fa-facebook"></i>
-                        </a>
-
-                        <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
-                            <i class="fa fa-twitter"></i>
-                        </a>
-
-                        <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
-                            <i class="fa fa-google-plus"></i>
-                        </a>
                     </div>
                 </div>
-            </div>
+            }
+            else
+            {
+                <div class="col-md-6 col-lg-5 p-b-30">
+                    <div class="p-r-50 p-t-5 p-lr-0-lg">
+                        <h4 class="mtext-105 cl2 js-name-detail p-b-14">
+                            @product.Name
+                        </h4>
+
+                        <span class="mtext-105 cl2" style="font-size: 150%">
+                            @Localizer["ProductUnavailable"]
+                        </span>
+                    </div>
+                </div>
+            }
         </div>
 
-        <div class="bor10 m-t-50 p-t-43 p-b-40">
-            <!-- Tab01 -->
-            <div class="tab01">
-                <!-- Nav tabs -->
-                <ul class="nav nav-tabs" role="tablist">
+        @if (product.Status != OnlineShopCore.Data.Enums.Status.InActive)
+        {
+            <div class="bor10 m-t-50 p-t-43 p-b-40">
+                <!-- Tab01 -->
+                <div class="tab01">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
 
-                    <li class="nav-item p-b-10">
-                        <a class="nav-link active" data-toggle="tab" href="#description" role="tab">@Localizer["Description"]</a>
-                    </li>
+                        <li class="nav-item p-b-10">
+                            <a class="nav-link active" data-toggle="tab" href="#description" role="tab">@Localizer["Description"]</a>
+                        </li>
 
-                    <li class="nav-item p-b-10">
-                        <a class="nav-link" data-toggle="tab" href="#information" role="tab">@Localizer["DetailInformation"]</a>
-                    </li>
+                        <li class="nav-item p-b-10">
+                            <a class="nav-link" data-toggle="tab" href="#information" role="tab">@Localizer["DetailInformation"]</a>
+                        </li>
 
-                    <li class="nav-item p-b-10">
-                        <a class="nav-link" data-toggle="tab" href="#review" role="tab">@Localizer["Review"]</a>
-                    </li>
-                </ul>
+                        <li class="nav-item p-b-10">
+                            <a class="nav-link" data-toggle="tab" href="#review" role="tab">@Localizer["Review"]</a>
+                        </li>
+                    </ul>
 
-                <!-- Tab panes -->
-                <div class="tab-content p-t-43">
-                    <!-- - -->
-                    <div class="tab-pane fade show active" id="description" role="tabpanel">
-                        <div class="how-pos2 p-lr-15-md">
-                            <p class="stext-102 cl6">
-                                @Html.Raw(product.Content)
-                            </p>
+                    <!-- Tab panes -->
+                    <div class="tab-content p-t-43">
+                        <!-- - -->
+                        <div class="tab-pane fade show active" id="description" role="tabpanel">
+                            <div class="how-pos2 p-lr-15-md">
+                                <p class="stext-102 cl6">
+                                    @Html.Raw(product.Content)
+                                </p>
+                            </div>
                         </div>
-                    </div>
 
 
-                    <!-- - -->
-                    <div class="tab-pane fade" id="information" role="tabpanel">
-                        <div class="row">
-                            <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
-                                <ul class="p-lr-28 p-lr-15-sm">
+                        <!-- - -->
+                        <div class="tab-pane fade" id="information" role="tabpanel">
+                            <div class="row">
+                                <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+                                    <ul class="p-lr-28 p-lr-15-sm">
 
-                                    <li class="flex-w flex-t p-b-7">
-                                        <span class="stext-102 cl3 size-205">
-                                            @Localizer["PublisherName"]
-                                        </span>
+                                        <li class="flex-w flex-t p-b-7">
+                                            <span class="stext-102 cl3 size-205">
+                                                @Localizer["PublisherName"]
+                                            </span>
 
-                                        <span class="stext-102 cl6 size-206">
-                                            @publisher.NamePublisher
-                                        </span>
-                                    </li>
+                                            <span class="stext-102 cl6 size-206">
+                                                @publisher.NamePublisher
+                                            </span>
+                                        </li>
 
-                                    <li class="flex-w flex-t p-b-7">
-                                        <span class="stext-102 cl3 size-205">
-                                            @Localizer["AuthorName"]
-                                        </span>
+                                        <li class="flex-w flex-t p-b-7">
+                                            <span class="stext-102 cl3 size-205">
+                                                @Localizer["AuthorName"]
+                                            </span>
 
-                                        <span class="stext-102 cl6 size-206">
-                                            @author.AuthorName
-                                        </span>
-                                    </li>
+                                            <span class="stext-102 cl6 size-206">
+                                                @author.AuthorName
+                                            </span>
+                                        </li>
 
-                                    <li class="flex-w flex-t p-b-7">
-                                        <span class="stext-102 cl3 size-205">
-                                            @Localizer["PublishYear"]
-                                        </span>
+                                        <li class="flex-w flex-t p-b-7">
+                                            <span class="stext-102 cl3 size-205">
+                                                @Localizer["PublishYear"]
+                                            </span>
 
-                                        <span class="stext-102 cl6 size-206">
-                                            2018
-                                        </span>
-                                    </li>
+                                            <span class="stext-102 cl6 size-206">
+                                                2018
+                                            </span>
+                                        </li>
 
-                                    <li class="flex-w flex-t p-b-7">
-                                        <span class="stext-102 cl3 size-205">
-                                            @Localizer["NumberOfPages"]
-                                        </span>
+                                        <li class="flex-w flex-t p-b-7">
+                                            <span class="stext-102 cl3 size-205">
+                                                @Localizer["NumberOfPages"]
+                                            </span>
 
-                                        <span class="stext-102 cl6 size-206">
-                                            236
-                                        </span>
-                                    </li>
+                                            <span class="stext-102 cl6 size-206">
+                                                236
+                                            </span>
+                                        </li>
 
-                                </ul>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Comments - -->
+                        <div id="review" class="tab-pane fade" role="tabpanel">
+                            <div class="row">
+                                <partial name="_VoteNow.cshtml" />
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+                                    <div class="fb-comments" data-href="https://localhost:44379/@product.SeoAlias-p@product.Id" data-width="" data-numposts="8"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <!--Comments - -->
-                    <div id="review" class="tab-pane fade" role="tabpanel">
-                        <div class="row">
-                            <partial name="_VoteNow.cshtml" />
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
-                                <div class="fb-comments" data-href="https://localhost:44379/@product.SeoAlias-p@product.Id" data-width="" data-numposts="8"></div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
-        </div>
+        }
+
     </div>
 
     <div class="bg6 flex-c-m flex-w size-302 m-t-73 p-tb-15">

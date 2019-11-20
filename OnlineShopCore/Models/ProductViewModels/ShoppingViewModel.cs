@@ -18,20 +18,20 @@ namespace OnlineShopCore.Models.ProductViewModels
 
         public List<SelectListItem> SortTypes { get; } = new List<SelectListItem>
         {
-            new SelectListItem(){Value="default",Text="All"},
-            new SelectListItem(){Value="lastest",Text="Lastest"},
-            new SelectListItem(){Value="pricelth",Text="Price:Low to High"},
-            new SelectListItem(){Value="pricehtl",Text="Price:High to Low"}
+            new SelectListItem(){Text="All"},
+            new SelectListItem(){Text="Lastest"},
+            new SelectListItem(){Text="Price:Low to High"},
+            new SelectListItem(){Text="Price:High to Low"}
         };
 
         public List<SelectListItem> SortPrices { get; } = new List<SelectListItem>
         {
-            new SelectListItem(){Value="default",Text="All"},
-            new SelectListItem(){Value="lastest",Text="$0.00 - $50.00"},
-            new SelectListItem(){Value="lastest",Text="$50.00 - $100.00"},
-             new SelectListItem(){Value="lastest",Text="$100.00 - $150.00"},
-            new SelectListItem(){Value="lastest",Text="$150.00 - $200.00"},
-            new SelectListItem(){Value="pricehtl",Text="$200.00+"}
+            new SelectListItem(){Text="All"},
+            new SelectListItem(){Text="$0.00 - $50.00"},
+            new SelectListItem(){Text="$50.00 - $100.00"},
+             new SelectListItem(){Text="$100.00 - $150.00"},
+            new SelectListItem(){Text="$150.00 - $200.00"},
+            new SelectListItem(){Text="$200.00+"}
         };
     }
 }

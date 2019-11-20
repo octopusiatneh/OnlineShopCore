@@ -16,7 +16,20 @@
         var promotion = new promotionController();
         promotion.initialize();
 
-        flatpickr("#date-expired", {
+        var dateStart;
+
+        flatpickr("#date-start", {
+            minDate: "today",
+            dateFormat: "d/m/Y H:i",
+            enableTime: true,
+            time_24hr: true,
+            onClose: function () {
+                promotion.loadProducts();
+                promotion.resetTableDetail();
+            }
+        });
+
+        flatpickr("#date-end", {
             minDate: "today",
             dateFormat: "d/m/Y H:i",
             enableTime: true,
@@ -52,6 +65,7 @@
                                 <th>Action</th>
                                 <th>Tên chương trình khuyến mãi</th>
                                 <th>Ngày tạo</th>
+                                <th>Ngày bắt đầu</th>
                                 <th>Ngày kết thúc</th>
                             </tr>
                         </thead>
@@ -63,6 +77,7 @@
                                 <th>Action</th>
                                 <th>Tên chương trình khuyến mãi</th>
                                 <th>Ngày tạo</th>
+                                <th>Ngày bắt đầu</th>
                                 <th>Ngày kết thúc</th>
                             </tr>
                         </tfoot>

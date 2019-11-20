@@ -9,25 +9,43 @@ namespace OnlineShopCore.Application.Interfaces
 {
     public interface IProductService : IDisposable
     {
-        List<ProductViewModel> GetAll();
-        List<ProductViewModel> GetAllWithNoPromotionPrice();
-        PagedResult<ProductViewModel> Filter(string filter, int page, int pageSize);
-        List<ProductViewModel> GetByName(string keyword);
         ProductViewModel Add(ProductViewModel product);
-        void Update(ProductViewModel product);
-        void IncreaseViewCount(int id);
-        void Delete(int id);
-        ProductViewModel GetById(int id);
-        void ImportExcel(string filePath, int categoryId,int authorId, int publisherId);
-        void Save();
+
         void AddImages(int productId, string[] images);
-        List<ProductImageViewModel> GetImages(int productId);
+
+        void Delete(int id);
+
+        PagedResult<ProductViewModel> Filter(string filter, int page, int pageSize);
+
+        List<ProductViewModel> GetAll();
+
         PagedResult<ProductViewModel> GetAllPaging(string keyword, int page, int pageSize);
-        List<ProductViewModel> GetLastest(int top);
-        List<ProductViewModel> GetHotProduct(int top);
+
+        List<ProductViewModel> GetAvailableProductForPromotion(DateTime dateStart);
+
+        ProductViewModel GetById(int id);
+
+        List<ProductViewModel> GetByName(string keyword);
+
         List<ProductViewModel> GetHomeProduct(int top);
+
+        List<ProductViewModel> GetHotProduct(int top);
+
+        List<ProductImageViewModel> GetImages(int productId);
+
+        List<ProductViewModel> GetLastest(int top);
+
         List<PromotionViewModel> GetPromotion();
+
         List<ProductViewModel> GetRelatedProducts(int id, int top);
+
+        void ImportExcel(string filePath, int categoryId,int authorId, int publisherId);
+
+        void IncreaseViewCount(int id);
+
+        void Save();
+
+        void Update(ProductViewModel product);
 
     }
 }

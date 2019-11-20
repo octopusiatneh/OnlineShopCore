@@ -6,6 +6,7 @@ using OfficeOpenXml;
 using OfficeOpenXml.Table;
 using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Application.ViewModels.Product;
+using OnlineShopCore.Application.ViewModels.Utilities;
 using OnlineShopCore.Data.EF;
 using OnlineShopCore.Data.Entities;
 using OnlineShopCore.Utilities.Helpers;
@@ -19,11 +20,10 @@ namespace OnlineShopCore.Areas.Admin.Controllers
 {
     public class ProductController : BaseController
     {
-        readonly IProductService _productService;
         readonly AppDbContext _context;
-        readonly IProductCategoryService _productCategoryService;
         readonly IHostingEnvironment _hostingEnvironment;
-
+        readonly IProductCategoryService _productCategoryService;
+        readonly IProductService _productService;
         public ProductController(IProductService productService, IProductCategoryService productCategoryService,
             IHostingEnvironment hostingEnvironment, AppDbContext context)
         {
@@ -39,68 +39,6 @@ namespace OnlineShopCore.Areas.Admin.Controllers
         }
 
         #region AJAX API
-
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var model = _productService.GetAll();
-            return new OkObjectResult(model);
-        }
-
-        [HttpGet]
-        public IActionResult GetAllWithNoPromotionPrice()
-        {
-            var model = _productService.GetAllWithNoPromotionPrice();
-            return new OkObjectResult(model);
-        }
-
-        [HttpGet]
-        public IActionResult GetAllCategories()
-        {
-            var model = _productCategoryService.GetAll();
-            return new OkObjectResult(model);
-        }
-
-        [HttpGet]
-        public IActionResult GetById(int id)
-        {
-            var model = _productService.GetById(id);
-
-            return new OkObjectResult(model);
-        }
-
-        [HttpPost]
-        public IActionResult SaveEntity(ProductViewModel productVm)
-        {
-            if (!ModelState.IsValid)
-            {
-                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
-                return new BadRequestObjectResult(allErrors);
-            }
-            else
-            {
-                productVm.SeoAlias = TextHelper.ToUnsignString(productVm.Name);
-                if (productVm.Id == 0)
-                {
-                    _productService.Add(productVm);
-                    //logging activity
-                    var userName = User.Identity.Name;
-                    _context.Loggings.Add(new Logging(DateTime.Now, userName, "create new product"));
-
-                }
-                else
-                {
-                    _productService.Update(productVm);
-                    //logging activity
-                    var userName = User.Identity.Name;
-                    _context.Loggings.Add(new Logging(DateTime.Now, userName, "update product"));
-
-                }
-                _productService.Save();
-                _context.SaveChanges();
-                return new OkObjectResult(productVm);
-            }
-        }
 
         [HttpPost]
         public IActionResult Delete(int id)
@@ -123,11 +61,61 @@ namespace OnlineShopCore.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult SaveImages(int productId, string[] images)
+        public IActionResult ExportExcel()
         {
-            _productService.AddImages(productId, images);
-            _productService.Save();
-            return new OkObjectResult(images);
+            string sWebRootFolder = _hostingEnvironment.WebRootPath;
+            string directory = Path.Combine(sWebRootFolder, "export-files");
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+            string sFileName = $"Product_{DateTime.Now:yyyyMMddhhmmss}.xlsx";
+            string fileUrl = $"{Request.Scheme}://{Request.Host}/export-files/{sFileName}";
+            FileInfo file = new FileInfo(Path.Combine(directory, sFileName));
+            if (file.Exists)
+            {
+                file.Delete();
+                file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
+            }
+            var products = _productService.GetAll();
+            using (ExcelPackage package = new ExcelPackage(file))
+            {
+                // add a new worksheet to the empty workbook
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Products");
+                worksheet.Cells["A1"].LoadFromCollection(products, true, TableStyles.Light1);
+                worksheet.Cells.AutoFitColumns();
+                package.Save(); //Save the workbook.
+            }
+            return new OkObjectResult(fileUrl);
+        }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var model = _productService.GetAll();
+            return new OkObjectResult(model);
+        }
+
+        [HttpGet]
+        public IActionResult GetAllCategories()
+        {
+            var model = _productCategoryService.GetAll();
+            return new OkObjectResult(model);
+        }
+
+        [HttpGet]
+        public IActionResult GetAvailableProductForPromotion(string dateStart)
+        {
+            DateTime date = DateTime.Parse(dateStart);
+            var model = _productService.GetAvailableProductForPromotion(date);
+            return new OkObjectResult(model);
+        }
+        [HttpGet]
+        public IActionResult GetById(int id)
+        {
+            var model = _productService.GetById(id);
+
+            return new OkObjectResult(model);
         }
 
         [HttpGet]
@@ -168,34 +156,44 @@ namespace OnlineShopCore.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult ExportExcel()
+        public IActionResult SaveEntity(ProductViewModel productVm)
         {
-            string sWebRootFolder = _hostingEnvironment.WebRootPath;
-            string directory = Path.Combine(sWebRootFolder, "export-files");
-            if (!Directory.Exists(directory))
+            if (!ModelState.IsValid)
             {
-                Directory.CreateDirectory(directory);
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                return new BadRequestObjectResult(allErrors);
             }
-            string sFileName = $"Product_{DateTime.Now:yyyyMMddhhmmss}.xlsx";
-            string fileUrl = $"{Request.Scheme}://{Request.Host}/export-files/{sFileName}";
-            FileInfo file = new FileInfo(Path.Combine(directory, sFileName));
-            if (file.Exists)
+            else
             {
-                file.Delete();
-                file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
-            }
-            var products = _productService.GetAll();
-            using (ExcelPackage package = new ExcelPackage(file))
-            {
-                // add a new worksheet to the empty workbook
-                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Products");
-                worksheet.Cells["A1"].LoadFromCollection(products, true, TableStyles.Light1);
-                worksheet.Cells.AutoFitColumns();
-                package.Save(); //Save the workbook.
-            }
-            return new OkObjectResult(fileUrl);
-        }
+                productVm.SeoAlias = TextHelper.ToUnsignString(productVm.Name);
+                if (productVm.Id == 0)
+                {
+                    _productService.Add(productVm);
+                    //logging activity
+                    var userName = User.Identity.Name;
+                    _context.Loggings.Add(new Logging(DateTime.Now, userName, "create new product"));
 
+                }
+                else
+                {
+                    _productService.Update(productVm);
+                    //logging activity
+                    var userName = User.Identity.Name;
+                    _context.Loggings.Add(new Logging(DateTime.Now, userName, "update product"));
+
+                }
+                _productService.Save();
+                _context.SaveChanges();
+                return new OkObjectResult(productVm);
+            }
+        }
+        [HttpPost]
+        public IActionResult SaveImages(int productId, string[] images)
+        {
+            _productService.AddImages(productId, images);
+            _productService.Save();
+            return new OkObjectResult(images);
+        }
         #endregion AJAX API
     }
 }
