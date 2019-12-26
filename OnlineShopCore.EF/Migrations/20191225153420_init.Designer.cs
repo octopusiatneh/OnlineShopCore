@@ -10,14 +10,14 @@ using OnlineShopCore.Data.EF;
 namespace OnlineShopCore.Data.EF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20191116080810_promotion")]
-    partial class promotion
+    [Migration("20191225153420_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
+                .HasAnnotation("ProductVersion", "2.1.14-servicing-32113")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -183,7 +183,7 @@ namespace OnlineShopCore.Data.EF.Migrations
 
                     b.Property<DateTime>("DateModified");
 
-                    b.Property<int>("DistrictID");
+                    b.Property<int?>("DistrictID");
 
                     b.Property<string>("Email");
 
@@ -215,7 +215,7 @@ namespace OnlineShopCore.Data.EF.Migrations
 
                     b.Property<string>("UserName");
 
-                    b.Property<int>("WardCode");
+                    b.Property<int?>("WardCode");
 
                     b.HasKey("Id");
 
@@ -249,7 +249,8 @@ namespace OnlineShopCore.Data.EF.Migrations
 
                     b.Property<int>("BillStatus");
 
-                    b.Property<int>("CODAmount");
+                    b.Property<int?>("CODAmount")
+                        .IsRequired();
 
                     b.Property<string>("CustomerAddress")
                         .IsRequired()
@@ -272,15 +273,21 @@ namespace OnlineShopCore.Data.EF.Migrations
 
                     b.Property<DateTime>("DateModified");
 
-                    b.Property<int>("DistrictID");
+                    b.Property<int?>("DistrictID")
+                        .IsRequired();
 
                     b.Property<int>("PaymentMethod");
 
-                    b.Property<string>("Province");
+                    b.Property<string>("Province")
+                        .IsRequired();
+
+                    b.Property<int?>("ServiceID")
+                        .IsRequired();
 
                     b.Property<int>("Status");
 
-                    b.Property<string>("WardCode");
+                    b.Property<string>("WardCode")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -590,9 +597,14 @@ namespace OnlineShopCore.Data.EF.Migrations
 
                     b.Property<DateTime>("DateCreated");
 
+                    b.Property<DateTime>("DateEnd");
+
                     b.Property<DateTime>("DateModified");
 
-                    b.Property<string>("PromotionName");
+                    b.Property<DateTime>("DateStart");
+
+                    b.Property<string>("PromotionName")
+                        .IsRequired();
 
                     b.Property<int>("Status");
 

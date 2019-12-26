@@ -40,7 +40,7 @@
                                     <th class="column-3 txt-center">@Localizer["Price"]</th>
                                     <th class="column-4"><p class="txt-center">@Localizer["Quantity"]</p></th>
                                     <th class="column-4 "><p class="txt-center">@Localizer["Total"]</p></th>
-                                    <td class="column-1"></td>
+                                    <td style="width:30px"></td>
                                 </tr>
                             </thead>
 
@@ -53,13 +53,28 @@
                                         <img src="{{Image}}" style="width:60px;height:80px" alt="{{ProductName}}" />
                                     </div>
                                 </td>
-                                <td class="column-2">{{ProductName}}</td>
+                                <td class="column-2"><a href="{{Url}}" class="header-cart-item-name hov-cl1 trans-04">{{ProductName}}</a></td>
                                 <td class="column-3 txt-center">{{Price}} ₫</td>
                                 <td class="column-4">
-                                    <input data-id="{{ProductId}}" readonly tabindex="-1" class="mtext-104 cl3 txt-center txtQuantity" value="{{Quantity}}">
+                                    <div class="wrap-num-product flex-w m-l-auto m-r-0">
+
+                                        <div data-id="{{ProductId}}" class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                            <i class="fs-16 zmdi zmdi-minus"></i>
+                                        </div>
+
+                                        <input data-id="{{ProductId}}" class="mtext-104 cl3 txt-center num-product" type="number" oninput="validity.valid||(value='');" onpress="isNumber(event)" name="txtQuantity" value="{{Quantity}}">
+
+                                        <div data-id="{{ProductId}}" class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                                            <i class="fs-16 zmdi zmdi-plus"></i>
+                                        </div>
+
+                                        <input id="hidden-price-{{ProductId}}" data-price="{{PriceR}}" hidden />
+
+                                    </div>
+
                                 </td>
-                                <td class="column-4"><p class="txt-center">{{Amount}} ₫</p></td>
-                                <td class="column-1">
+                                <td class="column-4"><p id="amount-{{ProductId}}" class="txt-center">{{Amount}} ₫</p></td>
+                                <td style="width:30px">
                                     <div class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5 m-r-50">
                                         <a data-id="{{ProductId}}" class="btn-delete">
                                             @Localizer["Delete"]

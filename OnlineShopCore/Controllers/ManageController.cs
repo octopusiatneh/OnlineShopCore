@@ -102,6 +102,24 @@ namespace OnlineShopCore.Controllers
         }
 
         [AllowAnonymous]
+        public async Task<JsonResult> GetShippingMethod(int districtID)
+        {
+            var url = "https://console.ghn.vn/api/v1/apiv3/FindAvailableServices";
+
+            var requestBody = JsonConvert.SerializeObject(new { token = "5dbbdfbb12d00d48ea469675", FromDistrictID = 1456, ToDistrictID = 1456 });
+            var data = new StringContent(requestBody, Encoding.UTF8, "application/json");
+
+            HttpClient client = new HttpClient();
+
+            HttpResponseMessage response = client.PostAsync(url, data).Result;
+
+            var resp = await response.Content.ReadAsStringAsync();
+
+            RootObjectShippingMethod rootObject = JsonConvert.DeserializeObject<RootObjectShippingMethod>(resp);
+            return Json(rootObject.data);
+        }
+
+        [AllowAnonymous]
         public async Task<JsonResult> CalculateFee(int weight, int toDistrictID, int serviceID)
         {
             var url = "https://console.ghn.vn/api/v1/apiv3/CalculateFee";
@@ -148,10 +166,7 @@ namespace OnlineShopCore.Controllers
 
         private class Data
         {
-            [JsonProperty("Wards")]
-            public List<Ward> Wards { get; set; }
-
-            [JsonProperty("ServiceFee")]
+            public List<Ward> Wards { get; set; }     
             public int ServiceFee { get; set; }
         }
 
@@ -168,21 +183,36 @@ namespace OnlineShopCore.Controllers
             public string msg { get; set; }
             public List<Datum> data { get; set; }
         }
+
+        private class RootObjectShippingMethod
+        {
+            public int code { get; set; }
+            public string msg { get; set; }
+            public List<Datum> data { get; set; }
+
+        }
         public class Extra
         {
             public int MaxValue { get; set; }
+
             public string Name { get; set; }
+
             public int ServiceFee { get; set; }
+
             public int ServiceID { get; set; }
         }
 
         public class Datum
         {
             public DateTime ExpectedDeliveryTime { get; set; }
+
             public List<Extra> Extras { get; set; }
+
             public string Name { get; set; }
-            public int ServiceFee { get; set; }
+
             public int ServiceID { get; set; }
+
+            public int ServiceFee { get; set; }
         }
 
         [HttpGet]

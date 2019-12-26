@@ -60,7 +60,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
 
             var requestBody = JsonConvert.SerializeObject(new
             {
-                token = "TokenStaging",
+                token = "c6a869b80fbb4c2fb41079ffe864eda7",
                 PaymentTypeID = 2,
                 FromDistrictID = 1456,
                 FromWardCode = "21502",

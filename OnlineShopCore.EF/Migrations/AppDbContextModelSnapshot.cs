@@ -15,7 +15,7 @@ namespace OnlineShopCore.Data.EF.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
+                .HasAnnotation("ProductVersion", "2.1.14-servicing-32113")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -247,7 +247,8 @@ namespace OnlineShopCore.Data.EF.Migrations
 
                     b.Property<int>("BillStatus");
 
-                    b.Property<int?>("CODAmount");
+                    b.Property<int?>("CODAmount")
+                        .IsRequired();
 
                     b.Property<string>("CustomerAddress")
                         .IsRequired()
@@ -270,17 +271,21 @@ namespace OnlineShopCore.Data.EF.Migrations
 
                     b.Property<DateTime>("DateModified");
 
-                    b.Property<int?>("DistrictID");
+                    b.Property<int?>("DistrictID")
+                        .IsRequired();
 
                     b.Property<int>("PaymentMethod");
 
-                    b.Property<string>("Province");
+                    b.Property<string>("Province")
+                        .IsRequired();
 
-                    b.Property<int?>("ServiceID");
+                    b.Property<int?>("ServiceID")
+                        .IsRequired();
 
                     b.Property<int>("Status");
 
-                    b.Property<string>("WardCode");
+                    b.Property<string>("WardCode")
+                        .IsRequired();
 
                     b.HasKey("Id");
 

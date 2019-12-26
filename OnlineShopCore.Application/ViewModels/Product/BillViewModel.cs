@@ -17,14 +17,18 @@ namespace OnlineShopCore.Application.ViewModels.Product
         [MaxLength(256)]
         public string CustomerAddress { set; get; }
 
+        [Required]
         public int? ServiceID { get; set; }
 
         public string Province { get; set; }
 
+        [Required]
         public int? DistrictID { get; set; }
 
+        [Required]
         public string WardCode { get; set; }
 
+        [Required]
         public int? CODAmount { get; set; }
 
         [Required]
@@ -42,7 +46,7 @@ namespace OnlineShopCore.Application.ViewModels.Product
 
         public DateTime DateModified { set; get; }
 
-        public Status Status { set; get; }
+        public Status Status { set; get; } = Status.Active;
 
         public Guid? CustomerId { set; get; }
 

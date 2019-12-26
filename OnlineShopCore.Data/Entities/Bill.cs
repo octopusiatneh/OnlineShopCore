@@ -56,14 +56,19 @@ namespace OnlineShopCore.Data.Entities
         [MaxLength(256)]
         public string CustomerAddress { set; get; }
 
+        [Required]
         public int? ServiceID { get; set; }
 
+        [Required]
         public string Province { get; set; }
 
+        [Required]
         public int? DistrictID { get; set; }
 
+        [Required]
         public string WardCode { get; set; }
 
+        [Required]
         public int? CODAmount { get; set; }
 
         [Required]

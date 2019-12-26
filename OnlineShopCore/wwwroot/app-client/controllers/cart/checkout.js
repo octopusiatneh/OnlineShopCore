@@ -18,6 +18,7 @@ $('#comboProvince').on("change", function () {
         getcbDistrict(provinceName);
         toDistrictID = $("#comboDistrict option:selected").attr('value');
         getcbWard();
+        $('#comboDistrict').trigger('change');
         if (serviceValue != 0) {
             calculateShippingFee();
             calculateDeliveryDate();
@@ -31,11 +32,18 @@ $('#comboDistrict').on("change", function () {
         getcbWard();
         calculateShippingFee();
         calculateDeliveryDate();
+        getcbShippingMethod();
+    }
+    else {
+        getcbWard();
+        getcbShippingMethod();
+        $('#comboShippingMethod').trigger('change');
     }
 });
 
 $('#comboShippingMethod').on('change', function () {
     serviceValue = $("#comboShippingMethod option:selected").val();
+    console.log(serviceValue)
     if (toDistrictID != 0 && serviceValue != 0) {
         calculateShippingFee();
         calculateDeliveryDate();
@@ -78,6 +86,7 @@ function getcbWard() {
             document.getElementById('form-container').style.display = 'block';
         },
         success: function (response) {
+            console.log(response)
             var cbWard = "";
             for (let i in response) {
                 cbWard += '<option value=' + response[i].WardCode + ">" + response[i].WardName + '</option>';
@@ -153,5 +162,28 @@ function calculateDeliveryDate() {
             })
             document.getElementById('form-container').style.display = 'none';
         }
+    })
+}
+
+function getcbShippingMethod() {
+    $.ajax({
+        type: "POST",
+        url: "/Manage/GetShippingMethod",
+        data: {
+            districtID: toDistrictID,
+        },
+        beforeSend: function () {
+            // setting a timeout  
+            document.getElementById('form-container').style.display = 'block';
+        },
+        success: function (response) {
+            console.log(response)
+            var cbShippingMethod = "<option value=0>Phương thức giao hàng...</option>";
+            for (let i in response) {
+                cbShippingMethod += '<option value=' + response[i].ServiceID + ">" + response[i].Name + '</option>';
+            }
+            document.getElementById('comboShippingMethod').innerHTML = cbShippingMethod;
+            document.getElementById('form-container').style.display = 'none';
+        }   
     })
 }

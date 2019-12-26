@@ -179,15 +179,6 @@ else
                                 </p>
 
                                 <div class="p-t-15">
-                                    <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-                                        <select asp-for="ServiceID" id="comboShippingMethod" class="js-select2 form-control">
-                                            <option value="0">@Localizer["ShippingMethod"]</option>
-                                            <option value="53319">Nhanh</option>
-                                            <option value="53320">Chuẩn</option>
-                                            <option value="53321">Tiết kiệm</option>
-                                        </select>
-                                        <div class="dropDownSelect2"></div>
-                                    </div>
 
                                     <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
                                         <select id="comboProvince" asp-for="Province" class="js-select2 form-control">
@@ -276,6 +267,14 @@ else
                                     <div class="bor8 bg0 m-t-9">
                                         <input id="txtAddress" asp-for="CustomerAddress" class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" placeholder="@Localizer["Address"]">
                                     </div>
+
+                                    <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+                                        <select asp-for="ServiceID" id="comboShippingMethod" class="js-select2 form-control">
+                                            <option value="0">@Localizer["ShippingMethod"]</option>
+
+                                        </select>
+                                        <div class="dropDownSelect2"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -355,7 +354,7 @@ else
                                     ...
                                 </span>
 
-                                <input asp-for="CODAmount" id="hid-total" style="display:none" />
+                                <input asp-for="CODAmount" id="hid-total" style="display:none"/>
                             </div>
                         </div>
 

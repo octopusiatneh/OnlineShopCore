@@ -17,6 +17,16 @@
         //var promotionPrice = onlineshop.formatNumber(@product.PromotionPrice, 0);
         document.getElementById('price').innerHTML = price;
         //document.getElementById('promotion-price').innerHTML = promotionPrice;
+        // this prevents from typing non-number text, including "e".
+        function isNumber(evt) {
+            evt = (evt) ? evt : window.event;
+            let charCode = (evt.which) ? evt.which : evt.keyCode;
+            if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+                evt.preventDefault();
+            } else {
+                return true;
+            }
+        }
     </script>
     <script>
         var productObj = new ProductDetailController();
@@ -42,39 +52,7 @@
             });
         });
 
-        $('.js-addwish-b2, .js-addwish-detail').on('click', function (e) {
-            e.preventDefault();
-        });
-
-        $('.js-addwish-b2').each(function () {
-            var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
-            $(this).on('click', function () {
-                swal(nameProduct, "is added to wishlist !", "success");
-
-                $(this).addClass('js-addedwish-b2');
-                $(this).off('click');
-            });
-        });
-
-        $('.js-addwish-detail').each(function () {
-            var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
-
-            $(this).on('click', function () {
-                swal(nameProduct, "is added to wishlist !", "success");
-
-                $(this).addClass('js-addedwish-detail');
-                $(this).off('click');
-            });
-        });
-
         /*---------------------------------------------*/
-
-        $('.js-addcart-detail').each(function () {
-            var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-            $(this).on('click', function () {
-                swal(nameProduct, resources["AddCartOK"], "success");
-            });
-        });
 
         $('.js-pscroll').each(function () {
             $(this).css('position', 'relative');
@@ -285,7 +263,7 @@
                                             <i class="fs-16 zmdi zmdi-minus"></i>
                                         </div>
 
-                                        <input id="txtQuantity" class="mtext-104 cl3 txt-center num-product" type="number" name="txtQuantity" value="1">
+                                        <input id="txtQuantity" class="mtext-104 cl3 txt-center num-product" type="number" oninput="validity.valid||(value='');" onpress="isNumber(event)" name="txtQuantity" value="1">
 
                                         <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
                                             <i class="fs-16 zmdi zmdi-plus"></i>

@@ -113,11 +113,11 @@ namespace OnlineShopCore.Controllers
                     var notificationId = Guid.NewGuid().ToString();
                     var announcement = new AnnouncementViewModel()
                     {
-                        Content = $"New bill from {billViewModel.CustomerName}",
+                        Content = $"Đơn hàng mới từ {billViewModel.CustomerName}",
                         DateCreated = DateTime.Now,
                         Id = notificationId,
                         Status = Status.Active,
-                        Title = "New bill",
+                        Title = "Đơn hàng mới",
                     };
                     var announcementBills = new List<AnnouncementBillViewModel>()
                 {
@@ -142,7 +142,7 @@ namespace OnlineShopCore.Controllers
                     }
                 }
             }
-            return View();
+            return View(model);
         }
 
         #region AJAX Request

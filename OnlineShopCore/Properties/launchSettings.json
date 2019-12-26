@@ -7,7 +7,7 @@
       "sslPort": 0
     },
     "iisExpress": {
-      "applicationUrl": "http://localhost:49890/",
+      "applicationUrl": "https://localhost:44379/",
       "sslPort": 44379
     }
   },
@@ -17,7 +17,7 @@
       "launchBrowser": true,
       "launchUrl": "https://localhost:44379/",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Production"
       }
     },
     "OnlineShopCore": {

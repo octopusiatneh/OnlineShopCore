@@ -160,8 +160,8 @@ namespace OnlineShopCore.Data.EF.Migrations
                     Balance = table.Column<decimal>(nullable: false),
                     Avatar = table.Column<string>(nullable: true),
                     Province = table.Column<string>(nullable: true),
-                    DistrictID = table.Column<int>(nullable: false),
-                    WardCode = table.Column<int>(nullable: false),
+                    DistrictID = table.Column<int>(nullable: true),
+                    WardCode = table.Column<int>(nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
                     Status = table.Column<int>(nullable: false)
@@ -313,6 +313,24 @@ namespace OnlineShopCore.Data.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Promotions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateEnd = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false),
+                    DateStart = table.Column<DateTime>(nullable: false),
+                    PromotionName = table.Column<string>(nullable: false),
+                    Status = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Promotions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Publishers",
                 columns: table => new
                 {
@@ -343,6 +361,21 @@ namespace OnlineShopCore.Data.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Votes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    VoteForId = table.Column<int>(nullable: false),
+                    UserName = table.Column<string>(nullable: true),
+                    Vote = table.Column<float>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Votes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Bills",
                 columns: table => new
                 {
@@ -350,9 +383,10 @@ namespace OnlineShopCore.Data.EF.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CustomerName = table.Column<string>(maxLength: 256, nullable: false),
                     CustomerAddress = table.Column<string>(maxLength: 256, nullable: false),
-                    Province = table.Column<string>(nullable: true),
+                    ServiceID = table.Column<int>(nullable: false),
+                    Province = table.Column<string>(nullable: false),
                     DistrictID = table.Column<int>(nullable: false),
-                    WardCode = table.Column<string>(nullable: true),
+                    WardCode = table.Column<string>(nullable: false),
                     CODAmount = table.Column<int>(nullable: false),
                     CustomerMobile = table.Column<string>(maxLength: 50, nullable: false),
                     CustomerMessage = table.Column<string>(maxLength: 256, nullable: true),
@@ -422,6 +456,7 @@ namespace OnlineShopCore.Data.EF.Migrations
                     HomeFlag = table.Column<bool>(nullable: true),
                     HotFlag = table.Column<bool>(nullable: true),
                     ViewCount = table.Column<int>(nullable: false),
+                    Votes = table.Column<string>(nullable: true),
                     SeoAlias = table.Column<string>(maxLength: 255, nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
@@ -523,6 +558,34 @@ namespace OnlineShopCore.Data.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PromotionDetails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    PromotionId = table.Column<int>(nullable: false),
+                    ProductId = table.Column<int>(nullable: false),
+                    PromotionPercent = table.Column<int>(nullable: false),
+                    Price = table.Column<decimal>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PromotionDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PromotionDetails_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PromotionDetails_Promotions_PromotionId",
+                        column: x => x.PromotionId,
+                        principalTable: "Promotions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AnnouncementBills",
                 columns: table => new
                 {
@@ -596,6 +659,16 @@ namespace OnlineShopCore.Data.EF.Migrations
                 name: "IX_Products_PublisherId",
                 table: "Products",
                 column: "PublisherId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PromotionDetails_ProductId",
+                table: "PromotionDetails",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PromotionDetails_PromotionId",
+                table: "PromotionDetails",
+                column: "PromotionId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -640,7 +713,13 @@ namespace OnlineShopCore.Data.EF.Migrations
                 name: "ProductImages");
 
             migrationBuilder.DropTable(
+                name: "PromotionDetails");
+
+            migrationBuilder.DropTable(
                 name: "Slides");
+
+            migrationBuilder.DropTable(
+                name: "Votes");
 
             migrationBuilder.DropTable(
                 name: "Announcements");
@@ -653,6 +732,9 @@ namespace OnlineShopCore.Data.EF.Migrations
 
             migrationBuilder.DropTable(
                 name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Promotions");
 
             migrationBuilder.DropTable(
                 name: "Bills");
