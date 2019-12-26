@@ -72,7 +72,7 @@
             onApprove: function (data, actions) {
                 // Capture the funds from the transaction
                 return actions.order.capture().then(function (details) {
-                    document.getElementById("billStatus-5").checked = true;
+                    document.getElementById("billStatus-1").checked = true;
                     document.getElementById('form-container').style.display = 'block';
                     document.forms["myform"].submit();
                 });

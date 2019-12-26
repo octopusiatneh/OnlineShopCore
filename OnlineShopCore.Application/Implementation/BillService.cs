@@ -65,16 +65,18 @@ namespace OnlineShopCore.Application.Implementation
             var order = _orderRepository.FindById(billId);
             switch(order.BillStatus)
             {
+                case BillStatus.New:
+                    return "Chưa duyệt";
+                case BillStatus.Paid:
+                    return "Đã thanh toán";
+                case BillStatus.InDelivery:
+                    return "Đang giao hàng";
+                case BillStatus.Returned:
+                    return "Đã đổi trả";
                 case BillStatus.Cancelled:
                     return "Đã hủy";
                 case BillStatus.Completed:
-                    return "Đã giao hàng";
-                case BillStatus.InProgress:
-                    return "Đang giao hàng";
-                case BillStatus.New:
-                    return "Đang xử lý";
-                case BillStatus.Returned:
-                    return "Đã đổi trả";
+                    return "Đã giao hàng";       
                 default:
                     return "something wrong here";
             }

@@ -6,15 +6,15 @@ namespace OnlineShopCore.Data.Enums
     {
         [Description("Chưa duyệt")]
         New,
+        [Description("Đã thanh toán")]
+        Paid,  
         [Description("Đã chuyển cho bên vận chuyển")]
-        InProgress,
+        InDelivery,
         [Description("Đơn hàng bị trả")]
         Returned,
         [Description("Đơn hàng bị hủy")]
         Cancelled,
         [Description("Đã giao hàng")]
-        Completed,
-        [Description("Đã thanh toán")]
-        Paid
+        Completed     
     }
 }

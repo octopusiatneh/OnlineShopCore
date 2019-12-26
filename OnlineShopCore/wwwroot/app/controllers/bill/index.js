@@ -72,7 +72,96 @@
                     $('#ddlPaymentMethod').prop('disabled', true);
                     $('#hidCustomerId').val(data.CustomerId);
                     $('#ddlBillStatus').val(data.BillStatus);
-                    if (data.BillStatus != '0' && data.BillStatus != '5') {
+
+                    // status: đang chờ duyệt
+                    if (data.BillStatus == '0') {
+
+                        $("#ddlBillStatus option[value=2]").hide(); // hide status: đã chuyển cho bên giao hàng
+
+                        $("#ddlBillStatus option[value=1],option[value=3],option[value=5]").prop("disabled", true);
+
+                        var billDetails = data.BillDetails;
+                        if (data.BillDetails != null && data.BillDetails.length > 0) {
+                            var render = '';
+                            var templateDetails = $('#template-table-bill-details').html();
+
+                            $.each(billDetails, function (i, item) {
+                                var products = getProductOptions(item.ProductId);
+
+                                render += Mustache.render(templateDetails,
+                                    {
+                                        Id: item.Id,
+                                        Products: products,
+                                        Quantity: item.Quantity
+                                    });
+                            });
+                            $('#tbl-bill-details').html(render);
+                        }
+                        $('#modal-detail').modal('show');
+                    }
+
+                    // status: đã thanh toán
+                    if (data.BillStatus == '1') {
+                        $("#ddlBillStatus option[value=2]").hide(); // hide status: đã chuyển cho bên giao hàng
+
+                        $('#ddlBillStatus option[value=0],option[value=2],option[value=3],option[value=5]').prop('disabled', true);
+
+                        var billDetails = data.BillDetails;
+                        if (data.BillDetails != null && data.BillDetails.length > 0) {
+                            var render = '';
+                            var templateDetails = $('#template-table-bill-details').html();
+
+                            $.each(billDetails, function (i, item) {
+                                var products = getProductOptions(item.ProductId);
+
+                                render += Mustache.render(templateDetails,
+                                    {
+                                        Id: item.Id,
+                                        Products: products,
+                                        Quantity: item.Quantity
+                                    });
+                            });
+                            $('#tbl-bill-details').html(render);
+                        }
+                        $('tbl-bill-details').prop('disable', true); // disable table detail
+                        $('#modal-detail').modal('show');
+                        $("#tbl-bill-details input").prop('disabled', true);  // disable table detail
+                        $("#tbl-bill-details select").prop('disabled', true); // disable table detail
+                        $("#tbl-bill-details button").prop('disabled', true); // disable table detail
+                        $("#btnAddDetail").prop('disabled', true); // disable table detail
+                    }
+
+                    // status: đã chuyển cho bên vận chuyển
+                    if (data.BillStatus == '2') {
+                        $('#ddlBillStatus option[value=0],option[value=1],option[value=4]').prop('disabled', true);
+                        var billDetails = data.BillDetails;
+                        if (data.BillDetails != null && data.BillDetails.length > 0) {
+                            var render = '';
+                            var templateDetails = $('#template-table-bill-details').html();
+
+                            $.each(billDetails, function (i, item) {
+                                var products = getProductOptions(item.ProductId);
+
+                                render += Mustache.render(templateDetails,
+                                    {
+                                        Id: item.Id,
+                                        Products: products,
+                                        Quantity: item.Quantity
+                                    });
+                            });
+                            $('#tbl-bill-details').html(render);
+                        }
+                        $('tbl-bill-details').prop('disable', true);
+                        $('#modal-detail').modal('show');
+                        $("#tbl-bill-details input").prop('disabled', true);
+                        $("#tbl-bill-details select").prop('disabled', true);
+                        $("#tbl-bill-details button").prop('disabled', true);
+                        $("#btnAddDetail").prop('disabled', true);                   
+                        $("#btnCreateOrderGHN").prop('disabled', true);
+                    }
+
+                    // status: đơn hàng bị trả, hủy, giao hàng thành công
+                    if (data.BillStatus == '3' || data.BillStatus == '4' || data.BillStatus == '5') {
                         $('#ddlBillStatus').prop('disabled', true);
 
                         var billDetails = data.BillDetails;
@@ -99,31 +188,31 @@
                         $("#tbl-bill-details button").prop('disabled', true);
                         $("#btnAddDetail").prop('disabled', true);
                         $("#btnSave").hide();
-                        $("#btnCreateOrderGHN").prop('disabled', true);                  
+                        $("#btnCreateOrderGHN").prop('disabled', true);
                     }
 
-                    else {
-                        var billDetails = data.BillDetails;
-                        if (data.BillDetails != null && data.BillDetails.length > 0) {
-                            var render = '';
-                            var templateDetails = $('#template-table-bill-details').html();
+                    //else {
+                    //    var billDetails = data.BillDetails;
+                    //    if (data.BillDetails != null && data.BillDetails.length > 0) {
+                    //        var render = '';
+                    //        var templateDetails = $('#template-table-bill-details').html();
 
-                            $.each(billDetails, function (i, item) {
-                                var products = getProductOptions(item.ProductId);
+                    //        $.each(billDetails, function (i, item) {
+                    //            var products = getProductOptions(item.ProductId);
 
-                                render += Mustache.render(templateDetails,
-                                    {
-                                        Id: item.Id,
-                                        Products: products,
-                                        Quantity: item.Quantity
-                                    });
-                            });
-                            $('#tbl-bill-details').html(render);
-                        }
-                        $('tbl-bill-details').prop('disable', true);
-                        $("#btnSave").show();
-                        $('#modal-detail').modal('show');
-                    }
+                    //            render += Mustache.render(templateDetails,
+                    //                {
+                    //                    Id: item.Id,
+                    //                    Products: products,
+                    //                    Quantity: item.Quantity
+                    //                });
+                    //        });
+                    //        $('#tbl-bill-details').html(render);
+                    //    }
+                    //    $('tbl-bill-details').prop('disable', true);
+                    //    $("#btnSave").show();
+                    //    $('#modal-detail').modal('show');
+                    //}
 
 
 
@@ -303,7 +392,7 @@
             var customerMobile = $('#txtCustomerMobile').val();
             var customerMessage = $('#txtCustomerMessage').val();
             var paymentMethod = $('#ddlPaymentMethod').val();
-            var billStatus = 1;
+            var billStatus = 2;
             //bill detail
 
             var billDetails = [];
@@ -452,6 +541,8 @@
         $('#ddlBillStatus').prop('disabled', false);
         $("#btnCreateOrderGHN").prop('disabled', false);
         $("#btnAddDetail").prop('disabled', false);
+        $("#btnSave").show();
+        $('#ddlBillStatus option[value=0],option[value=1],option[value=2],option[value=3],option[value=4],option[value=5]').prop('disabled', false);
     }
 
     function loadData() {
