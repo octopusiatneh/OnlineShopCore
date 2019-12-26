@@ -1,66 +1,67 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using OnlineShopCore.Data.EF;
-using OnlineShopCore.Data.Entities;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using OnlineShopCore.Data.EF;
+using OnlineShopCore.Data.Entities;
 
-namespace OnlineShopCore.api
+namespace OnlineShopCore.Controllers.Api
 {
-    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    public class AuthorsController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public ProductsController(AppDbContext context)
+        public AuthorsController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Products
+        // GET: api/Authors
         [HttpGet]
-        public IEnumerable<Product> GetProducts()
+        public IEnumerable<Author> GetAuthors()
         {
-            return _context.Products;
+            return _context.Authors;
         }
 
-        // GET: api/Products/5
+        // GET: api/Authors/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProduct([FromRoute] int id)
+        public async Task<IActionResult> GetAuthor([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var product = await _context.Products.FindAsync(id);
+            var author = await _context.Authors.FindAsync(id);
 
-            if (product == null)
+            if (author == null)
             {
                 return NotFound();
             }
 
-            return Ok(product);
+            return Ok(author);
         }
 
-        // PUT: api/Products/5
+        // PUT: api/Authors/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct([FromRoute] int id, [FromBody] Product product)
+        public async Task<IActionResult> PutAuthor([FromRoute] int id, [FromBody] Author author)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != product.Id)
+            if (id != author.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(product).State = EntityState.Modified;
+            _context.Entry(author).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +69,7 @@ namespace OnlineShopCore.api
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductExists(id))
+                if (!AuthorExists(id))
                 {
                     return NotFound();
                 }
@@ -81,45 +82,45 @@ namespace OnlineShopCore.api
             return NoContent();
         }
 
-        // POST: api/Products
+        // POST: api/Authors
         [HttpPost]
-        public async Task<IActionResult> PostProduct([FromBody] Product product)
+        public async Task<IActionResult> PostAuthor([FromBody] Author author)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Products.Add(product);
+            _context.Authors.Add(author);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProduct", new { id = product.Id }, product);
+            return CreatedAtAction("GetAuthor", new { id = author.Id }, author);
         }
 
-        // DELETE: api/Products/5
+        // DELETE: api/Authors/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProduct([FromRoute] int id)
+        public async Task<IActionResult> DeleteAuthor([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
+            var author = await _context.Authors.FindAsync(id);
+            if (author == null)
             {
                 return NotFound();
             }
 
-            _context.Products.Remove(product);
+            _context.Authors.Remove(author);
             await _context.SaveChangesAsync();
 
-            return Ok(product);
+            return Ok(author);
         }
 
-        private bool ProductExists(int id)
+        private bool AuthorExists(int id)
         {
-            return _context.Products.Any(e => e.Id == id);
+            return _context.Authors.Any(e => e.Id == id);
         }
     }
 }

@@ -43,6 +43,6 @@ namespace OnlineShopCore.Models.AccountViewModels
 
         public int DistrictID { get; set; }
 
-        public int WardCode { get; set; }
+        public string WardCode { get; set; }
     }
 }

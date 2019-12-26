@@ -25,7 +25,8 @@
         });
 
         $('#comboDistrict').on("change", function () {
-            toDistrictID = $("#comboDistrict option:selected").attr('value');    
+            toDistrictID = $("#comboDistrict option:selected").attr('value');
+            getcbWard();
         });
 
         function getcbDistrict(provinceName) {
