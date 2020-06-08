@@ -58,6 +58,8 @@ namespace OnlineShopCore.Data.EF
 
         public DbSet<Slide> Slides { set; get; }
 
+        public DbSet<Permission> Permissions { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             #region Identity Config
