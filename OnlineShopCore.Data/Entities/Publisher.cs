@@ -13,26 +13,21 @@ namespace OnlineShopCore.Data.Entities
 
         }
 
-        public Publisher(string name, int? parentId, int sortOrder, Status status)
+        public Publisher(string name, Status status)
         {
-            NamePublisher = name;
-            ParentId = parentId;
-            SortOrder = sortOrder;
+            PublisherName = name;
+
             Status = status;
         }
 
-        public Publisher(int id, string name, int? parentId, int sortOrder, Status status)
+        public Publisher(int id, string name, Status status)
         {
             Id = id;
-            NamePublisher = name;
-            ParentId = parentId;
-            SortOrder = sortOrder;
+            PublisherName = name;
             Status = status;
         }
 
-        public string NamePublisher { get; set; }
-        public int? ParentId { get; set; }
-        public int SortOrder { get; set; }
+        public string PublisherName { get; set; }
 
         public Status Status { get; set; }
 

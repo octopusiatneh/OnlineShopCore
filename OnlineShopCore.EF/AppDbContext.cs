@@ -20,8 +20,6 @@ namespace OnlineShopCore.Data.EF
         {
         }
 
-        public DbSet<Language> Languages { set; get; }
-
         public DbSet<VoteLog> Votes { get; set; }
 
         public DbSet<Function> Functions { get; set; }
@@ -59,8 +57,6 @@ namespace OnlineShopCore.Data.EF
         public DbSet<Logging> Loggings { get; set; }
 
         public DbSet<Slide> Slides { set; get; }
-
-        public DbSet<Permission> Permissions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

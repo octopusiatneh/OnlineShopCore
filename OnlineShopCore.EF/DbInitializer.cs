@@ -110,10 +110,10 @@ namespace OnlineShopCore.Data.EF
             {
                 List<Author> listAuthor = new List<Author>()
                 {
-                    new Author() {AuthorName="Nguyễn Đình Thi", SortOrder = 1, ParentId=null, Status = Status.Active},
-                    new Author() {AuthorName="Trần Đăng Khoa", SortOrder = 2, ParentId=null, Status = Status.Active},
-                    new Author() {AuthorName="Nguyễn Du", SortOrder = 3, ParentId=null, Status = Status.Active},
-                    new Author() {AuthorName="Jack Fogg", SortOrder = 1, ParentId=null, Status = Status.Active}
+                    new Author() {AuthorName="Nguyễn Đình Thi",Status = Status.Active},
+                    new Author() {AuthorName="Trần Đăng Khoa", Status = Status.Active},
+                    new Author() {AuthorName="Nguyễn Du", Status = Status.Active},
+                    new Author() {AuthorName="Jack Fogg", Status = Status.Active}
                 };
                 _context.Authors.AddRange(listAuthor);
             }
@@ -122,8 +122,8 @@ namespace OnlineShopCore.Data.EF
             {
                 List<Publisher> listPublisher = new List<Publisher>()
                 {
-                    new Publisher() {NamePublisher="Kim Đồng", SortOrder = 1, ParentId=null, Status = Status.Active},
-                    new Publisher() {NamePublisher="NXB Trẻ", SortOrder = 2, ParentId=null, Status = Status.Active}
+                    new Publisher() {PublisherName="Kim Đồng", Status = Status.Active},
+                    new Publisher() {PublisherName="NXB Trẻ", Status = Status.Active}
                 };
                 _context.Publishers.AddRange(listPublisher);
             }
@@ -132,26 +132,26 @@ namespace OnlineShopCore.Data.EF
             {
                 List<ProductCategory> listProductCategory = new List<ProductCategory>()
                 {
-                    new ProductCategory() { Name="Kinh dị",SeoAlias="kinh-di",ParentId = null,Status=Status.Active,SortOrder=1,
+                    new ProductCategory() { Name="Kinh dị",SeoAlias="kinh-di",Status=Status.Active,SortOrder=1,
                         Products = new List<Product>()
                         {
                             new Product(){Name = "Đối thoại với Thaksin", AuthorId=1, PublisherId=1,DateCreated=DateTime.Now,Image="/uploaded/images/20191026/doi_thoai_voi_thaksin.500x780",SeoAlias = "doi-thoai-voi-thaksin",Price = 169000,Status = Status.Active},
 
                         }
                     },
-                    new ProductCategory() { Name="Lãng mạng",SeoAlias="lang-man",ParentId = null,Status=Status.Active ,SortOrder=2,
+                    new ProductCategory() { Name="Lãng mạng",SeoAlias="lang-man",Status=Status.Active ,SortOrder=2,
                         Products = new List<Product>()
                         {
                             new Product(){Name = "Sống những ngày không hối tiếc", AuthorId = 2, PublisherId=1,DateCreated=DateTime.Now,Image="/uploaded/images/20191026/song-nhung-ngay-khong-hoi-tiec.450x652.w.b",SeoAlias = "song-nhung-ngay-khong-hoi-tiec",Price = 98000,Status = Status.Active},
 
                         }},
-                    new ProductCategory() { Name="Truyện tranh",SeoAlias="truyen-tranh",ParentId = null,Status=Status.Active ,SortOrder=3,
+                    new ProductCategory() { Name="Truyện tranh",SeoAlias="truyen-tranh",Status=Status.Active ,SortOrder=3,
                         Products = new List<Product>()
                         {
                             new Product(){Name = "Đồng hành du học cùng con", AuthorId = 3, PublisherId=2,DateCreated=DateTime.Now,Image="/uploaded/images/20191026/dong-hanh-du-hoc-cung-con-tb",SeoAlias = "dong-hanh-du-hoc-cung-con",Price = 78000,Status = Status.Active},
 
                         }},
-                    new ProductCategory() { Name="Kinh tế",SeoAlias="kinh-te",ParentId = null,Status=Status.Active,SortOrder=4,
+                    new ProductCategory() { Name="Kinh tế",SeoAlias="kinh-te",Status=Status.Active,SortOrder=4,
                         Products = new List<Product>()
                         {
                             new Product(){Name = "Lưỡng giới", AuthorId = 4, PublisherId=2,DateCreated=DateTime.Now, Image="/uploaded/images/20191026/luong-gioi-bm.450x652.w.b",SeoAlias = "luong-gioi",Price = 329000,Status = Status.Active},

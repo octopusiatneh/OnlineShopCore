@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineShopCore.Data.EF;
 
 namespace OnlineShopCore.Data.EF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200531012247_fix_wardcode")]
+    partial class fix_wardcode
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -228,6 +230,10 @@ namespace OnlineShopCore.Data.EF.Migrations
 
                     b.Property<string>("AuthorName");
 
+                    b.Property<int?>("ParentId");
+
+                    b.Property<int>("SortOrder");
+
                     b.Property<int>("Status");
 
                     b.HasKey("Id");
@@ -403,6 +409,26 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.ToTable("Functions");
                 });
 
+            modelBuilder.Entity("OnlineShopCore.Data.Entities.Language", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("IsDefault");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<string>("Resources");
+
+                    b.Property<int>("Status");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Languages");
+                });
+
             modelBuilder.Entity("OnlineShopCore.Data.Entities.Logging", b =>
                 {
                     b.Property<int>("Id")
@@ -418,6 +444,34 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Loggings");
+                });
+
+            modelBuilder.Entity("OnlineShopCore.Data.Entities.Permission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("CanCreate");
+
+                    b.Property<bool>("CanDelete");
+
+                    b.Property<bool>("CanRead");
+
+                    b.Property<bool>("CanUpdate");
+
+                    b.Property<string>("FunctionId")
+                        .IsRequired();
+
+                    b.Property<Guid>("RoleId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FunctionId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Permissions");
                 });
 
             modelBuilder.Entity("OnlineShopCore.Data.Entities.Product", b =>
@@ -485,9 +539,25 @@ namespace OnlineShopCore.Data.EF.Migrations
 
                     b.Property<DateTime>("DateModified");
 
+                    b.Property<string>("Description");
+
+                    b.Property<bool?>("HomeFlag");
+
+                    b.Property<int?>("HomeOrder");
+
+                    b.Property<string>("Image");
+
                     b.Property<string>("Name");
 
+                    b.Property<int?>("ParentId");
+
                     b.Property<string>("SeoAlias");
+
+                    b.Property<string>("SeoDescription");
+
+                    b.Property<string>("SeoKeywords");
+
+                    b.Property<string>("SeoPageTitle");
 
                     b.Property<int>("SortOrder");
 
@@ -572,7 +642,11 @@ namespace OnlineShopCore.Data.EF.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("PublisherName");
+                    b.Property<string>("NamePublisher");
+
+                    b.Property<int?>("ParentId");
+
+                    b.Property<int>("SortOrder");
 
                     b.Property<int>("Status");
 
@@ -647,6 +721,19 @@ namespace OnlineShopCore.Data.EF.Migrations
                     b.HasOne("OnlineShopCore.Data.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("OnlineShopCore.Data.Entities.Permission", b =>
+                {
+                    b.HasOne("OnlineShopCore.Data.Entities.Function", "Function")
+                        .WithMany()
+                        .HasForeignKey("FunctionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("OnlineShopCore.Data.Entities.AppRole", "AppRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

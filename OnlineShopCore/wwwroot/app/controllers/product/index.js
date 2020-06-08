@@ -360,7 +360,7 @@ var productController = function () {
                 $.each(response, function (i, item) {
                     data.push({
                         id: item.Id,
-                        text: item.NamePublisher,
+                        text: item.PublisherName,
                         parentId: item.ParentId,
                         sortOrder: item.SortOrder
                     });

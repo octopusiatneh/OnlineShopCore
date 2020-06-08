@@ -36,7 +36,7 @@ namespace OnlineShopCore.Controllers.Api
                 var author = _context.Authors.Where(x => x.Id == item.AuthorId).FirstOrDefault();
                 productApi.Author = author.AuthorName;
                 var pulisher = _context.Publishers.Where(x => x.Id == item.PublisherId).FirstOrDefault();
-                productApi.Publisher = pulisher.NamePublisher;
+                productApi.Publisher = pulisher.PublisherName;
                 productApiViewModels.Add(productApi);
             }
             return productApiViewModels;

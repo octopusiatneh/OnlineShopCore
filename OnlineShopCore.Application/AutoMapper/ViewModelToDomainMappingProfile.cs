@@ -13,10 +13,10 @@ namespace OnlineShopCore.Application.AutoMapper
         public ViewModelToDomainMappingProfile()
         {
             CreateMap<AuthorViewModel, Author>()
-                .ConstructUsing(c => new Author(c.Id, c.AuthorName, c.ParentId, c.SortOrder, c.Status));
+                .ConstructUsing(c => new Author(c.Id, c.AuthorName, c.Status));
 
             CreateMap<PublisherViewModel, Publisher>()
-                .ConstructUsing(c => new Publisher(c.Id, c.NamePublisher, c.ParentId, c.SortOrder, c.Status));
+                .ConstructUsing(c => new Publisher(c.Id, c.PublisherName, c.Status));
 
             CreateMap<PromotionViewModel, Promotion>()
                 .ConstructUsing(c => new Promotion(c.Id, c.PromotionName, c.DateEnd, c.Status));
@@ -25,7 +25,7 @@ namespace OnlineShopCore.Application.AutoMapper
              .ConstructUsing(c => new PromotionDetail(c.Id, c.PromotionId, c.ProductId, c.PromotionPercent));
 
             CreateMap<ProductCategoryViewModel, ProductCategory>()
-                .ConstructUsing(c => new ProductCategory(c.Name, c.Description, c.ParentId, c.HomeOrder, c.Image, c.HomeFlag, c.SortOrder, c.Status, c.SeoPageTitle, c.SeoAlias, c.SeoKeywords, c.SeoDescription));
+               .ConstructUsing(c => new ProductCategory(c.Name, c.SortOrder, c.Status, c.SeoAlias));
 
             CreateMap<ProductViewModel, Product>()
                .ConstructUsing(c => new Product(c.Name, c.CategoryId, c.AuthorId, c.PublisherId, c.Image, c.Price, c.PromotionPrice, c.Description, c.Content, c.HomeFlag, c.HotFlag, c.Status, c.SeoAlias, c.ViewCount));

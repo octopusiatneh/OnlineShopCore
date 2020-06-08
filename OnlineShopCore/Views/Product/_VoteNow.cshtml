@@ -3,7 +3,7 @@
 }
 @if (!User.Identity.IsAuthenticated)
 {
-    <text>Please <a href="/Account/Login?ReturnUrl=@url" title="Login to rate">Login</a> to rate</text>
+    <text>Bạn phải <a href="/Account/Login?ReturnUrl=@url" title="Login to rate">đăng nhập</a> để bình chọn.</text>
     return;
 }
 
