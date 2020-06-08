@@ -76,14 +76,14 @@ var publisherController = function () {
             if ($('#frmMaintainance').valid()) {
                 e.preventDefault();
                 var id = parseInt($('#hidIdM').val());
-                var pubisherName = $('#txtNameM').val();
+                var publisherName = $('#txtNameM').val();
                 var status = $('#ckStatusM').prop('checked') == true ? 1 : 0;
                 $.ajax({
                     type: "POST",
                     url: "/Admin/Publisher/SaveEntity",
                     data: {
                         Id: id,
-                        PubisherName: pubisherName,
+                        PublisherName: publisherName,
                         Status: status
                     },
                     dataType: "json",

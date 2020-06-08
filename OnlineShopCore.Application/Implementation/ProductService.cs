@@ -265,6 +265,8 @@ namespace OnlineShopCore.Application.Implementation
                     product.HomeFlag = homeFlag;
 
                     product.Status = Status.Active;
+                    product.ViewCount = 0;
+                    product.Image = "/uploaded/images/constraint/no_results_found.png";
 
                     _productRepository.Add(product);
                 }

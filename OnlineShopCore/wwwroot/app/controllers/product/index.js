@@ -217,7 +217,7 @@ var productController = function () {
             // Adding one more key to FormData object  
             fileData.append('categoryId', $('#ddlCategoryIdImportExcel').combotree('getValue'));
             fileData.append('authorId', $('#ddlAuthorIdImportExcel').combotree('getValue'));
-            fileData.append('categoryId', $('#ddlPublisherIdImportExcel').combotree('getValue'));
+            fileData.append('publisherId', $('#ddlPublisherIdImportExcel').combotree('getValue'));
             $.ajax({
                 url: '/Admin/Product/ImportExcel',
                 type: 'POST',
@@ -226,7 +226,10 @@ var productController = function () {
                 contentType: false,  // tell jQuery not to set contentType
                 success: function (data) {
                     $('#modal-import-excel').modal('hide');
-                    loadData();
+                    onlineshop.notify('Nhập sản phẩm từ excel thành công!', 'success');
+                    resetFormMaintainance();
+                    onlineshop.stopLoading();
+                    $('#zero_config').DataTable().ajax.reload()
                 }
             });
             return false;
@@ -466,7 +469,7 @@ var productController = function () {
                 },
                 {
                     data: "Image", render: function (data, type, row) {
-                        return data == null ? '<img src="/admin-side/assets/images/No-image-found.jpg" width=35' : '<img src="' + data + '" width=35 />'
+                        return data = '<img src="' + data + '" width=35 />'
                     }
                 },
                 {

@@ -7,7 +7,6 @@ namespace OnlineShopCore.Application.ViewModels
     public class PublisherViewModel
     {
         public int Id { get; set; }
-
         public string PublisherName { get; set; }
         public Status Status { get; set; }
 
