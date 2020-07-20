@@ -59,7 +59,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
             var url = "https://dev-online-gateway.ghn.vn/apiv3-api/api/v1/apiv3/CreateOrder";
 
             var requestBody = JsonConvert.SerializeObject(new
-            {
+            {   //c6a869b80fbb4c2fb41079ffe864eda7
                 token = "c6a869b80fbb4c2fb41079ffe864eda7",
                 PaymentTypeID = 2,
                 FromDistrictID = 1456,

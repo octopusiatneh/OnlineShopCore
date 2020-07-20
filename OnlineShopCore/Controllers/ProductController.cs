@@ -93,13 +93,16 @@ namespace OnlineShopCore.Controllers
             var query = from v in _context.Votes
                         where v.VoteForId == productId
                         select v.Vote;
-            VoteShowViewModel voteShowVm = new VoteShowViewModel
+            if(query.Count() > 0)
             {
-                TotalVote = query.Count(),
-                RatingPoint = query.Average()
-            };
-
-            return Json(voteShowVm);
+                VoteShowViewModel voteShowVm = new VoteShowViewModel
+                {
+                    TotalVote = query.Count(),
+                    RatingPoint = query.Average()
+                };
+                return Json(voteShowVm);
+            }
+            return null;
         }
 
         [Route("filter")]

@@ -46,7 +46,8 @@ namespace OnlineShopCore.Application.Implementation
         public async Task DeleteAsync(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
-            await _userManager.DeleteAsync(user);
+            user.Status = Data.Enums.Status.InActive;
+            await _userManager.UpdateAsync(user);
         }
 
         public async Task<List<AppUserViewModel>> GetAllAsync()
