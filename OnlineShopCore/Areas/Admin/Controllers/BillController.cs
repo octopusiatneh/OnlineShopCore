@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,42 +57,38 @@ namespace OnlineShopCore.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult CreateOrderGHN(int serviceID, string customerName, string customerPhone, string customerAddress, int toDistrictID, string toWardCode, string customerMessage, int codAmount)
         {
-            var url = "https://dev-online-gateway.ghn.vn/apiv3-api/api/v1/apiv3/CreateOrder";
+            var url = "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create";
 
             var requestBody = JsonConvert.SerializeObject(new
             {   //c6a869b80fbb4c2fb41079ffe864eda7
-                token = "c6a869b80fbb4c2fb41079ffe864eda7",
-                PaymentTypeID = 2,
-                FromDistrictID = 1456,
-                FromWardCode = "21502",
-                ToDistrictID = toDistrictID,
-                ToWardCode = toWardCode,
-                ClientContactName = "Coza Store",
-                ClientContactPhone = "0904285240",
-                ClientAddress = "155 Sư Vạn Hạnh (nd), P.13, Q.10",
-                CustomerName = customerName,
-                CustomerPhone = customerPhone,
-                ShippingAddress = customerAddress,
-                CoDAmount = codAmount,
-                NoteCode = "CHOXEMHANGKHONGTHU",
-                ServiceID = serviceID,
-                Weight = 1000,
-                Length = 10,
-                Width = 10,
-                Height = 10,
-                ReturnContactName = "Coza Store",
-                ReturnContactPhone = "0904285240",
-                ReturnAddress = "155 Sư Vạn Hạnh (nd), P.13, Q.10",
-                ReturnDistrictID = 1456,
-                ExternalReturnCode = "",
-                Note = customerMessage
-
+                //https://dev-online-gateway.ghn.vn/apiv3-api/api/v1/apiv3/CreateOrder
+                shop_id = 1290,
+                payment_type_id = 2,
+                note = customerMessage,
+                required_note = "CHOXEMHANGKHONGTHU",
+                return_phone = "0904285240",
+                return_address = "36/14E Thoại Ngọc Hầu",
+                to_name = customerName,
+                to_phone = customerPhone,
+                to_address = customerAddress,
+                to_ward_code = toWardCode,
+                to_district_id = toDistrictID,
+                cod_amount = codAmount,
+                content = "Sách",
+                weight = 1000,
+                length = 10,
+                width = 10,
+                height = 10,
+                pick_station_id = 0,
+                insurance_value = 2000000,
+                service_id = serviceID,
+                service_type_id = 2
             });
+
             var data = new StringContent(requestBody, Encoding.UTF8, "application/json");
-
             HttpClient client = new HttpClient();
-
-            HttpResponseMessage response = client.PostAsync(url, data).Result;
+            client.DefaultRequestHeaders.Add("token", "13bcc82d-ccaa-11ea-a863-e224a27cd260");
+            HttpResponseMessage response = client.PostAsync(url,data).Result;
 
             if (response.IsSuccessStatusCode)
             {

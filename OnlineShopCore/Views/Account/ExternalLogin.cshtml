@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Register";
 }
+@inject IViewLocalizer Localizer
 
 <p class="text-info txt-center m-tb-10">
     You've successfully authenticated with <strong>@ViewData["LoginProvider"]</strong>.
@@ -10,6 +11,12 @@
 </p>
 
 <div class="register-photo">
+    <div id="form-container" style="display:none">
+        <div id="overlay">
+            <div class="loader" style="width: 3rem; height: 3rem;">
+            </div>
+        </div>
+    </div>
     <div class="form-container">
         <div class="image-holder"></div>
         <form asp-action="ExternalLoginConfirmation" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
@@ -38,6 +45,89 @@
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
 
+            <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+                <select id="comboProvince" asp-for="Province" class="js-select2 form-control">
+                    <option value="0">@Localizer["Province"]</option>
+                    <option>Hồ Chí Minh</option>
+                    <option>Hà Nội</option>
+                    <option>An Giang</option>
+                    <option>Bà Rịa - Vũng Tàu</option>
+                    <option>Bạc Liêu</option>
+                    <option>Bắc Giang</option>
+                    <option>Bắc Kạn</option>
+                    <option>Bắc Ninh</option>
+                    <option>Bến Tre</option>
+                    <option>Bình Định</option>
+                    <option>Bình Dương</option>
+                    <option>Bình Phước</option>
+                    <option>Bình Thuận</option>
+                    <option>Cà Mau</option>
+                    <option>Cao Bằng</option>
+                    <option>Cần Thơ</option>
+                    <option>Đà Nẵng</option>
+                    <option>Hải Phòng</option>
+                    <option>Gia Lai</option>
+                    <option>Hòa Bình</option>
+                    <option>Hà Giang</option>
+                    <option>Hà Nam</option>
+                    <option>Hưng Yên</option>
+                    <option>Hải Dương</option>
+                    <option>Hà Tĩnh</option>
+                    <option>Điện Biên</option>
+                    <option>Hậu Giang</option>
+                    <option>Đắk Lắk</option>
+                    <option>Đắk Nông</option>
+                    <option>Đồng Nai</option>
+                    <option>Đồng Tháp</option>
+                    <option>Kiên Giang</option>
+                    <option>Khánh Hòa</option>
+                    <option>Lai Châu</option>
+                    <option>Kon Tum</option>
+                    <option>Long An</option>
+                    <option>Lâm Đồng</option>
+                    <option>Lào Cai</option>
+                    <option>Lạng Sơn</option>
+                    <option>Nghệ An</option>
+                    <option>Nam Định</option>
+                    <option>Ninh Bình</option>
+                    <option>Ninh Thuận</option>
+                    <option>Phú Thọ</option>
+                    <option>Phú Yên</option>
+                    <option>Quảng Bình</option>
+                    <option>Quảng Nam</option>
+                    <option>Quảng Ngãi</option>
+                    <option>Quảng Trị</option>
+                    <option>Quảng Ninh</option>
+                    <option>Sóc Trăng</option>
+                    <option>Thanh Hóa</option>
+                    <option>Sơn La</option>
+                    <option>Thái Bình</option>
+                    <option>Thừa Thiên - Huế</option>
+                    <option>Thái Nguyên</option>
+                    <option>Tiền Giang</option>
+                    <option>Trà Vinh</option>
+                    <option>Tuyên Quang</option>
+                    <option>Tây Ninh</option>
+                    <option>Vĩnh Long</option>
+                    <option>Vĩnh Phúc</option>
+                    <option>Yên Bái</option>
+                </select>
+                <div class="dropDownSelect2"></div>
+            </div>
+
+            <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+                <select id="comboDistrict" class="js-select2 form-control" asp-for="DistrictID">
+                    <option value="0">@Localizer["District"]</option>
+                </select>
+                <div class="dropDownSelect2"></div>
+            </div>
+
+            <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+                <select id="comboWard" class="js-select2 form-control" asp-for="WardCode">
+                    <option value="0">@Localizer["Ward"]</option>
+                </select>
+                <div class="dropDownSelect2"></div>
+            </div>
             <div class="form-group">
                 <recaptcha />
                 <span class="text-danger" id="recaptchaErrorMessage"></span>
@@ -51,6 +141,75 @@
 }
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/app-client/shared/VietNamDistrictDatabase.js"></script>
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <recaptcha-script validation-message-element-id="recaptchaErrorMessage" />
+    <script>
+        $('#comboProvince').on("change", function () {
+            provinceValue = $("#comboProvince option:selected").val();
+            if (provinceValue == 0) {
+                $('#comboDistrict').empty().trigger('change');
+                $("#comboDistrict").append("<option value='0' selected>Chọn quận/huyện...</option>").trigger('change');
+                $('#comboWard').empty().trigger('change');
+                $("#comboWard").append("<option value='0' selected>Chọn phường/xã...</option>").trigger('change');
+            }
+            if (provinceValue != 0) {
+                var provinceName = $("#comboProvince option:selected").val();
+                getcbDistrict(provinceName);
+                toDistrictID = $("#comboDistrict option:selected").attr('value');
+                getcbWard();
+            }
+        });
 
+        $('#comboDistrict').on("change", function () {
+            toDistrictID = $("#comboDistrict option:selected").attr('value');
+            getcbWard();
+        });
+
+        function getcbDistrict(provinceName) {
+            var arrDistrictName = [];
+            for (let i in data) {
+                if (data[i].ProvinceName === provinceName) {
+                    arrDistrictName.push({ DistrictID: data[i].DistrictID, DistrictName: data[i].DistrictName })
+                }
+
+                var cbDistrict = "";
+                for (let i in arrDistrictName) {
+                    cbDistrict += '<option value=' + arrDistrictName[i].DistrictID + ">" + arrDistrictName[i].DistrictName + '</option>';
+                }
+                document.getElementById('comboDistrict').innerHTML = cbDistrict;
+            }
+        }
+
+        function getcbWard() {
+            $.ajax({
+                type: "POST",
+                url: "/Manage/GetWards",
+                data: {
+                    districtID: toDistrictID
+                },
+                beforeSend: function () {
+                    // setting a timeout
+                    document.getElementById('form-container').style.display = 'block';
+                },
+                success: function (response) {
+                    var cbWard = "";
+                    for (let i in response) {
+                        cbWard += '<option value=' + response[i].WardCode + ">" + response[i].WardName + '</option>';
+                    }
+                    document.getElementById('comboWard').innerHTML = cbWard;
+                    document.getElementById('form-container').style.display = 'none';
+                }
+            })
+        }
+
+        $(".js-select2").each(function () {
+            $(this).select2({
+                minimumResultsForSearch: 20,
+                dropdownParent: $(this).next('.dropDownSelect2')
+            });
+        })
+
+    </script>
     <recaptcha-script validation-message-element-id="recaptchaErrorMessage" />
 }

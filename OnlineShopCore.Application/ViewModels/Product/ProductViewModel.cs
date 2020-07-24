@@ -12,6 +12,12 @@ namespace OnlineShopCore.Application.ViewModels.Product
         [StringLength(255)]
         public string Name { get; set; }
 
+        public float Height { get; set; }
+
+        public float Width { get; set; }
+
+        public int TotalPage { get; set; }
+
         public int CategoryId { get; set; }
 
         public int AuthorId { get; set; }

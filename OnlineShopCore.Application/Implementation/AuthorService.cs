@@ -35,7 +35,7 @@ namespace OnlineShopCore.Application.Implementation
 
         public List<AuthorViewModel> GetAll()
         {
-            return _authorRepository.FindAll().ProjectTo<AuthorViewModel>().ToList();
+            return _authorRepository.FindAll(x => x.Status == Data.Enums.Status.Active).OrderByDescending(x=> x.Id).ProjectTo<AuthorViewModel>().ToList();
         }
 
         public AuthorViewModel GetById(int id)

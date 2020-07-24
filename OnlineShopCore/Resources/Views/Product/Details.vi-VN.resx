@@ -129,11 +129,11 @@
   <data name="DetailInformation" xml:space="preserve">
     <value>Thông tin chi tiết</value>
   </data>
-  <data name="Dimensions" xml:space="preserve">
-    <value>Kích cỡ</value>
-  </data>
   <data name="NumberOfPages" xml:space="preserve">
     <value>Số trang</value>
+  </data>
+  <data name="OverallRating" xml:space="preserve">
+    <value>Đánh giá trung bình</value>
   </data>
   <data name="ProductUnavailable" xml:space="preserve">
     <value>Sản phẩm ngừng kinh doanh</value>
@@ -141,13 +141,16 @@
   <data name="PublisherName" xml:space="preserve">
     <value>Nhà xuất bản</value>
   </data>
-  <data name="PublishYear" xml:space="preserve">
-    <value>Năm xuất bản</value>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Xem Thêm Nội Dung</value>
   </data>
   <data name="RelatedProducts" xml:space="preserve">
-    <value>Sản phẩm liên quan</value>
+    <value>Sản phẩm thường được xem cùng</value>
   </data>
   <data name="Review" xml:space="preserve">
     <value>Khách hàng nhận xét</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Kích thước</value>
   </data>
 </root>

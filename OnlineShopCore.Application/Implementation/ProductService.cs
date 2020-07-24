@@ -240,30 +240,40 @@ namespace OnlineShopCore.Application.Implementation
             {
                 ExcelWorksheet workSheet = package.Workbook.Worksheets[1];
                 Product product;
-                for (int i = workSheet.Dimension.Start.Row + 1; i <= workSheet.Dimension.End.Row; i++)
+                for (int i = workSheet.Dimension.Start.Row + 1; i < workSheet.Dimension.End.Row; i++)
                 {
+                    if (workSheet.Cells[i,1].Value == null)
+                        break;
                     product = new Product
                     {
                         CategoryId = categoryId,
                         AuthorId = authorId,
                         PublisherId = publisherId,
                         Name = workSheet.Cells[i, 1].Value.ToString(),
-                        Description = workSheet.Cells[i, 2].Value.ToString()
+                        Description = null,
+                        SeoAlias = workSheet.Cells[i,7].Value.ToString()
                     };
 
-                    decimal.TryParse(workSheet.Cells[i, 3].Value.ToString(), out var price);
+                    float.TryParse(workSheet.Cells[i, 2].Value.ToString(), out var width);
+                    product.Width = width;
+
+                    float.TryParse(workSheet.Cells[i, 3].Value.ToString(), out var height);
+                    product.Height = height;
+
+                    int.TryParse(workSheet.Cells[i, 4].Value.ToString(), out var totalPage);
+                    product.TotalPage = totalPage;
+
+                    decimal.TryParse(workSheet.Cells[i, 5].Value.ToString(), out var price);
                     product.Price = price;
-                    decimal.TryParse(workSheet.Cells[i, 4].Value.ToString(), out var promotionPrice);
 
-                    product.PromotionPrice = promotionPrice;
-                    product.Content = workSheet.Cells[i, 5].Value.ToString();
+                    product.Content = workSheet.Cells[i, 6].Value.ToString();
 
-                    bool.TryParse(workSheet.Cells[i, 8].Value.ToString(), out var hotFlag);
-                    product.HotFlag = hotFlag;
-
-                    bool.TryParse(workSheet.Cells[i, 9].Value.ToString(), out var homeFlag);
+                    bool.TryParse(workSheet.Cells[i, 8].Value.ToString(), out var homeFlag);
                     product.HomeFlag = homeFlag;
 
+                    bool.TryParse(workSheet.Cells[i, 9].Value.ToString(), out var hotFlag);
+                    product.HotFlag = hotFlag;
+   
                     product.Status = Status.Active;
                     product.ViewCount = 0;
                     product.Image = "/uploaded/images/constraint/no_results_found.png";

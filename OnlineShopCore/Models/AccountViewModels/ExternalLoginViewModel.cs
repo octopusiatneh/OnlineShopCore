@@ -19,5 +19,11 @@ namespace OnlineShopCore.Models.AccountViewModels
         [Required]
         public string Address { get; set; }
 
+        public string Province { get; set; }
+
+        public int DistrictID { get; set; }
+
+        public string WardCode { get; set; }
+
     }
 }

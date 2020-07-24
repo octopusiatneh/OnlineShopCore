@@ -10,6 +10,13 @@ var productController = function () {
     }
 
     function registerEvents() {
+        $('#txtPriceM').on('keyup', function () {
+            var num = $('#txtPriceM').val().replace(/,/gi, "");
+            var num2 = num.split(/(?=(?:\d{3})+$)/).join(",");
+            $('#txtPriceM').val(
+                num2
+            );
+        })
         //Init validation
         $('#frmMaintainance').validate({
             errorClass: 'red',
@@ -85,10 +92,19 @@ var productController = function () {
                     initTreeDropDownAuthor(data.AuthorId);
                     initTreeDropDownPublisher(data.PublisherId);
 
+                    $('#txtWidthM').val(data.Width);
+                    $('#txtHeightM').val(data.Height);
+                    $('#txtTotalPageM').val(data.TotalPage);
+
                     $('#txtDescM').val(data.Description);
                     $('#txtPriceM').val(data.Price);
+                    var num = $('#txtPriceM').val().replace(/,/gi, "");
+                    var num2 = num.split(/(?=(?:\d{3})+$)/).join(",");
+                    $('#txtPriceM').val(
+                        num2
+                    );
                     $('#txtPromotionPriceM').val(data.PromotionPrice);
-                    $('#txtImage').val(data.Image);          
+                    $('#txtImage').val(data.Image);
                     $('#txtSeoAliasM').val(data.SeoAlias);
 
                     CKEDITOR.instances.txtContent.setData(data.Content);
@@ -139,13 +155,16 @@ var productController = function () {
                 e.preventDefault();
                 var id = $('#hidIdM').val();
                 var name = $('#txtNameM').val();
+                var width = $('#txtWidthM').val().replace('.', ',');
+                var height = $('#txtHeightM').val().replace('.', ',');
+                var totalPage = $('#txtTotalPageM').val();
                 var dateCreated = $('#hidDateCreated').val();
                 var categoryId = $('#ddlCategoryIdM').combotree('getValue');
                 var authorId = $('#ddlAuthorIdM').combotree('getValue');
                 var publisherId = $('#ddlPublisherIdM').combotree('getValue');
                 var description = $('#txtDescM').val();
                 var viewCount = $('#hidViewCount').val();
-                var price = $('#txtPriceM').val();
+                var price = $('#txtPriceM').val().split(',').join('');
                 var promotionPrice = $('#txtPromotionPriceM').val();
                 var image = $('#txtImage').val();
                 var seoAlias = $('#txtSeoAliasM').val();
@@ -154,12 +173,17 @@ var productController = function () {
                 var hot = $('#ckHotM').prop('checked');
                 var showHome = $('#ckShowHomeM').prop('checked');
 
+                console.log(width)
+                console.log(height)
                 $.ajax({
                     type: "POST",
                     url: "/Admin/Product/SaveEntity",
                     data: {
                         Id: id,
                         Name: name,
+                        Width: width,
+                        Height: height,
+                        TotalPage: totalPage,
                         DateCreated: dateCreated,
                         CategoryId: categoryId,
                         AuthorId: authorId,
@@ -398,6 +422,10 @@ var productController = function () {
         initTreeDropDownPublisher();
 
         $('#txtDescM').val('');
+
+        $('#txtWidthM').val('');
+        $('#txtHeightM').val('');
+        $('#txtTotalPageM').val('');
 
         $('#txtPriceM').val('');
         $('#txtPromotionPriceM').val('');

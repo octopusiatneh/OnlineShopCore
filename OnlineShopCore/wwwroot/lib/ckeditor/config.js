@@ -3,6 +3,26 @@
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
+CKEDITOR.on('dialogDefinition', function (ev) {
+
+	var dialogName = ev.data.name,
+		dialogDefinition = ev.data.definition;
+
+	if (dialogName == 'image') {
+		var onOk = dialogDefinition.onOk;
+
+		dialogDefinition.onOk = function (e) {
+			var width = this.getContentElement('info', 'txtWidth');
+			width.setValue('750');//Set Default Width
+
+			var height = this.getContentElement('info', 'txtHeight');
+			height.setValue('452');//Set Default height
+
+			onOk && onOk.apply(this, e);
+		};
+	}
+});
+
 CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here.
 	// For complete reference see:
@@ -37,3 +57,22 @@ CKEDITOR.editorConfig = function( config ) {
     config.removeDialogTabs = 'image:advanced;link:advanced';
     config.filebrowserImageUploadUrl = "/Admin/Upload/UploadImageForCKEditor";
 };
+
+CKEDITOR.on('dialogDefinition', function (ev) {
+	// Take the dialog name and its definition from the event data.
+	var dialogName = ev.data.name;
+	var dialogDefinition = ev.data.definition;
+
+	if (dialogName == 'image2') {
+
+		ev.data.definition.dialog.on('show', function () {
+			//debugger;
+			var widget = ev.data.definition.dialog.widget;
+			// To prevent overwriting saved alignment
+			if (widget.data['src'].length == 0)
+				widget.data['align'] = 'center';
+
+		});
+
+	}
+});

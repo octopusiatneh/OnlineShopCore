@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using OnlineShopCore.Application.Interfaces;
 using OnlineShopCore.Application.ViewModels;
 using OnlineShopCore.Data.Entities;
+using OnlineShopCore.Data.Enums;
 using OnlineShopCore.Data.IRepositories;
 using OnlineShopCore.Infrastructure.Interfaces;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace OnlineShopCore.Application.Implementation
 
         public List<PublisherViewModel> GetAll()
         {
-            return _publisherRepository.FindAll().OrderBy(x => x.Id)
+            return _publisherRepository.FindAll(x => x.Status == Status.Active).OrderByDescending(x => x.Id)
                  .ProjectTo<PublisherViewModel>().ToList();
         }
 

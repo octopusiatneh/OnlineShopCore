@@ -38,7 +38,7 @@ namespace OnlineShopCore.Application.Implementation
         public List<ProductCategoryViewModel> GetAll()
         {
             //Get all active category
-            return _productCategoryRepository.FindAll(x => x.Status == Status.Active)
+            return _productCategoryRepository.FindAll(x => x.Status == Status.Active).OrderByDescending(x=> x.Id)
                  .ProjectTo<ProductCategoryViewModel>().ToList();
 
             //Get all category (active & inactive)

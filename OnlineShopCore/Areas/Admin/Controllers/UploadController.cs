@@ -33,6 +33,7 @@ namespace OnlineShopCore.Areas.Admin.Controllers
             else
             {
                 var file = upload[0];
+
                 var filename = ContentDispositionHeaderValue
                                     .Parse(file.ContentDisposition)
                                     .FileName

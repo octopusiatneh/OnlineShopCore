@@ -93,16 +93,18 @@ namespace OnlineShopCore.Controllers
             var query = from v in _context.Votes
                         where v.VoteForId == productId
                         select v.Vote;
-            if(query.Count() > 0)
+            VoteShowViewModel voteShowVm = new VoteShowViewModel();
+            if (query.Any())
             {
-                VoteShowViewModel voteShowVm = new VoteShowViewModel
-                {
-                    TotalVote = query.Count(),
-                    RatingPoint = query.Average()
-                };
-                return Json(voteShowVm);
+                voteShowVm.TotalVote = query.Count();
+                voteShowVm.RatingPoint = query.Average();
             }
-            return null;
+            else
+            {
+                voteShowVm.TotalVote = 0;
+                voteShowVm.RatingPoint = 0;
+            }
+            return Json(voteShowVm);
         }
 
         [Route("filter")]
@@ -163,7 +165,7 @@ namespace OnlineShopCore.Controllers
             model.RelatedProducts = _productService.GetRelatedProducts(id, 12);
             model.ProductImages = _productService.GetImages(id);
 
-            if(model.Status != Status.InActive)
+            if (model.Status != Status.InActive)
             {
                 var session = HttpContext.Session.GetString(model.Product.SeoAlias);
                 if (session != null)

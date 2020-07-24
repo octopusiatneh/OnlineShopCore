@@ -553,9 +553,7 @@
             $.fn.dataTable.ext.search.push(
                 function (settings, data, dataIndex) {
                     var min = $('#fromDate').datepicker("getDate");
-                    console.log(min)
                     var max = $('#toDate').datepicker("getDate");
-                    console.log(max)
                     var d = data[3].split("/");
                     var startDate = new Date(d[1] + "/" + d[0] + "/" + d[2]);
                     if (min == null && max == null) { return true; }

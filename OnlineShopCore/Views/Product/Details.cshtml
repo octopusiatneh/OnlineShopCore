@@ -69,6 +69,13 @@
         });
     </script>
     <script>
+        $('#read-more').click(function () {
+            $('#toggle-content').toggleClass('blur');
+            if ($('#read-more').text().toUpperCase() == resources["ReadMore"])
+                $("#read-more").html(resources["ShowLess"]);
+            else
+                $('#read-more').html(resources["ReadMore"]);
+        });
         var productId = @product.Id;
         var pointToInit = 0;
         var totalUserVoted = 0;
@@ -151,8 +158,50 @@
         });
             }
         })
-    </script>
 
+    </script>
+    <style>
+        html {
+            font-family: Roboto, Helvetica, Arial, sans-serif;
+            font-size: 15px;
+        }
+
+        .sticky {
+            padding-top: 30px;
+            align-items: center;
+            justify-content: center;
+            display:flex;
+        }
+
+        #horizontal-list {
+            display: flex;
+            justify-content: center;
+        }
+
+        .blur {
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+            -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+            mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+        }
+
+        p {
+            text-align: justify;
+            display: block;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+        }
+
+            p > img {
+                margin-left: 85px;
+                margin-right: 75px;
+                margin-bottom: 5px;
+                margin-top: 5px;
+            }
+    </style>
 }
 
 @section Styles {
@@ -213,6 +262,7 @@
                     </div>
                 </div>
             </div>
+
             @if (product.Status != OnlineShopCore.Data.Enums.Status.InActive)
             {
                 <div class="col-md-6 col-lg-5 p-b-30">
@@ -318,43 +368,22 @@
 
         @if (product.Status != OnlineShopCore.Data.Enums.Status.InActive)
         {
-            <div class="bor10 m-t-50 p-t-43 p-b-40">
+            <div class="bor10 m-b-50 p-t-43 p-b-40">
                 <!-- Tab01 -->
                 <div class="tab01">
-                    <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
-
-                        <li class="nav-item p-b-10">
-                            <a class="nav-link active" data-toggle="tab" href="#description" role="tab">@Localizer["Description"]</a>
-                        </li>
-
-                        <li class="nav-item p-b-10">
-                            <a class="nav-link" data-toggle="tab" href="#information" role="tab">@Localizer["DetailInformation"]</a>
-                        </li>
-
-                        <li class="nav-item p-b-10">
-                            <a class="nav-link" data-toggle="tab" href="#review" role="tab">@Localizer["Review"]</a>
+                        <li class="nav-item">
+                            <p class="nav-link">@Localizer["DetailInformation"]</p>
                         </li>
                     </ul>
 
                     <!-- Tab panes -->
-                    <div class="tab-content p-t-43">
-                        <!-- - -->
-                        <div class="tab-pane fade show active" id="description" role="tabpanel">
-                            <div class="how-pos2 p-lr-15-md">
-                                <p class="stext-102 cl6">
-                                    @Html.Raw(product.Content)
-                                </p>
-                            </div>
-                        </div>
-
-
-                        <!-- - -->
-                        <div class="tab-pane fade" id="information" role="tabpanel">
+                    <div class="tab-content p-t-5">
+                        <!-- Thông tin chi tiết -->
+                        <div class="tab-pane fade show active" id="information" role="tabpanel">
                             <div class="row">
-                                <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+                                <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto" id="horizontal-list">
                                     <ul class="p-lr-28 p-lr-15-sm">
-
                                         <li class="flex-w flex-t p-b-7">
                                             <span class="stext-102 cl3 size-205">
                                                 @Localizer["PublisherName"]
@@ -377,11 +406,11 @@
 
                                         <li class="flex-w flex-t p-b-7">
                                             <span class="stext-102 cl3 size-205">
-                                                @Localizer["PublishYear"]
+                                                @Localizer["Size"]
                                             </span>
 
                                             <span class="stext-102 cl6 size-206">
-                                                2018
+                                                @product.Height x @product.Width cm
                                             </span>
                                         </li>
 
@@ -391,7 +420,7 @@
                                             </span>
 
                                             <span class="stext-102 cl6 size-206">
-                                                236
+                                                @product.TotalPage
                                             </span>
                                         </li>
 
@@ -399,19 +428,59 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
 
-                        <!--Comments - -->
-                        <div id="review" class="tab-pane fade" role="tabpanel">
-                            <div class="row">
-                                <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
-                                    <partial name="_VoteNow.cshtml" />
-                                </div>
+            <div class="bor10 m-t-50 p-t-43 p-b-40">
+                <!-- Tab01 -->
+                <div class="tab01">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <p class="nav-link">@Localizer["Description"]</p>
+                        </li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content p-t-5">
+                        <!-- Miêu tả -->
+                        <div class="tab-pane fade show active" id="description" role="tabpanel">
+                            <div id="toggle-content" class="how-pos2 p-lr-15-md blur">
+                                <p class="stext-102 cl6">
+                                    @Html.Raw(product.Content)
+                                </p>
                             </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
-                                    <div class="fb-comments" data-href="https://localhost:44379/@product.SeoAlias-p@product.Id" data-width="" data-numposts="8"></div>
-                                </div>
+                        <div class="sticky">
+                            <button id="read-more" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">@Localizer["ReadMore"]</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bor10 m-t-50 p-t-43 p-b-40">
+                <!-- Tab01 -->
+                <div class="tab01">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <p class="nav-link">@Localizer["Review"]</p>
+                        </li>
+                    </ul>
+
+                    <!--Comments - -->
+                    <div id="review" class="tab-pane fade show active" role="tabpanel">
+                        <div class="row">
+                            <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+                                <partial name="_VoteNow.cshtml" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+                                <div class="fb-comments" data-href="https://localhost:44379/@product.SeoAlias-p@product.Id" data-width="" data-numposts="8"></div>
                             </div>
                         </div>
                     </div>
@@ -426,7 +495,7 @@
         </div>
 
         <span class="p-lr-25 small">
-            Overall rating: <span id="total-vote"></span> | Rating <span id="rating-point"></span> out of <span>5</span>
+            @Localizer["OverallRating"]: <span id="total-vote"></span>
         </span>
     </div>
 </section>

@@ -129,11 +129,11 @@
   <data name="DetailInformation" xml:space="preserve">
     <value>Detail information</value>
   </data>
-  <data name="Dimensions" xml:space="preserve">
-    <value>Dimensions</value>
-  </data>
   <data name="NumberOfPages" xml:space="preserve">
     <value>Pages</value>
+  </data>
+  <data name="OverallRating" xml:space="preserve">
+    <value>Overall rating</value>
   </data>
   <data name="ProductUnavailable" xml:space="preserve">
     <value>Product is unavailable</value>
@@ -141,13 +141,16 @@
   <data name="PublisherName" xml:space="preserve">
     <value>Publisher</value>
   </data>
-  <data name="PublishYear" xml:space="preserve">
-    <value>Public year</value>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Read more</value>
   </data>
   <data name="RelatedProducts" xml:space="preserve">
     <value>Related Products</value>
   </data>
   <data name="Review" xml:space="preserve">
     <value>Review</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
   </data>
 </root>

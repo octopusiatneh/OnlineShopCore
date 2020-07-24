@@ -19,7 +19,7 @@ namespace OnlineShopCore.Data.Entities
         public Product(string name, int categoryId, int authorId, int publisherId, string Image,
             decimal price, decimal? promotionPrice,
             string description, string content, bool? homeFlag, bool? hotFlag,
-           Status status, string seoAlias, int viewCount)
+           Status status, string seoAlias, int viewCount, float width, float height, int totalPage)
         {
             Name = name;
             CategoryId = categoryId;
@@ -35,12 +35,16 @@ namespace OnlineShopCore.Data.Entities
             Status = status;
             SeoAlias = seoAlias;
             ViewCount = viewCount;
+            Width = width;
+            Height = height;
+            TotalPage = totalPage;
         }
 
         public Product(int id, string name, int categoryId, int authorId, int publisherId, string Image,
              decimal price, decimal? promotionPrice,
              string description, string content, bool? homeFlag, bool? hotFlag,
-             Status status, string seoAlias, DateTime dateCreated)
+             Status status, string seoAlias, DateTime dateCreated,
+             float width, float height, int totalPage)
         {
             Id = id;
             Name = name;
@@ -58,13 +62,24 @@ namespace OnlineShopCore.Data.Entities
             SeoAlias = seoAlias;
             DateCreated = dateCreated;
             DateModified = DateTime.Now;
-
+            Width = width;
+            Height = height;
+            TotalPage = totalPage;
 
         }
         #region Property
         [StringLength(255)]
         [Required]
         public string Name { get; set; }
+
+        [Required]
+        public float Height { get; set; }
+
+        [Required]
+        public float Width { get; set; }
+
+        [Required]
+        public int TotalPage { get; set; }
 
         [Required]
         public int CategoryId { get; set; }

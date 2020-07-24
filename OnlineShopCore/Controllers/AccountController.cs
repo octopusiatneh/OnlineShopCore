@@ -308,6 +308,7 @@ namespace OnlineShopCore.Controllers
                     Status = Status.Active,
                     DateCreated = DateTime.Now,
                     Avatar = string.Empty,
+                    Province = model.Province,
                     DistrictID = model.DistrictID,
                     WardCode = model.WardCode
                 };
@@ -422,7 +423,11 @@ namespace OnlineShopCore.Controllers
                     BirthDay = DateTime.Parse(model.DoB),
                     PhoneNumber = model.PhoneNumber,
                     DateCreated = DateTime.Now,
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    Status = Status.Active,
+                    Province = model.Province,
+                    DistrictID = model.DistrictID,
+                    WardCode = model.WardCode
                 };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)

@@ -46,7 +46,7 @@
 
     <!-- Header -->
     <partial name="_Header.cshtml" />
-  
+
     <!-- Body -->
     @RenderBody()
     <!--Load Facebook SDK for JavaScript-->
@@ -77,7 +77,7 @@
     <!--===============================================================================================-->
     <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
     <script>
-        var OneSignal = window.OneSignal || [];
+        window.OneSignal = window.OneSignal || [];
         OneSignal.push(function () {
             OneSignal.init({
                 appId: "448b3a6a-030d-49e3-a422-5de60e7f7267",
